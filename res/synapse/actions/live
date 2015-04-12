@@ -1,0 +1,74 @@
+BB=/sbin/busybox;
+DEVICE=/res/synapse/files/lg_g2.sh;
+
+case $1 in
+	CPUFrequencyList)
+		$BB echo `sh $DEVICE LiveCPUFrequencyList`;
+	;;
+	CPUGovernorList)
+		$BB echo `sh $DEVICE LiveCPUGovernorList`;
+	;;
+	Acpu_pvs)
+		$BB echo `sh $DEVICE LiveAcpu_pvs`;
+	;;
+	Speed_bin)
+		$BB echo `sh $DEVICE LiveSpeed_bin`;
+	;;
+	busybox_ver)
+		$BB echo `sh $DEVICE BusyBox_ver`;
+	;;
+	DefaultGPUGovernor)
+		$BB echo `sh $DEVICE LiveDefaultGPUGovernor`;
+	;;
+	DefaultCPUGovernor)
+		$BB echo `sh $DEVICE LiveDefaultCPUGovernor`;
+	;;
+	GPU_MAX_MIN_Freq)
+		$BB echo `sh $DEVICE LiveGPU_MAX_MIN_Freq`;
+	;;
+	IOReadAheadSize)
+		$BB echo `sh $DEVICE LiveIOReadAheadSize`;
+	;;
+	IOScheduler)
+		$BB echo `sh $DEVICE LiveIOScheduler`;
+	;;
+	TCPCongestion)
+		$BB echo `sh $DEVICE LiveTCPCongestion`;
+	;;
+	CPU_MAX_MIN_Freq)
+		$BB echo `sh $DEVICE LiveCPU_MAX_MIN_Freq`;
+	;;
+	CPU_HOTPLUG)
+		$BB echo `sh $DEVICE LiveCPU_HOTPLUG`;
+	;;
+	CPU_CORES_ON_OFF)
+		$BB echo `sh $DEVICE LiveCPU_CORES_ON_OFF`;
+	;;
+	CURFreq)
+		$BB echo `sh $DEVICE LiveCURFreq`;
+	;;
+	BatteryTemperature)
+		$BB echo `sh $DEVICE LiveBatteryTemperature`;
+	;;
+	CPUFrequency)
+		$BB echo `sh $DEVICE LiveCPUFrequency`;
+	;;
+	CPUTemperature)
+		$BB echo `sh $DEVICE LiveCPUTemperature`;
+	;;
+	GPUFrequency)
+		$BB echo `sh $DEVICE LiveGPUFrequency`;
+	;;
+	Memory)
+		$BB echo `sh $DEVICE LiveMemory`;
+	;;
+	Time)
+		$BB echo `sh $DEVICE LiveTime $2 $3`;
+	;;
+	UpTime)
+		$BB echo `sh $DEVICE LiveUpTime`;
+	;;
+	UnUsed)
+		$BB echo `sh $DEVICE LiveUnUsed`;
+	;;
+esac

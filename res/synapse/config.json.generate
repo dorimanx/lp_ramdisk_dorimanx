@@ -1,0 +1,21 @@
+BB=/sbin/busybox;
+DEVICE=/res/synapse/files/lg_g2.sh;
+
+bool() {
+  [ `$BB cat $1` == "Y" ] && $BB echo "1";
+  [ `$BB cat $1` == "N" ] && $BB echo "0";
+}
+
+# Mount root as RW to apply tweaks and settings
+$BB mount -o remount,rw /;
+
+cat << CTAG
+{
+    sections: [
+		`if [ -n "$DEVICE" ]; then
+			. /res/synapse/config.json.generate.status
+			$BB echo ','
+		fi`
+    ]
+}
+CTAG

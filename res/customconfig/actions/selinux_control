@@ -1,0 +1,29 @@
+#!/sbin/busybox sh
+
+# $1 - "selinux_control"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	selinux_control=$2;
+
+ENFORCE=$(getenforce);
+
+	case "${selinux_control}" in
+		on)
+			if [ "$ENFORCE" == "Permissive" ]; then
+				setenforce 1;
+			fi;
+		;;
+		off)
+			if [ "$ENFORCE" == "Enforcing" ]; then
+				setenforce 0;
+			fi;
+		;;
+		*)
+			selinux_control=on;
+		;;
+	esac;
+fi;
+
+echo ${selinux_control};

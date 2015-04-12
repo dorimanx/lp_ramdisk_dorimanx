@@ -1,0 +1,22 @@
+#!/sbin/busybox sh
+
+# $1 - "force_fast_charge"
+# $2 - value=
+# Created By Dorimanx
+
+# get values from profile
+PROFILE=$(cat /data/.dori/.active.profile);
+. /data/.dori/"$PROFILE".profile;
+
+if [ "a$2" != "a" ]; then
+	force_fast_charge=$2;
+
+	echo "$force_fast_charge" > /sys/kernel/fast_charge/force_fast_charge;
+
+	if [ "$force_fast_charge" == "2" ]; then
+		echo "$fast_charge_level" > /sys/kernel/fast_charge/fast_charge_level;
+		echo "$fast_charge_level" > /sys/module/smb349_charger/parameters/smb349_thermal_mitigation;
+	fi;
+fi;
+
+echo ${force_fast_charge};

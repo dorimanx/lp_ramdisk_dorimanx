@@ -1,0 +1,19 @@
+#!/sbin/busybox sh
+
+# $1 - "cpu3_min_freq"
+# $2 - value=
+# Created By Dorimanx
+
+# get values from profile
+PROFILE=$(cat /data/.dori/.active.profile);
+. /data/.dori/"$PROFILE".profile;
+
+if [ "$cortexbrain_cpu" == "on" ]; then
+	if [ "a$2" != "a" ]; then
+		cpu3_min_freq=$2;
+
+		echo "$cpu3_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu3;
+	fi;
+fi;
+
+echo ${cpu3_min_freq};

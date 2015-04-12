@@ -1,0 +1,4 @@
+#!/sbin/busybox sh
+
+echo "reset" > /sys/bus/i2c/devices/1-0036/fuelrst;
+echo "Battery Reset Complete";

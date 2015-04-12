@@ -1,0 +1,8 @@
+#!/sbin/busybox sh
+
+(
+	svc wifi disable;
+	rm -f /data/misc/dhcp/dhcpcd*;
+	svc wifi enable;
+	echo "WIFI Release Renew is DONE"
+)&

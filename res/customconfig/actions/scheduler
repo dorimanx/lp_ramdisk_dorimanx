@@ -1,0 +1,50 @@
+#!/sbin/busybox sh
+
+# $1 - "scheduler"
+# $2 - value=
+
+if [ "a$2" == "a" ]; then
+        echo $scheduler;
+else
+        scheduler=$2;
+        echo "$scheduler";
+fi;
+
+BLOCK_GOV=row;
+
+SCHED_SET()
+{
+	echo "$BLOCK_GOV" > /sys/block/mmcblk0/queue/scheduler;
+}
+
+case "${scheduler}" in
+	cfq)
+		BLOCK_GOV=cfq;
+	;;
+	bfq)
+		BLOCK_GOV=bfq;
+	;;
+	deadline)
+		BLOCK_GOV=deadline;
+	;;
+	noop)
+		BLOCK_GOV=noop;
+	;;
+	row)
+		BLOCK_GOV=row;
+	;;
+	sio)
+		BLOCK_GOV=sio;
+	;;
+	zen)
+		BLOCK_GOV=zen;
+	;;
+	fiops)
+		BLOCK_GOV=fiops;
+	;;
+	*)
+		scheduler=row;
+		BLOCK_GOV=row;
+	;;
+esac;
+SCHED_SET;

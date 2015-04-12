@@ -1,0 +1,49 @@
+#!/sbin/busybox sh
+export PATH="/res/customconfig/actions/push-actions:${PATH}";
+
+(
+	BB=/sbin/busybox
+
+	if [ -f /system/xbin/su ]; then
+			$BB mount -o remount,rw /dev/block/mmcblk0p9 /system;
+			$BB mount -t rootfs -o remount,rw rootfs;
+			$BB rm -f /system/bin/su > /dev/null 2>&1;
+			$BB rm -f /system/xbin/su > /dev/null 2>&1;
+			$BB rm -f /system/bin/.ext/su > /dev/null 2>&1;
+
+			if [ -e /data/app/*chainfire?supersu.pr*.apk ]; then
+				mv /data/app/*chainfire?supersu.pr*.apk /data/system/chain_pro.apk_bkp;
+			fi;
+
+			# SuperUser, superuser Superuser SuperUser whatever...
+			$BB rm -rf /data/dalvik-cache/*uper?ser.apk* > /dev/null 2>&1;
+			$BB rm -rf /data/dalvik-cache/*chainfire?supers*.apk* > /dev/null 2>&1;
+			$BB rm -rf /data/dalvik-cache/?uper?u* > /dev/null 2>&1;
+
+			$BB rm -f /system/app/Superuser.apk > /dev/null 2>&1;
+			$BB rm -f /system/app/SuperSU.apk > /dev/null 2>&1;
+			$BB rm -f /system/app/*uper?ser.apk > /dev/null 2>&1;
+			$BB rm -f /system/app/*chainfire?supers*.apk > /dev/null 2>&1;
+			$BB rm -f /system/app/?uper?u.apk > /dev/null 2>&1;
+
+			$BB rm -f /data/app/Superuse*.apk > /dev/null 2>&1;
+			$BB rm -f /data/app/*uper?ser.apk > /dev/null 2>&1;
+			$BB rm -f /data/app/*chainfire?supers*.apk > /dev/null 2>&1;
+			$BB rm -f /data/app/?uper?u.apk > /dev/null 2>&1;
+
+			$BB rm -rf /data/data/eu.chainfire.supers* > /dev/null 2>&1;
+			$BB rm -rf /data/data/com.noshufou.android.su > /dev/null 2>&1;
+
+			$BB mount -o remount,ro /dev/block/mmcblk0p9 /system > /dev/null 2>&1;
+			$BB mount -t rootfs -o remount,ro rootfs > /dev/null 2>&1;
+	fi;
+	pkill -f "com.noshufou.android.su";
+	pkill -f "eu.chinfire.supersu";
+)&
+
+sleep 3;
+if [ ! -f /system/xbin/su ]; then
+	echo "ROOT REMOVED! STOCK SYSTEM!";
+else
+	echo "ROOT NOT REMOVED! Try again";
+fi;

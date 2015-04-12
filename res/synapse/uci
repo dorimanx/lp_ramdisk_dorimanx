@@ -1,0 +1,30 @@
+#!/sbin/busybox sh
+
+BB=/sbin/busybox;
+DEVICE=`sh /res/synapse/files/lg_g2.sh`;
+
+UCI_CONFIG=/res/synapse/config.json;
+UCI_ACTION=/res/synapse/actions/;
+SYNAPSE_SD_DIR=/data/.Synapse/;
+
+# Mount root as RW to apply tweaks and settings
+$BB mount -o remount,rw /;
+
+if [ ! -f $UCI_CONFIG ]; then
+	[ ! -d "$SYNAPSE_SD_DIR" ] && $BB mkdir -p "$SYNAPSE_SD_DIR";
+
+	$BB chmod -R 755 $UCI_ACTION;
+
+	source /res/synapse/config.json.generate > $UCI_CONFIG;
+fi;
+
+case "${1}" in
+  config)
+		$BB cat $UCI_CONFIG;;
+  configpath)
+		$BB echo $UCI_CONFIG;;
+  actionpath)
+		$BB echo $UCI_ACTION;;
+  reset)
+		$BB rm -f $UCI_CONFIG;
+esac;

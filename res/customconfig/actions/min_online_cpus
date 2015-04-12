@@ -1,0 +1,38 @@
+#!/sbin/busybox sh
+
+# $1 - "min_online_cpus"
+# $2 - value=
+# Created By Dorimanx
+
+
+if [ "a$2" != "a" ]; then
+	min_online_cpus=$2;
+
+	case "${min_online_cpus}" in
+		1)
+			echo "1" > /sys/kernel/alucard_hotplug/min_cpus_online;
+			echo "1" > /sys/module/msm_hotplug/min_cpus_online;
+			echo "1" > /sys/kernel/intelli_plug/min_cpus_online;
+		;;
+		2)
+			echo "2" > /sys/kernel/alucard_hotplug/min_cpus_online;
+			echo "2" > /sys/module/msm_hotplug/min_cpus_online;
+			echo "2" > /sys/kernel/intelli_plug/min_cpus_online;
+		;;
+		3)
+			echo "3" > /sys/kernel/alucard_hotplug/min_cpus_online;
+			echo "3" > /sys/module/msm_hotplug/min_cpus_online;
+			echo "3" > /sys/kernel/intelli_plug/min_cpus_online;
+		;;
+		4)
+			echo "4" > /sys/kernel/alucard_hotplug/min_cpus_online;
+			echo "4" > /sys/module/msm_hotplug/min_cpus_online;
+			echo "4" > /sys/kernel/intelli_plug/min_cpus_online;
+		;;
+		*)
+			min_online_cpus=1;
+		;;
+	esac;
+fi;
+
+echo ${min_online_cpus};

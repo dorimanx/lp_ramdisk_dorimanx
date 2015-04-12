@@ -1,0 +1,42 @@
+#!/sbin/busybox sh
+
+# $1 - "oom_config_screen_off"
+# $2 - value=
+
+if [ "a$2" == "a" ]; then
+	echo $oom_config_screen_off;
+else
+	oom_config_screen_off=$2;
+	echo "$oom_config_screen_off";
+fi;
+
+PROFILE=`cat /data/.dori/.active.profile`;
+AUTO_OOM=`cat /data/.dori/${PROFILE}.profile | grep auto_oom=on | wc -l`
+
+if [ "$AUTO_OOM" -eq "1" ]; then
+	case "${oom_config_screen_off}" in
+		low)
+			echo "1536,2048,2560,8192,16384,20480" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "64" > /sys/module/lowmemorykiller/parameters/cost;
+		;;
+		medium)
+			echo "1536,2048,4096,16384,18432,20480" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "48" > /sys/module/lowmemorykiller/parameters/cost;
+		;;
+		default)
+			echo "1536,2048,4096,16384,28672,32768" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "32" > /sys/module/lowmemorykiller/parameters/cost;
+		;;
+		aggressive)
+			echo "2048,4096,4096,16384,32768,49152" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "16" > /sys/module/lowmemorykiller/parameters/cost;
+		;;
+		exterminate)
+			echo "4096,8192,16384,19200,49152,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "16" > /sys/module/lowmemorykiller/parameters/cost;
+		;;
+		*)
+			oom_config_screen_off=medium;
+		;;
+	esac;
+fi;

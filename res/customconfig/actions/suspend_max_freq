@@ -1,0 +1,17 @@
+#!/sbin/busybox sh
+
+# $1 - "suspend_max_freq"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	suspend_max_freq=$2;
+
+	if [ "$suspend_max_freq" != "max_freq" ]; then
+		echo "$suspend_max_freq" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
+	else
+		echo "0" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
+	fi;
+fi;
+
+echo ${suspend_max_freq};

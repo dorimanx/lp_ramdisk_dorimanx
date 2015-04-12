@@ -1,0 +1,26 @@
+#!/sbin/busybox sh
+
+BB=/sbin/busybox
+
+(
+	if [ "$(pgrep -f "/res/customconfig/actions/push-actions/reload_settings" | wc -l)" -le "2" ]; then
+		echo "Loading Config, STweaks will reload after 10sec";
+		# apply STweaks settings
+		$BB sh /res/uci.sh apply
+
+		# Load Custom Modules
+		if [ "$cifs_module" == "on" ]; then
+			if [ -e /system/lib/modules/cifs.ko ]; then
+				$BB insmod /system/lib/modules/cifs.ko;
+        		fi;
+		fi;
+
+		sync;
+		$BB rm -rf /data/data/com.gokhanmoral.stweaks.app/*;
+		am force-stop com.gokhanmoral.stweaks.app 2> /dev/null;
+		am start -a android.intent.action.MAIN -n com.gokhanmoral.stweaks.app/.MainActivity 2> /dev/null;
+		exit;
+	else
+		echo "Still running!!"
+	fi;
+)&

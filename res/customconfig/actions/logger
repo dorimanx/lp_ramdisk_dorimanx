@@ -1,0 +1,26 @@
+#!/sbin/busybox sh
+
+# $1 - "logger"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	logger=$2;
+
+	case "${logger}" in
+		0)
+			echo "0" > /sys/module/logger/parameters/log_mode;
+		;;
+		1)
+			echo "1" > /sys/module/logger/parameters/log_mode;
+		;;
+		2)
+			echo "2" > /sys/module/logger/parameters/log_mode;
+		;;
+		*)
+			logger=1;
+		;;
+	esac;
+fi;
+
+echo ${logger};

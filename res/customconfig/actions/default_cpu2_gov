@@ -1,0 +1,22 @@
+#!/sbin/busybox sh
+
+# $1 - "default_cpu2_gov"
+# $2 - value=
+# Created By Dorimanx
+
+# get values from profile
+PROFILE=$(cat /data/.dori/.active.profile);
+. /data/.dori/"$PROFILE".profile;
+
+if [ "a$2" != "a" ]; then
+	default_cpu2_gov=$2;
+
+	echo "$default_cpu2_gov" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_governor_cpu2;
+	if [ -e /res/uci_boot.sh ]; then
+		/res/uci_boot.sh power_mode $power_mode > /dev/null;
+	else
+		/res/uci.sh power_mode $power_mode > /dev/null;
+	fi;
+fi;
+
+echo ${default_cpu2_gov};

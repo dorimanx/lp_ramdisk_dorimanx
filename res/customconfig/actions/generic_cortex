@@ -1,0 +1,19 @@
+#!/sbin/busybox sh
+
+# use this script if you want cortex to do something based on profile
+# this script only set new value in profile for cortex.
+
+if [ "a$2" != "a" ]; then
+
+	filename=$(basename "$2");
+
+	if [ "a$3" == "a" ]; then
+		evalcmd='eval "echo \$$filename"';
+		eval $evalcmd;
+	else
+		evalcmd='eval "$filename=$3"';
+		eval $evalcmd;
+		evalcmd='eval "echo \$$filename"';
+		eval $evalcmd;
+	fi;
+fi;

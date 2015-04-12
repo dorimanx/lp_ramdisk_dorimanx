@@ -1,0 +1,100 @@
+#!/sbin/busybox sh
+
+# $1 - "hotplug"
+# $2 - value=
+# Created By Dorimanx
+
+BB=/sbin/busybox
+
+# get values from profile
+PROFILE=$(cat /data/.dori/.active.profile);
+. /data/.dori/"$PROFILE".profile;
+
+if [ -e /system/bin/mpdecision ]; then
+	if [ "$(pgrep -f "/system/bin/mpdecision" | wc -l)" -eq "0" ]; then
+		/system/bin/start mpdecision
+		$BB renice -n -20 -p "$(pgrep -f "/system/bin/mpdecision")";
+	fi;
+fi;
+
+if [ "$(pgrep -f "/system/bin/thermal-engine" | wc -l)" -eq "1" ]; then
+	$BB renice -n -20 -p "$(pgrep -f "/system/bin/thermal-engine")";
+fi;
+
+if [ "a$2" != "a" ]; then
+	hotplug=$2;
+
+	case "${hotplug}" in
+		intelli)
+			echo "0" > /sys/kernel/alucard_hotplug/hotplug_enable;
+			echo "0" > /sys/module/msm_hotplug/msm_enabled;
+			echo "0" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
+			(
+				sleep 2;
+				echo "1" > /sys/kernel/intelli_plug/intelli_plug_active;
+				echo "$min_online_cpus" > /sys/kernel/intelli_plug/min_cpus_online;
+				if [ -e /res/uci_boot.sh ]; then
+					$BB sh /res/uci_boot.sh eco_mode "$eco_mode";
+				else
+					$BB sh /res/uci.sh eco_mode "$eco_mode";
+				fi;
+			)&
+		;;
+		default)
+			echo "0" > /sys/kernel/intelli_plug/intelli_plug_active;
+			echo "0" > /sys/kernel/alucard_hotplug/hotplug_enable;
+			echo "0" > /sys/module/msm_hotplug/msm_enabled;
+			sleep 1;
+			echo "1" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
+			if [ -e /system/bin/mpdecision ]; then
+				/system/bin/stop mpdecision
+				/system/bin/start mpdecision
+				$BB renice -n -20 -p "$(pgrep -f "/system/bin/mpdecision")";
+				if [ -e /res/uci_boot.sh ]; then
+					/res/uci_boot.sh power_mode $power_mode > /dev/null;
+				else
+					/res/uci.sh power_mode $power_mode > /dev/null;
+				fi;
+				echo "20" > /sys/devices/system/cpu/cpu0/rq-stats/run_queue_poll_ms;
+			else
+				echo "0" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
+				echo "1" > /sys/module/msm_hotplug/msm_enabled;
+			fi;
+		;;
+		msm_hotplug)
+			echo "0" > /sys/kernel/intelli_plug/intelli_plug_active;
+			echo "0" > /sys/kernel/alucard_hotplug/hotplug_enable;
+			echo "0" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
+			(
+				sleep 2;
+				echo "1" > /sys/module/msm_hotplug/msm_enabled;
+				echo "$min_online_cpus" > /sys/module/msm_hotplug/min_cpus_online;
+				if [ -e /res/uci_boot.sh ]; then
+					$BB sh /res/uci_boot.sh eco_mode "$eco_mode";
+				else
+					$BB sh /res/uci.sh eco_mode "$eco_mode";
+				fi;
+			)&
+		;;
+		alucard)
+			echo "0" > /sys/kernel/intelli_plug/intelli_plug_active;
+			echo "0" > /sys/module/msm_hotplug/msm_enabled;
+			echo "0" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
+			(
+				sleep 2;
+				echo "1" > /sys/kernel/alucard_hotplug/hotplug_enable;
+				echo "$min_online_cpus" > /sys/kernel/alucard_hotplug/min_cpus_online;
+				if [ -e /res/uci_boot.sh ]; then
+					$BB sh /res/uci_boot.sh eco_mode "$eco_mode";
+				else
+					$BB sh /res/uci.sh eco_mode "$eco_mode";
+				fi;
+			)&
+		;;
+		*)
+			hotplug=msm_hotplug;
+		;;
+	esac;
+fi;
+
+echo ${hotplug};

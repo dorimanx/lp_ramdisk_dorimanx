@@ -1,0 +1,41 @@
+#!/sbin/busybox sh
+
+# Created By Dorimanx
+
+# get values from profile
+PROFILE=$(cat /data/.dori/.active.profile);
+. /data/.dori/"$PROFILE".profile;
+
+GOV_CONTROL=0;
+
+if [ -e /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/msm-adreno-tz ]; then
+	echo "$cap" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/msm-adreno-tz/cap;
+	echo "$target" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/msm-adreno-tz/target;
+	GOV_CONTROL=1;
+fi;
+
+if [ -e /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand ]; then
+	echo "$downdifferential" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/downdifferential;
+	echo "$upthreshold" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/upthreshold;
+	GOV_CONTROL=1;
+fi;
+
+if [ -e /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative ]; then
+	echo "$downthreshold" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/downthreshold;
+	echo "$upthreshold_cons" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/upthreshold_cons;
+	GOV_CONTROL=1;
+fi;
+
+if [ "$GOV_CONTROL" == "1" ]; then
+	cd /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/*/;
+	grep "." * > /data/.dori/gpu_update_show;
+	cd /sys/module/simple_gpu_algorithm/parameters/;
+	grep "." * >> /data/.dori/gpu_update_show;
+	cd /
+	CONFIG_SHOW=$(cat /data/.dori/gpu_update_show);
+else
+	CONFIG_SHOW="Nothing to update for Performance GOV!";
+fi;
+
+echo "$CONFIG_SHOW";
+

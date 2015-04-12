@@ -1,0 +1,33 @@
+#!/sbin/busybox sh
+
+# $1 - "cpus_boosted"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	cpus_boosted=$2;
+
+	case "${cpus_boosted}" in
+		1)
+			echo "1" > /sys/module/msm_hotplug/cpus_boosted;
+			echo "1" > /sys/kernel/intelli_plug/cpus_boosted;
+		;;
+		2)
+			echo "2" > /sys/module/msm_hotplug/cpus_boosted;
+			echo "2" > /sys/kernel/intelli_plug/cpus_boosted;
+		;;
+		3)
+			echo "3" > /sys/module/msm_hotplug/cpus_boosted;
+			echo "3" > /sys/kernel/intelli_plug/cpus_boosted;
+		;;
+		4)
+			echo "4" > /sys/module/msm_hotplug/cpus_boosted;
+			echo "4" > /sys/kernel/intelli_plug/cpus_boosted;
+		;;
+		*)
+			cpus_boosted=1;
+		;;
+	esac;
+fi;
+echo ${cpus_boosted};
+

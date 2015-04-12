@@ -1,0 +1,40 @@
+#!/sbin/busybox sh
+
+
+WGET_CHECK1=`ls -la /system/wget/wget | wc -l`;
+
+if [ "$WGET_CHECK1" -eq "1" ]; then
+
+	mount -o remount,rw /;
+	mount -o remount,rw /system;
+
+	TMPFILE=$(mktemp -t);
+	HOST_FILE="/system/etc/hosts";
+
+	DNS1=`getprop net.dns1`;
+	DNS2=`getprop net.rmnet0.dns1`;
+	DNS3=`getprop net.rmnet0.dns2`;
+
+	echo "nameserver 8.8.8.8" > /system/etc/resolv.conf;
+	echo "nameserver 4.4.8.8" >> /system/etc/resolv.conf;
+	echo "nameserver $DNS1" >> /system/etc/resolv.conf;
+	echo "nameserver $DNS2" >> /system/etc/resolv.conf;
+	echo "nameserver $DNS3" >> /system/etc/resolv.conf;
+
+	TESTCONNECTION=`wget http://www.google.com -O $TMPFILE > /dev/null 2>&1`;
+	if [ $? != 0 ]; then
+		echo "Problem: no internet connection! connect and try again";
+	else
+		wget http://winhelp2002.mvps.org/hosts.zip -O $TMPFILE > /dev/null 2>&1;
+		unzip -p $TMPFILE HOSTS > $HOST_FILE;
+		chmod 644 $HOST_FILE;
+		dos2unix -u /system/etc/hosts;
+		echo "AD Blocker: installed to /system/etc/hosts, reboot to use.";
+	fi;
+
+	rm -f $TMPFILE;
+
+	mount -o remount,ro /system;
+else
+	echo "Your System dont have WGET binary from my kernel, reinstall my kernel.";
+fi;

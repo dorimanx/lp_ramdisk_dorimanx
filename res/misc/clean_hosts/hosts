@@ -1,0 +1,11 @@
+# This MVPS HOSTS file                                     #
+#                                                          #
+# Notes: The Operating System does not read the "#" symbol #
+# You can create your own notes, after the # symbol        #
+# This *must* be the first line: 127.0.0.1     localhost   #
+#                                                          #
+
+127.0.0.1  localhost
+
+::1  localhost #[IPv6]
+

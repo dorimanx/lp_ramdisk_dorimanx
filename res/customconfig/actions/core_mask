@@ -1,0 +1,33 @@
+#!/sbin/busybox sh
+
+# $1 - "core_mask"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	core_mask=$2;
+
+	case "${core_mask}" in
+		1)
+			# Only core0 will be active
+			echo "14" > /sys/module/msm_thermal/parameters/core_control_mask;
+		;;
+		2)
+			# core0,1 will be active
+			echo "12" > /sys/module/msm_thermal/parameters/core_control_mask;
+		;;
+		3)
+			# core0,1,2 will be active
+			echo "8" > /sys/module/msm_thermal/parameters/core_control_mask;
+		;;
+		4)
+			# All cores will be active
+			echo "0" > /sys/module/msm_thermal/parameters/core_control_mask;
+		;;
+		*)
+			core_mask=1;
+		;;
+	esac;
+fi;
+
+echo ${core_mask};

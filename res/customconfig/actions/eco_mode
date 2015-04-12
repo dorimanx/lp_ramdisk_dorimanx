@@ -1,0 +1,37 @@
+#!/sbin/busybox sh
+
+# $1 - "eco_mode"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	eco_mode=$2;
+
+	case "${eco_mode}" in
+		all)
+			echo "4" > /sys/kernel/intelli_plug/max_cpus_online;
+			echo "4" > /sys/module/msm_hotplug/max_cpus_online;
+			echo "4" > /sys/kernel/alucard_hotplug/maxcoreslimit;
+		;;
+		eco_boost)
+			echo "3" > /sys/kernel/intelli_plug/max_cpus_online;
+			echo "3" > /sys/module/msm_hotplug/max_cpus_online;
+			echo "3" > /sys/kernel/alucard_hotplug/maxcoreslimit;
+		;;
+		eco)
+			echo "2" > /sys/kernel/intelli_plug/max_cpus_online;
+			echo "2" > /sys/module/msm_hotplug/max_cpus_online;
+			echo "2" > /sys/kernel/alucard_hotplug/maxcoreslimit;
+		;;
+		strict)
+			echo "1" > /sys/kernel/intelli_plug/max_cpus_online;
+			echo "1" > /sys/module/msm_hotplug/max_cpus_online;
+			echo "1" > /sys/kernel/alucard_hotplug/maxcoreslimit;
+		;;
+		*)
+			eco_mode=all;
+		;;
+	esac;
+fi;
+echo ${eco_mode};
+

@@ -1,0 +1,27 @@
+#!/sbin/busybox sh
+
+# $1 - "generic_headphone_left"
+# $2 - "value"
+# Created By Dorimanx
+
+# get values from profile
+PROFILE=$(cat /data/.dori/.active.profile);
+. /data/.dori/"$PROFILE".profile;
+
+if [ "a$2" != "a" ]; then
+	generic_headphone_left=$2
+
+	VOL_LEFT=$2;
+	if [ "$VOL_LEFT" -lt "0" ]; then
+		VOL_LEFT=$(($2 + 256))
+	fi;
+
+	VOL_RIGHT=$generic_headphone_right;
+	if [ "$VOL_RIGHT" -lt "0" ]; then
+		VOL_RIGHT=$(($VOL_RIGHT + 256))
+	fi;
+
+	echo "$VOL_LEFT $VOL_RIGHT" > /sys/kernel/sound_control_3/lge_headphone_gain;
+fi;
+
+echo ${generic_headphone_left};

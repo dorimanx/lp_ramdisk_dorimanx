@@ -1,0 +1,29 @@
+#!/sbin/busybox sh
+
+# $1 - "cortexbrain_background_process"
+# $2 - value=
+
+BB=/sbin/busybox
+
+if [ "a$2" == "a" ]; then
+	echo "$cortexbrain_background_process";
+else
+	cortexbrain_background_process=$2;
+	echo "$cortexbrain_background_process";
+fi;
+
+case "${cortexbrain_background_process}" in
+	0)
+		$BB pkill -f "/sbin/ext/cortexbrain-tune.sh";
+		$BB sed -i "s/cortexbrain_background_process=[0-1]*/cortexbrain_background_process=0/g" /sbin/ext/cortexbrain-tune.sh;
+	;;
+	1)
+		$BB sed -i "s/cortexbrain_background_process=[0-1]*/cortexbrain_background_process=1/g" /sbin/ext/cortexbrain-tune.sh;
+		if [ "$(pgrep -f "cortexbrain-tune.sh" | wc -l)" -eq "0" ]; then
+			$BB nohup $BB sh /sbin/ext/cortexbrain-tune.sh > /dev/null 2>&1;
+		fi;
+	;;
+	*)
+		cortexbrain_background_process=1;
+	;;
+esac;

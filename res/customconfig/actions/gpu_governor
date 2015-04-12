@@ -1,0 +1,42 @@
+#!/sbin/busybox sh
+
+# $1 - "gpu_governor"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	gpu_governor=$2;
+
+	case "${gpu_governor}" in
+		msm-adreno-tz)
+			GPU_GOV=$(cat /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor);
+			if [ "$GPU_GOV" != "msm-adreno-tz" ]; then
+				echo "msm-adreno-tz" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor;
+			fi;
+		;;
+		simple_ondemand)
+			GPU_GOV=$(cat /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor);
+			if [ "$GPU_GOV" != "simple_ondemand" ]; then
+				echo "simple_ondemand" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor;
+			fi;
+		;;
+		conservative)
+			GPU_GOV=$(cat /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor);
+			if [ "$GPU_GOV" != "conservative" ]; then
+				echo "conservative" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor;
+			fi;
+		;;
+		performance)
+			GPU_GOV=$(cat /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor);
+			if [ "$GPU_GOV" != "performance" ]; then
+				echo "performance" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor;
+			fi;
+		;;
+		*)
+			gpu_governor=msm-adreno-tz;
+		;;
+	esac;
+fi;
+
+echo ${gpu_governor};
+

@@ -1,0 +1,110 @@
+cat << CTAG
+{
+	name:TOOLS,
+		elements:[
+			{ SDescription:{
+				description:"Save the logcat (App/system debug), dmesg (active kernel output) or last_kmsg (same as dmesg but from the last shutdown). Submit last_kmsg whenever you face issue (random reboot, freeze) and rebooting kernel resolved that issue."
+			}},
+				{ SButton:{
+					label:"Save logcat to /sdcard/logs/",
+					action:"devtools logcat"
+				}},
+				{ SButton:{
+					label:"Save dmesg to /sdcard/logs/",
+					action:"devtools dmesg"
+				}},
+				{ SButton:{
+					label:"Save last_kmsg to /sdcard/logs/",
+					action:"devtools kmsg"
+				}},
+			{ STitleBar:{
+				title:"Configuration Profiles"
+			}},
+			{ SGeneric:{
+				title:"Profile Name",
+				default:"None",
+				action:"generic /res/synapse/files/bck_prof",
+			}},
+			{ SDescription:{
+				description:"First set a name above and apply. After this you can press the Backup Current Profile button below."
+			}},
+			{ SButton:{
+				label:"Backup Current Profile",
+				action:"restorebackup keepconfig",
+				notify:[
+					{
+						on:APPLY,
+						do:[ REFRESH, APPLY ],
+						to:"generic /res/synapse/files/bck_prof"
+					}
+				]
+			}},
+			{ SOptionList:{
+				title:"Restore Selected Profile",
+				description:"Choose the settings you want and apply your choice in Synapse before using the action buttons below.",
+				action:"restorebackup pickconfig",
+				default:"None",
+				values:[ "None",
+					`for BAK in \`/res/synapse/actions/restorebackup listconfig\`; do
+						echo "\"$BAK\","
+					done`
+				],
+				notify:[
+					{
+						on:APPLY,
+						do:[ REFRESH, APPLY ],
+						to:"generic /res/synapse/files/bck_prof"
+					}
+				]
+			}},
+			{ SDescription:{
+				description:"NOTE: After you restore a profile, you have to press the X button on top to load the settings."
+			}},
+			{ SButton:{
+				label:"Restore Selected Profile",
+				action:"restorebackup applyconfig",
+				notify:[
+					{
+						on:APPLY,
+						do:[ REFRESH, APPLY ],
+						to:"restorebackup pickconfig"
+					}
+				]
+			}},
+			{ SButton:{
+				label:"Delete Selected Profile",
+				action:"restorebackup delconfig",
+				notify:[
+					{
+						on:APPLY,
+						do:[ REFRESH, APPLY ],
+						to:"restorebackup pickconfig"
+					}
+				]
+			}},
+			{ SPane:{
+				title:"General Actions",
+				description:"To update/refresh lists, select Restart Synapse below. To clear data, select Clear Synapse Data (fixes most common issues)."
+			}},
+				{ SButton:{
+					label:"Restart Synapse",
+					action:"restorebackup restart"
+				}},
+				{ SButton:{
+					label:"Clear Synapse Data",
+					action:"devtools cleardata"
+				}},
+			{ STitleBar:{
+				title:"Reboot"
+			}},
+				{ SButton:{
+					label:"Reboot Device",
+					action:"devtools reboot"
+				}},
+				{ SButton:{
+					label:"Reboot to Recovery",
+					action:"devtools reboot recovery"
+				}},
+		]
+}
+CTAG

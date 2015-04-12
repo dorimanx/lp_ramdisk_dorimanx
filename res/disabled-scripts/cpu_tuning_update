@@ -1,0 +1,14 @@
+#!/sbin/busybox sh
+
+(
+	/sbin/ext/cortexbrain-tune.sh apply_cpu update > /dev/null;
+
+	SYSTEM_GOVERNOR=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`;
+	cd /sys/devices/system/cpu/cpufreq/$SYSTEM_GOVERNOR/;
+	echo "Tuning applied to '$SYSTEM_GOVERNOR' core!" > /data/.dori/cpu_status;
+	grep "." * >> /data/.dori/cpu_status;
+	cd /;
+)&
+sleep 1;
+CPU_LOG=`cat /data/.dori/cpu_status`;
+echo $CPU_LOG;

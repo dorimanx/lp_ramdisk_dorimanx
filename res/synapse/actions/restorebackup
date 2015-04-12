@@ -1,0 +1,94 @@
+BB=/sbin/busybox;
+
+if [ -d /data/data/com.af.synapse ]; then
+  SYNAPSE_CONFIG_DIR=/sdcard/Synapse/saved_profiles;
+  SYNAPSE_DATA=/data/data/com.af.synapse/databases;
+
+  [ ! -d "$SYNAPSE_CONFIG_DIR" ] && $BB mkdir -p "$SYNAPSE_CONFIG_DIR";
+  [ ! -f "$SYNAPSE_CONFIG_DIR/.selected_config_profile" -o -z `$BB cat "$SYNAPSE_CONFIG_DIR/.selected_config_profile" 2> /dev/null` ] && $BB echo "None" > "$SYNAPSE_CONFIG_DIR/.selected_config_profile";
+
+  SYNAPSE_CONFIG_PROFILE=`$BB cat "$SYNAPSE_CONFIG_DIR/.selected_config_profile"`;
+fi;
+
+reset_uci() {
+	/sbin/uci reset;
+	$BB sleep 5;
+	/sbin/uci;
+}
+
+case "$1" in
+	listconfig)
+		$BB echo `$BB ls "$SYNAPSE_CONFIG_DIR"`;
+	;;
+
+	pickconfig)
+		if [ -f "$SYNAPSE_CONFIG_DIR/$2" -o "$2" == "None" ]; then
+			$BB echo "$2" > "$SYNAPSE_CONFIG_DIR/.selected_config_profile";
+		fi;
+		$BB echo `$BB cat "$SYNAPSE_CONFIG_DIR/.selected_config_profile"`;
+	;;
+
+	applyconfig)
+		CNT=0;
+		for FILE in `$BB tar -tf "$SYNAPSE_CONFIG_DIR/$SYNAPSE_CONFIG_PROFILE" 2> /dev/null`; do
+			if [ "$FILE" = "actionValueStore" -o "$FILE" = "actionValueStore-journal" ]; then
+				CNT=$((CNT + 1));
+			else
+				CNT=$((CNT + 99));
+			fi;
+		done;
+		
+		if [ $CNT -eq "2" ]; then
+			if [ -f "$SYNAPSE_CONFIG_DIR/$SYNAPSE_CONFIG_PROFILE" ]; then
+				$BB rm -f $SYNAPSE_DATA/*;
+				cd $SYNAPSE_DATA;
+				$BB tar -x -f "$SYNAPSE_CONFIG_DIR/$SYNAPSE_CONFIG_PROFILE";
+				$BB chmod 777 *;
+				$BB echo "None" > $SYNAPSE_CONFIG_DIR/.selected_config_profile;
+				$BB echo "$SYNAPSE_CONFIG_PROFILE restored. Press the Restart Synapse button below to see updated list.";
+			elif [ "$SYNAPSE_CONFIG_PROFILE" == "None" ]; then
+				$BB echo "None selected.";
+			else
+				$BB echo "File not found.";
+			fi;
+		else
+			$BB echo "Unable to restore profile. Invalid file."
+		fi;
+	;;
+
+	keepconfig)
+		BCK_PROF=`$BB cat /res/synapse/files/bck_prof`;
+		BCK_PROF=`$BB echo ${BCK_PROF// /_}`;
+	
+		if [ "$BCK_PROF" == "None" ]; then
+			$BB echo "Enter a profile name first and then apply.";
+		else
+			cd $SYNAPSE_DATA;
+			$BB echo "None" > /res/synapse/files/bck_prof;
+			$BB tar -cf "$SYNAPSE_CONFIG_DIR/$BCK_PROF.tgz" *;
+			$BB echo "$BCK_PROF.tgz created. Press the Restart Synapse button below to see updated list.";
+			cd /;
+		fi;
+	;;
+
+	delconfig)
+		if [ -f "$SYNAPSE_CONFIG_DIR/$SYNAPSE_CONFIG_PROFILE" ]; then
+			$BB rm -f "$SYNAPSE_CONFIG_DIR/$SYNAPSE_CONFIG_PROFILE";
+			$BB echo "None" > $SYNAPSE_CONFIG_DIR/.selected_config_profile;
+			$BB echo "$SYNAPSE_CONFIG_PROFILE removed. Press the Restart Synapse button below to see updated list.";
+		elif [ "$SYNAPSE_CONFIG_PROFILE" == "None" ]; then
+			$BB echo "None selected.";
+		else
+			$BB echo "File not found.";
+		fi;
+	;;
+
+	restart)
+		am force-stop com.af.synapse 2> /dev/null;
+		$BB sleep 1;
+		reset_uci;
+		$BB sleep 1;
+		am force-stop com.af.synapse 2> /dev/null;
+		am start -a android.intent.action.MAIN -n com.af.synapse/.MainActivity 2> /dev/null;
+	;;
+esac;

@@ -1,0 +1,7 @@
+#!/sbin/busybox sh
+
+mount -o remount,rw /system;
+cp -a /res/misc/clean_hosts/hosts /system/etc/hosts;
+chmod 622 /system/etc/hosts;
+echo "AD Blocker: REMOVED";
+mount -o remount,ro /system;

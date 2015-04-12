@@ -1,0 +1,14 @@
+#!/sbin/busybox sh
+
+# $1 - "cpus_boosted_time"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	cpus_boosted_time=$2;
+
+	echo "$cpus_boosted_time" > /sys/module/msm_hotplug/boost_lock_duration;
+	echo "$cpus_boosted_time" > /sys/kernel/intelli_plug/boost_lock_duration;
+fi;
+
+echo ${cpus_boosted_time};

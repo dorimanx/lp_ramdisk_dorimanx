@@ -1,0 +1,190 @@
+#!/sbin/busybox sh
+
+cat << CTAG
+{
+	name:STATUS,
+		elements:[
+			{ STitleBar:{
+				title:"CPU Scaling Frequencies"
+			}},
+				{ SLiveLabel:{
+					description: "Scaling Min Max frequencies are affected by thermal engine/driver and CPU Boost driver.",
+					refresh:2000,
+					action:"live CPU_MAX_MIN_Freq"
+				}},
+			{ STitleBar:{
+				title:"CPU Cores State"
+			}},
+				{ SLiveLabel:{
+					description: "Actual CORES state, Active or Sleeping.",
+					refresh:1000,
+					action:"live CPU_CORES_ON_OFF"
+				}},
+			{ STitleBar:{
+				title:"CPU Temperature:"
+			}},
+				{ SLiveLabel:{
+					refresh:1000,
+					action:"live CPUTemperature"
+				}},
+			{ STitleBar:{
+				title:"Current Active CPU Governor"
+			}},
+				{ SLiveLabel:{
+					description: "Display Current Active CPU Governor",
+					refresh:8000,
+					action:"live DefaultCPUGovernor"
+				}},
+			{ STitleBar:{
+				title:"Current Active CPU HotPlug"
+			}},
+				{ SLiveLabel:{
+					description: "Display Current Active CPU HotPlug Driver",
+					refresh:8000,
+					action:"live CPU_HOTPLUG"
+				}},
+			{ STitleBar:{
+				title:"GPU Scaling Frequencies"
+			}},
+				{ SLiveLabel:{
+					description: "Scaling Min Max GPU frequencies",
+					refresh:8000,
+					action:"live GPU_MAX_MIN_Freq"
+				}},
+			{ STitleBar:{
+				title:"Current GPU Frequency:"
+			}},
+				{ SLiveLabel:{
+					refresh:1000,
+					action:"live GPUFrequency"
+				}},
+			{ STitleBar:{
+				title:"Current GPU Governor:"
+			}},
+				{ SLiveLabel:{
+					refresh:10000,
+					action:"live DefaultGPUGovernor"
+				}},
+			{ STitleBar:{
+				title:"Battery Temperature:"
+			}},
+				{ SLiveLabel:{
+					refresh:3000,
+					action:"live BatteryTemperature"
+				}},
+			{ STitleBar:{
+				title:"Memory:"
+			}},
+				{ SLiveLabel:{
+					refresh:3000,
+					action:"live Memory"
+				}},
+			{ STitleBar:{
+				title:"Uptime:"
+			}},
+				{ SLiveLabel:{
+					refresh:5000,
+					action:"live UpTime"
+				}},
+			{ STitleBar:{
+				title:"Unused States:"
+			}},
+				{ SLiveLabel:{
+					refresh:5000,
+					action:"live UnUsed"
+				}},
+			{ STitleBar:{
+				title:"Time in States:"
+			}},
+				{ SLiveLabel:{
+					refresh:5000,
+					action:"live Time 0 9"
+				}},
+				{ SLiveLabel:{
+					refresh:5000,
+					action:"live Time 10 19"
+				}},
+			{ STitleBar:{
+				title:"MMC IO Read Ahead Size:"
+			}},
+				{ SLiveLabel:{
+					refresh:10000,
+					action:"live IOReadAheadSize"
+				}},
+			{ STitleBar:{
+				title:"MMC Current IO Scheduler:"
+			}},
+				{ SLiveLabel:{
+					refresh:10000,
+					action:"live IOScheduler"
+				}},
+			{ STitleBar:{
+				title:"NET Current TCP Congestion:"
+			}},
+				{ SLiveLabel:{
+					refresh:10000,
+					action:"live TCPCongestion"
+				}},
+			{ STitleBar:{
+				title:"BUSYBOX VERSION"
+			}},
+				{ SLiveLabel:{
+					refresh:50000,
+					action:"live busybox_ver"
+				}},
+			{ STitleBar:{
+				title:"CPU PVS MODEL"
+			}},
+				{ SLiveLabel:{
+					refresh:50000,
+					action:"live Acpu_pvs"
+				}},
+			{ STitleBar:{
+				title:"CPU SPEED BIN"
+			}},
+				{ SLiveLabel:{
+					refresh:50000,
+					action:"live Speed_bin"
+				}},
+			{ SPane:{
+				title:"Kernel Logs",
+				description:"Save the logcat (App/system debug), dmesg (active kernel output) or last_kmsg (same as dmesg but from the last shutdown). Submit last_kmsg whenever you face issue (random reboot, freeze) and rebooting kernel resolved that issue."
+			}},
+				{ SButton:{
+					label:"Save logcat to /sdcard/logs/",
+					action:"devtools logcat"
+				}},
+				{ SButton:{
+					label:"Save dmesg to /sdcard/logs/",
+					action:"devtools dmesg"
+				}},
+				{ SButton:{
+					label:"Save last_kmsg to /sdcard/logs/",
+					action:"devtools kmsg"
+				}},
+			{ SPane:{
+				title:"General Actions",
+				description:"To update/refresh lists, select Restart Synapse below. To clear data, select Clear Synapse Data (fixes most common issues)."
+			}},
+				{ SButton:{
+					label:"Restart Synapse",
+					action:"restorebackup restart"
+				}},
+				{ SButton:{
+					label:"Clear Synapse Data",
+					action:"devtools cleardata"
+				}},
+			{ STitleBar:{
+				title:"Reboot"
+			}},
+				{ SButton:{
+					label:"Reboot Device",
+					action:"devtools reboot"
+				}},
+				{ SButton:{
+					label:"Reboot to Recovery",
+					action:"devtools reboot recovery"
+				}},
+		]
+}
+CTAG

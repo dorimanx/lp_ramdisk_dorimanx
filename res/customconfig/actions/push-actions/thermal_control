@@ -1,0 +1,8 @@
+#!/sbin/busybox sh
+
+if [ -e /data/data/com.af.synapse ]; then
+	echo "Starting Synapse APP"
+	am start -a android.intent.action.MAIN -n com.af.synapse/.MainActivity > /dev/null;
+else
+	echo "You dont have Synapse APP Installed."
+fi;

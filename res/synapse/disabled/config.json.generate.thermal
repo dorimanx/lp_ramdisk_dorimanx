@@ -1,0 +1,107 @@
+cat << CTAG
+{
+    name:THERMAL,
+		elements:[
+			`if [ -d /sys/module/msm_thermal/parameters/ ]; then
+				$BB echo '{ SOptionList:{
+					title:"Core Control",
+					description:"When core control is enabled, CPU sibling cores will shut down at high temperature which impact performance, when core control is disabled, CPU sibling cores will operate at lower frequencies at high temperature and will give good balance between device temperature control and performance.",
+					default:0,
+					action:"generic /sys/module/msm_thermal/core_control/core_control",
+					values:{
+						0:"Disabled", 1:"Enabled"
+					}
+				}},'
+				FTT=$(cat /sys/module/msm_thermal/parameters/limit_temp_degC)
+				$BB echo '{ SSeekBar:{
+					title:"Frequency Throttle Temperature",
+					description:"Temperature to start throttling frequencies.",
+					unit:"ºC",
+					step:1,
+					min:50,
+					max:78,
+					default:'$FTT',
+					action:"generic /sys/module/msm_thermal/parameters/limit_temp_degC"
+				}},'
+				CTP=$(cat /sys/module/msm_thermal/parameters/core_limit_temp_degC)
+				$BB echo '{ SSeekBar:{
+					title:"Core Throttle Temperature",
+					description:"Temperature to start shutting down cores",
+					unit:"ºC",
+					step:1,
+					min:50,
+					max:80,
+					default:'$CTP',
+					action:"generic /sys/module/msm_thermal/parameters/core_limit_temp_degC"
+				}},'
+				CTH=$(cat /sys/module/msm_thermal/parameters/core_temp_hysteresis_degC)
+				$BB echo '{ SSeekBar:{
+					title:"Core Temperature Hysteresis",
+					unit:"ºC",
+					step:1,
+					min:0,
+					max:20,
+					default:'$CTH',
+					action:"generic /sys/module/msm_thermal/parameters/core_temp_hysteresis_degC"
+				}},'
+				FS=$(cat /sys/module/msm_thermal/parameters/freq_step)
+				$BB echo '{ SSeekBar:{
+					title:"Frequency Step",
+					step:1,
+					min:1,
+					max:4,
+					default:'$FS',
+					action:"generic /sys/module/msm_thermal/parameters/freq_step"
+				}},'
+				ILS=$(bool /sys/module/msm_thermal/parameters/immediately_limit_stop);
+				$BB echo '{ SCheckBox:{
+					label:"Immediately Limit Stop",
+					default:'$ILS',
+					action:"boolean /sys/module/msm_thermal/parameters/immediately_limit_stop"
+				}},'
+				POLL=$(cat /sys/module/msm_thermal/parameters/poll_ms)
+				$BB echo '{ SSeekBar:{
+					title:"Poll",
+					unit:" ms",
+					step:50,
+					min:200,
+					max:600,
+					default:'$POLL',
+					action:"generic /sys/module/msm_thermal/parameters/poll_ms"
+				}},'
+				TH=$(cat /sys/module/msm_thermal/parameters/temp_hysteresis_degC)
+				$BB echo '{ SSeekBar:{
+					title:"Temperature Hysteresis",
+					unit:"ºC",
+					step:1,
+					min:2,
+					max:20,
+					default:'$TH',
+					action:"generic /sys/module/msm_thermal/parameters/temp_hysteresis_degC"
+				}},'
+				TLLF=$(cat /sys/module/msm_thermal/parameters/thermal_limit_low)
+				$BB echo '{ SSeekBar:{
+					title:"Thermal Limit Lowest Frequency 7 = 1.19Ghz 6 = 1.03Ghz ETC",
+					step:1,
+					min:5,
+					max:10,
+					default:'$TLLF',
+					action:"generic /sys/module/msm_thermal/parameters/thermal_limit_low"
+				}},'
+			fi`
+			`if [ -f "/sys/module/msm_thermal/parameters/freq_limit_debug" ]; then
+				FLD=$(cat /sys/module/msm_thermal/parameters/freq_limit_debug)
+				$BB echo '{ SPane:{
+					title:"Frequency Limit Debug"
+				}},
+					{ SCheckBox:{
+						label:"Enable",
+						description:"This allows to debug the CPUs throttle when the temperature reaches maximum.",
+						default:'$FLD',
+						action:"generic /sys/module/msm_thermal/parameters/freq_limit_debug"
+					}},'
+			fi`
+		]
+}
+CTAG
+

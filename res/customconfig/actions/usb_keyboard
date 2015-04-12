@@ -1,0 +1,33 @@
+#!/sbin/busybox sh
+
+# $1 - "usb_keyboard"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	usb_keyboard=$2;
+
+	case "${usb_keyboard}" in
+		enable)
+			echo "0" > /sys/devices/virtual/android_usb/android0/enable;
+			echo "1" > /sys/module/g_android/parameters/usb_keyboard;
+			echo "mtp,adb,hid" > /sys/devices/virtual/android_usb/android0/functions;
+			echo "1" > /sys/devices/virtual/android_usb/android0/enable;
+			chown system.system /dev/hidg*;
+			chmod 777 /dev/hidg*
+		;;
+		disable)
+			if [ "$(cat /sys/module/g_android/parameters/usb_keyboard)" == "1" ]; then
+				echo "0" > /sys/devices/virtual/android_usb/android0/enable;
+				echo "0" > /sys/module/g_android/parameters/usb_keyboard;
+				echo "mtp,adb" > /sys/devices/virtual/android_usb/android0/functions;
+				echo "1" > /sys/devices/virtual/android_usb/android0/enable;
+			fi;
+		;;
+		*)
+			usb_keyboard=disable;
+		;;
+	esac;
+fi;
+
+echo ${usb_keyboard};

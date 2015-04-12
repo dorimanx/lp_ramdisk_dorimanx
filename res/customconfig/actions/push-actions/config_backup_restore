@@ -1,0 +1,181 @@
+#!/sbin/busybox sh
+export PATH="/res/customconfig/actions/push-actions:${PATH}";
+
+BB=/sbin/busybox
+
+if [ "a$2" == "a" ]; then
+	echo "$config_backup_restore";
+else
+	config_backup_restore=$2;
+	echo "$config_backup_restore";
+fi;
+
+PROFILE=$(cat /data/.dori/.active.profile);
+
+RELOAD_STWEAKS()
+{
+	sync;
+	$BB rm -rf /data/data/com.gokhanmoral.stweaks.app/*;
+	am force-stop com.gokhanmoral.stweaks.app 2> /dev/null;
+	am start -a android.intent.action.MAIN -n com.gokhanmoral.stweaks.app/.MainActivity 2> /dev/null;
+	exit;
+}
+
+LOAD_NEW_SETTINGS()
+{
+	# get values from profile
+	NEW_PROFILE=$(cat /data/.dori/.active.profile);
+	. /data/.dori/"$NEW_PROFILE".profile;
+
+	# Set new CPU freq based on profile.
+	echo "$cpu0_min_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
+	echo "$cpu1_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu1;
+	echo "$cpu2_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu2;
+	echo "$cpu3_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu3;
+
+	$BB sh /res/uci.sh cpu0_max_freq "$cpu0_max_freq";
+	$BB sh /res/uci.sh cpu1_max_freq "$cpu1_max_freq";
+	$BB sh /res/uci.sh cpu2_max_freq "$cpu2_max_freq";
+	$BB sh /res/uci.sh cpu3_max_freq "$cpu3_max_freq";
+}
+
+case "${config_backup_restore}" in
+	1)
+		cp /data/.dori/"$PROFILE".profile /data/.dori/"$PROFILE".profile_backup;
+		cp /data/.dori/"$PROFILE".profile /sdcard/"$PROFILE".profile_backup;
+		chmod 777 /data/.dori/"$PROFILE".profile_backup;
+		echo "Backup of ${PROFILE} profile is Done!";
+	;;
+	2)
+		(
+			file2="/data/.dori/${PROFILE}.profile_backup";
+
+			# if someone full wipe the system, then use the profile_backup from sd-card
+			if [ ! -e "$file2" ]; then
+				file2="/sdcard/${PROFILE}.profile_backup";
+			fi;
+
+			if [ ! -e "$file2" ]; then
+				echo "You are using ${PROFILE} did you made backup for it??? if you made for other, switch to that profile first!";
+				exit;
+			fi;
+
+			file1="/data/.dori/${PROFILE}.profile";
+
+			if [ "$(pgrep -f "push-actions/config_backup_restore" | wc -l)" -le "4" ]; then
+				echo "Restoring ${PROFILE} config file";
+
+				# read in file1->line1
+				while read line1; do
+					# split the config into variables where we find "="
+					line1_1=$(echo "$line1" | cut -f 1 -d '=');
+					line1_2=$(echo "$line1" | cut -f 2 -d '=');
+
+					# grep the content from backup-file ...
+					line2=$(grep "^${line1_1}\=" "$file2")
+					# ... and also split into variables
+					line2_1=$(echo "$line2" | cut -f 1 -d '=');
+					line2_2=$(echo "$line2" | cut -f 2 -d '=');
+
+					# compare config- and backup-file
+					if [ "a${line1_1}" != "a${line2_1}" ]; then
+						# nothing to do -> continue the loop
+						continue;
+					else
+						# if backup-file has different values, then restore it
+						if [ "a${line1_2}" != "a${line2_2}" ]; then
+							if [ "${line2_2}" != "" ]; then
+								$BB sed -i "s/${line1_1}=${line1_2}/${line2_1}=${line2_2}/" "$file1";
+								echo "edit: ${line1_1}=${line1_2} -> ${line2_1}=${line2_2}";
+							fi;
+						else
+							# nothing to do -> continue the loop
+							# echo "not_edit: ${line1_1}=${line1_2} -> ${line2_1}=${line2_2}";
+							continue;
+						fi;
+					fi;
+				done < "$file1"
+
+				# apply New STweaks settings
+				$BB sh /res/uci.sh apply > /dev/null;
+				RELOAD_STWEAKS;
+			else
+				# Anti smart user protection! multi run of this script will bring HELL!
+				echo "you are running RESTORE already! please wait!";
+			fi;
+		)&
+	;;
+	3)
+		(
+			if [ "$(pgrep -f "push-actions/config_backup_restore" | wc -l)" -lt "4" ]; then
+				$BB cp -a /res/customconfig/battery.profile /data/.dori/;
+				echo "battery" > /data/.dori/.active.profile;
+				echo "Restoring battery config file";
+				$BB sh /res/uci.sh apply > /dev/null;
+				LOAD_NEW_SETTINGS;
+				RELOAD_STWEAKS;
+			else
+				echo "Already working! dont push me!";
+			fi;
+		)&
+	;;
+	4)
+		(
+			if [ "$(pgrep -f "push-actions/config_backup_restore" | wc -l)" -lt "4" ]; then
+				$BB cp -a /res/customconfig/default.profile /data/.dori/;
+				echo "default" > /data/.dori/.active.profile;
+				echo "Restoring default config file";
+				$BB sh /res/uci.sh apply > /dev/null;
+				LOAD_NEW_SETTINGS;
+				RELOAD_STWEAKS;
+			else
+				echo "Already working! dont push me!";
+			fi;
+		)&
+	;;
+	5)
+		(
+			if [ "$(pgrep -f "push-actions/config_backup_restore" | wc -l)" -lt "4" ]; then
+				$BB cp -a /res/customconfig/performance.profile /data/.dori/;
+				echo "performance" > /data/.dori/.active.profile;
+				echo "Restoring performance config file";
+				$BB sh /res/uci.sh apply > /dev/null;
+				LOAD_NEW_SETTINGS;
+				RELOAD_STWEAKS;
+			else
+				echo "Already working! dont push me!";
+			fi;
+		)&
+	;;
+	6)
+		(
+			if [ "$(pgrep -f "push-actions/config_backup_restore" | wc -l)" -lt "4" ]; then
+				$BB cp -a /res/customconfig/extreme_battery.profile /data/.dori/;
+				echo "extreme_battery" > /data/.dori/.active.profile;
+				echo "Restoring extreme_battery config file";
+				$BB sh /res/uci.sh apply > /dev/null;
+				LOAD_NEW_SETTINGS;
+				RELOAD_STWEAKS;
+			else
+				echo "Already working! dont push me!";
+			fi;
+		)&
+	;;
+	7)
+		(
+			if [ "$(pgrep -f "push-actions/config_backup_restore" | wc -l)" -lt "4" ]; then
+				$BB cp -a /res/customconfig/extreme_performance.profile /data/.dori/;
+				echo "extreme_performance" > /data/.dori/.active.profile;
+				echo "Restoring extreme_performance config file";
+				$BB sh /res/uci.sh apply > /dev/null;
+				LOAD_NEW_SETTINGS;
+				RELOAD_STWEAKS;
+			else
+				echo "Already working! dont push me!";
+			fi;
+		)&
+	;;
+	*)
+		echo "need input";
+	;;
+esac;

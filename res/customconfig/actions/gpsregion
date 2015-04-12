@@ -1,0 +1,104 @@
+#!/sbin/busybox sh
+
+# $1 - "gpsregion"
+# $2 - value=
+
+mount -o remount,rw /system;
+
+var_gps="/system/etc/gps.conf";
+
+# Backup original gps.conf in case of user revert by using 7 case.
+if [ ! -e $var_gps.bkp ]; then
+	cp -a $var_gps $var_gps.bkp;
+fi;
+
+if [ "a$2" == "a" ]; then
+	echo "$gpsregion";
+else
+	gpsregion=$2;
+	echo "$gpsregion";
+fi;
+
+case "${gpsregion}" in
+	No_GPS_Zone_changes)
+		# nothing to do here
+	;;
+	Asia)
+		CHECKGPS=`cat $var_gps | grep "NTP_SERVER=0.asia.pool.ntp.org"`;
+		if [ "$CHECKGPS" != "NTP_SERVER=0.asia.pool.ntp.org" ]; then
+			sed -i "s/NTP_SERVER[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			sed -i "s/-america[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			echo "NTP_SERVER=asia.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=0.asia.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=1.asia.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=2.asia.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=3.asia.pool.ntp.org" >> $var_gps;
+		fi;
+	;;
+	Europe)
+		CHECKGPS=`cat $var_gps | grep "NTP_SERVER=0.europe.pool.ntp.org"`;
+		if [ "$CHECKGPS" != "NTP_SERVER=0.europe.pool.ntp.org" ]; then
+			sed -i "s/NTP_SERVER[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			sed -i "s/-america[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			echo "NTP_SERVER=europe.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=0.europe.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=1.europe.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=2.europe.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=3.europe.pool.ntp.org" >> $var_gps;
+		fi;
+	;;
+	Oceania)
+		CHECKGPS=`cat $var_gps | grep "NTP_SERVER=0.oceania.pool.ntp.org"`;
+		if [ "$CHECKGPS" != "NTP_SERVER=0.oceania.pool.ntp.org" ]; then
+			sed -i "s/NTP_SERVER[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			sed -i "s/-america[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			echo "NTP_SERVER=oceania.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=0.oceania.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=1.oceania.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=2.oceania.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=3.oceania.pool.ntp.org" >> $var_gps;
+        fi;
+	;;
+	North-America)
+		CHECKGPS=`cat $var_gps | grep "NTP_SERVER=0.north-america.pool.ntp.org"`;
+		if [ "$CHECKGPS" != "NTP_SERVER=0.north-america.pool.ntp.org" ]; then
+			sed -i "s/NTP_SERVER[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			sed -i "s/-america[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			echo "NTP_SERVER=north-america.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=0.north-america.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=1.north-america.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=2.north-america.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=3.north-america.pool.ntp.org" >> $var_gps;
+        fi;
+	;;
+	South-America)
+		CHECKGPS=`cat $var_gps | grep "NTP_SERVER=0.south-america.pool.ntp.org"`;
+	if [ "$CHECKGPS" != "NTP_SERVER=0.south-america.pool.ntp.org" ]; then
+			sed -i "s/NTP_SERVER[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			sed -i "s/-america[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			echo "NTP_SERVER=south-america.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=0.south-america.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=1.south-america.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=2.south-america.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=3.south-america.pool.ntp.org" >> $var_gps;
+        fi;
+	;;
+	Africa)
+		CHECKGPS=`cat $var_gps | grep "NTP_SERVER=3.africa.pool.ntp.org"`;
+		if [ "$CHECKGPS" != "NTP_SERVER=3.africa.pool.ntp.org" ]; then
+			sed -i "s/NTP_SERVER[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			sed -i "s/-america[.a-zA-Z\=-\0-5\]*//g" $var_gps;
+			echo "NTP_SERVER=3.africa.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=1.pool.ntp.org" >> $var_gps;
+			echo "NTP_SERVER=3.pool.ntp.org" >> $var_gps;
+		fi;
+	;;
+	Original_ROM_GPS_Restored)
+		cp -a $var_gps.bkp $var_gps;
+	;;
+	*)
+		gpsregion="No_GPS_Zone_changes";
+	;;
+esac;
+
+mount -o remount,ro /system;

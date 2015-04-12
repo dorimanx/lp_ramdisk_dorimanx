@@ -1,0 +1,7 @@
+#!/sbin/busybox sh
+
+pkill -f "/system/bin/mm-qcamera-daemon"
+/system/bin/start mm-qcamera-daemon
+
+echo "Camera ROM Driver Restarted"
+

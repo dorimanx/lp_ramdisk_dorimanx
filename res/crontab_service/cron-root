@@ -1,0 +1,13 @@
+# This file is at /var/spool/cron/crontabs/root
+#field          allowed values
+#-----          --------------
+#minute         0-59
+#hour           0-23
+#day of month   1-31
+#month          1-12 (or names, see below)
+#day of week    0-7 (0 or 7 is Sun, or use names)
+
+#JOBS
+0 0-23/1 * * * /sbin/busybox sh /data/crontab/cron-scripts/drop-cache-only.sh
+0 6 * * 6 /sbin/busybox sh /data/crontab/cron-scripts/ad_block_update.sh
+0 6 * * 6 /sbin/busybox sh /data/crontab/cron-scripts/reset_battery.sh

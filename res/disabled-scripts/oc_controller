@@ -1,0 +1,35 @@
+#!/sbin/busybox sh
+
+# $1 - "oc_controller"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	oc_controller=$2;
+
+	case "${oc_controller}" in
+		ultra)
+			echo "2803200" > /sys/kernel/msm_cpufreq_limit/cpufreq_limit;
+		;;
+		mega)
+			echo "2726400" > /sys/kernel/msm_cpufreq_limit/cpufreq_limit;
+		;;
+		high)
+			echo "2572800" > /sys/kernel/msm_cpufreq_limit/cpufreq_limit;
+		;;
+		boost)
+			echo "2419200" > /sys/kernel/msm_cpufreq_limit/cpufreq_limit;
+		;;
+		stock)
+			echo "2265600" > /sys/kernel/msm_cpufreq_limit/cpufreq_limit;
+		;;
+		battery)
+			echo "1958400" > /sys/kernel/msm_cpufreq_limit/cpufreq_limit;
+		;;
+		*)
+			oc_controller=stock;
+		;;
+	esac;
+fi;
+
+echo ${oc_controller};

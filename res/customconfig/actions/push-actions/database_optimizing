@@ -1,0 +1,24 @@
+#!/sbin/busybox sh
+export PATH="/res/customconfig/actions/push-actions:${PATH}";
+
+(
+	if [ "$(pgrep -f "database_optimizing" |  wc -l)" -le "5" ]; then
+		echo "";
+		echo "*********************************************";
+		echo "Optimizing and defragging your database files (*.db)";
+		echo "*********************************************";
+		echo "";
+
+		for i in `busybox find /data -iname "*.db"`; do
+			/system/xbin/sqlite3 $i 'VACUUM;';
+			/system/xbin/sqlite3 $i 'REINDEX;';
+		done;
+
+		for i in `busybox find /sdcard -iname "*.db"`; do
+			/system/xbin/sqlite3 $i 'VACUUM;';
+			/system/xbin/sqlite3 $i 'REINDEX;';
+		done;
+	else
+		echo "Database Optimizing already running, please wait.";
+	fi;
+)&

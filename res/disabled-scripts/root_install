@@ -1,0 +1,79 @@
+#!/sbin/busybox sh
+export PATH="/res/customconfig/actions/push-actions:${PATH}";
+
+(
+	if [ ! -e /system/xbin/su ] || [ ! -e /system/app/SuperSU.apk ]; then
+		BB=/sbin/busybox
+
+		# extract Payload with root files
+		$BB mount -o remount,rw /system;
+		$BB mount -o remount,rw /;
+
+		# clean su traces
+		$BB rm -f /system/bin/su > /dev/null 2>&1;
+		if [ ! -d /system/xbin ]; then
+			$BB mkdir /system/xbin;
+			$BB chmod 755 /system/xbin;
+		fi;
+
+		# extract SU binary
+		if [ ! -d /system/bin/.ext ]; then
+			$BB mkdir /system/bin/.ext;
+			$BB chmod 777 /system/bin/.ext;
+		fi;
+
+		# clean super user old apps
+		$BB rm -f /system/app/Superuser.apk > /dev/null 2>&1;
+		$BB rm -f /system/app/SuperSU.apk > /dev/null 2>&1;
+		$BB rm -f /system/app/*uper?ser.apk > /dev/null 2>&1;
+		$BB rm -f /system/app/?uper?u.apk > /dev/null 2>&1;
+		$BB rm -f /system/app/*chainfire?supersu.apk > /dev/null 2>&1;
+
+		$BB rm -f /data/app/Superuse*.apk > /dev/null 2>&1;
+		$BB rm -f /data/app/*uper?ser.apk > /dev/null 2>&1;
+		$BB rm -f /data/app/?uper?u.apk > /dev/null 2>&1;
+		$BB rm -f /data/app/*chainfire?supersu.apk > /dev/null 2>&1;
+
+		$BB rm -f /data/dalvik-cache/*uper?ser.apk* > /dev/null 2>&1;
+		$BB rm -f /data/dalvik-cache/*chainfire?supersu.apk* > /dev/null 2>&1;
+
+		$BB rm -rf /data/data/eu.chainfire.supersu > /dev/null 2>&1;
+		$BB rm -rf /data/data/com.noshufou.android.su > /dev/null 2>&1;
+
+		if [ -e /system/chainfire/SuperSU.apk ]; then
+			$BB cp /system/chainfire/SuperSU.apk /system/app/;
+			$BB cp /system/chainfire/SuperSUNoNag-v1.00.apk /system/app/;
+			$BB cp /system/chainfire/xbin/access /system/xbin/su;
+			$BB cp /system/chainfire/xbin/access /system/xbin/daemonsu;
+			if [ ! -e /system/xbin/chattr ]; then
+				cp /system/chainfire/xbin/chattr /system/xbin/;
+				$BB chmod 06755 /system/xbin/chattr;
+			fi;
+			$BB chmod 06755 /system/xbin/su;
+			$BB chown 0.0 /system/xbin/su;
+			$BB chmod 06755 /system/xbin/daemonsu;
+			$BB chown 0.0 /system/xbin/daemonsu;
+			$BB chmod 644 /system/app/SuperSU.apk;
+			$BB chmod 644 /system/app/SuperSUNoNag-v1.00.apk;
+			$BB chown 0.0 /system/app/SuperSU.apk;
+			$BB chown 0.0 /system/app/SuperSUNoNag-v1.00.apk;
+			$BB cp -a /system/xbin/su /system/bin/.ext/;
+		fi;
+
+		if [ ! -e /data/app/*chainfire?supersu.pr*.apk ]; then
+			if [ -e /data/system/chain_pro.apk_bkp ]; then
+				mv /data/system/chain_pro.apk_bkp /system/app/eu.chainfire.supersu.pro-1.apk;
+				chmod 644 /system/app/eu.chainfire.supersu.pro-1.apk;
+			else
+				echo "no su pro" > /dev/null 2>&1;
+			fi;
+		fi;
+
+		# delete payload and kill superuser pid
+		pkill -f "com.noshufou.android.su";
+		pkill -f "eu.chinfire.supersu";
+		echo "App SuperSU was installed!, You have Full ROOT now!";
+	else
+		echo "You have ROOT installed already! first remove it.";
+	fi;
+)&

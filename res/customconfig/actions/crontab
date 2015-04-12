@@ -1,0 +1,27 @@
+#!/sbin/busybox sh
+
+# $1 - "crontab"
+# $2 - value=
+# Created By Dorimanx and Dairinin
+
+BB=/sbin/busybox
+
+if [ "a$2" != "a" ]; then
+	crontab=$2;
+
+	case "${crontab}" in
+		on)
+			if [ "$(pgrep -f crond | wc -l)" -eq "0" ]; then
+				$BB nohup $BB sh /res/crontab_service/service.sh > /dev/null 2>&1;
+			fi;
+		;;
+		off)
+			pkill -f crond;
+		;;
+		*)
+			crontab=on;
+		;;
+	esac;
+fi;
+
+echo ${crontab};

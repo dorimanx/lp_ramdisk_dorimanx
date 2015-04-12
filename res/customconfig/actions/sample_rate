@@ -1,0 +1,17 @@
+#!/sbin/busybox sh
+
+# $1 - "sample_rate"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	sample_rate=$2;
+
+	GOV_NAME=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
+
+	if [ -e /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate ]; then
+		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate;
+	fi;
+fi;
+
+echo ${sample_rate};

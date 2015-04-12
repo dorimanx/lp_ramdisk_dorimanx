@@ -1,0 +1,16 @@
+#!/sbin/busybox sh
+
+(
+	rm -f /var/spool/cron/crontabs/*
+	rm -rf /data/crontab/
+	cp -a /res/crontab/ /data/
+	chmod -R 777 /data/crontab/
+
+	CRON_STATUS=$(pgrep -f "crond" | wc -l);
+	if [ "$CRON_STATUS" != "0" ]; then
+		/sbin/busybox sh /res/uci.sh crontab on
+		echo "Reset Done and CRON enabled"
+	fi;
+)&
+
+echo "Reset Done!"

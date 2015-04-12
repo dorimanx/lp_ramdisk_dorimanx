@@ -1,0 +1,13 @@
+#!/sbin/busybox sh
+
+# $1 - "cpu_boost_freq"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	cpu_boost_freq=$2;
+
+	echo "$cpu_boost_freq" > /sys/module/alu_t_boost/parameters/input_boost_freq;
+fi;
+
+echo ${cpu_boost_freq};
