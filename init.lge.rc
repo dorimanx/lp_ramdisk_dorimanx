@@ -1,5 +1,5 @@
 #CAPP_CKERROR_REPORTER
-import init.ckerror.rc
+#import init.ckerror.rc
 
 on post-fs
     #persist-lg

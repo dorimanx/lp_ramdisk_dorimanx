@@ -31,6 +31,10 @@ on early-init
 
     # create mountpoints
     mkdir /mnt 0775 root system
+    mkdir /system
+    mkdir /data 0771 system system
+    mkdir /cache 0770 system cache
+    mkdir /config 0500 root root
 
 on init
     sysclktz 0
@@ -39,6 +43,7 @@ on init
 
     # Backward compatibility
     symlink /system/etc /etc
+    symlink /system/bin /bin
     symlink /sys/kernel/debug /d
 
     # Right now vendor lives on the same filesystem as system,
@@ -63,15 +68,16 @@ on init
     chown root system /sys/fs/cgroup/memory/sw/tasks
     chmod 0660 /sys/fs/cgroup/memory/sw/tasks
 
-    mkdir /system
-    mkdir /data 0771 system system
-    mkdir /cache 0770 system cache
-    mkdir /config 0500 root root
-
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell 0700 shell shell
     mkdir /mnt/media_rw 0700 media_rw media_rw
     mkdir /storage 0751 root sdcard_r
+
+    # Create mountpoint so Dalvik can mark as slave in zygotes.
+    # And this allow CIFS mounting and other app databases.
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mount tmpfs tmpfs /storage mode=0751,uid=0,gid=1028
+    mount tmpfs tmpfs /mnt/shell mode=0700,uid=0,gid=0
 
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
@@ -202,7 +208,7 @@ on late-init
 
 on post-fs
     # once everything is setup, no need to modify /
-    mount rootfs rootfs / ro remount
+    mount rootfs rootfs / rw remount
     # mount shared so changes propagate into child namespaces
     mount rootfs rootfs / shared rec
 
@@ -215,6 +221,8 @@ on post-fs
     # This may have been created by the recovery system with odd permissions
     chown system cache /cache/recovery
     chmod 0770 /cache/recovery
+    # This may have been created by the recovery system with the wrong context.
+    restorecon /cache/recovery
 
     #change permissions on vmallocinfo so we can grab it from bugreports
     chown root log /proc/vmallocinfo
