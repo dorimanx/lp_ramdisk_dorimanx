@@ -1,0 +1,276 @@
+#CAPP_CKERROR_REPORTER
+import init.ckerror.rc
+
+on post-fs
+    #persist-lg
+    chown system system /persist-lg
+    chmod 0771 /persist-lg
+    mkdir /persist-lg/property 0771 system radio
+    mkdir /persist-lg/autosimlock 0770 system system
+    mkdir /persist-lg/poweron 0775 system system
+    mkdir /persist-lg/tmo 0771 radio radio
+    mkdir /persist-lg/lg_persist_property 0700 root root
+
+    #CAPP_SECUREBOOT
+    exec /sbin/wallpaper -ap
+
+    #QFUSE
+    write /sys/devices/platform/lge-qfprom/sec_read 0
+
+on post-fs-data
+    #CAPP_FONTS
+    mkdir /data/font 775 system system
+    chmod 775 /data/font
+    mkdir /data/font/config 775 system system
+    chmod 775 /data/font/config
+    mkdir /data/font/download 775 system system
+    chmod 775 /data/font/download
+
+    #persist-lg
+    chown system system /persist-lg
+    chmod 0771 /persist-lg
+
+# 2014-11-10 hyukbin.ko@lge.com LGP_DATA_APN_BACKUP_SPRINT [START]
+    mkdir /persist-lg/lgdata 0771 radio radio
+# 2014-11-10 hyukbin.ko@lge.com LGP_DATA_APN_BACKUP_SPRINT [END]
+    #LGDRM
+    mkdir /data/lgdrm 0770 lgdrm lgdrm_acc
+    mkdir /persist-lg/lgdrm 0770 lgdrm lgdrm_acc
+
+    #Widevine
+    mkdir /persist-lg/widevine 0770 drm system
+
+    #Widevine firmware
+    mkdir /persist-lg/firmware 0771 system system
+    exec /system/bin/cpfirmware widevine /persist-lg/firmware
+
+    #Secure clock
+    mkdir /persist-lg/secclk 0700 system system
+
+    #chargerlogo
+    mkdir /persist-lg/chargerlogo 0770 system system
+
+    #DivX DRM
+    mkdir /persist-lg/multimedia 0770 media divxdrm
+    mkdir /persist-lg/multimedia/nx 0770 media divxdrm
+    mkdir /persist-lg/multimedia/uma 0770 media divxdrm
+    mkdir /persist-lg/multimedia/scnt 0770 media divxdrm
+    mkdir /persist-lg/multimedia/scnt/sdadf 0770 media divxdrm
+
+    #Kill-Switch
+    mkdir /persist-lg/mms 0770 system lgmms
+
+    #MM Proxy
+    mkdir /persist-lg/mmoprt 0771 system system
+
+    #Encryption
+    mkdir /persist-lg/encryption 0771 system system
+
+    #secureks
+    mkdir /persist-lg/secureks 0770 system system
+
+    #CAPP_BLUEERROR_HANDLER: temp version, it will be removed
+    chown root system /data/dontpanic
+    chmod 0775 /data/dontpanic
+
+    #LGMDM [a1-mdm-dev@lge.com][ID-MDM-77][ID-MDM-289]
+    mkdir /data/system/lgmdm 0700 system system
+
+    #safety_timer hidden menu support
+    chown system system /sys/class/power_supply/battery/safety_timer
+
+    restorecon_recursive /persist-lg
+    restorecon_check_recursive /persist-lg/multimedia/uma
+    restorecon_check_recursive /persist-lg/multimedia/scnt/sdadf
+
+    # CAPP_INTEGRITY, LGIS [lge-is-dev@lge.com]
+    mkdir /data/system/lgis 0700 system system
+
+    #SELinux
+    mkdir /data/misc/audit 00750 system system
+
+#/* 2013-06-24, juhyup.kim@lge.com LGP_DATA_APN_BACKUP [START] */
+    mkdir /persist-lg/lgdata 0775 radio radio
+#/* 2013-06-24, juhyup.kim@lge.com LGP_DATA_APN_BACKUP [END] */
+
+    # LGBackup Removing Unlabeled Resource
+    rm /data/data/.bnr_fifo_rly
+    rm /data/data/.bnr_fifo_req
+
+    #labeling lg partitions
+    restorecon_check_recursive /sns
+    restorecon_check_recursive /persist-lg
+    restorecon_check_recursive /persist-lg/miracast
+    restorecon_check_recursive /persist-lg/widevine
+    restorecon_check_recursive /persist-lg/secclk
+    restorecon_check_recursive /mpt
+    restorecon_check_recursive /persist
+    restorecon_check_recursive /cust
+    restorecon_check_recursive /eri
+    restorecon_check_recursive /vzw/quality
+    restorecon_check_recursive /carrier
+    restorecon_check_recursive /ve
+    restorecon_check_recursive /OneSeg
+    restorecon /dev/iwland
+
+on boot
+    # Assign TCP buffer thresholds to be ceiling value of technology maximums
+    # Increased technology maximums should be reflected here.
+    //LGP_DATA
+    write /proc/sys/net/core/rmem_max  8388608
+    write /proc/sys/net/core/wmem_max  8388608
+
+#SELinux
+#service auditd /system/bin/auditd -k
+#    class main
+
+#CAPP_RESERVED_USERDATA
+on property:ro.reserve.blockcount=*
+    exec /system/bin/tune2fs -r $ro.reserve.blockcount \
+              -u system -g system $ro.reserve.userdata
+
+#CAPP_POWEROFF_ANI
+service shutdownanim /system/bin/shutdownanimation
+    class main
+    user graphics
+    group graphics system
+    disabled
+    oneshot
+
+#CAPP_NFS
+service nfsserversetup /system/bin/nfsserversetup
+    class late_start
+    user root
+    oneshot
+
+#CAPP_MPROFILER
+service lgprofd /system/bin/lgprofd
+    socket lgprofd stream 666
+
+
+#Application Manager ENABLE_UNINSTALL
+service enable_uninstall  /system/vendor/bin/enable_uninstall.sh
+    disabled
+    oneshot
+
+#Application Manager ENABLE_UNINSTALL
+on property:vold.post_fs_data_done=1
+    start enable_uninstall
+
+#CAPP_LOGCATCHER
+service digicl /system/bin/digicl.sh
+    class main
+    disabled
+    oneshot
+
+#CAPP_LOGCATCHER
+service quickdump /system/bin/quickdump.sh
+    class main
+    disabled
+    oneshot
+    ioprio rt 0
+
+#CAPP_NFS
+service nfskill /system/bin/nfskillprocess
+    disabled
+    oneshot
+    user root
+
+on property:vold.decrypt=trigger_shutdown_framework
+    start nfskill
+
+# CAPP_INTEGRITY, LGIS [lge-is-dev@lge.com]
+service lghashstorage /system/bin/lghashstorageserver
+    class main
+    user system
+    group system lgdrm_acc sdcard_rw media_rw
+
+#Application Manager NTCODE work
+service ntcode_listing /system/vendor/bin/ntcode_listing.sh
+    disabled
+    oneshot
+
+#Application Manager NTCODE work
+on property:persist.sys.mcc-list=*
+    start ntcode_listing
+
+#Useless apks delete
+service apk_delete /system/vendor/bin/apk_delete.sh
+    user root
+    group root
+    disabled
+    oneshot
+
+#Useless apks delete
+on property:persist.data.sbp.update=1
+    start apk_delete
+
+#Customize booting resources
+service runtime_boot_res /system/vendor/bin/runtime_boot_res.sh
+    disabled
+    oneshot
+
+#Customize booting resources
+on property:sbp.load_props_done=1
+    start runtime_boot_res
+
+service run_cache_res /system/vendor/bin/runtime_boot_cache_res.sh
+    disabled
+    oneshot
+
+on property:sbp.bootanim=1
+    start run_cache_res
+
+
+on property:persist.sys.cota.changed=1
+    wait /dev/block/bootdevice/by-name/cust
+    mount ext4 /dev/block/bootdevice/by-name/cust /cust rw remount nosuid nodev barrier=1 noauto_da_alloc
+    restorecon_recursive /cust
+    mkdir /cust/_COTA_RES 0775 system system
+    start cota_update
+
+on property:persist.sys.cota.changed=2
+    wait /dev/block/bootdevice/by-name/cust
+    mount ext4 /dev/block/bootdevice/by-name/cust /cust ro remount nosuid nodev barrier=1 noauto_da_alloc
+    restorecon_recursive /cust
+
+
+service cota_update /system/vendor/bin/cota_update.sh
+    disabled
+    oneshot
+
+#LGBackup System service daemon
+service bnrd /system/bin/bnrd
+    class main
+    socket bnrd stream 660 root system
+    user root
+    group system radio sdcard_rw
+    disabled
+
+on property:sys.lge.bnrd=1
+    start bnrd
+
+# [SEC_DEVENC] decryption and wipe data service
+service decryptwipe /system/bin/vdc --wait cryptfs disableqcrypto wipe
+    disabled
+    oneshot
+
+#LGP_DATA_DSQN [START]
+service dsqn /system/bin/dsqn
+    disabled
+    user root
+
+    on property:persist.lg.data.dsqn=1
+        start dsqn
+
+    on property:persist.lg.data.dsqn=0
+        stop dsqn
+#LGP_DATA_DSQN [END]
+
+# bugreport is triggered by holding down volume down, volume up and power
+service bugreport /system/bin/dumpstate -d -p -B \
+        -o /data/data/com.android.shell/files/bugreports/bugreport
+    class main
+    disabled
+    oneshot
+    keycodes 114 115 116

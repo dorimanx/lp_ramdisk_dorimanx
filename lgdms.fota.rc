@@ -1,0 +1,18 @@
+on fota-init
+    wait /dev/block/mmcblk0
+    chown system system /dev/block/mmcblk0
+    chmod 0770 /dev/block/mmcblk0
+    symlink /storage/sdcard0 /pkg
+
+on fota-boot
+    trigger fota-trigger
+
+on fota-trigger
+    mkdir /cache/fota 0770 system system
+    chown system system /cache/fota
+    chmod 0775 /cache/fota
+    chown system system /cache/fota/usd.dat
+    chmod 0770 /cache/fota/usd.dat
+
+    chown system system /dev/block/mmcblk0
+    chown system system /dev/block/platform/msm_sdcc.1/by-name/fota

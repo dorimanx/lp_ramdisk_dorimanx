@@ -1,0 +1,87 @@
+# Copyright (c) 2011, Code Aurora Forum. All rights reserved.
+# Copyright (c) 2011-2012, LG Electronics Inc. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of Code Aurora nor
+#       the names of its contributors may be used to endorse or promote
+#       products derived from this software without specific prior written
+#       permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+service lg_dm_router1 /system/bin/lg_dm_router 1
+    class late_start
+    user system
+    group system sdcard_r sdcard_rw media_rw
+    disabled
+    oneshot
+
+service lg_dm_router2 /system/bin/lg_dm_router 2
+    class late_start
+    user system
+    group system
+    disabled
+    socket Full.DM.port stream 660 system system
+
+service lg_odm_service1 /system/bin/lg_odm_service 1
+    class late_start
+    user system
+    group system net_raw sdcard_r sdcard_rw media_rw
+    disabled
+    oneshot
+
+service lg_odm_service2 /system/bin/lg_odm_service 2
+    class late_start
+    user system
+    group system net_raw sdcard_r sdcard_rw media_rw
+    disabled
+    oneshot
+    socket Full.ODM.port stream 660 system system
+
+on post-fs
+    chmod 0660 /dev/lge_dm_tty0
+    chown system system /dev/lge_dm_tty0
+
+on property:persist.service.odm_log.enable=true
+     start lg_dm_router1
+
+on property:persist.service.dm_app.enable=true
+    start lg_dm_router2
+
+on property:persist.service.dm_app.enable=false
+    stop lg_dm_router2
+
+on property:persist.service.odmevent.enable=true
+    start lg_odm_service1
+
+on property:persist.service.odm_app.enable=true
+    start lg_odm_service2
+
+on post-fs-data
+
+service modem_debug_info /system/bin/sh /system/bin/modem_debug_info.sh
+	class late_start
+	user system
+	group system
+    disabled
+    oneshot
+
+on property:sys.boot_completed=1
+	start modem_debug_info

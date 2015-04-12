@@ -1,0 +1,4 @@
+on boot
+
+    setprop ro.fm.module BCM
+

@@ -1,0 +1,41 @@
+on fs
+    mkdir /cust 0771 system system
+    wait /dev/block/platform/msm_sdcc.1/by-name/cust
+    exec /system/bin/e2fsck -y /dev/block/platform/msm_sdcc.1/by-name/cust
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cust /cust rw nosuid nodev barrier=1 noauto_da_alloc
+    restorecon_recursive /cust
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cust /cust ro remount nosuid nodev barrier=1 noauto_da_alloc
+
+on init
+    exec /sbin/setup_fs_static \
+        /dev/block/platform/msm_sdcc.1/by-name/cust \
+        no_reboot
+
+on boot
+
+#20130405 iwlan eyes0814@lge.com [START] -----------------------
+    chmod 0755 /system/bin/iwland
+#20130405 iwlan eyes0814@lge.com [END] -----------------------
+
+on post-fs-data
+    single_binary_init
+
+#20130405 iwlan eyes0814@lge.com [START] -----------------------
+service iwland /system/bin/iwland -ddd
+    class main
+    user root
+    oneshot
+#20130405 iwlan eyes0814@lge.com [END] -----------------------
+
+on property:init.svc.media=restarting
+    restart broadcast
+
+service preloadcopy /system/bin/sh /preload_sl.sh
+    class main
+    user root
+    group media_rw system sdcard_rw
+    disabled
+    oneshot
+
+on property:persist.sys.emmc_size=0
+    start preloadcopy
