@@ -132,8 +132,10 @@ case "$target" in
         chown system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
         chown system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
         echo 1 > /sys/module/msm_thermal/core_control/enabled
-        chown root.system /sys/devices/system/cpu/mfreq
-        chmod 220 /sys/devices/system/cpu/mfreq
+	if [ -e /sys/devices/system/cpu/mfreq ]; then
+        	chown root.system /sys/devices/system/cpu/mfreq
+        	chmod 220 /sys/devices/system/cpu/mfreq
+	fi;
         chown root.system /sys/devices/system/cpu/cpu1/online
         chown root.system /sys/devices/system/cpu/cpu2/online
         chown root.system /sys/devices/system/cpu/cpu3/online
@@ -185,16 +187,17 @@ case "$target" in
     "msm8226" | "msm8974" | "msm8610" | "apq8084" | "mpq8092" | "msm8610")
         # Let kernel know our image version/variant/crm_version
         image_version="10:"
-        image_version+=`getprop ro.build.id`
-        image_version+=":"
-        image_version+=`getprop ro.build.version.incremental`
+        image_version_1=`getprop ro.build.id`
+        image_version_2=":"
+        image_version_3=`getprop ro.build.version.incremental`
+
         image_variant=`getprop ro.product.name`
-        image_variant+="-"
-        image_variant+=`getprop ro.build.type`
+        image_variant_1="-"
+        image_variant_2=`getprop ro.build.type`
         oem_version=`getprop ro.build.version.codename`
         echo 10 > /sys/devices/soc0/select_image
-        echo $image_version > /sys/devices/soc0/image_version
-        echo $image_variant > /sys/devices/soc0/image_variant
+        echo "$image_version$image_version_1$image_version_2$image_version_3" > /sys/devices/soc0/image_version
+        echo "$image_variant$image_variant_1$image_variant_2" > /sys/devices/soc0/image_variant
         echo $oem_version > /sys/devices/soc0/image_crm_version
         ;;
 esac
