@@ -663,31 +663,11 @@ service lge-sensor-sh /system/bin/sh /init.galbi2.sensor.sh
     user root
     oneshot
 
-service qcom-post-boot /system/bin/sh /system/etc/init.galbi.post_boot.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
-# Run Kernel and ROM Tunings
-service dorimanx-boot-scripts /sbin/busybox sh /sbin/ext/busybox.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
 #add RCT service
 service rctd /system/bin/rctd
    class late_start
    user root
    group root
-
-# boot_completed time is slower than bootanim stopped time in LOS
-on property:sys.boot_completed=1
-    start qcom-post-boot
-
-on property:sys.boot_completed=1
-    start dorimanx-boot-scripts
 
 service atfwd /system/bin/ATFWD-daemon
     class late_start
