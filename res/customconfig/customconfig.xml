@@ -384,7 +384,7 @@
 
 	<settingsPane description="Here you can select the GPU Governor, set Min and Max GPU frequency and update tuning." name="GPU Governors and settings">
 
-		<spinner description="Select GPU Governor that will control GPU frequency according to GPU load and system needs - if you select Performance Governor, then the GPU will be at MAX frequency nonstop!" name="GPU Active Governor" action="gpu_governor">
+		<spinner description="Select GPU Governor that will control GPU frequency according to GPU load and system needs - if you select Performance Governor, then the GPU will be at MAX frequency nonstop!" name="GPU Active Governor" action="gpu_governor_OFF">
 			<spinnerItem name="MSM-Adreno (default)" value="msm-adreno-tz"/> 
 			<spinnerItem name="Simple_Ondemand" value="simple_ondemand"/> 
 			<spinnerItem name="Conservative" value="conservative"/> 
@@ -393,7 +393,7 @@
 
 		<button description="To update GPU Governor tuning after selection, Push This" name="Update GPU Governor Tuning" action="push-actions/gpu_update" label="Update GPU Governor"/>
 
-		<spinner description="Select GPU Max frequency when needed! GPU will stay at MIN frequency on IDLE." name="GPU Max Speed" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/max_freq">
+		<spinner description="Select GPU Max frequency when needed! GPU will stay at MIN frequency on IDLE." name="GPU Max Speed" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/max_freq_OFF">
 			<spinnerItem name="650 Mhz" value="650000000"/> 
 			<spinnerItem name="533 Mhz" value="533333000"/> 
 			<spinnerItem name="450 Mhz" value="450000000"/> 
@@ -403,7 +403,7 @@
 			<spinnerItem name="100 Mhz" value="100000000"/> 
 		</spinner>
 
-		<spinner description="Select GPU Min frequency when going to IDLE - if you set higher than 200 MHz, then the GPU will hold selected frequency on IDLE." name="GPU Min Speed" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/min_freq">
+		<spinner description="Select GPU Min frequency when going to IDLE - if you set higher than 200 MHz, then the GPU will hold selected frequency on IDLE." name="GPU Min Speed" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/min_freq_OFF">
 			<spinnerItem name="100 Mhz" value="100000000"/> 
 			<spinnerItem name="200 Mhz" value="200000000"/> 
 			<spinnerItem name="320 Mhz" value="320000000"/> 
@@ -417,34 +417,34 @@
 
 	<settingsPane description="Here you can tune Msm-Adreno-Tz Governor! Use the controls ONLY if Msm-Adreno-Tz is selected (otherwise nothing will happen)." name="Msm-Adreno-Tz Controls">
 
-		<seekBar description="Msm-Adreno-Tz CAP, more info will be added later, must NOT be HIGHER than TARGET value! (Default: 75)" name="CAP Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/msm-adreno-tz/cap" unit="%" min="40" reversed="false" step="5" max="90"/>
+		<seekBar description="Msm-Adreno-Tz CAP, more info will be added later, must NOT be HIGHER than TARGET value! (Default: 75)" name="CAP Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/msm-adreno-tz/cap_OFF" unit="%" min="40" reversed="false" step="5" max="90"/>
 
-		<seekBar description="Msm-Adreno-tz TARGET, more info will be added later, must NOT be LOWER than TARGET value! (Default: 80)" name="TARGET Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/msm-adreno-tz/target" unit="%" min="40" reversed="false" step="5" max="90"/>
+		<seekBar description="Msm-Adreno-tz TARGET, more info will be added later, must NOT be LOWER than TARGET value! (Default: 80)" name="TARGET Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/msm-adreno-tz/target_OFF" unit="%" min="40" reversed="false" step="5" max="90"/>
 
-		<spinner description="Here you can manually control Simple_ramp_threshold and Simple_laziness value, or let the Governor decide automatically. If set to AUTO, then controls below have no effect." name="Msm-Adreno-Tz Extra Controls" action="generic /sys/module/simple_gpu_algorithm/parameters/simple_gpu_activate">
+		<spinner description="Here you can manually control Simple_ramp_threshold and Simple_laziness value, or let the Governor decide automatically. If set to AUTO, then controls below have no effect." name="Msm-Adreno-Tz Extra Controls" action="generic /sys/module/simple_gpu_algorithm/parameters/simple_gpu_activate_OFF">
 			<spinnerItem name="Auto Mode" value="0"/> 
 			<spinnerItem name="Allow Controls" value="1"/> 
 		</spinner>
 
-		<seekBar description="Msm-Adreno-Tz Simple_Laziness control, here you can set the amount of steps to wait on high freq before reducing lower if nothing for GPU to do. higher set here, more battery drained, but more smooth UI (Default: 2)" name="Simple_Laziness Value" action="generic /sys/module/simple_gpu_algorithm/parameters/simple_laziness" unit="step" min="1" reversed="false" step="1" max="5"/>
+		<seekBar description="Msm-Adreno-Tz Simple_Laziness control, here you can set the amount of steps to wait on high freq before reducing lower if nothing for GPU to do. higher set here, more battery drained, but more smooth UI (Default: 2)" name="Simple_Laziness Value" action="generic /sys/module/simple_gpu_algorithm/parameters/simple_laziness_OFF" unit="step" min="1" reversed="false" step="1" max="5"/>
 
-		<seekBar description="Msm-Adreno-Tz Simple_ramp_threshold control, higher is set here, longer GPU freq will stay LOW on GPU load. (Default: 6000)" name="Simple_Laziness Value" action="generic /sys/module/simple_gpu_algorithm/parameters/simple_ramp_threshold" unit="ramp" min="2000" reversed="false" step="500" max="10000"/>
+		<seekBar description="Msm-Adreno-Tz Simple_ramp_threshold control, higher is set here, longer GPU freq will stay LOW on GPU load. (Default: 6000)" name="Simple_Laziness Value" action="generic /sys/module/simple_gpu_algorithm/parameters/simple_ramp_threshold_OFF" unit="ramp" min="2000" reversed="false" step="500" max="10000"/>
 
 	</settingsPane>
 
 	<settingsPane description="Here you can tune Simple_Ondemand Governor! Use the controls ONLY if Simple_Ondemand is selected (otherwise nothing will happen)." name="Simple_Ondemand Controls">
 
-		<seekBar description="Simple_Ondemand Downdifferential - when GPU load drops below Downdifferential, GPU frequency is reduced to MIN (must NOT be HIGHER than Upthreshold value)! (Default equal 20)" name="Downdifferential Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/downdifferential" unit="%" min="5" reversed="false" step="5" max="60"/>
+		<seekBar description="Simple_Ondemand Downdifferential - when GPU load drops below Downdifferential, GPU frequency is reduced to MIN (must NOT be HIGHER than Upthreshold value)! (Default equal 20)" name="Downdifferential Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/downdifferential_OFF" unit="%" min="5" reversed="false" step="5" max="60"/>
 
-		<seekBar description="Simple_Ondemand Upthreshold - when GPU load raises above Upthreshold, GPU frequency is raised to next frequency step until it reaches MAX (must NOT be LOWER than Downdifferential)! (Default equal 60)" name="Upthreshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/upthreshold" unit="%" min="30" reversed="false" step="5" max="90"/>
+		<seekBar description="Simple_Ondemand Upthreshold - when GPU load raises above Upthreshold, GPU frequency is raised to next frequency step until it reaches MAX (must NOT be LOWER than Downdifferential)! (Default equal 60)" name="Upthreshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/upthreshold_OFF" unit="%" min="30" reversed="false" step="5" max="90"/>
 
 	</settingsPane>
 
 	<settingsPane description="Here you can tune Conservative Governor! Use the controls ONLY if Conservative is selected (otherwise nothing will happen)." name="Conservative Controls">
 
-		<seekBar description="Conservative Downthreshold - hen GPU load drops below Downdifferential, GPU frequency is reduced to MIN (must NOT be HIGHER than Upthreshold value)! (Default equal 20)" name="Downthreshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/downthreshold" unit="%" min="5" reversed="false" step="5" max="60"/>
+		<seekBar description="Conservative Downthreshold - hen GPU load drops below Downdifferential, GPU frequency is reduced to MIN (must NOT be HIGHER than Upthreshold value)! (Default equal 20)" name="Downthreshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/downthreshold_OFF" unit="%" min="5" reversed="false" step="5" max="60"/>
 
-		<seekBar description="Conservative Upthreshold - when GPU load raises above Upthreshold, GPU frequency is raised to next frequency step until it reaches MAX (must NOT be LOWER than Downthreshold)! (Default equal 50)" name="Upthreshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/upthreshold_cons" unit="%" min="30" reversed="false" step="5" max="90"/>
+		<seekBar description="Conservative Upthreshold - when GPU load raises above Upthreshold, GPU frequency is raised to next frequency step until it reaches MAX (must NOT be LOWER than Downthreshold)! (Default equal 50)" name="Upthreshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/upthreshold_cons_OFF" unit="%" min="30" reversed="false" step="5" max="90"/>
 
 	</settingsPane>
 
@@ -454,12 +454,12 @@
 
 	<settingsPane description="Here you can select main control app and unlock PA gain control" name="Sound Controls">
 
-		<spinner description="Sound Gain Control selector, here you can select gain control app. or STweaks or Faux Sound! when one app selected other has no effect on gain! controls can be tuned but no effect! (default STweaks)" name="Gain Control App Selector" action="generic /sys/kernel/sound_control_3/lge_stweaks_control">
+		<spinner description="Sound Gain Control selector, here you can select gain control app. or STweaks or Faux Sound! when one app selected other has no effect on gain! controls can be tuned but no effect! (default STweaks)" name="Gain Control App Selector" action="generic /sys/kernel/sound_control_3/lge_stweaks_control_OFF">
 			<spinnerItem name="STweaks Control" value="1"/>
 			<spinnerItem name="Faux Sound Control" value="0"/>
 		</spinner>
 
-		<spinner description="HeadPhones PA GAIN LOCK, to hear any effect change the lock when no sound is playing! this setting effect both STweaks and Faux Sound" name="HeadPhones PA GAIN LOCK" action="generic /sys/kernel/sound_control_3/lge_sound_pa_control_locked">
+		<spinner description="HeadPhones PA GAIN LOCK, to hear any effect change the lock when no sound is playing! this setting effect both STweaks and Faux Sound" name="HeadPhones PA GAIN LOCK" action="generic /sys/kernel/sound_control_3/lge_sound_pa_control_locked_OFF">
 			<spinnerItem name="PA GAIN LOCKED" value="1"/> 
 			<spinnerItem name="PA GAIN UNLOCKED" value="0"/> 
 		</spinner>
@@ -468,19 +468,19 @@
 
 	<settingsPane description="Here you can tune MIC, SPEAKER and HeadPhones gain volume" name="Sound Controls">
 
-		<seekBar description="Control for HeadPhones LEFT gain volume!" name="HeadPhones Gain LEFT" action="generic_headphone_left" unit="gain" min="-30" reversed="false" step="1" max="20"/>
+		<seekBar description="Control for HeadPhones LEFT gain volume!" name="HeadPhones Gain LEFT" action="generic_headphone_left_OFF" unit="gain" min="-30" reversed="false" step="1" max="20"/>
 
-		<seekBar description="Control for HeadPhones RIGHT gain volume!" name="HeadPhones Gain RIGHT" action="generic_headphone_right" unit="gain" min="-30" reversed="false" step="1" max="20"/>
+		<seekBar description="Control for HeadPhones RIGHT gain volume!" name="HeadPhones Gain RIGHT" action="generic_headphone_right_OFF" unit="gain" min="-30" reversed="false" step="1" max="20"/>
 
-		<seekBar description="Control for InCall small speaker gain volume! depend on cortex service ON (default is ON), works when no headphones plugged! and you are on call and screen is turned off for 3 sec! then gain is changed for small speaker. when call is finished, in case screen is ON, in 10 sec gain will be restored for HEADPHONES gains (left, right) that are set above, same if screen is turned off! for 3 sec without call. this control will work only if STweaks is the gain controller! see on top selector" name="InCall Speaker Gain" action="generic_cortex /tmp/incall_volume" unit="gain" min="-6" reversed="false" step="1" max="6"/>
+		<seekBar description="Control for InCall small speaker gain volume! depend on cortex service ON (default is ON), works when no headphones plugged! and you are on call and screen is turned off for 3 sec! then gain is changed for small speaker. when call is finished, in case screen is ON, in 10 sec gain will be restored for HEADPHONES gains (left, right) that are set above, same if screen is turned off! for 3 sec without call. this control will work only if STweaks is the gain controller! see on top selector" name="InCall Speaker Gain" action="generic_cortex /tmp/incall_volume_OFF" unit="gain" min="-6" reversed="false" step="1" max="6"/>
 
-		<seekBar description="Control for Loud Speaker gain volume! When you set higher, better listen to music so you will know when it is more than what the hardware can handle." name="Speaker Gain" action="generic_speaker_sound /sys/kernel/sound_control_3/lge_speaker_gain" unit="gain" min="-15" reversed="false" step="1" max="20"/>
+		<seekBar description="Control for Loud Speaker gain volume! When you set higher, better listen to music so you will know when it is more than what the hardware can handle." name="Speaker Gain" action="generic_speaker_sound /sys/kernel/sound_control_3/lge_speaker_gain_OFF" unit="gain" min="-15" reversed="false" step="1" max="20"/>
 
-		<seekBar description="Control for HeadPhones Analog PA Gain! if your ROM support change PA Gain, then switch the PA LOCK above to PA GAIN UNLOCKED. if you dont hear any change, then your ROM dont support this control. set PA GAIN LOCKED. it's will boost the headphones gain." name="HeadPhones PA Gain" action="generic_pa_sound /sys/kernel/sound_control_3/lge_headphone_pa_gain" unit="gain" min="-6" reversed="false" step="1" max="6"/>
+		<seekBar description="Control for HeadPhones Analog PA Gain! if your ROM support change PA Gain, then switch the PA LOCK above to PA GAIN UNLOCKED. if you dont hear any change, then your ROM dont support this control. set PA GAIN LOCKED. it's will boost the headphones gain." name="HeadPhones PA Gain" action="generic_pa_sound /sys/kernel/sound_control_3/lge_headphone_pa_gain_OFF" unit="gain" min="-6" reversed="false" step="1" max="6"/>
 
-		<seekBar description="Control for Camera recording MIC gain volume!" name="Camera MIC gain" action="generic_mic_sound /sys/kernel/sound_control_3/lge_cam_mic_gain" unit="gain" min="-40" reversed="false" step="1" max="24"/>
+		<seekBar description="Control for Camera recording MIC gain volume!" name="Camera MIC gain" action="generic_mic_sound /sys/kernel/sound_control_3/lge_cam_mic_gain_OFF" unit="gain" min="-40" reversed="false" step="1" max="24"/>
 
-		<seekBar description="Control for Handset MIC gain volume on call!" name="Handset MIC gain on call" action="generic_mic_sound /sys/kernel/sound_control_3/lge_mic_gain" unit="gain" min="-40" reversed="false" step="1" max="24"/>
+		<seekBar description="Control for Handset MIC gain volume on call!" name="Handset MIC gain on call" action="generic_mic_sound /sys/kernel/sound_control_3/lge_mic_gain_OFF" unit="gain" min="-40" reversed="false" step="1" max="24"/>
 
 	</settingsPane>
 
@@ -605,17 +605,11 @@
 
 	</settingsPane>
 
-	<settingsPane description="Camera ROM Driver Reset" name="Camera Reset">
-
-		<button description="Click here to RESET camera driver if you see BLACK screen when you open camera! That is a KK ROM BUG of unknown origin for now. So, you can REBOOT or just push Reset Camera Now, then reopen camera." name="Reset Camera Driver" action="push-actions/camera_restart" label="RESET CAMERA NOW"/>
-
-	</settingsPane>
-
 	<settingsPane description="Screen Backlight Control, here you can set custom values for Auto backlight driver." name="Min Backlight Control">
 
-		<checkbox description="Enable or Disable custom backlight override set below, this will allow user to set MIN backlight in full darkness." name="Min Backlight Override Switch" action="generic01 /sys/devices/f9967000.i2c/i2c-0/0-0038/lm3630_min_backlight_reducer" label="Min Backlight Override Switch"/>
+		<checkbox description="Enable or Disable custom backlight override set below, this will allow user to set MIN backlight in full darkness." name="Min Backlight Override Switch" action="generic01 /sys/devices/f9967000.i2c/i2c-0/0-0038/lm3630_min_backlight_reducer_OFF" label="Min Backlight Override Switch"/>
 
-		<seekBar description="If custom backlight switch is ON above!, you can set the MIN backlight in dark place when ROM auto backlight is used, and you feel that screen is too bright! in order for change to take effect you need to make the screen brighter then set auto, and see that it's will be darker than was on default. you can see live change only if current LUX is under 100! (Default ROM value equal 80Lux, and when screen is dimmed before turn off it's 50Lux)" name="Min Backlight Lux" action="generic /sys/devices/f9967000.i2c/i2c-0/0-0038/lm3630_min_backlight_set" unit="Lux" min="10" reversed="false" step="10" max="100"/>
+		<seekBar description="If custom backlight switch is ON above!, you can set the MIN backlight in dark place when ROM auto backlight is used, and you feel that screen is too bright! in order for change to take effect you need to make the screen brighter then set auto, and see that it's will be darker than was on default. you can see live change only if current LUX is under 100! (Default ROM value equal 80Lux, and when screen is dimmed before turn off it's 50Lux)" name="Min Backlight Lux" action="generic /sys/devices/f9967000.i2c/i2c-0/0-0038/lm3630_min_backlight_set_OFF" unit="Lux" min="10" reversed="false" step="10" max="100"/>
 
 	</settingsPane>
 
@@ -703,13 +697,13 @@
 
 		<button description="Here you can RESET battery fuel counter, if you see that battery present counter is not showing correct state, you can ask kernel to recalibrate battery state." name="Reset Battery Counter" action="push-actions/reset_battery" label="Reset Battery Counter"/>
 
-		<checkbox description="Enable support for iPhone or iPad chargers and treat them as AC power source - this can break support for other not original charger, so enable only if you are using iPhone or iPad chargers." name="Support Apple Chargers" action="generic01 /sys/module/dwc3_msm/parameters/prop_chg_detect" label="Support Apple Chargers"/>
+		<checkbox description="Enable support for iPhone or iPad chargers and treat them as AC power source - this can break support for other not original charger, so enable only if you are using iPhone or iPad chargers." name="Support Apple Chargers" action="generic01 /sys/module/dwc3_msm/parameters/prop_chg_detect_OFF" label="Support Apple Chargers"/>
 
 	</settingsPane>
 
 	<settingsPane description="Enable using Android phone as USB keyboard for your PC! Let's say you don't have a keyboard and you really need one! disconnect USB!!! make sure you are in MTP mode!!! enable the mode! Connect your phone via USB, get the app named USB KEYBOARD, and have fun!" name="Android USB HID Device">
 
-		<spinner description="Enable or disable USB HID Device driver to control PC keyboard and mouse from phone! MUST BE IN MTP MODE(not LG Software)!!! or you will get blue screen in your PC!" name="USB HID Device" action="usb_keyboard">
+		<spinner description="Enable or disable USB HID Device driver to control PC keyboard and mouse from phone! MUST BE IN MTP MODE(not LG Software)!!! or you will get blue screen in your PC!" name="USB HID Device" action="usb_keyboard_OFF">
 			<spinnerItem name="Enable USB HID" value="enable"/> 
 			<spinnerItem name="Disable USB HID" value="disable"/> 
 		</spinner>

@@ -36,6 +36,22 @@ if [ ! -d /system/etc/init.d ]; then
 	$BB chmod 755 /system/etc/init.d/;
 fi;
 
+OPEN_RW;
+
+# start CROND by tree root, so it's will not be terminated.
+$BB sh /res/crontab_service/service.sh;
+
+# some nice thing for dev
+if [ ! -e /cpufreq ]; then
+	$BB ln -s /sys/devices/system/cpu/cpu0/cpufreq/ /cpufreq;
+	$BB ln -s /sys/devices/system/cpu/cpufreq/ /cpugov;
+	$BB ln -s /sys/module/msm_thermal/parameters/ /cputemp;
+	$BB ln -s /sys/kernel/alucard_hotplug/ /hotplugs/alucard;
+	$BB ln -s /sys/kernel/intelli_plug/ /hotplugs/intelli;
+	$BB ln -s /sys/module/msm_hotplug/ /hotplugs/msm_hotplug;
+	$BB ln -s /sys/devices/system/cpu/cpufreq/all_cpus/ /all_cpus;
+fi;
+
 CRITICAL_PERM_FIX()
 {
 	# critical Permissions fix
@@ -50,6 +66,27 @@ CRITICAL_PERM_FIX()
 }
 CRITICAL_PERM_FIX;
 
+ONDEMAND_TUNING()
+{
+	echo "95" > /cpugov/ondemand/micro_freq_up_threshold;
+	echo "10" > /cpugov/ondemand/down_differential;
+	echo "3" > /cpugov/ondemand/down_differential_multi_core;
+	echo "1" > /cpugov/ondemand/sampling_down_factor;
+	echo "70" > /cpugov/ondemand/up_threshold;
+	echo "1728000" > /cpugov/ondemand/sync_freq;
+	echo "1574400" > /cpugov/ondemand/optimal_freq;
+	echo "1728000" > /cpugov/ondemand/optimal_max_freq;
+	echo "14" > /cpugov/ondemand/middle_grid_step;
+	echo "20" > /cpugov/ondemand/high_grid_step;
+	echo "65" > /cpugov/ondemand/middle_grid_load;
+	echo "89" > /cpugov/ondemand/high_grid_load;
+}
+
+# oom and mem perm fix
+$BB chmod 666 /sys/module/lowmemorykiller/parameters/cost;
+$BB chmod 666 /sys/module/lowmemorykiller/parameters/adj;
+$BB chmod 666 /sys/module/lowmemorykiller/parameters/minfree
+
 # make sure we own the device nodes
 $BB chown system /sys/devices/system/cpu/cpufreq/ondemand/*
 $BB chown system /sys/devices/system/cpu/cpu0/cpufreq/*
@@ -61,9 +98,14 @@ $BB chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 $BB chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 $BB chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
 $BB chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/stats/*
+$BB chmod 666 /sys/devices/system/cpu/cpufreq/all_cpus/*
 $BB chmod 666 /sys/devices/system/cpu/cpu1/online
 $BB chmod 666 /sys/devices/system/cpu/cpu2/online
 $BB chmod 666 /sys/devices/system/cpu/cpu3/online
+$BB chmod 666 /sys/module/msm_thermal/parameters/*
+$BB chmod 666 /sys/kernel/intelli_plug/*
+$BB chmod 666 /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor
+$BB chmod 666 /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/*_freq
 
 # Fix ROM dev wrong sets.
 setprop persist.adb.notify 0
@@ -144,6 +186,26 @@ echo "$SPEED" > $DEBUG/speed_bin;
 BUSYBOX_VER=$(busybox | grep "BusyBox v" | cut -c0-15);
 echo "$BUSYBOX_VER" > $DEBUG/busybox_ver;
 
+# start CORTEX by tree root, so it's will not be terminated.
+sed -i "s/cortexbrain_background_process=[0-1]*/cortexbrain_background_process=1/g" /sbin/ext/cortexbrain-tune.sh;
+if [ "$(pgrep -f "cortexbrain-tune.sh" | wc -l)" -eq "0" ]; then
+	$BB nohup $BB sh /sbin/ext/cortexbrain-tune.sh > /data/.dori/cortex.txt &
+fi;
+
+# Apps Install
+OPEN_RW;
+$BB sh /sbin/ext/install.sh;
+
+if [ "$stweaks_boot_control" == "yes" ]; then
+	# apply Synapse monitor
+	$BB sh /res/synapse/uci reset;
+	# apply STweaks settings
+	$BB sh /res/uci_boot.sh apply;
+	$BB mv /res/uci_boot.sh /res/uci.sh;
+else
+	$BB mv /res/uci_boot.sh /res/uci.sh;
+fi;
+
 ######################################
 # Loading Modules
 ######################################
@@ -184,6 +246,13 @@ fi;
 
 OPEN_RW;
 
+# set ondemand tuning.
+ONDEMAND_TUNING;
+
+# Turn off CORE CONTROL, to boot on all cores!
+$BB chmod 666 /sys/module/msm_thermal/core_control/*
+echo "0" > /sys/module/msm_thermal/core_control/core_control;
+
 # Start any init.d scripts that may be present in the rom or added by the user
 $BB chmod 755 /system/etc/init.d/*;
 if [ "$init_d" == "on" ]; then
@@ -205,6 +274,8 @@ if [ "$stweaks_boot_control" == "yes" ]; then
 	# Load Custom Modules
 	MODULES_LOAD;
 fi;
+
+echo "0" > /cputemp/freq_limit_debug;
 
 # script finish here, so let me know when
 TIME_NOW=$(date)
