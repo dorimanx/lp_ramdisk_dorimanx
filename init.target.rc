@@ -43,6 +43,12 @@ on post-fs
 #    export LD_PRELOAD /vendor/lib/libNimsWrap.so
 
 on fs
+    # auto mount ext4 or f2fs
+    chmod 0777 /sbin/fstab_mount/data_system.sh
+    wait /dev/block/platform/msm_sdcc.1/by-name/system
+    wait /dev/block/platform/msm_sdcc.1/by-name/userdata
+    exec /sbin/fstab_mount/data_system.sh
+
     mount_all fstab.g2
 
     # Keeping following partitions outside fstab file. As user may not have
@@ -50,8 +56,12 @@ on fs
     # results in failure to launch late-start class.
 
     wait /dev/block/platform/msm_sdcc.1/by-name/cache
-    exec /system/bin/e2fsck -y /dev/block/platform/msm_sdcc.1/by-name/cache
-    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cache /cache nosuid nodev noatime barrier=1 noauto_da_alloc errors=continue
+#   exec /system/bin/e2fsck -y /dev/block/platform/msm_sdcc.1/by-name/cache
+#   mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cache /cache nosuid nodev noatime barrier=1 noauto_da_alloc errors=continue
+
+    # Auto mount cache for f2fs
+    chmod 0777 /sbin/fstab_mount/cache.sh
+    exec /sbin/fstab_mount/cache.sh
 
     wait /dev/block/platform/msm_sdcc.1/by-name/persist
     exec /system/bin/e2fsck -y /dev/block/platform/msm_sdcc.1/by-name/persist

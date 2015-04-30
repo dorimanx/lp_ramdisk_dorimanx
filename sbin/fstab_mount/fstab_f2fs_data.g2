@@ -5,17 +5,13 @@
 #TODO: Add 'check' as fs_mgr_flags with data partition.
 # Currently we dont have e2fsck compiled. So fs check would failed.
 
-#<src>                                                <mnt_point>  <type>  <mnt_flags and options>                    	 <fs_mgr_flags>
-/dev/block/platform/msm_sdcc.1/by-name/system         /system      ext4    ro,barrier=1,noauto_da_alloc,errors=continue  wait,check
-/dev/block/platform/msm_sdcc.1/by-name/userdata       /data        f2fs    nosuid,nodev				         wait,check,encryptable=/dev/block/platform/msm_sdcc.1/by-name/encrypt
-
-# In Kitkat, fstab.(ro.hardware) file is used to mount sdcard and
-# other devices instead of vold.fstab.
-# G2-KK-FS@lge.com, For sdcard and USB-OTG
+#<src>                                                <mnt_point>  <type>  <mnt_flags and options>                     <fs_mgr_flags>
+/dev/block/platform/msm_sdcc.1/by-name/system         /system                 ext4    ro,barrier=1,noauto_da_alloc     wait,check
+/dev/block/platform/msm_sdcc.1/by-name/userdata       /data                   f2fs    nosuid,nodev         wait,check,encryptable=/dev/block/platform/msm_sdcc.1/by-name/encrypt
 /devices/msm_sdcc.2/mmc_host                          /storage/external_SD    vfat    nosuid,nodev         wait,voldmanaged=external_SD:auto
-/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage1    vfat    nosuid,nodev         wait,voldmanaged=USBstorage1:auto 
-/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage2    vfat    nosuid,nodev         wait,voldmanaged=USBstorage2:auto 
-/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage3    vfat    nosuid,nodev         wait,voldmanaged=USBstorage3:auto 
-/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage4    vfat    nosuid,nodev         wait,voldmanaged=USBstorage4:auto 
-/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage5    vfat    nosuid,nodev         wait,voldmanaged=USBstorage5:auto 
-/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage6    vfat    nosuid,nodev         wait,voldmanaged=USBstorage6:auto 
+/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage1    vfat    nosuid,nodev         wait,voldmanaged=USBstorage1:auto
+/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage2    vfat    nosuid,nodev         wait,voldmanaged=USBstorage2:auto
+/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage3    vfat    nosuid,nodev         wait,voldmanaged=USBstorage3:auto
+/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage4    vfat    nosuid,nodev         wait,voldmanaged=USBstorage4:auto
+/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage5    vfat    nosuid,nodev         wait,voldmanaged=USBstorage5:auto
+/devices/platform/xhci-hcd/usb1/1-1                   /storage/USBstorage6    vfat    nosuid,nodev         wait,voldmanaged=USBstorage6:auto

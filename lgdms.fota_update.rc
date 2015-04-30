@@ -20,7 +20,11 @@ on fota-update
 	#[LGE_UPDATE_S] DMS_SYSTEM dms-fota@lge.com 2012/03/13
 	
 	wait /dev/block/platform/msm_sdcc.1/by-name/system
-	mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system rw data=journal barrier=1
+	#mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system rw data=journal barrier=1
+
+	# auto mount ext4 or f2fs
+	chmod 0777 /sbin/fstab_mount/system.sh
+	exec /sbin/fstab_mount/system.sh
 	
 	wait /dev/block/platform/msm_sdcc.1/by-name/cust
 	mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cust /cust rw data=journal barrier=1
@@ -29,7 +33,11 @@ on fota-update
 	wait /dev/block/platform/msm_sdcc.1/by-name/cache
 	wait /dev/block/platform/msm_sdcc.1/by-name/cache
 	#exec /system/bin/e2fsck -y /dev/block/platform/msm_sdcc.1/by-name/cache
-	mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cache /cache nosuid nodev data=journal barrier=1	
+	#mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cache /cache nosuid nodev data=journal barrier=1
+
+	# Auto mount cache for f2fs
+	chmod 0777 sbin/fstab_mount/cache.sh
+	exec sbin/fstab_mount/cache.sh
 
 #[LGE_UPDATE_E] DMS_SYSTEM dms-fota@lge.com 2012/03/13
     
