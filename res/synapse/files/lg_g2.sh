@@ -3,12 +3,6 @@
 BB=/sbin/busybox;
 
 case "$1" in
-	LiveAcpu_pvs)
-		$BB echo "`$BB cat /data/.dori/acpu_pvs`"
-	;;
-	LiveSpeed_bin)
-		$BB echo "`$BB cat /data/.dori/speed_bin`"
-	;;
 	BusyBox_ver)
 		$BB echo "`$BB cat /data/.dori/busybox_ver`"
 	;;

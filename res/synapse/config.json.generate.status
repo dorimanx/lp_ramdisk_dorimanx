@@ -132,20 +132,6 @@ cat << CTAG
 					refresh:50000,
 					action:"live busybox_ver"
 				}},
-			{ STitleBar:{
-				title:"CPU PVS MODEL"
-			}},
-				{ SLiveLabel:{
-					refresh:50000,
-					action:"live Acpu_pvs"
-				}},
-			{ STitleBar:{
-				title:"CPU SPEED BIN"
-			}},
-				{ SLiveLabel:{
-					refresh:50000,
-					action:"live Speed_bin"
-				}},
 			{ SPane:{
 				title:"Kernel Logs",
 				description:"Save the logcat (App/system debug), dmesg (active kernel output) or last_kmsg (same as dmesg but from the last shutdown). Submit last_kmsg whenever you face issue (random reboot, freeze) and rebooting kernel resolved that issue."

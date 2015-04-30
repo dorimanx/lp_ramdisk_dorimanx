@@ -8,12 +8,6 @@ case $1 in
 	CPUGovernorList)
 		$BB echo `sh $DEVICE LiveCPUGovernorList`;
 	;;
-	Acpu_pvs)
-		$BB echo `sh $DEVICE LiveAcpu_pvs`;
-	;;
-	Speed_bin)
-		$BB echo `sh $DEVICE LiveSpeed_bin`;
-	;;
 	busybox_ver)
 		$BB echo `sh $DEVICE BusyBox_ver`;
 	;;
