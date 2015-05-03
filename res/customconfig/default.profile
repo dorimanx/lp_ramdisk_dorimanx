@@ -82,7 +82,6 @@ init_d=off
 logger=1
 force_fast_charge=2
 fast_charge_level=1600
-prop_chg_detect=off
 usb_keyboard=disable
 sweep2sleep=on
 cortexbrain_background_process=1
