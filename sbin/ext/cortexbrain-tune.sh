@@ -454,13 +454,13 @@ cortexbrain_background_process=1;
 
 if [ "$cortexbrain_background_process" -eq "1" ] && [ "$(pgrep -f "/sbin/ext/cortexbrain-tune.sh" | wc -l)" -eq "2" ]; then
 	(while true; do
-		while [ "$(cat /sys/power/autosleep)" != "off" ]; do
+		while [ "$(cat /sys/module/powersuspend/parameters/sleep_state)" != "0" ]; do
 			sleep "3";
 		done;
 		# AWAKE State. all system ON
 		AWAKE_MODE;
 
-		while [ "$(cat /sys/power/autosleep)" != "mem" ]; do
+		while [ "$(cat /sys/module/powersuspend/parameters/sleep_state)" != "1" ]; do
 			sleep "3";
 		done;
 		# SLEEP state. All system to power save
