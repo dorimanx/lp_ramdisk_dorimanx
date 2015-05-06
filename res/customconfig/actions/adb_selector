@@ -20,6 +20,7 @@ if [ "a$2" != "a" ]; then
 			rm -f /sbin/adbd;
 			ln -s /sbin/adbd_lg /sbin/adbd;
 			start adbd
+			echo "adbd_lg" > /data/.dori/adbd_selector;
 		else
 			echo "adbd_lg" > /data/.dori/adbd_selector;
 		fi;
