@@ -714,6 +714,15 @@
 
 	</settingsPane>
 
+	<settingsPane description="Rooted ADB control." name="Rootted ADB">
+
+		<spinner description="Allow ROOTED ADB shell by default, no SU needed, or use more secure and original by LG, developers need direct access to system via adb, so it's can be done by using DEV ROOTED ADB" name="ADB Selector" action="adb_selector">
+			<spinnerItem name="Protected ADB (default)" value="1"/> 
+			<spinnerItem name="DEV ROOTED ADB" value="0"/> 
+		</spinner>
+
+	</settingsPane>
+
 	<settingsPane description="Sweep2Sleep function control." name="Sweep2Sleep">
 
 		<checkbox description="Enable Sweep2Sleep function that allows to turn screen off by sweeping from right to left or backwards on the bottom of the screen (navigation bar)! If you have removed the soft buttons bar, then you have to turn this function OFF!" name="Sweep2Sleep Control" action="generic01 /sys/sweep2sleep/sweep2sleep" label="Sweep2Sleep"/>
