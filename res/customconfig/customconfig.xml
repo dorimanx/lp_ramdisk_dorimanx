@@ -459,7 +459,7 @@
 			<spinnerItem name="Faux Sound Control" value="0"/>
 		</spinner>
 
-		<spinner description="HeadPhones PA GAIN LOCK, to hear any effect change the lock when no sound is playing! this setting effect both STweaks and Faux Sound" name="HeadPhones PA GAIN LOCK" action="generic /sys/kernel/sound_control_3/lge_sound_pa_control_locked">
+		<spinner description="HeadPhones PA GAIN LOCK, to hear any effect change the lock when no sound is playing! this setting effect both STweaks and Faux Sound, READ THIS! if you unlocked and now sound is going crazy! up down and side to side, LOCK it back! reboot, and dont ever touch it, your device does not work with PA analog gain, deal with it. it's not LG feature, it's hack." name="HeadPhones PA GAIN LOCK" action="generic /sys/kernel/sound_control_3/lge_sound_pa_control_locked">
 			<spinnerItem name="PA GAIN LOCKED" value="1"/> 
 			<spinnerItem name="PA GAIN UNLOCKED" value="0"/> 
 		</spinner>
