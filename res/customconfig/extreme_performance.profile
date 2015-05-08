@@ -72,7 +72,6 @@ reset_battery=on
 ad_block_update=off
 cron_db_optimizing=on
 cron_clear_app_cache=on
-cron_zipalign=off
 selinux_control=off
 lm3630_min_backlight_reducer=off
 lm3630_min_backlight_set=80

@@ -582,8 +582,6 @@
 
 		<checkbox description="Cron to clear app-cache every day at 4:00 AM, only if CPU is resting (IDLE)!" name="Clean app-cache" action="generic_cortex /tmp/cron_clear_app_cache" label="Disk Clean task every day at 4:00 AM"/>
 
-		<checkbox description="Cron to zipalign app every day at 4:50 AM, only if CPU is resting (IDLE)! This can help to reduce errors, bugs, applications FC, and improve applications load speed. WARNING! Backup all apps before use, as this process will remove apps that are BROKEN and not compressed or compiled correctly, so you may find some apps missing! Use it AT YOUR OWN RISK and update the broken applications!" name="Zipalign Task" action="generic_cortex /tmp/cron_zipalign" label="Zipalign Task Every day at 4:50 AM"/>
-
 		<button description="Use this button to check if Cron Task Jobs are done as requested. This will show the log for all finished jobs." name="Test Cron Task jobs" action="push-actions/crontab_log" label="Test Cron Task Jobs"/>
 
 	</settingsPane>
@@ -593,8 +591,6 @@
 <settingsTab name="Other">
 
 	<settingsPane description="Here you can find some settings and options for your apps." name="Apps">
-
-		<button description="Click here to start Zipaligning ONLY user apps. System may be unresponsive - it is OK, do not use phone for 2 minutes. WARNING! Backup all apps before use, as this process will remove apps that are BROKEN and not compressed or compiled correctly, so you may find some apps missing! Use it AT YOUR OWN RISK and update the broken applications!" name="ZIPALIGN" action="push-actions/zipalign" label="ZIPALIGN ALL APPS"/>
 
 		<button description="Click here to start applications Database Optimization. Compacting, cleaning and indexing will take max 2 minutes." name="DB OPTIMIZATION" action="push-actions/database_optimizing" label="DATABASE OPTIMIZATON"/>
 
