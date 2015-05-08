@@ -601,12 +601,6 @@
 
 	</settingsPane>
 
-	<settingsPane description="Camera ROM Driver Reset" name="Camera Reset">
-
-		<button description="Click here to RESET camera driver if you see BLACK screen when you open camera! That is a KK ROM BUG of unknown origin for now. So, you can REBOOT or just push Reset Camera Now, then reopen camera." name="Reset Camera Driver" action="push-actions/camera_restart" label="RESET CAMERA NOW"/>
-
-	</settingsPane>
-
 	<settingsPane description="Screen Backlight Control, here you can set custom values for Auto backlight driver." name="Min Backlight Control">
 
 		<checkbox description="Enable or Disable custom backlight override set below, this will allow user to set MIN backlight in full darkness." name="Min Backlight Override Switch" action="generic01 /sys/devices/f9967000.i2c/i2c-0/0-0038/lm3630_min_backlight_reducer" label="Min Backlight Override Switch"/>
