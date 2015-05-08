@@ -278,6 +278,31 @@ fi;
 
 echo "0" > /cputemp/freq_limit_debug;
 
+# Reload usb driver to open MTP and fix fast charge.
+CHARGER_STATE=$(cat /sys/class/power_supply/battery/charging_enabled);
+if [ "$CHARGER_STATE" -eq "1" ] && [ "$adb_selector" -eq "1" ]; then
+	echo "0" > /sys/class/android_usb/android0/enable;
+	echo "1" > /sys/class/android_usb/android0/enable;
+fi;
+
+if [ "$(cat /sys/module/powersuspend/parameters/sleep_state)" -eq "0" ]; then
+	$BB sh /res/uci.sh cpu0_min_freq "$cpu0_min_freq";
+	$BB sh /res/uci.sh cpu1_min_freq "$cpu1_min_freq";
+	$BB sh /res/uci.sh cpu2_min_freq "$cpu2_min_freq";
+	$BB sh /res/uci.sh cpu3_min_freq "$cpu3_min_freq";
+
+	$BB sh /res/uci.sh cpu0_max_freq "$cpu0_max_freq";
+	$BB sh /res/uci.sh cpu1_max_freq "$cpu1_max_freq";
+	$BB sh /res/uci.sh cpu2_max_freq "$cpu2_max_freq";
+	$BB sh /res/uci.sh cpu3_max_freq "$cpu3_max_freq";
+fi;
+
+# tune I/O controls to boost I/O performance
+echo "1" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/nomerges;
+echo "1" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/mmcblk0rpmb/queue/nomerges;
+echo "2" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/rq_affinity;
+echo "2" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/mmcblk0rpmb/queue/rq_affinity;
+
 # script finish here, so let me know when
 TIME_NOW=$(date)
 echo "$TIME_NOW" > /data/boot_log_dm

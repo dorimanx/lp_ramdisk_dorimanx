@@ -233,7 +233,7 @@ on boot
     # LGE_UPDATE_END
 
     # enable exfat feature
-       insmod /system/lib/modules/texfat.ko
+       insmod /lib/modules/exfat.ko
 
     start set_emmc_size
 
