@@ -215,7 +215,7 @@ CPU_CENTRAL_CONTROL()
 			if [ "$suspend_max_freq" -lt "2803200" ]; then
 				echo "$suspend_max_freq" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
 			fi;
-			if [ -e /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate ]; then
+			if [ -e /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate ] && [ "$power_mode" -eq "0" ]; then
 				if [ "$(cat /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate)" -lt "50000" ]; then
 					echo "50000" > /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate;
 				fi;
@@ -237,7 +237,7 @@ CPU_CENTRAL_CONTROL()
 			if [ "$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq)" -ge "729600" ]; then
 				echo "$cpu0_min_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
 			fi;
-			if [ -e /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate ]; then
+			if [ -e /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate ] && [ "$power_mode" -eq "0" ]; then
 				if [ "$(cat /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate)" -lt "50000" ]; then
 					echo "50000" > /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate;
 				fi;
@@ -290,7 +290,7 @@ HOTPLUG_CONTROL()
 		fi;
 		if [ "$(cat /sys/module/msm_hotplug/msm_enabled)" -eq "0" ]; then
 			(
-				sleep 2;
+				sleep 1;
 				echo "1" > /sys/module/msm_hotplug/msm_enabled;
 			)&
 		fi;
@@ -306,7 +306,7 @@ HOTPLUG_CONTROL()
 		fi;
 		if [ "$(cat /sys/kernel/intelli_plug/intelli_plug_active)" -eq "0" ]; then
 			(
-				sleep 2;
+				sleep 1;
 				echo "1" > /sys/kernel/intelli_plug/intelli_plug_active;
 			)&
 		fi;
@@ -322,7 +322,7 @@ HOTPLUG_CONTROL()
 		fi;
 		if [ "$(cat /sys/kernel/alucard_hotplug/hotplug_enable)" -eq "0" ]; then
 			(
-				sleep 2;
+				sleep 1;
 				echo "1" > /sys/kernel/alucard_hotplug/hotplug_enable;
 			)&
 		fi;
