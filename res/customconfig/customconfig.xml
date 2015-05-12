@@ -452,16 +452,11 @@
 
 <settingsTab name="SOUND CONTROL">
 
-	<settingsPane description="Here you can select main control app and unlock PA gain control" name="Sound Controls">
+	<settingsPane description="Here you can select main control app" name="Sound Controls">
 
 		<spinner description="Sound Gain Control selector, here you can select gain control app. or STweaks or Faux Sound! when one app selected other has no effect on gain! controls can be tuned but no effect! (default STweaks)" name="Gain Control App Selector" action="generic /sys/kernel/sound_control_3/lge_stweaks_control">
 			<spinnerItem name="STweaks Control" value="1"/>
 			<spinnerItem name="Faux Sound Control" value="0"/>
-		</spinner>
-
-		<spinner description="HeadPhones PA GAIN LOCK, to hear any effect change the lock when no sound is playing! this setting effect both STweaks and Faux Sound, READ THIS! if you unlocked and now sound is going crazy! up down and side to side, LOCK it back! reboot, and dont ever touch it, your device does not work with PA analog gain, deal with it. it's not LG feature, it's hack." name="HeadPhones PA GAIN LOCK" action="generic /sys/kernel/sound_control_3/lge_sound_pa_control_locked">
-			<spinnerItem name="PA GAIN LOCKED" value="1"/> 
-			<spinnerItem name="PA GAIN UNLOCKED" value="0"/> 
 		</spinner>
 
 	</settingsPane>
@@ -475,8 +470,6 @@
 		<seekBar description="Control for InCall small speaker gain volume! depend on cortex service ON (default is ON), works when no headphones plugged! and you are on call and screen is turned off for 3 sec! then gain is changed for small speaker. when call is finished, in case screen is ON, in 10 sec gain will be restored for HEADPHONES gains (left, right) that are set above, same if screen is turned off! for 3 sec without call. this control will work only if STweaks is the gain controller! see on top selector" name="InCall Speaker Gain" action="generic_cortex /tmp/incall_volume" unit="gain" min="-6" reversed="false" step="1" max="6"/>
 
 		<seekBar description="Control for Loud Speaker gain volume! When you set higher, better listen to music so you will know when it is more than what the hardware can handle." name="Speaker Gain" action="generic_speaker_sound /sys/kernel/sound_control_3/lge_speaker_gain" unit="gain" min="-15" reversed="false" step="1" max="20"/>
-
-		<seekBar description="Control for HeadPhones Analog PA Gain! if your ROM support change PA Gain, then switch the PA LOCK above to PA GAIN UNLOCKED. if you dont hear any change, then your ROM dont support this control. set PA GAIN LOCKED. it's will boost the headphones gain." name="HeadPhones PA Gain" action="generic_pa_sound /sys/kernel/sound_control_3/lge_headphone_pa_gain" unit="gain" min="-6" reversed="false" step="1" max="6"/>
 
 		<seekBar description="Control for Camera recording MIC gain volume!" name="Camera MIC gain" action="generic_mic_sound /sys/kernel/sound_control_3/lge_cam_mic_gain" unit="gain" min="-40" reversed="false" step="1" max="24"/>
 
