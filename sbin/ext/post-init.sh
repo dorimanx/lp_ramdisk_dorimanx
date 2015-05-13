@@ -193,9 +193,14 @@ if [ "$(pgrep -f "cortexbrain-tune.sh" | wc -l)" -eq "0" ]; then
 	$BB nohup $BB sh /sbin/ext/cortexbrain-tune.sh > /data/.dori/cortex.txt &
 fi;
 
-# Apps Install
 OPEN_RW;
-$BB sh /sbin/ext/install.sh;
+
+# copy cron files
+$BB cp -a /res/crontab/ /data/
+if [ ! -e /data/crontab/custom_jobs ]; then
+	$BB touch /data/crontab/custom_jobs;
+	$BB chmod 777 /data/crontab/custom_jobs;
+fi;
 
 if [ "$stweaks_boot_control" == "yes" ]; then
 	# apply Synapse monitor
