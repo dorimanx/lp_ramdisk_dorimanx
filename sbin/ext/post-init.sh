@@ -112,9 +112,6 @@ $BB chmod 666 /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0
 echo "200000000" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/min_freq
 echo "450000000" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/max_freq
 
-# Fix ROM dev wrong sets.
-setprop persist.adb.notify 0
-
 if [ ! -d /data/.dori ]; then
 	$BB mkdir /data/.dori/;
 fi;
