@@ -49,6 +49,8 @@ on fs
     wait /dev/block/platform/msm_sdcc.1/by-name/userdata
     exec /sbin/fstab_mount/data_system.sh
 
+    restorecon /fstab.g2
+
     mount_all fstab.g2
 
     # Keeping following partitions outside fstab file. As user may not have

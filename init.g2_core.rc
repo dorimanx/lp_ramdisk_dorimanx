@@ -54,6 +54,18 @@ on fs
     mkdir /data/nfc 770 nfc nfc
     mkdir /data/nfc/param 770 nfc nfc
 
+#DORI TWEAKS
+on post-fs-data
+    write /proc/sys/vm/highmem_is_dirtyable 1
+    setprop ro.ril.disable.power.collapse 1
+    setprop pm.sleep_mode 1
+    setprop wifi.supplicant_scan_interval 180
+    setprop ro.mot.eri.losalert.delay 1000
+    setprop persist.service.adb.enable 1
+    setprop ro.media.enc.jpeg.quality 100
+    setprop ro.media.dec.jpeg.memcap 12000000
+    setprop ro.media.enc.hprof.vid.bps 12000000
+
 on boot
     lge_chcon_recursive /data/property u:object_r:property_data_file:s0
     lge_chcon_recursive /data/security u:object_r:security_file:s0

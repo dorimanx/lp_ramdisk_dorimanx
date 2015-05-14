@@ -12,6 +12,7 @@ import /init.${ro.zygote}.rc
 import /init.trace.rc
 import /init.lge.rc
 import /init.vmware.rc
+import /init.acuraboot.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -39,7 +40,7 @@ on early-init
 on init
     sysclktz 0
 
-	loglevel 3
+    loglevel 3
 
     # Backward compatibility
     symlink /system/etc /etc
@@ -52,13 +53,13 @@ on init
 
     # Create cgroup mount point for cpu accounting
     mkdir /acct
-    mount cgroup none /acct cpuacct
+    #mount cgroup none /acct cpuacct
     mkdir /acct/uid
 
     # Create cgroup mount point for memory
     mount tmpfs none /sys/fs/cgroup mode=0750,uid=0,gid=1000
     mkdir /sys/fs/cgroup/memory 0750 root system
-    mount cgroup none /sys/fs/cgroup/memory memory
+    #mount cgroup none /sys/fs/cgroup/memory memory
     write /sys/fs/cgroup/memory/memory.move_charge_at_immigrate 1
     chown root system /sys/fs/cgroup/memory/tasks
     chmod 0660 /sys/fs/cgroup/memory/tasks
@@ -335,7 +336,7 @@ on post-fs-data
     mkdir /data/security 0711 system system
 
     # Reload policy from /data/security if present.
-    setprop selinux.reload_policy 1
+    setprop selinux.reload_policy 0
 
     # Set SELinux security contexts on upgrade or policy update.
     restorecon_recursive /data
@@ -484,7 +485,6 @@ on property:vold.decrypt=trigger_shutdown_framework
     class_reset main
 
 on property:sys.powerctl=*
-    stop thermalmgr
     powerctl ${sys.powerctl}
 
 # system server cannot write to /proc/sys files,

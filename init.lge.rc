@@ -1,6 +1,3 @@
-#CAPP_CKERROR_REPORTER
-#import init.ckerror.rc
-
 on post-fs
     #persist-lg
     chown system system /persist-lg
@@ -12,7 +9,7 @@ on post-fs
     mkdir /persist-lg/lg_persist_property 0700 root root
 
     #CAPP_SECUREBOOT
-    exec /sbin/wallpaper -ap
+    #exec /sbin/wallpaper -ap
 
     #QFUSE
     write /sys/devices/platform/lge-qfprom/sec_read 0
@@ -116,9 +113,8 @@ on post-fs-data
 on boot
     # Assign TCP buffer thresholds to be ceiling value of technology maximums
     # Increased technology maximums should be reflected here.
-    //LGP_DATA
-    write /proc/sys/net/core/rmem_max  8388608
-    write /proc/sys/net/core/wmem_max  8388608
+    write /proc/sys/net/core/rmem_max 4194304
+    write /proc/sys/net/core/wmem_max 4194304
 
 #SELinux
 #service auditd /system/bin/auditd -k
@@ -169,6 +165,7 @@ service quickdump /system/bin/quickdump.sh
     disabled
     oneshot
     ioprio rt 0
+    keycodes 114 115 116
 
 #CAPP_NFS
 service nfskill /system/bin/nfskillprocess
@@ -268,9 +265,9 @@ service dsqn /system/bin/dsqn
 #LGP_DATA_DSQN [END]
 
 # bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
+#service bugreport /system/bin/dumpstate -d -p -B \
+#        -o /data/data/com.android.shell/files/bugreports/bugreport
+#    class main
+#    disabled
+#    oneshot
+#    keycodes 114 115 116
