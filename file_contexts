@@ -504,8 +504,6 @@
 
 /sys/devices/virtual/graphics/fb0/msmfb_bl0/brightness    u:object_r:sysfs_brightness:s0
 /sys/devices/f9967000.i2c/i2c-0/0-0038/backlight/lm3630   u:object_r:sysfs_brightness:s0
-/sys/devices/virtual/input/lge_touch/ts_noise    u:object_r:sysfs_ts_noise:s0
-/sys/devices/virtual/input/lge_touch/ts_noise_log_enable    u:object_r:sysfs_ts_noise:s0
 /sys/module/lge_handle_panic/parameters/gen_modem_panic     u:object_r:sysfs_gen_modem_panic:s0
 /sys/devices/platform/lg_diag_cmd/diag_enable      u:object_r:sysfs_diag_enable:s0
 /sys/kernel/debug/smd/mem          u:object_r:sysfs_smd_mem:s0
