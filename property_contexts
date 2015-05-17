@@ -172,8 +172,6 @@ persist.lge.postinstallstart u:object_r:postinstallstart_prop:s0
 wc_transport.              u:object_r:bluetooth_prop:s0
 sys.usb_uicc.              u:object_r:uicc_prop:s0
 dolby.audio.               u:object_r:audio_prop:s0
-usb_uicc.                  u:object_r:uicc_prop:s0
-sys.ims.                   u:object_r:qcom_ims_prop:s0
 #line 1 "device/lge/common/qcom/sepolicy_g3_branchout/property_contexts"
 iq.cadet.ip             u:object_r:iq_cadet_ip_prop:s0
 #line 1 "device/lge/common/qcom/sepolicy/property_contexts"

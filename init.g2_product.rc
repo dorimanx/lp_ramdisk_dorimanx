@@ -20,27 +20,6 @@ on boot
 on post-fs-data
     single_binary_init
 
-#20130405 PM service ny.han@lge.com [START] -----------------------
-mkdir /data/playready 0777 system system
-chown system system /data/playready
-chmod 0777 /data/playready
-mkdir /data/pmsc 0777 system system
-chown system system /data/pmsc
-chmod 0777/data/pmsc
-copy /system/kt/pmservice_cert/bgroupcert.dat /data/pmsc/bgroupcert.dat
-copy /system/kt/pmservice_cert/devcerttemplate.dat /data/pmsc/devcerttemplate.dat
-copy /system/kt/pmservice_cert/priv.dat /data/pmsc/priv.dat
-copy /system/kt/pmservice_cert/zgpriv.dat /data/pmsc/zgpriv.dat
-chown system system /data/pmsc/bgroupcert.dat
-chown system system /data/pmsc/devcerttemplate.dat
-chown system system /data/pmsc/priv.dat
-chown system system /data/pmsc/zgpriv.dat
-chmod 0444 /data/pmsc/bgroupcert.dat
-chmod 0444 /data/pmsc/devcerttemplate.dat
-chmod 0444 /data/pmsc/priv.dat
-chmod 0444 /data/pmsc/zgpriv.dat
-#20130405 PM service ny.han@lge.com [END] -----------------------
-
 #20130405 iwlan eyes0814@lge.com [START] -----------------------
 service iwland /system/bin/iwland -ddd
     class main
