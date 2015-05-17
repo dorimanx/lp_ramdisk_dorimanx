@@ -57,15 +57,10 @@ on fs
 #DORI TWEAKS
 on post-fs-data
     write /proc/sys/vm/highmem_is_dirtyable 1
-    setprop ro.ril.disable.power.collapse 0
     setprop pm.sleep_mode 1
     setprop wifi.supplicant_scan_interval 180
-    setprop ro.mot.eri.losalert.delay 1000
     setprop persist.adb.notify 0
     setprop persist.service.adb.enable 1
-    setprop ro.media.enc.jpeg.quality 100
-    setprop ro.media.dec.jpeg.memcap 12000000
-    setprop ro.media.enc.hprof.vid.bps 12000000
 
 on boot
     lge_chcon_recursive /data/property u:object_r:property_data_file:s0
