@@ -675,7 +675,6 @@
 		</spinner>
 
 		<spinner description="Fast Charge Manual mA limit! Here, you can set the max allowed mA limit when using wall charger, out hardware allow max 1600ma BUT some people reported that it's possible to get more than 1600ma. This will take effect ONLY if Fast Charge Manual is set above!" name="Fast Charge mA Limits" action="fast_charge_level">
-			<spinnerItem name="MAX 300mA" value="300"/> 
 			<spinnerItem name="MAX 500mA" value="500"/> 
 			<spinnerItem name="MAX 900mA" value="900"/> 
 			<spinnerItem name="MAX 1200mA" value="1200"/> 
