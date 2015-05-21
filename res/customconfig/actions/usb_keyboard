@@ -11,7 +11,8 @@ if [ "a$2" != "a" ]; then
 		enable)
 			echo "0" > /sys/devices/virtual/android_usb/android0/enable;
 			echo "1" > /sys/module/g_android/parameters/usb_keyboard;
-			echo "mtp,adb,hid" > /sys/devices/virtual/android_usb/android0/functions;
+			echo "9039" > /sys/class/android_usb/android0/idProduct;
+			echo "mtp,adb" > /sys/devices/virtual/android_usb/android0/functions;
 			echo "1" > /sys/devices/virtual/android_usb/android0/enable;
 			chown system.system /dev/hidg*;
 			chmod 777 /dev/hidg*
@@ -20,7 +21,8 @@ if [ "a$2" != "a" ]; then
 			if [ "$(cat /sys/module/g_android/parameters/usb_keyboard)" == "1" ]; then
 				echo "0" > /sys/devices/virtual/android_usb/android0/enable;
 				echo "0" > /sys/module/g_android/parameters/usb_keyboard;
-				echo "mtp,adb" > /sys/devices/virtual/android_usb/android0/functions;
+				echo "633E" > /sys/class/android_usb/android0/idProduct;
+				echo "mtp:mtp,acm,diag,adb" > /sys/devices/virtual/android_usb/android0/functions;
 				echo "1" > /sys/devices/virtual/android_usb/android0/enable;
 			fi;
 		;;
