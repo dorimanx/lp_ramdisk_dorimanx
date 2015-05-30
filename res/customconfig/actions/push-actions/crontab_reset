@@ -3,14 +3,13 @@
 (
 	rm -f /var/spool/cron/crontabs/*
 	rm -rf /data/crontab/
-	cp -a /res/crontab/ /data/
-	chmod -R 777 /data/crontab/
 
-	CRON_STATUS=$(pgrep -f "crond" | wc -l);
-	if [ "$CRON_STATUS" != "0" ]; then
+	CRON_STATUS=$(pidof crond | wc -l);
+	if [ "$CRON_STATUS" -eq "1" ]; then
+		pkill -f crond;
 		/sbin/busybox sh /res/uci.sh crontab on
-		echo "Reset Done and CRON enabled"
+		echo "Reset Done! CRON enabled"
+	else
+		echo "Reset Done! CRON is disabled"
 	fi;
 )&
-
-echo "Reset Done!"

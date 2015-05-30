@@ -11,7 +11,7 @@ if [ "a$2" != "a" ]; then
 
 	case "${crontab}" in
 		on)
-			if [ "$(pgrep -f crond | wc -l)" -eq "0" ]; then
+			if [ "$(pidof crond | wc -l)" -eq "0" ]; then
 				$BB nohup $BB sh /res/crontab_service/service.sh > /dev/null 2>&1;
 			fi;
 		;;

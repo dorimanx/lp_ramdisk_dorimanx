@@ -3,6 +3,9 @@
 if [ ! -e /data/crontab/cron-clear-file-cache ]; then
 	echo "no data" > /data/crontab/cron-clear-file-cache;
 fi;
+if [ ! -e /data/crontab/cron-ram-release ]; then
+	echo "no data" > /data/crontab/cron-ram-release;
+fi;
 if [ ! -e /data/crontab/cron-clear-ram-cache ]; then
 	echo "no data" > /data/crontab/cron-clear-ram-cache;
 fi;
@@ -14,6 +17,8 @@ if [ ! -e /data/crontab/cron-db-optimizing ]; then
 fi;
 chmod 777 /data/crontab/*
 cat /data/crontab/cron-clear-file-cache > /data/crontab/cron_log;
+echo "---" >> /data/crontab/cron_log;
+cat /data/crontab/cron-ram-release >> /data/crontab/cron_log;
 echo "---" >> /data/crontab/cron_log;
 cat /data/crontab/cron-ad_block_update >> /data/crontab/cron_log;
 echo "---" >> /data/crontab/cron_log;

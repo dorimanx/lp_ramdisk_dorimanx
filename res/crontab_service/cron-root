@@ -9,5 +9,6 @@
 
 #JOBS
 0 0-23/1 * * * /sbin/busybox sh /data/crontab/cron-scripts/drop-cache-only.sh
+0 0-23/3 * * * /sbin/busybox sh /data/crontab/cron-scripts/ram_release.sh
 0 6 * * 6 /sbin/busybox sh /data/crontab/cron-scripts/ad_block_update.sh
 0 6 * * 6 /sbin/busybox sh /data/crontab/cron-scripts/reset_battery.sh

@@ -36,7 +36,7 @@ if [ "$AUTO_OOM" -eq "1" ]; then
 			echo "16" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		*)
-			oom_config_screen_off=medium;
+			oom_config_screen_off=default;
 		;;
 	esac;
 fi;

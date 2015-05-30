@@ -4,7 +4,7 @@
 
 BB=/sbin/busybox
 
-ROOTFS_MOUNT=$(mount | grep rootfs | cut -c26-27 | grep rw)
+ROOTFS_MOUNT=$(mount | grep rootfs | cut -c26-27 | grep -c rw)
 if [ "$ROOTFS_MOUNT" -eq "0" ]; then
 	$BB mount -o remount,rw /;
 fi;
@@ -34,9 +34,9 @@ chown 0:0 /data/crontab/cron-scripts/*;
 chmod 777 /data/crontab/cron-scripts/*;
 
 # use /var/spool/cron/crontabs/ call the crontab file "root"
-if [ "$(pgrep -f crond | wc -l)" -eq "0" ]; then
+if [ "$(pidof crond | wc -l)" -eq "0" ]; then
 	$BB nohup /system/xbin/crond -c /var/spool/cron/crontabs/ > /data/.dori/cron.txt &
-	PIDOFCRON=$(pgrep -f "crond");
+	PIDOFCRON=$(pidof crond);
 	echo "-900" > /proc/"$PIDOFCRON"/oom_score_adj;
 fi;
 
