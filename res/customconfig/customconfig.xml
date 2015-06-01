@@ -758,7 +758,7 @@
 
 	</settingsPane>
 
-	<settingsPane description="Here you can backup or restore your profile after installing new kernel. Some settings will work only after reboot! Restore will take up to 30 sec, just wait!" name="STweaks Settings Backup or Restore">
+	<settingsPane description="Here you can backup or restore your profile after installing new kernel. Some settings will work only after reboot! Restore will take up to 30 sec, just wait!" name="Config Backup or Restore">
 
 		<button description="Backup STweaks User Settings!" name="Settings Backup" action="push-actions/config_backup_restore 1" label="BACKUP NOW"/>
 
