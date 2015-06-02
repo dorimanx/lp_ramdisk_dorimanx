@@ -130,7 +130,8 @@ MEMORY_TWEAKS()
 		echo "1" > /proc/sys/vm/overcommit_memory; # default: 1
 		echo "50" > /proc/sys/vm/overcommit_ratio; # default: 50
 		echo "3" > /proc/sys/vm/page-cluster; # default: 3
-		echo "2572" > /proc/sys/vm/min_free_kbytes; #default: 2572
+		echo "8192" > /proc/sys/vm/min_free_kbytes; #default: 2572
+		# mem calc here in pages. so 8192 x 4 = 32MB reserved for fast access be kernel and VM
 
 		log -p i -t "$FILE_NAME" "*** MEMORY_TWEAKS ***: enabled";
 	else
