@@ -55,7 +55,7 @@ IO_TWEAKS()
 			echo "$scheduler" > "$i"/queue/scheduler;
 			echo "0" > "$i"/queue/rotational;
 			echo "0" > "$i"/queue/iostats;
-			echo "1" > "$i"/queue/rq_affinity;
+			echo "2" > "$i"/queue/rq_affinity;
 		done;
 
 		# This controls how many requests may be allocated
@@ -124,13 +124,13 @@ SYSTEM_TWEAKS;
 MEMORY_TWEAKS()
 {
 	if [ "$cortexbrain_memory" == "on" ]; then
-		echo "$dirty_background_ratio" > /proc/sys/vm/dirty_background_ratio; # default: 10
-		echo "$dirty_ratio" > /proc/sys/vm/dirty_ratio; # default: 20
+		echo "$dirty_background_ratio" > /proc/sys/vm/dirty_background_ratio; # default: 20
+		echo "$dirty_ratio" > /proc/sys/vm/dirty_ratio; # default: 25
 		echo "4" > /proc/sys/vm/min_free_order_shift; # default: 4
 		echo "1" > /proc/sys/vm/overcommit_memory; # default: 1
 		echo "50" > /proc/sys/vm/overcommit_ratio; # default: 50
 		echo "3" > /proc/sys/vm/page-cluster; # default: 3
-		echo "4096" > /proc/sys/vm/min_free_kbytes;
+		echo "2572" > /proc/sys/vm/min_free_kbytes; #default: 2572
 
 		log -p i -t "$FILE_NAME" "*** MEMORY_TWEAKS ***: enabled";
 	else
