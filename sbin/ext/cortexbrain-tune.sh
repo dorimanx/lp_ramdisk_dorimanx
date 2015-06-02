@@ -187,8 +187,6 @@ IO_SCHEDULER()
 
 CPU_CENTRAL_CONTROL()
 {
-	GOV_NAME=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
-
 	local state="$1";
 
 	if [ "$cortexbrain_cpu" == "on" ]; then
@@ -215,11 +213,6 @@ CPU_CENTRAL_CONTROL()
 			if [ "$suspend_max_freq" -lt "2803200" ]; then
 				echo "$suspend_max_freq" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
 			fi;
-			if [ -e /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate ] && [ "$power_mode" -eq "0" ]; then
-				if [ "$(cat /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate)" -lt "50000" ]; then
-					echo "50000" > /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate;
-				fi;
-			fi;
 		fi;
 		log -p i -t "$FILE_NAME" "*** CPU_CENTRAL_CONTROL max_freq:${cpu_max_freq} min_freq:${cpu_min_freq}***: done";
 	else
@@ -236,11 +229,6 @@ CPU_CENTRAL_CONTROL()
 		elif [ "$state" == "sleep" ]; then
 			if [ "$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq)" -ge "729600" ]; then
 				echo "$cpu0_min_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
-			fi;
-			if [ -e /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate ] && [ "$power_mode" -eq "0" ]; then
-				if [ "$(cat /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate)" -lt "50000" ]; then
-					echo "50000" > /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate;
-				fi;
 			fi;
 		fi;
 	fi;

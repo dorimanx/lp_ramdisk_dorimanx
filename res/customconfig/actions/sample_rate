@@ -4,14 +4,53 @@
 # $2 - value=
 # Created By Dorimanx
 
-if [ "a$2" != "a" ]; then
+# get values from profile
+PROFILE=$(cat /data/.dori/.active.profile);
+. /data/.dori/"$PROFILE".profile;
+
+if [ "a$2" != "a" ] && [ "$power_mode" -eq "0" ]; then
 	sample_rate=$2;
 
-	GOV_NAME=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
+	echo "4" > /sys/kernel/alucard_hotplug/min_cpus_online;
+	echo "4" > /sys/module/msm_hotplug/min_cpus_online;
+	echo "4" > /sys/kernel/intelli_plug/min_cpus_online;
 
-	if [ -e /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate ]; then
-		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV_NAME/sampling_rate;
+	sleep 2;
+
+	GOV_NAME=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor);
+	GOV1_NAME=$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_governor_cpu1);
+	GOV2_NAME=$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_governor_cpu2);
+	GOV3_NAME=$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_governor_cpu3);
+
+	if [ -e /sys/devices/system/cpu/cpufreq/$GOV0_NAME/sampling_rate ]; then
+		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV0_NAME/sampling_rate;
 	fi;
+	if [ -e /sys/devices/system/cpu/cpufreq/$GOV1_NAME/sampling_rate ]; then
+		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV1_NAME/sampling_rate;
+	fi;
+	if [ -e /sys/devices/system/cpu/cpufreq/$GOV2_NAME/sampling_rate ]; then
+		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV2_NAME/sampling_rate;
+	fi;
+	if [ -e /sys/devices/system/cpu/cpufreq/$GOV3_NAME/sampling_rate ]; then
+		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV3_NAME/sampling_rate;
+	fi;
+
+	if [ -e /sys/devices/system/cpu/cpufreq/$GOV_NAME/min_sample_time ]; then
+		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV_NAME/min_sample_time;
+	fi;
+	if [ -e /sys/devices/system/cpu/cpufreq/$GOV1_NAME/min_sample_time ]; then
+		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV1_NAME/min_sample_time;
+	fi;
+	if [ -e /sys/devices/system/cpu/cpufreq/$GOV2_NAME/min_sample_time ]; then
+		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV2_NAME/min_sample_time;
+	fi;
+	if [ -e /sys/devices/system/cpu/cpufreq/$GOV3_NAME/min_sample_time ]; then
+		echo "$sample_rate" > /sys/devices/system/cpu/cpufreq/$GOV3_NAME/min_sample_time;
+	fi;
+
+	echo "$min_online_cpus" > /sys/kernel/alucard_hotplug/min_cpus_online;
+	echo "$min_online_cpus" > /sys/module/msm_hotplug/min_cpus_online;
+	echo "$min_online_cpus" > /sys/kernel/intelli_plug/min_cpus_online;
 fi;
 
 echo ${sample_rate};
