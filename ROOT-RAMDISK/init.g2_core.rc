@@ -56,8 +56,6 @@ on fs
 
 #DORI TWEAKS
 on post-fs-data
-#    write /proc/sys/vm/highmem_is_dirtyable 1
-#    setprop pm.sleep_mode 1
     setprop wifi.supplicant_scan_interval 180
     setprop persist.adb.notify 0
     setprop persist.service.adb.enable 1

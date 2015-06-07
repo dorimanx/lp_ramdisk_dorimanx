@@ -1,0 +1,48 @@
+on init
+#    mkdir /storage/external_SD 0700 root root
+#    mkdir /mnt/media_rw 0700 media_rw media_rw
+#    mkdir /mnt/media_rw/external_SD 0700 media_rw media_rw
+#    export EXTERNAL_ADD_STORAGE /storage/external_SD
+#    export SECONDARY_STORAGE /storage/external_SD
+
+on boot
+
+#20130405 iwlan eyes0814@lge.com [START] -----------------------
+    chmod 0755 /system/bin/iwland
+#20130405 iwlan eyes0814@lge.com [END] -----------------------
+
+
+on post-fs-data
+#20130405 PM service ny.han@lge.com [START] -----------------------
+mkdir /data/playready 0777 system system
+chown system system /data/playready
+chmod 0777 /data/playready
+mkdir /data/pmsc 0777 system system
+chown system system /data/pmsc
+chmod 0777/data/pmsc
+copy /system/att/pmservice_cert/bgroupcert.dat /data/pmsc/bgroupcert.dat
+copy /system/att/pmservice_cert/devcerttemplate.dat /data/pmsc/devcerttemplate.dat
+copy /system/att/pmservice_cert/priv.dat /data/pmsc/priv.dat
+copy /system/att/pmservice_cert/zgpriv.dat /data/pmsc/zgpriv.dat
+chown system system /data/pmsc/bgroupcert.dat
+chown system system /data/pmsc/devcerttemplate.dat
+chown system system /data/pmsc/priv.dat
+chown system system /data/pmsc/zgpriv.dat
+chmod 0444 /data/pmsc/bgroupcert.dat
+chmod 0444 /data/pmsc/devcerttemplate.dat
+chmod 0444 /data/pmsc/priv.dat
+chmod 0444 /data/pmsc/zgpriv.dat
+#20130405 PM service ny.han@lge.com [END] -----------------------
+
+#20130405 iwlan eyes0814@lge.com [START] -----------------------
+service iwland /system/bin/iwland -ddd
+    class main
+    user root
+    oneshot
+#20130405 iwlan eyes0814@lge.com [END] -----------------------
+
+# [ENCRYPTION] Applied only VZW,ATT,SPR,TMUS(NorthAmerica) and Canada
+service ufips /system/bin/ufips
+    class core
+    user system
+    group system

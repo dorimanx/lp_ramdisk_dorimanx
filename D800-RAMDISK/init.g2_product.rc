@@ -1,0 +1,54 @@
+on boot
+    # support device diagnostic management
+    chmod 0440 /proc/cmdline
+    chown system system /proc/cmdline
+
+#20130405 iwlan eyes0814@lge.com [START] -----------------------
+    chmod 0755 /system/bin/iwland
+#20130405 iwlan eyes0814@lge.com [END] -----------------------
+
+on post-fs-data
+#20130405 PM service ny.han@lge.com [START] -----------------------
+mkdir /data/playready 0777 system system
+chown system system /data/playready
+chmod 0777 /data/playready
+mkdir /data/pmsc 0777 system system
+chown system system /data/pmsc
+chmod 0777/data/pmsc
+copy /system/att/pmservice_cert/bgroupcert.dat /data/pmsc/bgroupcert.dat
+copy /system/att/pmservice_cert/devcerttemplate.dat /data/pmsc/devcerttemplate.dat
+copy /system/att/pmservice_cert/priv.dat /data/pmsc/priv.dat
+copy /system/att/pmservice_cert/zgpriv.dat /data/pmsc/zgpriv.dat
+chown system system /data/pmsc/bgroupcert.dat
+chown system system /data/pmsc/devcerttemplate.dat
+chown system system /data/pmsc/priv.dat
+chown system system /data/pmsc/zgpriv.dat
+chmod 0444 /data/pmsc/bgroupcert.dat
+chmod 0444 /data/pmsc/devcerttemplate.dat
+chmod 0444 /data/pmsc/priv.dat
+chmod 0444 /data/pmsc/zgpriv.dat
+#20130405 PM service ny.han@lge.com [END] -----------------------
+
+#20130405 iwlan eyes0814@lge.com [START] -----------------------
+service iwland /system/bin/iwland -ddd
+    class main
+    user root
+    oneshot
+#20130405 iwlan eyes0814@lge.com [END] -----------------------
+
+# [LGE_VPN][encryption-vpn@lge.com] Inside Secure VPN Kernel Module install [START]
+service vpnclientpm /system/bin/vpnclientpm3 \
+    -O /data/data/com.ipsec.service/vpnclientpm.txt \
+    -U rmnet0,rmnet_usb0,wlan0,bt-pan,rndis0,p2p0,eth0
+    socket vpnclientpm seqpacket 0666
+# uid dropped to system when capabilities are set
+    class main
+    group system net_admin net_raw
+    disabled
+# [LGE_VPN][encryption-vpn@lge.com] Inside Secure VPN Service & modules permission change [END]
+
+# [ENCRYPTION] Applied only VZW,ATT,SPR,TMUS(NorthAmerica) and Canada
+service ufips /system/bin/ufips
+    class core
+    user system
+    group system
