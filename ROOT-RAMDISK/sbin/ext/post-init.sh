@@ -311,3 +311,20 @@ echo "$TIME_NOW" > /data/boot_log_dm
 
 $BB mount -o remount,ro /system;
 
+(
+	sleep 30;
+
+	# stop google service and restart it on boot. this remove high cpu load and ram leak!
+	if [ "$($BB pidof com.google.android.gms | wc -l)" -eq "1" ]; then
+		$BB kill $($BB pidof com.google.android.gms);
+	fi;
+	if [ "$($BB pidof com.google.android.gms.unstable | wc -l)" -eq "1" ]; then
+		$BB kill $($BB pidof com.google.android.gms.unstable);
+	fi;
+	if [ "$($BB pidof com.google.android.gms.persistent | wc -l)" -eq "1" ]; then
+		$BB kill $($BB pidof com.google.android.gms.persistent);
+	fi;
+	if [ "$($BB pidof com.google.android.gms.wearable | wc -l)" -eq "1" ]; then
+		$BB kill $($BB pidof com.google.android.gms.wearable);
+	fi;
+)&
