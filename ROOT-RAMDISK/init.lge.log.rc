@@ -4,32 +4,32 @@ on post-fs-data
     mkdir /cache/encryption_log 0775 system system
 
 # kernel log
-service log-kernel /system/bin/sh /system/bin/logger_kernel.sh
-    class main
-    disabled
-    oneshot
-    seclabel u:r:logger:s0
+#service log-kernel /system/bin/sh /system/bin/logger_kernel.sh
+#    class main
+#    disabled
+#    oneshot
+#    seclabel u:r:logger:s0
 
-on property:persist.service.kernel.enable=6
-    restart log-kernel
+#on property:persist.service.kernel.enable=6
+#    restart log-kernel
 
-on property:persist.service.kernel.enable=5
-    restart log-kernel
+#on property:persist.service.kernel.enable=5
+#    restart log-kernel
 
-on property:persist.service.kernel.enable=4
-    restart log-kernel
+#on property:persist.service.kernel.enable=4
+#    restart log-kernel
 
-on property:persist.service.kernel.enable=3
-    restart log-kernel
+#on property:persist.service.kernel.enable=3
+#    restart log-kernel
 
-on property:persist.service.kernel.enable=2
-    restart log-kernel
+#on property:persist.service.kernel.enable=2
+#    restart log-kernel
 
-on property:persist.service.kernel.enable=1
-    restart log-kernel
+#on property:persist.service.kernel.enable=1
+#    restart log-kernel
 
-on property:persist.service.kernel.enable=0
-    stop log-kernel
+#on property:persist.service.kernel.enable=0
+#    stop log-kernel
 
 # power log
 service log-power /system/bin/sh /system/bin/logger_power.sh
