@@ -10,7 +10,6 @@ import /init.usb.rc
 import /init.${ro.hardware}.rc
 import /init.${ro.zygote}.rc
 import /init.trace.rc
-import /init.ckerror.rc
 import /init.lge.rc
 import /init.vmware.rc
 
@@ -178,6 +177,9 @@ on property:sys.boot_from_charger_mode=1
 on load_all_props_action
     load_all_props
 
+on single_binary_init_action
+    single_binary_init
+
 # Indicate to fw loaders that the relevant mounts are up.
 on firmware_mounts_complete
     rm /dev/.booting
@@ -188,6 +190,10 @@ on late-init
     trigger fs
     trigger post-fs
     trigger post-fs-data
+    trigger late-fs-data-done
+
+    # Trigger SBP
+    trigger single_binary_init_action
 
     # Load properties from /system/ + /factory after fs mount. Place
     # this in another action so that the load will be scheduled after the prior
@@ -329,7 +335,7 @@ on post-fs-data
     mkdir /data/security 0711 system system
 
     # Reload policy from /data/security if present.
-    setprop selinux.reload_policy 0
+    setprop selinux.reload_policy 1
 
     # Set SELinux security contexts on upgrade or policy update.
     restorecon_recursive /data
@@ -339,6 +345,11 @@ on post-fs-data
     # won't work.
     # Set indication (checked by vold) that we have finished this action
     #setprop vold.post_fs_data_done 1
+
+on late-fs-data-done
+    # this phase is only set to post_fs_data_done.
+    # you must not add some commands!!!!.
+    setprop vold.post_fs_data_done 1
 
 on boot
     # basic network init
@@ -454,10 +465,12 @@ on property:vold.decrypt=trigger_reset_main
     class_reset main
 
 on property:vold.decrypt=trigger_load_persist_props
+    mkdir /data/property 0700 root root
     load_persist_props
 
 on property:vold.decrypt=trigger_post_fs_data
     trigger post-fs-data
+    trigger late-fs-data-done
 
 on property:vold.decrypt=trigger_restart_min_framework
     class_start main

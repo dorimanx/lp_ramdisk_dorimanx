@@ -1,0 +1,185 @@
+#line 1 "external/sepolicy/property_contexts"
+##########################
+# property service keys
+#
+#
+net.rmnet               u:object_r:net_radio_prop:s0
+net.gprs                u:object_r:net_radio_prop:s0
+net.ppp                 u:object_r:net_radio_prop:s0
+net.qmi                 u:object_r:net_radio_prop:s0
+net.lte                 u:object_r:net_radio_prop:s0
+net.cdma                u:object_r:net_radio_prop:s0
+net.dns                 u:object_r:net_radio_prop:s0
+sys.usb.config          u:object_r:system_radio_prop:s0
+ril.                    u:object_r:radio_prop:s0
+gsm.                    u:object_r:radio_prop:s0
+persist.radio           u:object_r:radio_prop:s0
+
+net.                    u:object_r:system_prop:s0
+dev.                    u:object_r:system_prop:s0
+runtime.                u:object_r:system_prop:s0
+hw.                     u:object_r:system_prop:s0
+sys.                    u:object_r:system_prop:s0
+sys.powerctl            u:object_r:powerctl_prop:s0
+service.                u:object_r:system_prop:s0
+wlan.                   u:object_r:system_prop:s0
+dhcp.                   u:object_r:dhcp_prop:s0
+dhcp.bt-pan.result      u:object_r:pan_result_prop:s0
+bluetooth.              u:object_r:bluetooth_prop:s0
+
+debug.                  u:object_r:debug_prop:s0
+debug.db.               u:object_r:debuggerd_prop:s0
+log.                    u:object_r:shell_prop:s0
+service.adb.root        u:object_r:shell_prop:s0
+service.adb.tcp.port    u:object_r:shell_prop:s0
+
+persist.audio.          u:object_r:audio_prop:s0
+persist.logd.           u:object_r:logd_prop:s0
+persist.sys.            u:object_r:system_prop:s0
+persist.service.        u:object_r:system_prop:s0
+persist.service.bdroid. u:object_r:bluetooth_prop:s0
+persist.security.       u:object_r:system_prop:s0
+
+# selinux non-persistent properties
+selinux.                u:object_r:security_prop:s0
+
+# default property context
+*                       u:object_r:default_prop:s0
+
+# data partition encryption properties
+vold.                   u:object_r:vold_prop:s0
+crypto.                 u:object_r:vold_prop:s0
+
+# ctl properties
+ctl.bootanim            u:object_r:ctl_bootanim_prop:s0
+ctl.dumpstate           u:object_r:ctl_dumpstate_prop:s0
+ctl.fuse_               u:object_r:ctl_fuse_prop:s0
+ctl.mdnsd               u:object_r:ctl_mdnsd_prop:s0
+ctl.ril-daemon          u:object_r:ctl_rildaemon_prop:s0
+ctl.bugreport           u:object_r:ctl_bugreport_prop:s0
+ctl.dhcpcd_bt-pan       u:object_r:ctl_dhcp_pan_prop:s0
+ctl.                    u:object_r:ctl_default_prop:s0
+
+# NFC properties
+nfc.                    u:object_r:nfc_prop:s0
+
+#########################################################
+# For WLAN at U+ Carrier
+ctl.mwlan_vpncored     u:object_r:ctl_mwlan_vpncored_prop:s0
+#line 1 "device/lge/common/sepolicy/property_contexts"
+persist.qcril.datacall_timeout   u:object_r:datacall_prop:s0
+sys.camera_orientation    u:object_r:sys_camera_orientation_prop:s0
+persist.camera.snapshot.number   u:object_r:camera_snapshot_prop:s0
+pre.from.test             u:object_r:pre_from_test_prop:s0
+adc.n11.                  u:object_r:adc_n11_prop:s0
+sf.lcd_density            u:object_r:lcd_prop:s0
+selfd.                    u:object_r:selfd_prop:s0
+persist.camera.zsl.queuedepth    u:object_r:camera_prop:s0
+cdma.home.operator.alpha  u:object_r:lg_cdma_prop:s0
+persist.profiled.build.version   u:object_r:profiled_build_version_prop:s0
+persist.data_netmgrd_mtu  u:object_r:net_radio_prop:s0
+mts.curcount              u:object_r:mts_curcount_prop:s0
+iq.cadet.listenport       u:object_r:iq_cadet_listenport_prop:s0
+lg.data.emergencystate    u:object_r:emergencystate_prop:s0
+persist.data.sensor_name  u:object_r:sensor_name_prop:s0
+pre.qr.display            u:object_r:pre_qr_display_prop:s0
+fw.max_users              u:object_r:multiuser_prop:s0
+mts.                      u:object_r:mts_prop:s0
+mts.act                   u:object_r:mts_prop:s0
+ctl.shutdownanim          u:object_r:system_prop:s0
+persist.proxy.profnai     u:object_r:proxy_prop:s0
+ctl.dumpreporter          u:object_r:ctl_dumpreporter_prop:s0
+ctl.console               u:object_r:ctl_console_prop:s0
+ctl.ppd                   u:object_r:ppd_prop:s0
+sys.ims.DATA_DAEMON_STATUS u:object_r:ims_prop:s0
+camera.4k2k.enable        u:object_r:camera_prop:s0
+hw.camcorder.fpsrange     u:object_r:camcorder_prop:s0
+persist.data.rear.minfps  u:object_r:camera_prop:s0
+persist.data.front.minfps u:object_r:camera_prop:s0
+net.ims.reg               u:object_r:net_radio_prop:s0
+wifi.country.code         u:object_r:wifi_prop:s0
+persist.lge.appman.installstart u:object_r:update_prop:s0
+persist.data.sbp.update         u:object_r:update_prop:s0
+persist.mms.pre-install         u:object_r:mms_prop:s0
+persist.gsm.mms.                u:object_r:gsm_mms_prop:s0
+lgsdencryption                  u:object_r:system_server_service:s0
+ctl.bdaddr_loader               u:object_r:bluedroid_prop:s0
+tdmb.mode.on                    u:object_r:system_prop:s0
+user.language                   u:object_r:system_prop:s0
+sys.lge.                        u:object_r:system_lge_prop:s0
+service.plushome.currenthome    u:object_r:system_lge_prop:s0
+sys.usb.provisioned             u:object_r:system_lge_prop:s0
+sys.navibar.                    u:object_r:system_navibar_prop:s0
+user.region                     u:object_r:system_prop:s0
+
+# properties for wifi
+persist.ap.macaddress           u:object_r:system_prop:s0
+persist.data.tethering_oc       u:object_r:system_prop:s0
+persist.sys.security            u:object_r:system_prop:s0
+persist.sys.hotssid.ksc5601     u:object_r:system_prop:s0
+wlan.lge.siminserted            u:object_r:system_prop:s0
+persist.sys.ktpopup             u:object_r:system_prop:s0
+wlan.cmcc.connect.type          u:object_r:system_prop:s0
+persist.gsm.sms.dcnaddress      u:object_r:system_prop:s0
+
+# properties for ims
+persist.lg.ims.                 u:object_r:ims_prop:s0
+net.ims.                        u:object_r:ims_prop:s0
+
+# property for ipsec
+ctl.ipsecclient                 u:object_r:ctl_ipsec_prop:s0
+
+# property for wifi direct
+wifi.lge.supportp2p5g           u:object_r:dhcp_prop:s0
+
+# property for toolbox
+settings.knockon.test           u:object_r:knockon_prop:s0
+
+# properties for data (by minjeon.kim C nim)
+persist.lg.data.          u:object_r:radio_prop:s0
+net.tcp.buffersize.       u:object_r:radio_prop:s0
+net.is_dropping_packet    u:object_r:radio_prop:s0
+net.tethering.            u:object_r:radio_prop:s0
+lge.policy_data_enable    u:object_r:system_prop:s0
+lg.data.                  u:object_r:radio_prop:s0
+upgrade.mpdn.db           u:object_r:radio_prop:s0
+
+service.bootanim.exit     u:object_r:bootanim_prop:s0
+sbp.bootanim              u:object_r:system_prop:s0
+conup                     u:object_r:system_prop:s0
+
+# property for telephony
+persist.data_user_enabled u:object_r:userenable_prop:s0
+iq.logging.enabled        u:object_r:iq_logging_prop:s0
+persist.data.lgetest.0    u:object_r:persist_data_lgetest_prop:s0
+persist.lge.appbox.ntcode u:object_r:persist_appbox_ntcode_prop:s0
+minios.                   u:object_r:minios_prop:s0
+com.google.clientidbase   u:object_r:clientidbase_prop:s0
+AAT.ldcal                 u:object_r:aat_ldcal_prop:s0
+persist.data_disable_bypaypopup u:object_r:radio_prop:s0
+
+wifi_ftm.diagd_start      u:object_r:wifi_prop:s0
+lge.data.apn2-disable     u:object_r:apn2_disable_prop:s0
+persist.sys.usb.config    u:object_r:usb_config_prop:s0
+usb.authorized            u:object_r:usb_authorized_prop:s0
+persist.gsm.sms.forcegsm7 u:object_r:sms_prop:s0
+service.bootanim.begin     u:object_r:bootanim_prop:s0
+lfullseg.mode.             u:object_r:lfullseg_mode_prop:s0
+sys.hdmi.                  u:object_r:sys_hdmi_prop:s0
+persist.lge.postinstallstart u:object_r:postinstallstart_prop:s0
+#line 1 "device/qcom/sepolicy/common/property_contexts"
+wc_transport.              u:object_r:bluetooth_prop:s0
+sys.usb_uicc.              u:object_r:uicc_prop:s0
+dolby.audio.               u:object_r:audio_prop:s0
+#line 1 "device/lge/common/qcom/sepolicy_g3_branchout/property_contexts"
+iq.cadet.ip             u:object_r:iq_cadet_ip_prop:s0
+#line 1 "device/lge/common/qcom/sepolicy/property_contexts"
+qualcomm.bluetooth.opp           u:object_r:bluetooth_prop:s0
+qualcomm.bluetooth.hfp           u:object_r:bluetooth_prop:s0
+ctl_usb_uicc                     u:object_r:uicc_prop:s0
+usb_uicc.enabled                 u:object_r:uicc_prop:s0
+qualcomm.bluetooth.              u:object_r:bluetooth_prop:s0
+qualcomm.bt.                     u:object_r:bluetooth_prop:s0
+qualcomm.perf.                   u:object_r:qualcomm_pref_prop:s0
+ctl.dpmd                         u:object_r:ctl_dpmd_prop:s0
+wifi.lge.offloading.ongoing      u:object_r:offloading_ongoing_prop:s0

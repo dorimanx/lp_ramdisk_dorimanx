@@ -1,0 +1,94 @@
+on init
+#    mkdir /storage/external_SD 0700 root root
+#    mkdir /mnt/media_rw 0700 media_rw media_rw
+#    mkdir /mnt/media_rw/external_SD 0700 media_rw media_rw
+#    export EXTERNAL_ADD_STORAGE /storage/external_SD
+#    export SECONDARY_STORAGE /storage/external_SD
+   # LGE_UPDATE_START, 2013/04/16, for eri G2-FS@lge.com
+    exec /sbin/setup_fs_static \
+        /dev/block/platform/msm_sdcc.1/by-name/eri \
+        no_reboot
+
+on boot
+
+#20130405 iwlan eyes0814@lge.com [START] -----------------------
+    chmod 0755 /system/bin/iwland
+#20130405 iwlan eyes0814@lge.com [END] -----------------------
+
+
+on fs
+    # LGE_UPDATE_START, 2013/04/16, for eri G2-FS@lge.com
+    mkdir /eri 0771 system radio
+    wait /dev/block/platform/msm_sdcc.1/by-name/eri
+    exec /system/bin/e2fsck -y /dev/block/platform/msm_sdcc.1/by-name/eri
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/eri /eri nosuid nodev barrier=1 noatime noauto_da_alloc errors=continue
+    # LGE_UPDATE_END
+
+on post-fs-data
+#2013.06.20 LGE_CHANGE_S youngmin.kwon@lge.com, thermal senario change about LCD brightness
+chown system system /sys/class/leds/lcd-backlight/thermald_status
+chmod 0644 /sys/class/leds/lcd-backlight/thermald_status
+#2013.06.20 LGE_CHANGE_E youngmin.kwon@lge.com, thermal senario change about LCD brightness
+
+#20130405 PM service ny.han@lge.com [START] -----------------------
+mkdir /data/playready 0777 system system
+chown system system /data/playready
+chmod 0777 /data/playready
+mkdir /data/pmsc 0777 system system
+chown system system /data/pmsc
+chmod 0777/data/pmsc
+copy /system/vzw/pmservice_cert/bgroupcert.dat /data/pmsc/bgroupcert.dat
+copy /system/vzw/pmservice_cert/devcerttemplate.dat /data/pmsc/devcerttemplate.dat
+copy /system/vzw/pmservice_cert/priv.dat /data/pmsc/priv.dat
+copy /system/vzw/pmservice_cert/zgpriv.dat /data/pmsc/zgpriv.dat
+chown system system /data/pmsc/bgroupcert.dat
+chown system system /data/pmsc/devcerttemplate.dat
+chown system system /data/pmsc/priv.dat
+chown system system /data/pmsc/zgpriv.dat
+chmod 0444 /data/pmsc/bgroupcert.dat
+chmod 0444 /data/pmsc/devcerttemplate.dat
+chmod 0444 /data/pmsc/priv.dat
+chmod 0444 /data/pmsc/zgpriv.dat
+#20130405 PM service ny.han@lge.com [END] -----------------------
+    # LGE_UPDATE_START, 2013/04/16, for eri G2-FS@lge.com
+    chown system radio /eri
+    chmod 771 /eri
+    restorecon /eri
+    # LGE_UPDATE_END
+
+# LGP_DATA_APN_APN2_ENABLE_BACKUP_RESTORE_VZW
+    mkdir /persist-lg/apn2 0770 system system
+#20130405 iwlan eyes0814@lge.com [START] -----------------------
+service iwland /system/bin/iwland -ddd
+    class main
+    user root
+    oneshot
+#20130405 iwlan eyes0814@lge.com [END] -----------------------
+
+# [ENCRYPTION] Applied only VZW,ATT,SPR,TMUS(NorthAmerica) and Canada
+service ufips /system/bin/ufips
+    class core
+    user system
+    group system
+
+on boot
+# LGE_CHANGE_S, 20120513, sewon.kim@lge.com, change tcp_syn_retries from 5 to 1
+# LGE_CHANGE_S, 20130710, junsop.shin@lge.com, change tcp_syn_retries from 1 to 2
+    write /proc/sys/net/ipv4/tcp_syn_retries 2
+# LGE_CHANGE_E, 20130710, junsop.shin@lge.com, change tcp_syn_retries from 1 to 2
+# LGE_CHANGE_E, 20120513, sewon.kim@lge.com, change tcp_syn_retries from 5 to 1
+
+#[START][ePDG][changhwan.lee] set ePDG property
+on init
+	setprop persist.data.iwlan.enable true
+	setprop persist.sys.cnd.iwlan 2
+#[END][ePDG][changhwan.lee] set ePDG property
+
+# WirelessSotrage
+service nfskill /system/bin/nfskillprocess
+    disabled
+    oneshot
+    user root
+
+on property:vold.decrypt=trigger_shutdown_framework
+    start nfskill

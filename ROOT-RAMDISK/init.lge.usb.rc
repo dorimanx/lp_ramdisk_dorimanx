@@ -97,6 +97,7 @@ on property:sys.usb.config=mtp,acm,diag
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,acm,diag,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 633E
@@ -124,6 +125,7 @@ on property:sys.usb.config=acm,diag,mtp
      setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=acm,diag,mtp,adb
+     stop adbd
      write /sys/class/android_usb/android0/enable 0
      write /sys/class/android_usb/android0/idVendor 1004
      write /sys/class/android_usb/android0/idProduct 61F1
@@ -150,6 +152,7 @@ on property:sys.usb.config=mass_storage
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mass_storage,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 61FA
@@ -178,6 +181,7 @@ on property:sys.usb.config=mtp
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 633E
@@ -205,6 +209,7 @@ on property:sys.usb.config=ptp
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=ptp,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 61F3
@@ -230,6 +235,7 @@ on property:sys.usb.config=cdrom_storage
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=cdrom_storage,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 632C
@@ -238,6 +244,7 @@ on property:sys.usb.config=cdrom_storage,adb
     write /sys/class/android_usb/android0/bDeviceProtocol 0
     write /sys/class/android_usb/android0/functions cdrom_storage
     write /sys/class/android_usb/android0/enable 1
+    start adbd
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=charge_only
@@ -252,6 +259,7 @@ on property:sys.usb.config=charge_only
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=charge_only,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 6300
@@ -309,6 +317,7 @@ on property:sys.usb.config=boot
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=boot,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 633E
@@ -336,6 +345,7 @@ on property:sys.usb.config=pc_suite
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=pc_suite,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 61F1
@@ -363,6 +373,7 @@ on property:sys.usb.config=ecm
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=ecm,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 61FE
@@ -390,6 +401,7 @@ on property:sys.usb.config=rndis
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=rndis,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 6344
@@ -415,6 +427,7 @@ on property:sys.usb.config=mtp_only
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp_only,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 61F9
@@ -438,6 +451,7 @@ on property:sys.usb.config=ptp_only
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=ptp_only,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 631D
@@ -450,6 +464,7 @@ on property:sys.usb.config=ptp_only,adb
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=adb_only
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 631F
@@ -465,6 +480,7 @@ on property:sys.usb.config=adb_only
 # For Qualcomm USB
 #
 on property:sys.usb.config=qmicm
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 05C6
     write /sys/class/android_usb/android0/idProduct 9025
@@ -479,6 +495,7 @@ on property:sys.usb.config=qmicm
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=qmicm,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 05C6
     write /sys/class/android_usb/android0/idProduct 9025
@@ -504,6 +521,7 @@ on property:sys.usb.config=ncm
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=ncm,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 635B
@@ -516,6 +534,7 @@ on property:sys.usb.config=ncm,adb
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=auto_conf
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 633E
@@ -529,6 +548,7 @@ on property:sys.usb.config=auto_conf
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=auto_conf,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 1004
     write /sys/class/android_usb/android0/idProduct 633E
