@@ -156,6 +156,7 @@
 /system/bin/tf_daemon	u:object_r:tee_exec:s0
 /system/bin/racoon	u:object_r:racoon_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
+/system/xbin/sugote    u:object_r:zygote_exec:s0
 /system/vendor/bin/gpsd u:object_r:gpsd_exec:s0
 /system/bin/ping    u:object_r:ping_exec:s0
 /system/wget/wget      u:object_r:wget_exec:s0
@@ -174,6 +175,7 @@
 # patchoat executable has (essentially) the same requirements as dex2oat.
 /system/bin/patchoat    u:object_r:dex2oat_exec:s0
 /system/bin/patchoat.orig    u:object_r:dex2oat_exec:s0
+/system/bin/acurafixril    u:object_r:acurafixril_exec:s0
 
 #############################
 # Vendor files
@@ -393,7 +395,7 @@
 /system/bin/mtsd           u:object_r:mtsd_exec:s0
 /system/bin/mcDriverDaemon u:object_r:mcdaemon_exec:s0
 /sbin/lge_fota_launcher    u:object_r:lg_fotafs:s0
-/system/lib/modules        u:object_r:system_modules_file:s0
+/system/lib/modules(/.*)?        u:object_r:system_modules_file:s0
 /system/bin/write_event_log  u:object_r:write_event_log_exec:s0
 /system/bin/spar_count     u:object_r:spar_count_exec:s0
 
