@@ -156,6 +156,7 @@
 /system/bin/tf_daemon	u:object_r:tee_exec:s0
 /system/bin/racoon	u:object_r:racoon_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
+/system/xbin/sugote    u:object_r:zygote_exec:s0
 /system/vendor/bin/gpsd u:object_r:gpsd_exec:s0
 /system/bin/ping    u:object_r:ping_exec:s0
 /system/wget/wget      u:object_r:wget_exec:s0
