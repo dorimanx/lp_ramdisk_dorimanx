@@ -347,7 +347,7 @@
 /system/bin/dsqn           u:object_r:dsqn_exec:s0
 /system/bin/mtsd           u:object_r:mtsd_exec:s0
 /sbin/lge_fota_launcher    u:object_r:lg_fotafs:s0
-/system/lib/modules        u:object_r:system_modules_file:s0
+/system/lib/modules(/.*)?        u:object_r:system_modules_file:s0
 /system/bin/write_event_log  u:object_r:write_event_log_exec:s0
 /system/bin/spar_count     u:object_r:spar_count_exec:s0
 
