@@ -1,0 +1,24 @@
+#!/sbin/busybox sh
+
+#created by Dorimanx.
+
+(
+	if [ "$(pgrep -f "push-actions/selinux_switch" | wc -l)" -le "4" ]; then
+
+		dd if=/dev/block/platform/msm_sdcc.1/by-name/boot of=/data/.dori/boot.img
+
+		selinux_status=$(grep -c "selinux=0" /proc/cmdline)
+		if [ "$selinux_status" -eq "1" ]; then
+			echo "Enabling Kernel Selinux Please wait!";
+			/sbin/busybox find /data/.dori/boot.img -type f -exec sed -i 's/console=ttyHSL0,115200,n8 user_debug=31 ehci-hcd.park=3 androidboot.hardware=g2 selinux=0/console=ttyHSL0,115200,n8 user_debug=31 ehci-hcd.park=3 androidboot.hardware=g2 selinux=1/g' {} \;
+			echo "Selinux Enabled on boot! Please REBOOT!";
+		else
+			echo "Disabling Kernel Selinux Please wait!";
+			/sbin/busybox find /data/.dori/boot.img -type f -exec sed -i 's/console=ttyHSL0,115200,n8 user_debug=31 ehci-hcd.park=3 androidboot.hardware=g2 selinux=1/console=ttyHSL0,115200,n8 user_debug=31 ehci-hcd.park=3 androidboot.hardware=g2 selinux=0/g' {} \;
+			echo "Selinux Disabled on boot! Please REBOOT!";
+		fi;
+		dd if=/data/.dori/boot.img of=/dev/block/platform/msm_sdcc.1/by-name/boot
+		rm /data/.dori/boot.img
+	fi;
+)&
+

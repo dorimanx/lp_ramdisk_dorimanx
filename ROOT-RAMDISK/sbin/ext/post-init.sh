@@ -283,8 +283,10 @@ echo "0" > /cputemp/freq_limit_debug;
 # Reload usb driver to open MTP and fix fast charge.
 CHARGER_STATE=$(cat /sys/class/power_supply/battery/charging_enabled);
 if [ "$CHARGER_STATE" -eq "1" ] && [ "$adb_selector" -eq "1" ]; then
+	stop adbd
 	echo "0" > /sys/class/android_usb/android0/enable;
 	echo "1" > /sys/class/android_usb/android0/enable;
+	start adbd
 fi;
 
 if [ "$(cat /sys/module/powersuspend/parameters/sleep_state)" -eq "0" ]; then
