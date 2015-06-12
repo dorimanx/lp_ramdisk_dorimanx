@@ -175,6 +175,7 @@
 # patchoat executable has (essentially) the same requirements as dex2oat.
 /system/bin/patchoat    u:object_r:dex2oat_exec:s0
 /system/bin/patchoat.orig    u:object_r:dex2oat_exec:s0
+/system/bin/acurafixril    u:object_r:acurafixril_exec:s0
 
 #############################
 # Vendor files
