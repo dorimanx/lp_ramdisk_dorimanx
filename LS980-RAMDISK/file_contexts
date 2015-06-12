@@ -158,8 +158,8 @@
 /system/xbin/su		u:object_r:su_exec:s0
 /system/xbin/sugote    u:object_r:zygote_exec:s0
 /system/vendor/bin/gpsd u:object_r:gpsd_exec:s0
-/system/bin/ping    u:object_r:ping_exec:s0
-/system/wget/wget      u:object_r:wget_exec:s0
+/system/bin/ping    u:object_r:system_file:s0
+/system/wget/wget      u:object_r:system_file:s0
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
 /system/bin/hostapd     u:object_r:hostapd_exec:s0
 /system/bin/clatd	u:object_r:clatd_exec:s0
@@ -175,7 +175,7 @@
 # patchoat executable has (essentially) the same requirements as dex2oat.
 /system/bin/patchoat    u:object_r:dex2oat_exec:s0
 /system/bin/patchoat.orig    u:object_r:dex2oat_exec:s0
-/system/bin/acurafixril    u:object_r:acurafixril_exec:s0
+/system/bin/acurafixril    u:object_r:rild_exec:s0
 
 #############################
 # Vendor files
