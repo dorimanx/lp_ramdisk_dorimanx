@@ -48,10 +48,6 @@ on fs
 
     mount_all fstab.g2
 
-    # restore selinux perms on system for custom roms.
-    chmod 0777 /sbin/fstab_mount/fix_selinux.sh
-    exec /sbin/fstab_mount/fix_selinux.sh
-
     # Keeping following partitions outside fstab file. As user may not have
     # these partition flashed on the device. Failure to mount any partition in fstab file
     # results in failure to launch late-start class.
