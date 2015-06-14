@@ -20,8 +20,8 @@ if [ "$selinux_status" -eq "1" ]; then
 	if [ -e /system/bin/app_process32_xposed ]; then
 		chcon u:object_r:zygote_exec:s0 /system/bin/app_process32_xposed
 	fi;
-	chcon u:object_r:firmware_file:s0 /firmware/image/*
-	mount -o remount,context=u:object_r:firmware_file:s0 /firmware
+	umount /firmware;
+	mount -t vfat -o ro,context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337 /dev/block/platform/msm_sdcc.1/by-name/modem /firmware
 fi;
 
 # run ROM scripts
@@ -290,15 +290,6 @@ fi;
 
 echo "0" > /cputemp/freq_limit_debug;
 
-# Reload usb driver to open MTP and fix fast charge.
-CHARGER_STATE=$(cat /sys/class/power_supply/battery/charging_enabled);
-if [ "$CHARGER_STATE" -eq "1" ] && [ "$adb_selector" -eq "1" ]; then
-	stop adbd
-	echo "0" > /sys/class/android_usb/android0/enable;
-	echo "1" > /sys/class/android_usb/android0/enable;
-	start adbd
-fi;
-
 if [ "$(cat /sys/module/powersuspend/parameters/sleep_state)" -eq "0" ]; then
 	$BB sh /res/uci.sh cpu0_min_freq "$cpu0_min_freq";
 	$BB sh /res/uci.sh cpu1_min_freq "$cpu1_min_freq";
@@ -325,6 +316,15 @@ $BB mount -o remount,ro /system;
 
 (
 	sleep 30;
+
+	# Reload usb driver to open MTP and fix fast charge.
+	CHARGER_STATE=$(cat /sys/class/power_supply/battery/charging_enabled);
+	if [ "$CHARGER_STATE" -eq "1" ] && [ "$adb_selector" -eq "1" ]; then
+		stop adbd
+		echo "0" > /sys/class/android_usb/android0/enable;
+		echo "1" > /sys/class/android_usb/android0/enable;
+		start adbd
+	fi;
 
 	# stop google service and restart it on boot. this remove high cpu load and ram leak!
 	if [ "$($BB pidof com.google.android.gms | wc -l)" -eq "1" ]; then
