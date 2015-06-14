@@ -17,7 +17,9 @@ OPEN_RW;
 selinux_status=$(grep -c "selinux=1" /proc/cmdline);
 if [ "$selinux_status" -eq "1" ]; then
 	restorecon -RF /system
-	chcon u:object_r:zygote_exec:s0 /system/bin/app_process32_xposed
+	if [ -e /system/bin/app_process32_xposed ]; then
+		chcon u:object_r:zygote_exec:s0 /system/bin/app_process32_xposed
+	fi;
 	chcon u:object_r:firmware_file:s0 /firmware/image/*
 	mount -o remount,context=u:object_r:firmware_file:s0 /firmware
 fi;
