@@ -322,6 +322,8 @@ $BB mount -o remount,ro /system;
 	if [ "$CHARGER_STATE" -eq "1" ] && [ "$adb_selector" -eq "1" ]; then
 		stop adbd
 		echo "0" > /sys/class/android_usb/android0/enable;
+		echo "633E" > /sys/class/android_usb/android0/idProduct;
+		echo "mtp:mtp,acm,diag,adb" > /sys/class/android_usb/android0/functions;
 		echo "1" > /sys/class/android_usb/android0/enable;
 		start adbd
 	fi;
