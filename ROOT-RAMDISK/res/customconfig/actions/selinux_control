@@ -7,17 +7,25 @@
 if [ "a$2" != "a" ]; then
 	selinux_control=$2;
 
+BBS=/system/xbin/busybox
+
 ENFORCE=$(getenforce);
 
 	case "${selinux_control}" in
 		on)
 			if [ "$ENFORCE" == "Permissive" ]; then
+				$BBS mv /sbin/busybox /sbin/busybox_bkp;
+				$BBS ln -s /system/xbin/busybox /sbin/busybox;
 				setenforce 1;
 			fi;
 		;;
 		off)
 			if [ "$ENFORCE" == "Enforcing" ]; then
 				setenforce 0;
+				if [ -e /sbin/busybox_bkp ]; then
+					$BBS rm /sbin/busybox;
+					$BBS mv /sbin/busybox_bkp /sbin/busybox;
+				fi;
 			fi;
 		;;
 		*)
