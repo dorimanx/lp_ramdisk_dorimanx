@@ -15,7 +15,8 @@
 /charger		u:object_r:rootfs:s0
 /init			u:object_r:rootfs:s0
 /sbin(/.*)?		u:object_r:rootfs:s0
-/sbin/busybox		u:object_r:rootfs:s0
+/sbin/busybox		u:object_r:system_file:s0
+/res(/.*)?		u:object_r:system_file:s0
 
 # Empty directories
 /lost\+found		u:object_r:rootfs:s0
