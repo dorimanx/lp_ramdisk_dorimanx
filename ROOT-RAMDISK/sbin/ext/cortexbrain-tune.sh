@@ -56,6 +56,7 @@ IO_TWEAKS()
 			echo "0" > "$i"/queue/rotational;
 			echo "0" > "$i"/queue/iostats;
 			echo "2" > "$i"/queue/rq_affinity;
+			echo "2" > "$i"/queue/nomerges;
 		done;
 
 		# This controls how many requests may be allocated
