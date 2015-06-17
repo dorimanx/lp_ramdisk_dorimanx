@@ -11,9 +11,9 @@ PROFILE=$(cat /data/.dori/.active.profile);
 if [ "a$2" != "a" ]; then
 	power_mode=$2;
 
-	echo "4" > /sys/kernel/alucard_hotplug/min_cpus_online;
-	echo "4" > /sys/module/msm_hotplug/min_cpus_online;
-	echo "4" > /sys/kernel/intelli_plug/min_cpus_online;
+	echo "$max_cpus_online" > /sys/kernel/alucard_hotplug/min_cpus_online;
+	echo "$max_cpus_online" > /sys/module/msm_hotplug/min_cpus_online;
+	echo "$max_cpus_online" > /sys/kernel/intelli_plug/min_cpus_online;
 
 	sleep 2;
 
