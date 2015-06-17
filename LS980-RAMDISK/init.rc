@@ -53,7 +53,7 @@ on init
 
     # Create cgroup mount point for cpu accounting
     mkdir /acct
-    #mount cgroup none /acct cpuacct
+    mount cgroup none /acct cpuacct
     mkdir /acct/uid
 
     # Create cgroup mount point for memory
