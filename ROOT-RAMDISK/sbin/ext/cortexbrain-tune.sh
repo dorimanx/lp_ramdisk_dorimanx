@@ -407,11 +407,6 @@ AWAKE_MODE()
 	else
 		log -p i -t "$FILE_NAME" "*** AWAKE_MODE - WAS NOT SLEEPING ***: done";
 	fi;
-	# check if system mounted as RW and set RO
-	system_rw_check=$(mount | grep system | grep -c rw);
-	if [ "$system_rw_check" -eq "1" ]; then
-		mount -o remount,ro /system;
-	fi;
 }
 
 # ==============================================================
