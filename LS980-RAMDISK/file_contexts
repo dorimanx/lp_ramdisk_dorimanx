@@ -8,7 +8,6 @@
 /default\.prop		u:object_r:rootfs:s0
 /fstab\..*		u:object_r:rootfs:s0
 /init\..*		u:object_r:rootfs:s0
-/res(/.*)?		u:object_r:rootfs:s0
 /ueventd\..*		u:object_r:rootfs:s0
 
 # Executables
