@@ -542,7 +542,7 @@
 			<spinnerItem name="exterminate" value="exterminate"/> 
 		</spinner>
 
-		<checkbox description="Allow kernel to release highmem RAM and allocate free RAM to onscreen APP. this may improve UI and APPS performance, but it's also can unload the home app from RAM and other services, use for testing, if all OK, great, if any strange problems, turn it OFF (default is unchecked! OFF)" name="High Mem Dirtyable" action="generic01 /proc/sys/vm/highmem_is_dirtyable" label="High MEM Release"/>
+		<checkbox description="Allow kernel to release highmem RAM and allocate free RAM to onscreen APP. this may improve UI and APPS performance, but it's also can unload the home app from RAM and other services, if any strange problems, turn it OFF" name="High Mem Dirtyable" action="generic01 /proc/sys/vm/highmem_is_dirtyable" label="High MEM Release"/>
 
 		<seekBar description="Dirty background memory buffer. The more you set, the more memory will be used for write buffer for background operations. Buffer is released when it is needed to free RAM" name="Dirty Background ratio" action="generic /proc/sys/vm/dirty_background_ratio" unit="%" min="5" reversed="false" step="5" max="80"/>
 
