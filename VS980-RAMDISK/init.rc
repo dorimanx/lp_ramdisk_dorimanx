@@ -219,8 +219,9 @@ on post-fs
     restorecon_recursive /cache
 
     # This may have been created by the recovery system with odd permissions
+    mkdir /cache/recovery
     chown system cache /cache/recovery
-    chmod 0770 /cache/recovery
+    chmod 0777 /cache/recovery
     # This may have been created by the recovery system with the wrong context.
     restorecon /cache/recovery
 
