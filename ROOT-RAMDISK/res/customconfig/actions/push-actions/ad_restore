@@ -1,6 +1,10 @@
 #!/sbin/busybox sh
 
-mount -o remount,rw /system;
+BB=/sbin/busybox
+if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
+        $BB mount -o remount,rw /system;
+fi;
+
 cp -a /res/misc/clean_hosts/hosts /system/etc/hosts;
 chmod 622 /system/etc/hosts;
 echo "AD Blocker: REMOVED";

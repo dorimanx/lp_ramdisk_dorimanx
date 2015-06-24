@@ -3,13 +3,19 @@
 PROFILE=$(cat /data/.dori/.active.profile);
 . /data/.dori/${PROFILE}.profile;
 
+BB=/sbin/busybox
+
 if [ "$ad_block_update" == "on" ]; then
 
 	TMPFILE=$(mktemp -t);
 	HOST_FILE="/system/etc/hosts";
 
-	mount -o remount,rw /;
-	mount -o remount,rw /system;
+	if [ "$($BB mount | grep rootfs | cut -c 26-27 | grep -c ro)" -eq "1" ]; then
+		$BB mount -o remount,rw /;
+	fi;
+	if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
+		$BB mount -o remount,rw /system;
+	fi;
 
 	echo "nameserver 8.8.8.8" > /system/etc/resolv.conf;
 	echo "nameserver 4.4.8.8" >> /system/etc/resolv.conf;

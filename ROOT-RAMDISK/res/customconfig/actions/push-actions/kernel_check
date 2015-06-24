@@ -2,10 +2,16 @@
 
 WGET_CHECK1=`ls /system/wget/wget | wc -l` > /dev/null 2>&1;
 
+BB=/sbin/busybox
+
 if [ "$WGET_CHECK1" -eq "1" ]; then
 
-	mount -o remount,rw /;
-	mount -o remount,rw /system;
+	if [ "$($BB mount | grep rootfs | cut -c 26-27 | grep -c ro)" -eq "1" ]; then
+		$BB mount -o remount,rw /;
+	fi;
+	if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
+		$BB mount -o remount,rw /system;
+	fi;
 
 	DNS1=`getprop net.dns1`;
 	DNS2=`getprop net.rmnet0.dns1`;

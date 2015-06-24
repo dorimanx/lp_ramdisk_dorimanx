@@ -19,7 +19,9 @@ PROFILE=`cat /data/.dori/.active.profile`;
 case "${debug_to_sd}" in
 	1)
 		(
-			mount -o remount,rw /system;
+			if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
+				$BB mount -o remount,rw /system;
+			fi;
 
 			SEPARATOR()
 			{

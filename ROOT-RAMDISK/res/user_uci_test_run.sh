@@ -3,8 +3,15 @@
 # by Gokhan Moral and Voku and Dorimanx and Alucard24
 
 # stop uci.sh from running all the PUSH Buttons in stweaks on boot
-/sbin/busybox mount -o remount,rw /;
-/sbin/busybox mount -o remount,rw /system;
+BB=/sbin/busybox
+
+if [ "$($BB mount | grep rootfs | cut -c 26-27 | grep -c ro)" -eq "1" ]; then
+	$BB mount -o remount,rw /;
+fi;
+if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
+	$BB mount -o remount,rw /system;
+fi;
+
 chown -R root:system /res/customconfig/actions/;
 chmod -R 06755 /res/customconfig/actions/;
 mv /res/customconfig/actions/push-actions/* /res/no-push-on-boot/;

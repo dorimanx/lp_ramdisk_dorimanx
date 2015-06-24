@@ -9,7 +9,9 @@ if [ "$ROOTFS_MOUNT" -eq "0" ]; then
 	$BB mount -o remount,rw /;
 fi;
 
-$BB mount -o remount,rw /system;
+if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
+	$BB mount -o remount,rw /system;
+fi;
 
 $BB cp -a /res/crontab_service/cron-root /data/crontab/root;
 chown 0:0 /data/crontab/root;
