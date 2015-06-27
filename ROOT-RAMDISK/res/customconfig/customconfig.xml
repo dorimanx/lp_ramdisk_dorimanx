@@ -492,6 +492,11 @@
 			<spinnerItem name="2560 kB" value="2560"/> 
 		</spinner>
 
+		<spinner description="MMC power usage control, when set performance mode MMC I/O write speed will be very fast, when set in power save mode write performance will be degraded but more power saved." name="MMC Power Usage" action="mmc_mode">
+			<spinnerItem name="MMC Performance" value="performance"/> 
+			<spinnerItem name="MMC Power Save" value="power_save"/> 
+		</spinner>
+
 		<button description="Use this button to Trim System and Data Nand partitions to speed up Read and Write Access, good to use once in a day or two." name="Trim System and Data" action="push-actions/fstrim" label="Trim NOW"/>
 
 		<spinner description="This will set the default AWAKE I/O scheduler for internal storage. (Default equal ZEN)" name="Default Awake I/O Scheduler" action="scheduler">

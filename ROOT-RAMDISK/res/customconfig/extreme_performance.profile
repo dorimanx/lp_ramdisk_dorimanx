@@ -57,6 +57,7 @@ lge_speaker_gain=1
 lge_cam_mic_gain=3
 lge_mic_gain=4
 read_ahead_kb=1024
+mmc_mode=performance
 scheduler=zen
 sleep_scheduler=zen
 auto_oom=on
