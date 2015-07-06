@@ -11,8 +11,8 @@ import /init.${ro.hardware}.rc
 import /init.${ro.zygote}.rc
 import /init.trace.rc
 import /init.lge.rc
-import /init.vmware.rc
-import /init.acuraboot.rc
+#import /init.vmware.rc
+#import /init.acuraboot.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
