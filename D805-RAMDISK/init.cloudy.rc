@@ -1,0 +1,12 @@
+#
+#  Cloudyfa's Modification
+#
+
+service cloudy-hotfix /system/bin/sh /init.cloudy.sh
+	class late_start
+	user root
+	disabled
+	oneshot
+
+on property:sys.boot_completed=1
+	start cloudy-hotfix
