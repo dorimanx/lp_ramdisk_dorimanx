@@ -207,6 +207,12 @@ fi;
 
 OPEN_RW;
 
+# kill charger logo binary to prevent ROM running it.
+CHECK_BOOT_STATE=$(cat /proc/cmdline | grep "androidboot.mode=" | $BB wc -l);
+if [ "$CHECK_BOOT_STATE" -eq "0" ]; then
+	rm /sbin/chargerlogo;
+fi;
+
 # copy cron files
 $BB cp -a /res/crontab/ /data/
 if [ ! -e /data/crontab/custom_jobs ]; then
@@ -263,10 +269,6 @@ OPEN_RW;
 
 # set ondemand tuning.
 ONDEMAND_TUNING;
-
-# Turn off CORE CONTROL, to boot on all cores!
-$BB chmod 666 /sys/module/msm_thermal/core_control/*
-echo "0" > /sys/module/msm_thermal/core_control/core_control;
 
 # Start any init.d scripts that may be present in the rom or added by the user
 $BB chmod -R 755 /system/etc/init.d/;
