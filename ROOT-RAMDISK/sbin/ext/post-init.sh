@@ -371,6 +371,9 @@ fi;
 	pm enable com.google.android.gsf/.update.SystemUpdateService$Receiver
 	pm enable com.google.android.gsf/.update.SystemUpdateService$SecretCodeReceiver
 
+	# stop core control if need to
+	echo "$core_control" > /sys/module/msm_thermal/core_control/core_control;
+
 	# script finish here, so let me know when
 	TIME_NOW=$(date)
 	echo "$TIME_NOW" > /data/boot_log_dm

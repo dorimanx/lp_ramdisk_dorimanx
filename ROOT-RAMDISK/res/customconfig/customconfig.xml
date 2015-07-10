@@ -317,7 +317,7 @@
 
 	<settingsPane description="Here you can tune HotPlug CPU Thermal Controls, ON or OFF cores when over temp to reduce heat. but this will reduce performance, as you get one core enabled but on full power! others will wait till heat will be reduced." name="HotPlug CPU Thermal Controls">
 
-		<spinner description="Hotplug CPU Thermal control main switch, this allow to shutdown cores 1,2,3 and leave core 0 as main core on high frequency. but it's reduces global performance on high temp, if set disabled then all CPU cores will be online and operate at lower frequencies when the temperature is high!" name="HotPlug Thermal CPU Control" action="generic /sys/module/msm_thermal/core_control/core_control">
+		<spinner description="Hotplug CPU Thermal control main switch, this allow to shutdown cores 1,2,3 and leave core 0 as main core on high frequency. but it's reduces global performance on high temp, if set disabled then all CPU cores will be online and operate at lower frequencies when the temperature is high!" name="HotPlug Thermal CPU Control" action="core_control">
 			<spinnerItem name="Enabled" value="1"/> 
 			<spinnerItem name="Disabled" value="0"/> 
 		</spinner>

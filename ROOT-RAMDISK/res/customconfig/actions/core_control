@@ -1,0 +1,25 @@
+#!/sbin/busybox sh
+
+# $1 - "core_control"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	core_control=$2;
+
+	case "${core_control}" in
+		0)
+			if [ "$(cat /sys/class/thermal/thermal_zone5/temp)" -le "68" ]; then
+				echo "0" > /sys/module/msm_thermal/core_control/core_control;
+			fi;
+		;;
+		1)
+			echo "1" > /sys/module/msm_thermal/core_control/core_control;
+		;;
+		*)
+			core_control=0;
+		;;
+	esac;
+fi;
+
+echo ${core_control};
