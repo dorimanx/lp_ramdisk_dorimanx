@@ -5,7 +5,10 @@ import /init.qcom.rc
 import /init.lge.usb.rc
 import /init.galbi2_core.rc
 import /init.lge.power.rc
+
+# RADIO FIX
 import /init.cloudy.rc
+import /init.baseband.rc
 
 # LGE_CHANGE_S, [LGE_DATA][LGP_DATA_TCPIP_NSRM], heeyeon.nah@lge.com, 2012-05-22
 export LD_PRELOAD /vendor/lib/libNimsWrap.so
