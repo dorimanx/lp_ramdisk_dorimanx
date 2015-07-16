@@ -136,7 +136,7 @@
 /system/bin/app_process32	u:object_r:zygote_exec:s0
 /system/bin/app_process32_original    u:object_r:zygote_exec:s0
 /system/bin/app_process32_xposed    u:object_r:zygote_exec:s0
-/system/bin/app_process64	u:object_r:zygote_exec:s0
+#/system/bin/app_process64	u:object_r:zygote_exec:s0
 /system/bin/servicemanager	u:object_r:servicemanager_exec:s0
 /system/bin/surfaceflinger	u:object_r:surfaceflinger_exec:s0
 /system/bin/drmserver	u:object_r:drmserver_exec:s0
@@ -663,7 +663,6 @@
 ###################################
 # System files
 #
-#/system/bin/app_process                         u:object_r:zygote_exec:s0
 /system/bin/ATFWD-daemon                        u:object_r:atfwd_exec:s0
 /system/bin/PktRspTest                          u:object_r:diag_exec:s0
 /system/bin/audiod                              u:object_r:audiod_exec:s0

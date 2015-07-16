@@ -65,12 +65,6 @@ on boot
     lge_chcon_recursive /data/security u:object_r:security_file:s0
     start chcon_keystore
 
-#// LGE_UPDATE_S DMS_SYSTEM_GOTA dms-fota@lge.com 2014/10/06
-#service recovery_write /sbin/write_recovery
-#    class main
-#    oneshot
-#// LGE_UPDATE_S DMS_SYSTEM_GOTA dms-fota@lge.com 2014/10/06
-
 #LGE_CHANGE_S, restart qcamerasvr when restarting mediaserver and servicemanager, yousung.kang@lge.com
 on property:init.svc.media=restarting
     restart qcamerasvr
