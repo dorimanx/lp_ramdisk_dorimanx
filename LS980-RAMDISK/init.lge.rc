@@ -99,8 +99,8 @@ on post-fs-data
 on boot
     # Assign TCP buffer thresholds to be ceiling value of technology maximums
     # Increased technology maximums should be reflected here.
-    write /proc/sys/net/core/rmem_max 8388608
-    write /proc/sys/net/core/wmem_max 8388608
+    write /proc/sys/net/core/rmem_max  2097152
+    write /proc/sys/net/core/wmem_max  2097152
 
 #SELinux
 #service auditd /system/bin/auditd -k
