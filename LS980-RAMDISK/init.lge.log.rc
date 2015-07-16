@@ -1,6 +1,7 @@
 on post-fs-data
     mkdir /data/logger 0775 system system
     mkdir /data/logger/setup 0770 system system
+    mkdir /cache/encryption_log 0775 system system
 
 # kernel log
 #service log-kernel /system/bin/sh /system/bin/logger_kernel.sh
@@ -197,6 +198,15 @@ on property:persist.service.packet.enable=0
     stop log-packet
 
 on property:vold.decrypt=trigger_restart_framework
+    restart log-kernel
+    restart log-power
+    restart logcat-main
+    restart logcat-system
+    restart logcat-radio
+    restart logcat-events
+    restart log-packet
+
+on property:vold.encrypt_progress=0
     restart log-kernel
     restart log-power
     restart logcat-main

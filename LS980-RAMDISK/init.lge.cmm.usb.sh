@@ -27,56 +27,19 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-chown -h root.system /sys/devices/platform/msm_hsusb/gadget/wakeup
-chmod -h 220 /sys/devices/platform/msm_hsusb/gadget/wakeup
 
 #
-# Allow persistent usb charging disabling
-# User needs to set usb charging disabled in persist.usb.chgdisabled
+# When boot is completed and persist.sys.usb.config is "boot",
+# set persist.sys.usb.config into default mode.
 #
-target=`getprop ro.board.platform`
-usbchgdisabled=`getprop persist.usb.chgdisabled`
-case "$usbchgdisabled" in
-    "") ;; #Do nothing here
-    * )
-    case $target in
-        "msm8660")
-        echo "$usbchgdisabled" > /sys/module/pmic8058_charger/parameters/disabled
-        echo "$usbchgdisabled" > /sys/module/smb137b/parameters/disabled
-    ;;
-        "msm8960")
-        echo "$usbchgdisabled" > /sys/module/pm8921_charger/parameters/disabled
-    ;;
-        "msm8994" | "msm8992")
-        echo BAM2BAM_IPA > /sys/class/android_usb/android0/f_rndis_qc/rndis_transports
-        echo 1 > /sys/class/android_usb/android0/f_rndis_qc/max_pkt_per_xfer # Disable RNDIS UL aggregation
-        echo qti,bam2bam_ipa > /sys/class/android_usb/android0/f_rmnet/transports
-    ;;
-        "apq8084")
-        echo qti,ether > /sys/class/android_usb/android0/f_rmnet/transports
-    ;;
-        "apq8064")
-        echo hsic,hsic > /sys/class/android_usb/android0/f_rmnet/transports
-    ;;
-        * )
-        echo smd,bam > /sys/class/android_usb/android0/f_rmnet/transports
-    ;;
-    esac
-esac
 
-echo 1  > /sys/class/android_usb/f_mass_storage/lun/nofua
-echo 1  > /sys/class/android_usb/f_cdrom_storage/lun/nofua
-
-#
-# Allow USB enumeration with default PID/VID
-#
 usb_config=`getprop persist.sys.usb.config`
 case "$usb_config" in
-        "") #USB persist config not set, select default configuration
-        setprop persist.sys.usb.config mtp_only
+        "boot") #factory status, select default
+                setprop persist.sys.usb.config mtp_only
         ;;
-        "adb")
-        setprop persist.sys.usb.config mtp_only,adb
+        "boot,adb") #factory status, select default
+                setprop persist.sys.usb.config mtp_only,adb
         ;;
-        * ) ;; #USB persist config exists, do nothing
+        *) ;; #USB persist config exists, do nothing
 esac

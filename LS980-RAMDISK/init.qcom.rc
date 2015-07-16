@@ -289,8 +289,6 @@ on post-fs-data
     #Create folder for mm-qcamera-daemon
     mkdir /data/camera 0770 media camera
 
-./device/lge/galbi2/qcom/device/common/rootdir/etc/init.qcom.rc
-
 # Export GPIO56 for fusion targets to enable/disable hub
 service usbhub_init /system/bin/usbhub_init
    class late_start

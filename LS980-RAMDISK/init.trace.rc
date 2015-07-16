@@ -33,32 +33,3 @@ on early-boot
 # Allow only the shell group to read and truncate the kernel trace.
     chown root shell /sys/kernel/debug/tracing/trace
     chmod 0660 /sys/kernel/debug/tracing/trace
-
-# Allow the shell group to enable kgsl tracing.
-    chown root shell /sys/kernel/debug/tracing/events/kgsl/syncpoint_timestamp/enable
-    chown root shell /sys/kernel/debug/tracing/events/kgsl/syncpoint_timestamp_expire/enable
-    chown root shell /sys/kernel/debug/tracing/events/kgsl/syncpoint_fence/enable
-    chown root shell /sys/kernel/debug/tracing/events/kgsl/syncpoint_fence_expire/enable
-    chown root shell /sys/kernel/debug/tracing/events/sync/sync_pt/enable
-    chown root shell /sys/kernel/debug/tracing/events/sync/sync_wait/enable
-    chown root shell /sys/kernel/debug/tracing/events/sync/sync_timeline/enable
-    chown root shell /sys/kernel/debug/tracing/events/kgsl/adreno_cmdbatch_queued/enable
-    chown root shell /sys/kernel/debug/tracing/events/kgsl/adreno_cmdbatch_retired/enable
-    chown root shell /sys/kernel/debug/tracing/events/kgsl/adreno_cmdbatch_submitted/enable
-    chown root shell /sys/kernel/debug/tracing/events/kgsl/kgsl_register_event/enable
-    chown root shell /sys/kernel/debug/tracing/events/kgsl/kgsl_fire_event/enable
-    chown root shell /sys/kernel/debug/tracing/events/sync/enable
-
-    chmod 0664 /sys/kernel/debug/tracing/events/kgsl/adreno_cmdbatch_queued/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/kgsl/adreno_cmdbatch_retired/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/kgsl/adreno_cmdbatch_submitted/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/kgsl/kgsl_register_event/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/kgsl/kgsl_fire_event/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/sync/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/kgsl/syncpoint_timestamp/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/kgsl/syncpoint_timestamp_expire/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/kgsl/syncpoint_fence/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/kgsl/syncpoint_fence_expire/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/sync/sync_pt/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/sync/sync_wait/enable
-    chmod 0664 /sys/kernel/debug/tracing/events/sync/sync_timeline/enable

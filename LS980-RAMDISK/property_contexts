@@ -67,6 +67,11 @@ nfc.                    u:object_r:nfc_prop:s0
 # For WLAN at U+ Carrier
 ctl.mwlan_vpncored     u:object_r:ctl_mwlan_vpncored_prop:s0
 #line 1 "device/lge/common/sepolicy/property_contexts"
+persist.qcril.datacall_timeout   u:object_r:datacall_prop:s0
+sys.camera_orientation    u:object_r:sys_camera_orientation_prop:s0
+persist.camera.snapshot.number   u:object_r:camera_snapshot_prop:s0
+pre.from.test             u:object_r:pre_from_test_prop:s0
+adc.n11.                  u:object_r:adc_n11_prop:s0
 sf.lcd_density            u:object_r:lcd_prop:s0
 selfd.                    u:object_r:selfd_prop:s0
 persist.camera.zsl.queuedepth    u:object_r:camera_prop:s0
@@ -77,6 +82,7 @@ mts.curcount              u:object_r:mts_curcount_prop:s0
 iq.cadet.listenport       u:object_r:iq_cadet_listenport_prop:s0
 lg.data.emergencystate    u:object_r:emergencystate_prop:s0
 persist.data.sensor_name  u:object_r:sensor_name_prop:s0
+pre.qr.display            u:object_r:pre_qr_display_prop:s0
 fw.max_users              u:object_r:multiuser_prop:s0
 mts.                      u:object_r:mts_prop:s0
 mts.act                   u:object_r:mts_prop:s0
@@ -139,6 +145,7 @@ lg.data.                  u:object_r:radio_prop:s0
 upgrade.mpdn.db           u:object_r:radio_prop:s0
 
 service.bootanim.exit     u:object_r:bootanim_prop:s0
+sbp.bootanim              u:object_r:system_prop:s0
 conup                     u:object_r:system_prop:s0
 
 # property for telephony
@@ -151,6 +158,7 @@ com.google.clientidbase   u:object_r:clientidbase_prop:s0
 AAT.ldcal                 u:object_r:aat_ldcal_prop:s0
 persist.data_disable_bypaypopup u:object_r:radio_prop:s0
 
+persist.wifi.lge.fota_updated     u:object_r:wifi_prop:s0
 wifi_ftm.diagd_start      u:object_r:wifi_prop:s0
 lge.data.apn2-disable     u:object_r:apn2_disable_prop:s0
 persist.sys.usb.config    u:object_r:usb_config_prop:s0
@@ -159,10 +167,11 @@ persist.gsm.sms.forcegsm7 u:object_r:sms_prop:s0
 service.bootanim.begin     u:object_r:bootanim_prop:s0
 lfullseg.mode.             u:object_r:lfullseg_mode_prop:s0
 sys.hdmi.                  u:object_r:sys_hdmi_prop:s0
+persist.lge.postinstallstart u:object_r:postinstallstart_prop:s0
 #line 1 "device/qcom/sepolicy/common/property_contexts"
 wc_transport.              u:object_r:bluetooth_prop:s0
-usb_uicc.                  u:object_r:uicc_prop:s0
-sys.ims.                   u:object_r:qcom_ims_prop:s0
+sys.usb_uicc.              u:object_r:uicc_prop:s0
+dolby.audio.               u:object_r:audio_prop:s0
 #line 1 "device/lge/common/qcom/sepolicy_g3_branchout/property_contexts"
 iq.cadet.ip             u:object_r:iq_cadet_ip_prop:s0
 #line 1 "device/lge/common/qcom/sepolicy/property_contexts"

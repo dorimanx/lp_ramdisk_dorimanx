@@ -123,6 +123,7 @@ window                                    u:object_r:system_server_service:s0
 
 *                                         u:object_r:default_android_service:s0
 #line 1 "device/lge/common/sepolicy/service_contexts"
+fast_download                 u:object_r:fast_download_service:s0
 integrity                     u:object_r:system_server_service:s0
 lghashstorage                 u:object_r:system_server_service:s0
 lgdataui                      u:object_r:lgdataui_service:s0
@@ -154,6 +155,7 @@ vzwho                         u:object_r:radio_service:s0
 lgsdencryption                u:object_r:system_server_service:s0
 lgdevencryption               u:object_r:system_server_service:s0
 SplitWindowPolicy             u:object_r:system_server_service:s0
+BTFM                          u:object_r:btfm_service:s0
 nfcaddon                      u:object_r:nfc_service:s0
 nfcvendor                     u:object_r:nfc_service:s0
 cliptray                      u:object_r:system_server_service:s0
@@ -200,7 +202,9 @@ leccp                         u:object_r:leccp_service:s0
 CCModeService                 u:object_r:ccmode_service:s0
 FeliCaService                 u:object_r:felica_service:s0
 VZW_LOCATION_SERVICE          u:object_r:vzw_location_service:s0
+PPM                           u:object_r:ppm_service:s0
 telecom                       u:object_r:telecom_service:s0
+com.lge.server.ims.sms        u:object_r:ims_service:s0
 #line 1 "device/qcom/sepolicy/common/service_contexts"
 AtCmdFwd                                       u:object_r:atfwd_service:s0
 dpmservice                                     u:object_r:dpmservice:s0
@@ -210,5 +214,4 @@ vendor.qcom.PeripheralManager                  u:object_r:per_mgr_service:s0
 wbc_service                                    u:object_r:wbc_service:s0
 dun                                            u:object_r:dun_service:s0
 DigitalPen                                     u:object_r:digitalpen_service:s0
-qti.ims.connectionmanagerservice               u:object_r:imscm_service:s0
 com.qti.snapdragon.sdk.display.IColorService   u:object_r:color_service:s0

@@ -89,8 +89,13 @@ on fs
     # Executing tune2fs to reserve some region in /data. (40MB)
     exec /system/bin/tune2fs -u system -r 10240 /dev/block/platform/msm_sdcc.1/by-name/userdata
 
-    restorecon_recursive /mpt
     restorecon_recursive /sns
+    restorecon_recursive /persist-lg
+    restorecon_recursive /mpt
+
+    restorecon_check_recursive /sns
+    restorecon_check_recursive /persist-lg
+    restorecon_check_recursive /mpt
 
 on post-fs-data
     mkdir /data/tombstones 0771 system system

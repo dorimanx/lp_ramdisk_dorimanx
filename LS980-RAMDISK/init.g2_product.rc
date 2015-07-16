@@ -1,9 +1,9 @@
 on init
-    mkdir /storage/external_SD 0700 root root
-    mkdir /mnt/media_rw 0700 media_rw media_rw
-    mkdir /mnt/media_rw/external_SD 0700 media_rw media_rw
-    export EXTERNAL_ADD_STORAGE /storage/external_SD
-    export SECONDARY_STORAGE /storage/external_SD
+#    mkdir /storage/external_SD 0700 root root
+#    mkdir /mnt/media_rw 0700 media_rw media_rw
+#    mkdir /mnt/media_rw/external_SD 0700 media_rw media_rw
+#    export EXTERNAL_ADD_STORAGE /storage/external_SD
+#    export SECONDARY_STORAGE /storage/external_SD
 
 on boot
 
@@ -13,6 +13,11 @@ on boot
 
 
 on post-fs-data
+#2013.06.20 LGE_CHANGE_S youngmin.kwon@lge.com, thermal senario change about LCD brightness
+chown system system /sys/class/leds/lcd-backlight/thermald_status
+chmod 0644 /sys/class/leds/lcd-backlight/thermald_status
+#2013.06.20 LGE_CHANGE_E youngmin.kwon@lge.com, thermal senario change about LCD brightness
+
 #20130405 PM service ny.han@lge.com [START] -----------------------
 mkdir /data/playready 0777 system system
 chown system system /data/playready
@@ -20,10 +25,10 @@ chmod 0777 /data/playready
 mkdir /data/pmsc 0777 system system
 chown system system /data/pmsc
 chmod 0777/data/pmsc
-copy /system/kt/pmservice_cert/bgroupcert.dat /data/pmsc/bgroupcert.dat
-copy /system/kt/pmservice_cert/devcerttemplate.dat /data/pmsc/devcerttemplate.dat
-copy /system/kt/pmservice_cert/priv.dat /data/pmsc/priv.dat
-copy /system/kt/pmservice_cert/zgpriv.dat /data/pmsc/zgpriv.dat
+copy /system/spr/pmservice_cert/bgroupcert.dat /data/pmsc/bgroupcert.dat
+copy /system/spr/pmservice_cert/devcerttemplate.dat /data/pmsc/devcerttemplate.dat
+copy /system/spr/pmservice_cert/priv.dat /data/pmsc/priv.dat
+copy /system/spr/pmservice_cert/zgpriv.dat /data/pmsc/zgpriv.dat
 chown system system /data/pmsc/bgroupcert.dat
 chown system system /data/pmsc/devcerttemplate.dat
 chown system system /data/pmsc/priv.dat
@@ -41,19 +46,38 @@ service iwland /system/bin/iwland -ddd
     oneshot
 #20130405 iwlan eyes0814@lge.com [END] -----------------------
 
-# TDMB bring up
-service broadcast /system/bin/libbroadcast_server
-    class main
-    user media
-    group system audio media graphics sdcard_rw
+# [ENCRYPTION] Applied only VZW,ATT,SPR,TMUS(NorthAmerica) and Canada
+service ufips /system/bin/ufips
+    class core
+    user system
+    group system
 
-service fuse_external_SD /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/external_SD /storage/external_SD
-    class late_start
-    disabled
+#[START][ePDG][changhwan.lee] set ePDG property
+on init
+	setprop persist.data.iwlan.enable true
+	setprop persist.sys.cnd.iwlan 2
+#[END][ePDG][changhwan.lee] set ePDG property
 
-on property:init.svc.media=restarting
-    restart broadcast
+on fs
+   # LGE_UPDATE_START, 2013/03/11, G2-FS@lge.com
+   mkdir /carrier 0771 system lg_fota
+   wait /dev/block/platform/msm_sdcc.1/by-name/carrier
+   exec /system/bin/e2fsck -p /dev/block/platform/msm_sdcc.1/by-name/carrier
+   mount ext4 /dev/block/platform/msm_sdcc.1/by-name/carrier /carrier nosuid nodev barrier=1 noatime noauto_da_alloc errors=continue
+   # LGE_UPDATE_END
+
+on post-fs-data
+   # LGE_UPDATE_START, 2013/04/01, G2-FS@lge.com
+   chown system lg_fota /carrier
+   chmod 771 /carrier
+   # LGE_UPDATE_END
+# LGE_CHANGE_S [GNSS] youngseok.ko@lge.com; to fix the problem that QCT doesn't consider KK to L Upgrade for iZat EURA setting in SElinux violation.
+   restorecon /data/data/com.qualcomm.location.XT/shared_prefs/XT_PREFS.xml
+# LGE_CHANGE_E [GNSS]
 
 on init
-    setprop ro.ssbd.session /dev/block/platform/msm_sdcc.1/by-name/encrypt
-    setprop ro.ssbd.offset 50
+   # LGE_UPDATE_START, 2013/03/11, G2-FS@lge.com
+   exec /sbin/setup_fs_static \
+       /dev/block/platform/msm_sdcc.1/by-name/carrier \
+       no_reboot
+   # LGE_UPDATE_END

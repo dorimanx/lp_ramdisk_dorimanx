@@ -26,6 +26,8 @@
 #
 
 import /init.g2_product.rc
+import /init.fm_vendor.rc
+import /init.galbi.bt_vendor.rc
 import init.lge.log.rc
 
 # modem logging (LGODM)
@@ -76,12 +78,10 @@ service service-crash /system/bin/sh /init.g2.crash.sh
     oneshot
 
 on property:persist.service.crash.enable=1
-    stop service-crash
-    start service-crash
+    restart service-crash
 
 on property:persist.service.crash.enable=0
-    stop service-crash
-    start service-crash
+    restart service-crash
 
 # Begin Immersion changes
 service immvibed /system/bin/immvibed

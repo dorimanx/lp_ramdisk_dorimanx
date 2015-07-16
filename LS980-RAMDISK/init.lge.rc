@@ -3,6 +3,16 @@ on post-fs
     chown system system /persist-lg
     chmod 0771 /persist-lg
     mkdir /persist-lg/property 0771 system radio
+    mkdir /persist-lg/autosimlock 0770 system system
+    mkdir /persist-lg/poweron 0775 system system
+    mkdir /persist-lg/tmo 0771 radio radio
+    mkdir /persist-lg/lg_persist_property 0700 root root
+
+    #CAPP_SECUREBOOT
+    #exec /sbin/wallpaper -ap
+
+    #QFUSE
+    write /sys/devices/platform/lge-qfprom/sec_read 0
 
 on post-fs-data
     #CAPP_FONTS
@@ -67,6 +77,8 @@ on post-fs-data
     chown system system /sys/class/power_supply/battery/safety_timer
 
     restorecon_recursive /persist-lg
+    restorecon_check_recursive /persist-lg/multimedia/uma
+    restorecon_check_recursive /persist-lg/multimedia/scnt/sdadf
 
     # CAPP_INTEGRITY, LGIS [lge-is-dev@lge.com]
     mkdir /data/system/lgis 0700 system system
@@ -77,6 +89,10 @@ on post-fs-data
 #/* 2013-06-24, juhyup.kim@lge.com LGP_DATA_APN_BACKUP [START] */
     mkdir /persist-lg/lgdata 0775 radio radio
 #/* 2013-06-24, juhyup.kim@lge.com LGP_DATA_APN_BACKUP [END] */
+
+    # LGBackup Removing Unlabeled Resource
+    rm /data/data/.bnr_fifo_rly
+    rm /data/data/.bnr_fifo_req
 
     #labeling lg partitions
     restorecon_check_recursive /sns
@@ -94,13 +110,11 @@ on post-fs-data
     restorecon_check_recursive /OneSeg
     restorecon /dev/iwland
 
-    setprop vold.post_fs_data_done 1
-
 on boot
     # Assign TCP buffer thresholds to be ceiling value of technology maximums
     # Increased technology maximums should be reflected here.
-    write /proc/sys/net/core/rmem_max  2097152
-    write /proc/sys/net/core/wmem_max  2097152
+    write /proc/sys/net/core/rmem_max  8388608
+    write /proc/sys/net/core/wmem_max  8388608
 
 #SELinux
 #service auditd /system/bin/auditd -k
@@ -197,12 +211,41 @@ service runtime_boot_res /system/vendor/bin/runtime_boot_res.sh
 on property:sbp.load_props_done=1
     start runtime_boot_res
 
+service run_cache_res /system/vendor/bin/runtime_boot_cache_res.sh
+    disabled
+    oneshot
+
+on property:sbp.bootanim=1
+    start run_cache_res
+
+
+on property:persist.sys.cota.changed=1
+    wait /dev/block/bootdevice/by-name/cust
+    mount ext4 /dev/block/bootdevice/by-name/cust /cust rw remount nosuid nodev barrier=1 noauto_da_alloc
+    restorecon_recursive /cust
+    mkdir /cust/_COTA_RES 0775 system system
+    start cota_update
+
+on property:persist.sys.cota.changed=2
+    wait /dev/block/bootdevice/by-name/cust
+    mount ext4 /dev/block/bootdevice/by-name/cust /cust ro remount nosuid nodev barrier=1 noauto_da_alloc
+    restorecon_recursive /cust
+
+
+service cota_update /system/vendor/bin/cota_update.sh
+    disabled
+    oneshot
+
 #LGBackup System service daemon
 service bnrd /system/bin/bnrd
     class main
     socket bnrd stream 660 root system
     user root
     group system radio sdcard_rw
+    disabled
+
+on property:sys.lge.bnrd=1
+    start bnrd
 
 # [SEC_DEVENC] decryption and wipe data service
 service decryptwipe /system/bin/vdc --wait cryptfs disableqcrypto wipe
@@ -220,3 +263,11 @@ service dsqn /system/bin/dsqn
     on property:persist.lg.data.dsqn=0
         stop dsqn
 #LGP_DATA_DSQN [END]
+
+# bugreport is triggered by holding down volume down, volume up and power
+service bugreport /system/bin/dumpstate -d -p -B \
+        -o /data/data/com.android.shell/files/bugreports/bugreport
+    class main
+    disabled
+    oneshot
+    keycodes 114 115 116
