@@ -46,7 +46,7 @@ case "${1}" in
 		chmod -R 0755 /res/customconfig/actions/;
 		$BB mv /res/customconfig/actions/push-actions/* /res/no-push-on-boot/;
 		chmod 0755 /res/no-push-on-boot/*;
-		$BB cp /res/no-push-on-boot/config_backup_restore /res/customconfig/actions/push-actions/;
+		$BB cp /res/temp_scripts/config_backup_restore /res/customconfig/actions/push-actions/;
 		chmod 0755 /res/customconfig/actions/push-actions/config_backup_restore;
 
 		apply_config;

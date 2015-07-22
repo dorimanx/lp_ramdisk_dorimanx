@@ -17,10 +17,8 @@ if [ "a$2" != "a" ]; then
 	1)
 		if [ "$ADB_SELECTOR" == "adbd_su" ]; then
 			stop adbd
-			echo 0 > /sys/class/android_usb/android0/enable
 			rm -f /sbin/adbd;
 			ln -s /sbin/adbd_lg /sbin/adbd;
-			echo 1 > /sys/class/android_usb/android0/enable
 			start adbd
 			echo "adbd_lg" > /data/.dori/adbd_selector;
 		else
@@ -29,10 +27,8 @@ if [ "a$2" != "a" ]; then
 	;;
 	0)
 		stop adbd
-		echo 0 > /sys/class/android_usb/android0/enable
 		rm -f /sbin/adbd;
 		ln -s /sbin/adbd_su /sbin/adbd;
-		echo 1 > /sys/class/android_usb/android0/enable
 		start adbd
 		echo "adbd_su" > /data/.dori/adbd_selector;
 	;;

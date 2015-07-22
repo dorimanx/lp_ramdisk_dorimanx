@@ -338,9 +338,7 @@ fi;
 	CHARGER_STATE=$(cat /sys/class/power_supply/battery/charging_enabled);
 	if [ "$CHARGER_STATE" -eq "1" ] && [ "$adb_selector" -eq "1" ]; then
 		stop adbd
-		echo "0" > /sys/class/android_usb/android0/enable;
-		sleep 2;
-		echo "1" > /sys/class/android_usb/android0/enable;
+		sleep 1;
 		start adbd
 	fi;
 

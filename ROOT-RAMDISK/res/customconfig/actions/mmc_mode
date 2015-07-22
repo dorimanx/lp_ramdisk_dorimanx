@@ -9,15 +9,15 @@ if [ "a$2" != "a" ]; then
 
 case "${mmc_mode}" in
 	performance)
-		if [ "$(cat /sys/devices/msm_sdcc.1/mmc_host/mmc0/clk_scaling/scale_down_in_low_er_load)" -eq "0" ]; then
-			echo "1" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/clk_scaling/scale_down_in_low_er_load;
-			echo "1" > /sys/devices/msm_sdcc.2/mmc_host/mmc1/clk_scaling/scale_down_in_low_er_load;
+		if [ "$(cat /sys/devices/msm_sdcc.1/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load)" -eq "0" ]; then
+			echo "1" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load;
+			echo "1" > /sys/devices/msm_sdcc.2/mmc_host/mmc1/clk_scaling/scale_down_in_low_wr_load;
 		fi;
 	;;
 	power_save)
-		if [ "$(cat /sys/devices/msm_sdcc.1/mmc_host/mmc0/clk_scaling/scale_down_in_low_er_load)" -eq "1" ]; then
-			echo "0" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/clk_scaling/scale_down_in_low_er_load;
-			echo "0" > /sys/devices/msm_sdcc.2/mmc_host/mmc1/clk_scaling/scale_down_in_low_er_load;
+		if [ "$(cat /sys/devices/msm_sdcc.1/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load)" -eq "1" ]; then
+			echo "0" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load;
+			echo "0" > /sys/devices/msm_sdcc.2/mmc_host/mmc1/clk_scaling/scale_down_in_low_wr_load;
 		fi;
 	;;
 	*)

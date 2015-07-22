@@ -1,0 +1,6 @@
+#!/sbin/busybox sh
+
+if [ "$(pgrep -f "push-actions/config_backup_restore" | wc -l)" -ge "3" ]; then
+	echo "Already working! dont push me!";
+	exit 0;
+fi;
