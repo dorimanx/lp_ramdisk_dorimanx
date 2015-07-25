@@ -1,4 +1,4 @@
-#!/sbin/busybox sh
+#!/system/bin/sh
 #
 #  Cloudyfa's RILD fix
 #
