@@ -61,6 +61,7 @@ mmc_mode=power_save
 scheduler=zen
 sleep_scheduler=zen
 auto_oom=on
+enable_adaptive_lmk=on
 oom_config_screen_on=default
 oom_config_screen_off=default
 dirty_background_ratio=20
