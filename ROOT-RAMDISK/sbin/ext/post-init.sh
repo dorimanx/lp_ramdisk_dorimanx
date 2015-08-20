@@ -345,9 +345,6 @@ if [ "$(cat /sys/devices/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/
 	echo "1" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/mmcblk0rpmb/queue/rq_affinity;
 fi;
 
-# correct screen on OOM limits.
-$BB sh /res/uci.sh oom_config_screen_on $oom_config_screen_on;
-
 #D805/6 RADIO FIX:
 #Credits to Cloudyfa and Computoncio
 (
