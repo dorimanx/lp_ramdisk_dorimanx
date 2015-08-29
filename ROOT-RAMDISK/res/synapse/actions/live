@@ -56,6 +56,16 @@ case $1 in
 	Memory)
 		$BB echo `sh $DEVICE LiveMemory`;
 	;;
+	KSMStats)
+		KSM="$(expr `cat /sys/kernel/mm/ksm/run`)"
+		if [ KSM -eq "1" ]; then
+			SAVEDMEM=`echo "Saved memory: $((\`cat /sys/kernel/mm/ksm/pages_sharing\`*4096/1024/1024)) MB"`
+			SHARDMEM=`echo "Shared memory: $((\`cat /sys/kernel/mm/ksm/pages_shared\`*4096/1024/1024)) MB"`
+			echo $SAVEDMEM@n$SHARDMEM
+		else
+			echo KSM is Disabled.
+		fi
+	;;
 	Time)
 		$BB echo `sh $DEVICE LiveTime $2 $3`;
 	;;
