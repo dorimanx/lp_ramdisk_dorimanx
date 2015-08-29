@@ -553,9 +553,9 @@
 
 		<checkbox description="KSM Enable and Disable main switch. (default ON)" name="Kernel Samepage Merging" action="generic01 /sys/kernel/mm/ksm/run" label="KSM Switch"/>
 
-		<seekBar description="Pages To Scan (default 100)" name="KSM Pages To Scan" action="generic /sys/kernel/mm/ksm/pages_to_scan" unit="page" min="4" reversed="false" step="4" max="1024"/>
+		<seekBar description="Pages To Scan (default 200)" name="KSM Pages To Scan" action="generic /sys/kernel/mm/ksm/pages_to_scan" unit="page" min="4" reversed="false" step="4" max="1024"/>
 
-		<seekBar description="Scan Delay Interval (default 50)" name="KSM Scan Delay Interval" action="generic /sys/kernel/mm/ksm/sleep_millisecs" unit="ms" min="50" reversed="false" step="50" max="3000"/>
+		<seekBar description="Scan Delay Interval (default 250)" name="KSM Scan Delay Interval" action="generic /sys/kernel/mm/ksm/sleep_millisecs" unit="ms" min="50" reversed="false" step="50" max="3000"/>
 
 	</settingsPane>
 
