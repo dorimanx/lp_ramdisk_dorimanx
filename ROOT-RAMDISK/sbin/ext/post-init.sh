@@ -208,9 +208,10 @@ fi;
 OPEN_RW;
 
 # kill charger logo binary to prevent ROM running it.
-CHECK_BOOT_STATE=$(cat /proc/cmdline | grep "androidboot.mode=" | $BB wc -l);
+CHECK_BOOT_STATE=$($BB cat /proc/cmdline | $BB grep "androidboot.mode=" | $BB wc -l);
 if [ "$CHECK_BOOT_STATE" -eq "0" ]; then
-	rm /sbin/chargerlogo;
+	$BB rm /sbin/chargerlogo;
+	$BB rm /charger;
 fi;
 
 # copy cron files
@@ -351,34 +352,34 @@ fi;
 	if [ -e /D805-6-Model ]; then
 		OPEN_RW;
 
-		mkdir -p /system/lib/temp
+		$BB mkdir -p /system/lib/temp
 		chmod 775 /system/lib/temp
 
-		setprop ro.lge.basebandversion `strings /firmware/image/modem.b21 | grep "^M8974A-" | head -1`
+		setprop ro.lge.basebandversion "$($BB strings /firmware/image/modem.b21 | grep "^M8974A-" | head -1)"
 
-		cp /system/lib/libvss_common_core.so /system/lib/temp/libvss_common_core.so
+		$BB cp /system/lib/libvss_common_core.so /system/lib/temp/libvss_common_core.so
 		chmod 644 /system/lib/temp/libvss_common_core.so
-		cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
+		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
 		sleep 2
-		cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
+		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
 		sleep 2
-		cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
+		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
 		sleep 2
-		cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
+		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
 		sleep 2
-		cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
+		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
 		sleep 2
-		cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
+		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
 		sleep 2
-		cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
+		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
 		sleep 8
-		cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
+		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
 		sleep 8
-		cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
+		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
 
 		chmod 644 /system/lib/libvss_common_core.so
-		rm /system/lib/temp/libvss_common_core.so
-		rmdir /system/lib/temp
+		$BB rm /system/lib/temp/libvss_common_core.so
+		$BB rmdir /system/lib/temp
 	fi;
 )&
 
@@ -395,17 +396,26 @@ fi;
 
 	# stop google service and restart it on boot. this remove high cpu load and ram leak!
 	if [ "$($BB pidof com.google.android.gms | wc -l)" -eq "1" ]; then
-		$BB kill $($BB pidof com.google.android.gms);
+		$BB kill "$($BB pidof com.google.android.gms)";
 	fi;
 	if [ "$($BB pidof com.google.android.gms.unstable | wc -l)" -eq "1" ]; then
-		$BB kill $($BB pidof com.google.android.gms.unstable);
+		$BB kill "$($BB pidof com.google.android.gms.unstable)";
 	fi;
 	if [ "$($BB pidof com.google.android.gms.persistent | wc -l)" -eq "1" ]; then
-		$BB kill $($BB pidof com.google.android.gms.persistent);
+		$BB kill "$($BB pidof com.google.android.gms.persistent)";
 	fi;
 	if [ "$($BB pidof com.google.android.gms.wearable | wc -l)" -eq "1" ]; then
-		$BB kill $($BB pidof com.google.android.gms.wearable);
+		$BB kill "$($BB pidof com.google.android.gms.wearable)";
 	fi;
+
+	# Update KSM in case ROM changed to other setting.
+	if [ "$run" == "on" ]; then
+		echo "1" > /sys/kernel/mm/ksm/run;
+	else
+		echo "0" > /sys/kernel/mm/ksm/run;
+	fi;
+	echo "$pages_to_scan" > /sys/kernel/mm/ksm/pages_to_scan;
+	echo "$sleep_millisecs" > /sys/kernel/mm/ksm/sleep_millisecs;
 
 	# Google Services battery drain fixer by Alcolawl@xda
 	# http://forum.xda-developers.com/google-nexus-5/general/script-google-play-services-battery-t3059585/post59563859
