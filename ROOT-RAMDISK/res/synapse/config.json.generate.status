@@ -80,13 +80,13 @@ cat << CTAG
 					action:"live Memory"
 				}},
 			{ STitleBar:{
-				title:"Kernel Samepage Merging:"
+				title:"Ultra Kernel Samepage Merging:"
 			}},
 				{ SLiveLabel:{
-					title:"KSM Stats:",
+					title:"UKSM Stats:",
 					description:"Memory samepage merging is not quick process. So, stats may show 0 MB initially.",
 					refresh:3000,
-					action:"live KSMStats"
+					action:"live UKSMStats"
 				}},
 			{ STitleBar:{
 				title:"Uptime:"

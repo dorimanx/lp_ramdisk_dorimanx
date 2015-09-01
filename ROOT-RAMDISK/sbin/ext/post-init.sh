@@ -135,7 +135,7 @@ fi;
 # just set numer $RESET_MAGIC + 1 and profiles will be reset one time on next boot with new kernel.
 # incase that ADMIN feel that something wrong with global STweaks config and profiles, then ADMIN can add +1 to CLEAN_DORI_DIR
 # to clean all files on first boot from /data/.dori/ folder.
-RESET_MAGIC=3;
+RESET_MAGIC=4;
 CLEAN_DORI_DIR=1;
 
 if [ ! -e /data/.dori/reset_profiles ]; then
@@ -408,14 +408,14 @@ fi;
 		$BB kill "$($BB pidof com.google.android.gms.wearable)";
 	fi;
 
-	# Update KSM in case ROM changed to other setting.
+	# Update UKSM in case ROM changed to other setting.
 	if [ "$run" == "on" ]; then
-		echo "1" > /sys/kernel/mm/ksm/run;
+		echo "1" > /sys/kernel/mm/uksm/run;
 	else
-		echo "0" > /sys/kernel/mm/ksm/run;
+		echo "0" > /sys/kernel/mm/uksm/run;
 	fi;
-	echo "$pages_to_scan" > /sys/kernel/mm/ksm/pages_to_scan;
-	echo "$sleep_millisecs" > /sys/kernel/mm/ksm/sleep_millisecs;
+	echo "100" > /sys/kernel/mm/ksm/pages_to_scan;
+	echo "$sleep_millisecs" > /sys/kernel/mm/uksm/sleep_millisecs;
 
 	# Google Services battery drain fixer by Alcolawl@xda
 	# http://forum.xda-developers.com/google-nexus-5/general/script-google-play-services-battery-t3059585/post59563859

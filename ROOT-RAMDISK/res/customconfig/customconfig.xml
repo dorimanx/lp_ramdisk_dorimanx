@@ -549,13 +549,25 @@
 
 	</settingsPane>
 
-	<settingsPane description="Control KSM module, KSM lets the hypervisor system share identical memory pages amongst different processes or virtualized guests. This increases CPU consumption but improves memory." name="KSM">
+	<settingsPane description="Control UKSM module, Ultra KSM lets the hypervisor system share identical memory pages amongst different processes or virtualized guests. This increases CPU consumption but improves memory." name="UKSM">
 
-		<checkbox description="KSM Enable and Disable main switch. (default ON)" name="Kernel Samepage Merging" action="generic01 /sys/kernel/mm/ksm/run" label="KSM Switch"/>
+		<checkbox description="UKSM Enable and Disable main switch. (default ON)" name="Ultra Kernel Samepage Merging" action="generic01 /sys/kernel/mm/uksm/run" label="UKSM Switch"/>
 
-		<seekBar description="Pages To Scan (default 200)" name="KSM Pages To Scan" action="generic /sys/kernel/mm/ksm/pages_to_scan" unit="page" min="4" reversed="false" step="4" max="1024"/>
+		<spinner description="UKSM CPU Governor power when screen is ON, you can set high or low operation to scan and share memory accross apps. (default is medium)" name="UKSM CPU AWAKE GOV" action="uskm_gov_on">
+			<spinnerItem name="Full Power" value="full"/> 
+			<spinnerItem name="Medium Power" value="medium"/> 
+			<spinnerItem name="Low Power" value="low"/> 
+			<spinnerItem name="No Power (idle)" value="quiet"/> 
+		</spinner>
 
-		<seekBar description="Scan Delay Interval (default 250)" name="KSM Scan Delay Interval" action="generic /sys/kernel/mm/ksm/sleep_millisecs" unit="ms" min="50" reversed="false" step="50" max="3000"/>
+		<spinner description="UKSM CPU Governor power when screeen is OFF, you can set high or low operation to scan and share memory accross apps. (default is low)" name="UKSM CPU SLEEP GOV" action="generic_cortex /tmp/uskm_gov_sleep">
+			<spinnerItem name="Full Power" value="full"/> 
+			<spinnerItem name="Medium Power" value="medium"/> 
+			<spinnerItem name="Low Power" value="low"/> 
+			<spinnerItem name="No Power (idle)" value="quiet"/> 
+		</spinner>
+
+		<seekBar description="Scan Delay Interval (default 500)" name="UKSM Scan Delay Interval" action="generic /sys/kernel/mm/uksm/sleep_millisecs" unit="ms" min="50" reversed="false" step="50" max="3000"/>
 
 	</settingsPane>
 

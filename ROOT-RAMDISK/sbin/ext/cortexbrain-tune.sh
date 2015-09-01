@@ -384,6 +384,18 @@ INCALL_SPEAKER()
 	fi;
 }
 
+UKSM_CONTROL()
+{
+	local state="$1";
+
+	if [ "$state" == "awake" ]; then
+		echo "$uskm_gov_on" > /sys/kernel/mm/uksm/cpu_governor;
+	elif [ "$state" == "sleep" ]; then
+		echo "$uskm_gov_sleep" > /sys/kernel/mm/uksm/cpu_governor;
+	fi;
+	log -p i -t "$FILE_NAME" "*** UKSM_CONTROL $state ***: done";
+}
+
 # ==============================================================
 # TWEAKS: if Screen-ON
 # ==============================================================
@@ -396,6 +408,7 @@ AWAKE_MODE()
 		IO_SCHEDULER "awake";
 		HOTPLUG_CONTROL;
 		WORKQUEUE_CONTROL "awake";
+		UKSM_CONTROL "awake";
 		echo "0" > /data/dori_cortex_sleep;
 		log -p i -t "$FILE_NAME" "*** AWAKE_MODE - WAKEUP ***: done";
 	else
@@ -426,6 +439,7 @@ SLEEP_MODE()
 		IO_SCHEDULER "sleep";
 		CPU_CENTRAL_CONTROL "sleep";
 		WORKQUEUE_CONTROL "sleep";
+		UKSM_CONTROL "sleep";
 		echo "1" > /data/dori_cortex_sleep;
 		log -p i -t "$FILE_NAME" "*** SLEEP mode ***";
 	else
