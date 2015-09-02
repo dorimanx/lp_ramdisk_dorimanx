@@ -1,0 +1,29 @@
+#!/sbin/busybox sh
+
+# $1 - "lowmem_reserve"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	lowmem_reserve=$2;
+
+case "${lowmem_reserve}" in
+	relaxed)
+		echo "48 48" > /proc/sys/vm/lowmem_reserve_ratio;
+	;;
+	default)
+		echo "32 32" > /proc/sys/vm/lowmem_reserve_ratio;
+	;;
+	boosted)
+		echo "24 24" > /proc/sys/vm/lowmem_reserve_ratio;
+	;;
+	high_pressure)
+		echo "16 16" > /proc/sys/vm/lowmem_reserve_ratio;
+	;;
+	*)
+		lowmem_reserve=boosted;
+	;;
+	esac;
+fi;
+
+echo ${lowmem_reserve};

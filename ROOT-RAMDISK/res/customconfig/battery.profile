@@ -64,6 +64,7 @@ auto_oom=on
 enable_adaptive_lmk=on
 oom_config_screen_on=default
 oom_config_screen_off=default
+lowmem_reserve=boosted
 dirty_background_ratio=20
 dirty_ratio=25
 run=on

@@ -541,6 +541,13 @@
 			<spinnerItem name="exterminate" value="exterminate"/> 
 		</spinner>
 
+		<spinner description="Here you can set the low memory reserve ratio, higher ratio give you more free RAM if you see that your free RAM is always loaded and device LAG, but it's also uses more battery to gain more free RAM with loaded system. use relaxed ONLY if your free RAM is above 650MB always! if less than 280MB use recommended or high pressure." name="Low Memory Reserve" action="lowmem_reserve">
+			<spinnerItem name="Relaxed" value="relaxed"/> 
+			<spinnerItem name="Default" value="default"/> 
+			<spinnerItem name="Recommended" value="boosted"/> 
+			<spinnerItem name="High Pressure Ratio" value="high_pressure"/> 
+		</spinner>
+
 		<seekBar description="Dirty background memory buffer. The more you set, the more memory will be used for write buffer for background operations. Buffer is released when it is needed to free RAM" name="Dirty Background ratio" action="generic /proc/sys/vm/dirty_background_ratio" unit="%" min="5" reversed="false" step="5" max="80"/>
 
 		<seekBar description="Dirty real time memory buffer. The more you set, the more memory will be used for write buffer for real time operations. Buffer is released when it is needed to free RAM" name="Dirty ratio" action="generic /proc/sys/vm/dirty_ratio" unit="%" min="5" reversed="false" step="5" max="90"/>
