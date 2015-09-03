@@ -641,6 +641,7 @@
 		<spinner description="Allow USER to READ GOOGLE! Then come here and select what he thinks is BEST for him for NET Congestion Control. If USER is lazy to read Google!, then leave it as default (CUBIC or BIC depend on model) and don't ask what is the difference!" name="Net Congestion Control" action="generic /proc/sys/net/ipv4/tcp_congestion_control">
 			<spinnerItem name="Set CUBIC" value="cubic"/> 
 			<spinnerItem name="Set RENO" value="reno"/> 
+			<spinnerItem name="Set VENO" value="veno"/> 
 			<spinnerItem name="Set WESTWOOD" value="westwood"/> 
 			<spinnerItem name="Set BIC" value="bic"/> 
 			<spinnerItem name="Set HTCP" value="htcp"/> 
