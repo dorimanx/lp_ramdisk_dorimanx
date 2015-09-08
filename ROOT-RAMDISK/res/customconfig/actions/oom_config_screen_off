@@ -24,15 +24,15 @@ if [ "$AUTO_OOM" -eq "1" ]; then
 			echo "48" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		default)
-			echo "4096,8192,16384,28672,51200,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "4096,8192,16384,28672,46080,51200" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
 			echo "32" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		aggressive)
-			echo "4096,8192,16384,51200,65536,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "4096,8192,16384,34816,51200,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
 			echo "16" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		exterminate)
-			echo "4096,8192,16384,53760,65536,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "4096,8192,16384,53760,58880,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
 			echo "16" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		*)
