@@ -102,7 +102,7 @@ on init
     mkdir /dev/memcg 0700 root system
     mount cgroup none /dev/memcg memory
 
-    write /proc/sys/kernel/panic_on_oops 1
+#   write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
     write /proc/sys/kernel/sched_latency_ns 10000000
