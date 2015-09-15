@@ -340,7 +340,7 @@
 			<spinnerItem name="Intelligent Hot Plug" value="intelli"/> 
 		</spinner>
 
-		<spinner description="CPU HotPlug Suspend Control - you can allow hotplug to be suspended when screen is OFF to save little more power on deepsleep, then resume when screen is ON, BUT it's will DELAY In Call screen wakeup! for 2sec as when screen is OFF, you have only ONE core active with suspend mode. also using suspend mode can prevent wake up for some devices for unknown reason!!!. so if you wish to test suspend mode go ahead, if you get SOD switch to Always Active mode and stay there. for many it's working fine. this is for all kernel hotplugs, default hotplug is not supported." name="Hot Plug Suspend Mode" action="hotplug_suspend">
+		<spinner description="CPU HotPlug Suspend Control - you can allow hotplug to be suspended when screen is OFF it's will enable 3 cores and stop it's function as cpu on and off controller, when device enter suspend mode only one core is ON in state of suspend, then resume when screen is ON, this is for all kernel hotplugs, default hotplug is not supported. after many tests its best to allow hotplug to always work, as it's reduce battery drain when playing music with screen off!" name="Hot Plug Suspend Mode" action="hotplug_suspend">
 			<spinnerItem name="Always Active" value="always_active"/> 
 			<spinnerItem name="HotPlug Suspend" value="suspend_when_off"/> 
 		</spinner>
