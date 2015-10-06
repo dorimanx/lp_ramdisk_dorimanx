@@ -52,6 +52,10 @@ fi;
 
 OPEN_RW;
 
+# Tune entropy parameters.
+echo "1024" > /proc/sys/kernel/random/read_wakeup_threshold;
+echo "256" > /proc/sys/kernel/random/write_wakeup_threshold;
+
 # start CROND by tree root, so it's will not be terminated.
 $BB sh /res/crontab_service/service.sh;
 
