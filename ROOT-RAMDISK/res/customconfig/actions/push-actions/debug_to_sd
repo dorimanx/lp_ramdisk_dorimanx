@@ -10,8 +10,9 @@ else
 	echo "$debug_to_sd";
 fi;
 
-DEBUG_FILE="/sdcard/dorimanx_debug";
-DEBUG_FILE_LOGCAT="/sdcard/dorimanx_debug_logcat";
+DEBUG_FILE="/sdcard/dorimanx_debug.txt";
+DEBUG_FILE_ZIP="/sdcard/dorimanx_debug";
+DEBUG_FILE_LOGCAT="/sdcard/dorimanx_debug_logcat.txt"
 
 PROFILE=`cat /data/.dori/.active.profile`;
 . /data/.dori/${PROFILE}.profile;
@@ -75,16 +76,16 @@ case "${debug_to_sd}" in
 			SEPARATOR;
 
 			# low mem kill info
-			#echo "App-Info for 'low memory killer':" >> $DEBUG_FILE;
-			#for i in `ls /proc/ | grep -E '^[0-9]+'`; do
-			#	if [ "$i" -ne 0 ] && [ -f  "/proc/$i/oom_score_adj" ] && [ "`cat /proc/$i/cmdline`" ]; then
-			#		echo "" >> $DEBUG_FILE;
-			#		cat /proc/$i/oom_score_adj >> $DEBUG_FILE;
-			#		cat /proc/$i/cmdline >> $DEBUG_FILE;
-			#		echo "" >> $DEBUG_FILE;
-			#	fi;
-			#done;
-			#SEPARATOR;
+			echo "App-Info for 'low memory killer':" >> $DEBUG_FILE;
+			for i in "$(ls /proc/ | grep -E '^[0-9]+')"; do
+				if [ "$i" -ne "0" ] && [ "$(cat /proc/$i/oom_score_adj)" -ge "-300" ] && [ -f  "/proc/$i/oom_score_adj" ] && [ "$(cat /proc/$i/cmdline)" ]; then
+					echo "" >> $DEBUG_FILE;
+					cat /proc/$i/oom_score_adj >> $DEBUG_FILE;
+					cat /proc/$i/cmdline >> $DEBUG_FILE;
+					echo "" >> $DEBUG_FILE;
+				fi;
+			done;
+			SEPARATOR;
 
 			# HotPlug configuration
 			echo "HotPlugs Config:" >> $DEBUG_FILE;
@@ -188,15 +189,6 @@ case "${debug_to_sd}" in
 			/system/bin/tune2fs -l /dev/block/platform/msm_sdcc.1/by-name/cache | grep 'Filesystem state' | cut -c 27-44 >> $DEBUG_FILE;
 			SEPARATOR;
 
-			# System
-			echo "System-Info:" >> $DEBUG_FILE;
-			echo "sysctl:" >> $DEBUG_FILE;
-			sysctl -a | grep -v net.* >> $DEBUG_FILE;
-			echo "" >> $DEBUG_FILE;
-			echo "getprop:" >> $DEBUG_FILE;
-			getprop >> $DEBUG_FILE;
-			SEPARATOR;
-
 			# Processes
 			echo "Process-Info: top" >> $DEBUG_FILE;
 			top -n 2 -m 10 >> $DEBUG_FILE;
@@ -212,9 +204,19 @@ case "${debug_to_sd}" in
 			#done;
 			#SEPARATOR;
 
+			# last kmsg
+			echo "Last Kernel dmesg Info before BUG/Opps/Panic triggered:" >> $DEBUG_FILE;
+			if [ -e /proc/last_kmsg ]; then
+				cat /proc/last_kmsg | tail -n 500 >> $DEBUG_FILE;
+				SEPARATOR;
+			else
+				echo "there was no /proc/last_kmsg to read from" >> $DEBUG_FILE;
+				SEPARATOR;
+			fi;
+
 			# dmesg
-			echo "dmesg last 250 lines:" >> $DEBUG_FILE;
-			dmesg | tail -n 250 >> $DEBUG_FILE;
+			echo "current dmesg last 200 lines:" >> $DEBUG_FILE;
+			dmesg | tail -n 200 >> $DEBUG_FILE;
 			SEPARATOR;
 
 			echo "dmesg-Error:" >> $DEBUG_FILE;
@@ -229,19 +231,18 @@ case "${debug_to_sd}" in
 			dmesg | grep -i "Fail" >> $DEBUG_FILE;
 			SEPARATOR;
 
-			# last kmsg
-			echo "last_kmsg-Info:" >> $DEBUG_FILE;
-			if [ -e /proc/last_kmsg ]; then
-				cat /proc/last_kmsg | tail -n 300 >> $DEBUG_FILE;
-				SEPARATOR;
-			else
-				echo "there was no /proc/last_kmsg to read from" >> $DEBUG_FILE;
-				SEPARATOR;
-			fi;
+			# System
+			echo "System-Info:" >> $DEBUG_FILE;
+			echo "sysctl:" >> $DEBUG_FILE;
+			sysctl -a | grep -v net.* >> $DEBUG_FILE;
+			echo "" >> $DEBUG_FILE;
+			echo "getprop:" >> $DEBUG_FILE;
+			getprop >> $DEBUG_FILE;
+			SEPARATOR;
 
 			if [ -e /system/xbin/zip ]; then
 				chmod 755 /system/xbin/zip
-				/system/xbin/zip ${DEBUG_FILE}.zip $DEBUG_FILE > /dev/null;
+				/system/xbin/zip ${DEBUG_FILE_ZIP}.zip $DEBUG_FILE > /dev/null;
 				rm $DEBUG_FILE;
 			fi;
 
@@ -249,7 +250,7 @@ case "${debug_to_sd}" in
 		)&
 		if [ -e /system/xbin/zip ]; then
 			sleep 2;
-			echo "All Data collected and ready at ${DEBUG_FILE}.zip";
+			echo "All Data collected and ready at ${DEBUG_FILE_ZIP}.zip";
 		else
 			sleep 2;
 			echo "All Data collected and ready at ${DEBUG_FILE}";
