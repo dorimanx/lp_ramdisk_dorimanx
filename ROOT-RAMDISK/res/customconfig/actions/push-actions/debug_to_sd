@@ -77,12 +77,10 @@ case "${debug_to_sd}" in
 
 			# low mem kill info
 			echo "App-Info for 'low memory killer':" >> $DEBUG_FILE;
-			for i in "$(ls /proc/ | grep -E '^[0-9]+')"; do
+			for i in $(ls /proc/ | grep -E '^[0-9]+'); do
 				if [ "$i" -ne "0" ] && [ "$(cat /proc/$i/oom_score_adj)" -ge "-300" ] && [ -f  "/proc/$i/oom_score_adj" ] && [ "$(cat /proc/$i/cmdline)" ]; then
-					echo "" >> $DEBUG_FILE;
 					cat /proc/$i/oom_score_adj >> $DEBUG_FILE;
 					cat /proc/$i/cmdline >> $DEBUG_FILE;
-					echo "" >> $DEBUG_FILE;
 				fi;
 			done;
 			SEPARATOR;
@@ -242,6 +240,9 @@ case "${debug_to_sd}" in
 
 			if [ -e /system/xbin/zip ]; then
 				chmod 755 /system/xbin/zip
+				if [ -f $DEBUG_FILE_ZIP ]; then
+					rm $DEBUG_FILE_ZIP;
+				fi;
 				/system/xbin/zip ${DEBUG_FILE_ZIP}.zip $DEBUG_FILE > /dev/null;
 				rm $DEBUG_FILE;
 			fi;
