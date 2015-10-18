@@ -56,9 +56,44 @@ case $1 in
 	Memory)
 		$BB echo `sh $DEVICE LiveMemory`;
 	;;
+	ZRAMStats)
+		ZRAM="$(expr `cat /sys/devices/virtual/block/zram0/initstate`)"
+		if [ $ZRAM -eq "1" ]; then
+			compr_data_size_tmp=`echo "$((\`cat /sys/block/zram0/compr_data_size\`/1024))"`
+			mem_used_total_tmp=`echo "$((\`cat /sys/block/zram0/mem_used_total\`/1024))"`
+			orig_data_size_tmp=`echo "$((\`cat /sys/block/zram0/orig_data_size\`/1024))"`
+			zero_pages_tmp=`echo "$((\`cat /sys/block/zram0/zero_pages\`*4))"`
+			disksize_tmp=`echo "$((\`cat /sys/block/zram0/disksize\`/1024))"`
+			SwapCached_tmp=`echo "\`cat /proc/meminfo | grep SwapCached | cut -d " " -f9\`"`
+
+			notify_free=`echo "Notify free: \`cat /sys/block/zram0/notify_free\`"`
+			num_reads=`echo "Num reads: \`cat /sys/block/zram0/num_reads\`"`
+			num_writes=`echo "Num writes: \`cat /sys/block/zram0/num_writes\`"`
+
+			saved_tmp=`echo "$((\`echo orig_data_size_tmp\`+\`echo zero_pages_tmp\`-\`echo mem_used_total_tmp\`-\`echo SwapCached_tmp\`))"`
+			saved=`echo "Memory saved: $((\`echo saved_tmp\`/1024))MB"`
+			Compression=`echo "Compression: $((\`echo compr_data_size_tmp\`*100/\`echo orig_data_size_tmp\`))%"`
+			Compression_with_overhead=`echo "Compression with overhead: $((\`echo mem_used_total_tmp\`*100/\`echo orig_data_size_tmp\`))%"`
+			Used_stage1=`echo "$((\`echo orig_data_size_tmp\`+\`echo zero_pages_tmp\`))"`
+			Used_stage2=`echo "$((\`echo Used_stage1\`*100))"`
+			Used=`echo Used ZRAM "$((\`echo Used_stage2\`/\`echo disksize_tmp\`))%"`
+
+			compr_data_size=`echo Compression data size: "$((\`cat /sys/block/zram0/compr_data_size\`/1024/1024))MB"`
+			mem_used_total=`echo Mem used total: "$((\`cat /sys/block/zram0/mem_used_total\`/1024/1024))MB"`
+			orig_data_size=`echo Original data size: "$((\`cat /sys/block/zram0/orig_data_size\`/1024/1024))MB"`
+			zero_pages=`echo Zero pages: "$((\`cat /sys/block/zram0/zero_pages\`*4))KiB"`
+			disksize=`echo Zram Disksize: "$((\`cat /sys/block/zram0/disksize\`/1024/1024))MB"`
+			SwapCached=`echo SwapCached: "$((\`echo SwapCached_tmp\`/1024))MB"`
+
+			echo $compr_data_size@n$mem_used_total@n$orig_data_size@n$zero_pages@n$disksize@n@n$notify_free@n$num_reads@n$num_writes@n@n$SwapCached@n$saved@n$Compression@n$Compression_with_overhead@n$Used
+
+		else
+			echo ZRAM is Disabled.
+		fi
+	;;
 	UKSMStats)
 		UKSM="$(expr `cat /sys/kernel/mm/uksm/run`)"
-		if [ UKSM -eq "1" ]; then
+		if [ $UKSM -eq "1" ]; then
 			SAVEDMEM=`echo "Saved memory: $((\`cat /sys/kernel/mm/uksm/pages_sharing\`*4096/1024/1024)) MB"`
 			SHARDMEM=`echo "Shared memory: $((\`cat /sys/kernel/mm/uksm/pages_shared\`*4096/1024/1024)) MB"`
 			CANTBESHAREDMEM=`echo "Cannot be shared memory: $((\`cat /sys/kernel/mm/uksm/pages_unshared\`*4096/1024/1024)) MB"`

@@ -1,0 +1,75 @@
+#!/sbin/busybox sh
+
+# ZRAM
+# Now we load the ZRAM as RAM SWAP and gain more compressed RAM.
+# Created by Dorimanx
+
+# $1 - "zramtweaks"
+# $2 - value=
+
+BB=/sbin/busybox
+
+if [ "a$2" != "a" ]; then
+	zramtweaks=$2;
+
+	case "${zramtweaks}" in
+		768)
+			if [ "$(cat /sys/block/zram0/disksize)" -ne "805306368" ]; then
+				if [ -e /dev/block/zram0 ]; then
+					# for on the fly changes we need to shutdown ZRAM first
+					$BB swapoff /dev/block/zram0 >/dev/null 2>&1;
+					echo "1" > /sys/block/zram0/reset;
+					# setting size of ZRAM swap drive
+					echo "768MB" > /sys/block/zram0/disksize;
+					echo "lz4" > /sys/block/zram0/comp_algorithm;
+					# creating SWAP from ZRAM drive
+					$BB mkswap /dev/block/zram0 >/dev/null;
+					# activating ZRAM swap
+					$BB swapon /dev/block/zram0;
+				fi;
+			fi;
+		;;
+		512)
+			if [ "$(cat /sys/block/zram0/disksize)" -ne "536870912" ]; then
+				if [ -e /dev/block/zram0 ]; then
+					# for on the fly changes we need to shutdown ZRAM first
+					$BB swapoff /dev/block/zram0 >/dev/null 2>&1;
+					echo "1" > /sys/block/zram0/reset;
+					# setting size of ZRAM swap drive
+					echo "512MB" > /sys/block/zram0/disksize;
+					echo "lz4" > /sys/block/zram0/comp_algorithm;
+					# creating SWAP from ZRAM drive
+					$BB mkswap /dev/block/zram0 >/dev/null;
+					# activating ZRAM swap
+					$BB swapon /dev/block/zram0;
+				fi;
+			fi;
+		;;
+		256)
+			if [ "$(cat /sys/block/zram0/disksize)" -ne "268435456" ]; then
+				if [ -e /dev/block/zram0 ]; then
+					# for on the fly changes we need to shutdown ZRAM first
+					$BB swapoff /dev/block/zram0 >/dev/null 2>&1;
+					echo "1" > /sys/block/zram0/reset;
+					# setting size of RAM swap drive
+					echo "256MB" > /sys/block/zram0/disksize;
+					echo "lz4" > /sys/block/zram0/comp_algorithm;
+					# creating SWAP from ZRAM drive
+					$BB mkswap /dev/block/zram0 >/dev/null;
+					# activating ZRAM swap
+					$BB swapon /dev/block/zram0;
+				fi;
+			fi;
+		;;
+		0)
+			if [ -e /dev/block/zram0 ]; then
+				swapoff /dev/block/zram0 >/dev/null 2>&1;
+				echo "1" > /sys/block/zram0/reset;
+			fi;
+		;;
+		*)
+			zramtweaks=0;
+		;;
+	esac;
+fi;
+echo ${zramtweaks};

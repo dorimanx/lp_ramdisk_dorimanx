@@ -389,9 +389,9 @@ UKSM_CONTROL()
 	local state="$1";
 
 	if [ "$state" == "awake" ]; then
-		echo "$uskm_gov_on" > /sys/kernel/mm/uksm/cpu_governor;
+		echo "$uksm_gov_on" > /sys/kernel/mm/uksm/cpu_governor;
 	elif [ "$state" == "sleep" ]; then
-		echo "$uskm_gov_sleep" > /sys/kernel/mm/uksm/cpu_governor;
+		echo "$uksm_gov_sleep" > /sys/kernel/mm/uksm/cpu_governor;
 	fi;
 	log -p i -t "$FILE_NAME" "*** UKSM_CONTROL $state ***: done";
 }
