@@ -5,7 +5,7 @@
 # Created By Dorimanx
 
 if [ "a$2" != "a" ]; then
-	uskm_gov_on=$2;
+	uksm_gov_on=$2;
 
 case "${uksm_gov_on}" in
 	full)
