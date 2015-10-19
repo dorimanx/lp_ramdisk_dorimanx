@@ -19,9 +19,9 @@ if [ "a$2" != "a" ]; then
 					# for on the fly changes we need to shutdown ZRAM first
 					$BB swapoff /dev/block/zram0 >/dev/null 2>&1;
 					echo "1" > /sys/block/zram0/reset;
+					echo "lz4" > /sys/block/zram0/comp_algorithm;
 					# setting size of ZRAM swap drive
 					echo "768MB" > /sys/block/zram0/disksize;
-					echo "lz4" > /sys/block/zram0/comp_algorithm;
 					# creating SWAP from ZRAM drive
 					$BB mkswap /dev/block/zram0 >/dev/null;
 					# activating ZRAM swap
@@ -35,9 +35,9 @@ if [ "a$2" != "a" ]; then
 					# for on the fly changes we need to shutdown ZRAM first
 					$BB swapoff /dev/block/zram0 >/dev/null 2>&1;
 					echo "1" > /sys/block/zram0/reset;
+					echo "lz4" > /sys/block/zram0/comp_algorithm;
 					# setting size of ZRAM swap drive
 					echo "512MB" > /sys/block/zram0/disksize;
-					echo "lz4" > /sys/block/zram0/comp_algorithm;
 					# creating SWAP from ZRAM drive
 					$BB mkswap /dev/block/zram0 >/dev/null;
 					# activating ZRAM swap
@@ -51,9 +51,9 @@ if [ "a$2" != "a" ]; then
 					# for on the fly changes we need to shutdown ZRAM first
 					$BB swapoff /dev/block/zram0 >/dev/null 2>&1;
 					echo "1" > /sys/block/zram0/reset;
+					echo "lz4" > /sys/block/zram0/comp_algorithm;
 					# setting size of RAM swap drive
 					echo "256MB" > /sys/block/zram0/disksize;
-					echo "lz4" > /sys/block/zram0/comp_algorithm;
 					# creating SWAP from ZRAM drive
 					$BB mkswap /dev/block/zram0 >/dev/null;
 					# activating ZRAM swap
