@@ -350,43 +350,6 @@ if [ "$(cat /sys/devices/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/
 	echo "1" > /sys/devices/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/mmcblk0rpmb/queue/rq_affinity;
 fi;
 
-#D805/6 RADIO FIX:
-#Credits to Cloudyfa and Computoncio
-(
-	if [ -e /D805-6-Model ]; then
-		OPEN_RW;
-
-		$BB mkdir -p /system/lib/temp
-		chmod 775 /system/lib/temp
-
-		setprop ro.lge.basebandversion "$($BB strings /firmware/image/modem.b21 | grep "^M8974A-" | head -1)"
-
-		$BB cp /system/lib/libvss_common_core.so /system/lib/temp/libvss_common_core.so
-		chmod 644 /system/lib/temp/libvss_common_core.so
-		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
-		sleep 2
-		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
-		sleep 2
-		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
-		sleep 2
-		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
-		sleep 2
-		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
-		sleep 2
-		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
-		sleep 2
-		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
-		sleep 8
-		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
-		sleep 8
-		$BB cp /system/lib/temp/libvss_common_core.so /system/lib/libvss_common_core.so
-
-		chmod 644 /system/lib/libvss_common_core.so
-		$BB rm /system/lib/temp/libvss_common_core.so
-		$BB rmdir /system/lib/temp
-	fi;
-)&
-
 (
 	sleep 33;
 
