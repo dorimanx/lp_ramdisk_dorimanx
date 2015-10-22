@@ -68,6 +68,7 @@ lowmem_reserve=boosted
 dirty_background_ratio=20
 dirty_ratio=25
 zramtweaks=256
+swappiness=60
 run=on
 uksm_gov_on=medium
 uksm_gov_sleep=low

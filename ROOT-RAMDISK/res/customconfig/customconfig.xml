@@ -565,6 +565,8 @@
 			<spinnerItem name="ZRAM OFFLINE" value="0"/>
 		</spinner>
 
+		<seekBar description="Control for ZRAM Swap allocation, when you set higher here, ZRAM will be used more insted of real RAM and give you more RAM! with light cost of performance (default 60)" name="Swappiness" action="generic /proc/sys/vm/swappiness" unit="%" min="30" reversed="false" step="5" max="95"/>
+
 	</settingsPane>
 
 	<settingsPane description="Control UKSM module, Ultra KSM lets the hypervisor system share identical memory pages amongst different processes or virtualized guests. This increases CPU consumption but improves memory." name="UKSM">
