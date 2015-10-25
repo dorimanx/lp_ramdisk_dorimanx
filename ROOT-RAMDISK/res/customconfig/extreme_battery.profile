@@ -20,6 +20,7 @@ cpu1_min_freq=300000
 cpu2_min_freq=300000
 cpu3_min_freq=300000
 suspend_max_freq=1728000
+suspend_min_freq=300000
 msm_thermal=intelli_temp
 limit_temp_degC=76
 freq_step=2

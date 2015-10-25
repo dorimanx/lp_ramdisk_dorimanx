@@ -12,7 +12,9 @@ if [ "$cortexbrain_cpu" == "on" ]; then
 	if [ "a$2" != "a" ]; then
 		cpu1_min_freq=$2;
 
+		echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu1;
 		echo "$cpu1_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu1;
+		echo "$cpu1_min_freq" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu1;
 	fi;
 fi;
 

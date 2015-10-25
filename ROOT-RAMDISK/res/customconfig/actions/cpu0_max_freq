@@ -12,9 +12,9 @@ if [ "$cortexbrain_cpu" == "on" ]; then
 	if [ "a$2" != "a" ]; then
 		cpu0_max_freq=$2;
 
-		echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_limit_cpu0;
+		echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_max_limit_cpu0;
 		echo "$cpu0_max_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq;
-		echo "$cpu0_max_freq" > /sys/kernel/msm_cpufreq_limit/cpufreq_limit_cpu0;
+		echo "$cpu0_max_freq" > /sys/kernel/msm_cpufreq_limit/cpufreq_max_limit_cpu0;
 	fi;
 fi;
 

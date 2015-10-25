@@ -276,7 +276,18 @@
 			<spinnerItem name="1267200" value="1267200"/> 
 			<spinnerItem name="1190400" value="1190400"/> 
 			<spinnerItem name="1036800" value="1036800"/> 
+			<spinnerItem name="960000" value="960000"/> 
+			<spinnerItem name="883200" value="883200"/> 
 		</spinner>
+
+		<spinner description="Minimum allowed CPU frequency when screen is OFF and phone is awake (by any app that holds wakelocks, such as music apps etc.) This is ONLY for screen OFF. When screen is ON, normal minimum allowed frequency will be set." name="MIN Screen OFF CPU Frequency" action="suspend_min_freq">
+			<spinnerItem name="Min Allowed" value="min_freq"/> 
+			<spinnerItem name="300000" value="300000"/> 
+			<spinnerItem name="422400" value="422400"/> 
+			<spinnerItem name="499200" value="499200"/> 
+			<spinnerItem name="652800" value="652800"/> 
+			<spinnerItem name="729600" value="729600"/> 
+                </spinner>
 
 		<button description="To access CPU LIVE Stats from my kernel PUSH the BUTTON!" name="CPU LIVE Stats" action="push-actions/thermal_control" label="Switch to Synapse Controls"/>
 
@@ -527,7 +538,7 @@
 
 		<seekBar description="Adaptive LMK trigger point, when ram pressure is higher than set here, LMK is ordered to release RAM fast and allow fast load of something BIG to memory, we see it as fast app load and less LAG. lower the value, then more apps killed from RAM and with less actual need. for best performance keep it in range of 85 to 90%" name="Adaptive LMK Pressure Range" action="generic /sys/module/lowmemorykiller/parameters/vm_pressure_adaptive_start" unit="%" min="75" reversed="false" step="1" max="94"/>
 
-		<checkbox description="Control for kernel process memory reclaim, it's help to reduce used RAM of each APP that loaded in backgroung. when vm memory pressure jump higher and system needs RAM for something BIG to load, process reclame start to shrink used RAM by backgroung APPS, it's also shrink the ZRAM swap if enabled in order to reduce cpu power usage if RAM is free." name="Process Memory Reclaim" action="generic01 /sys/module/process_reclaim/parameters/enable_process_reclaim" label="Process Reclaim"/>
+		<checkbox description="Control for kernel process memory reclaim, it's help to reduce used RAM of each APP that loaded in backgroung. when vm memory pressure jump higher and system needs RAM for something BIG to load, process reclaim start to shrink used RAM by backgroung APPS, it's also shrink the ZRAM swap if enabled in order to reduce cpu power usage if RAM is free." name="Process Memory Reclaim" action="generic01 /sys/module/process_reclaim/parameters/enable_process_reclaim" label="Process Reclaim"/>
 
 		<seekBar description="Control for max vm pressure for process memory reclaim, allow to shrink RAM from other apps when vm pressure is in range from 50 to set here value. when value is lower that default (100), then less ram shrinked when there is something BIG should be loaded to RAM, it's will reduce CPU usage when loading big app. but load it slower as memory should be free first by LMK." name="Max Process Reclaim Pressure" action="generic /sys/module/process_reclaim/parameters/pressure_max" unit="%" min="75" reversed="false" step="1" max="100"/>
 
