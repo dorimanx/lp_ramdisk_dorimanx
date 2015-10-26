@@ -76,16 +76,18 @@ case $1 in
 			Compression_with_overhead=`echo "Compression with overhead: $((\`echo mem_used_total_tmp\`*100/\`echo orig_data_size_tmp\`))%"`
 			Used_stage1=`echo "$((\`echo orig_data_size_tmp\`+\`echo zero_pages_tmp\`))"`
 			Used_stage2=`echo "$((\`echo Used_stage1\`*100))"`
-			Used=`echo Used ZRAM "$((\`echo Used_stage2\`/\`echo disksize_tmp\`))%"`
+			Used=`echo "Used ZRAM $((\`echo Used_stage2\`/\`echo disksize_tmp\`))%"`
 
-			compr_data_size=`echo Compression data size: "$((\`cat /sys/block/zram0/compr_data_size\`/1024/1024))MB"`
-			mem_used_total=`echo Mem used total: "$((\`cat /sys/block/zram0/mem_used_total\`/1024/1024))MB"`
-			orig_data_size=`echo Original data size: "$((\`cat /sys/block/zram0/orig_data_size\`/1024/1024))MB"`
-			zero_pages=`echo Zero pages: "$((\`cat /sys/block/zram0/zero_pages\`*4))KiB"`
-			disksize=`echo Zram Disksize: "$((\`cat /sys/block/zram0/disksize\`/1024/1024))MB"`
-			SwapCached=`echo SwapCached: "$((\`echo SwapCached_tmp\`/1024))MB"`
+			compr_data_size=`echo "Compression data size: $((\`cat /sys/block/zram0/compr_data_size\`/1024/1024))MB"`
+			mem_used_total=`echo "Mem used total: $((\`cat /sys/block/zram0/mem_used_total\`/1024/1024))MB"`
+			orig_data_size=`echo "Original data size: $((\`cat /sys/block/zram0/orig_data_size\`/1024/1024))MB"`
+			zero_pages=`echo "Zero pages: $((\`cat /sys/block/zram0/zero_pages\`*4))KiB"`
+			disksize=`echo "Zram Disksize: $((\`cat /sys/block/zram0/disksize\`/1024/1024))MB"`
+			SwapCached=`echo "SwapCached: $((\`echo SwapCached_tmp\`/1024))MB"`
 
-			echo $compr_data_size@n$mem_used_total@n$orig_data_size@n$zero_pages@n$disksize@n@n$notify_free@n$num_reads@n$num_writes@n@n$SwapCached@n$saved@n$Compression@n$Compression_with_overhead@n$Used
+			reclaim_avg_efficiency=`echo "Process Reclaim Avg Efficiency: \`cat /sys/module/process_reclaim/parameters/reclaim_avg_efficiency\`%"`
+
+			echo $compr_data_size@n$mem_used_total@n$orig_data_size@n$zero_pages@n$disksize@n@n$notify_free@n$num_reads@n$num_writes@n@n$SwapCached@n$saved@n$Compression@n$Compression_with_overhead@n$Used@n$reclaim_avg_efficiency
 
 		else
 			echo ZRAM is Disabled.
