@@ -7,11 +7,7 @@
 if [ "a$2" != "a" ]; then
 	suspend_min_freq=$2;
 
-	if [ "$suspend_min_freq" != "min_freq" ]; then
-		echo "$suspend_min_freq" > /sys/kernel/msm_cpufreq_limit/suspend_min_freq;
-	else
-		echo "0" > /sys/kernel/msm_cpufreq_limit/suspend_min_freq;
-	fi;
+	echo "$suspend_min_freq" > /sys/kernel/msm_cpufreq_limit/suspend_min_freq;
 fi;
 
 echo ${suspend_min_freq};
