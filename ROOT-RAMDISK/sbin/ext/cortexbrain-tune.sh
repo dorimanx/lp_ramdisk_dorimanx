@@ -207,7 +207,12 @@ CPU_CENTRAL_CONTROL()
 				echo "$cpu0_min_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
 			fi;
 			if [ "$suspend_max_freq" -lt "2803200" ]; then
-				echo "$suspend_max_freq" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
+				if [ "$(cat /sys/kernel/msm_cpufreq_limit/suspend_max_freq)" -ne "$suspend_max_freq" ]; then
+					echo "$suspend_max_freq" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
+				fi;
+			fi;
+			if [ "$(cat /sys/kernel/msm_cpufreq_limit/suspend_min_freq)" -ne "$suspend_min_freq" ]; then
+				echo "$suspend_min_freq" > /sys/kernel/msm_cpufreq_limit/suspend_min_freq;
 			fi;
 		fi;
 		log -p i -t "$FILE_NAME" "*** CPU_CENTRAL_CONTROL max_freq:${cpu_max_freq} min_freq:${cpu_min_freq}***: done";
