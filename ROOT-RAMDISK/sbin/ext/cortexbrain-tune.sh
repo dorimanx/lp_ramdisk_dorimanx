@@ -188,15 +188,31 @@ CPU_CENTRAL_CONTROL()
 	if [ "$cortexbrain_cpu" == "on" ]; then
 
 		if [ "$state" == "awake" ]; then
-			echo "$cpu0_min_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
-			echo "$cpu1_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu1;
-			echo "$cpu2_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu2;
-			echo "$cpu3_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu3;
+			if [ "$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq)" -ne "$cpu0_min_freq" ]; then
+				echo "$cpu0_min_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
+			fi;
+			if [ "$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu1)" -ne "$cpu1_min_freq" ]; then
+				echo "$cpu1_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu1;
+			fi;
+			if [ "$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu2)" -ne "$cpu2_min_freq" ]; then
+				echo "$cpu2_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu2;
+			fi;
+			if [ "$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu3)" -ne "$cpu3_min_freq" ]; then
+				echo "$cpu3_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu3;
+			fi;
 
-                        echo "$cpu0_max_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq;
-                        echo "$cpu1_max_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_max_freq_cpu1;
-                        echo "$cpu2_max_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_max_freq_cpu2;
-                        echo "$cpu3_max_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_max_freq_cpu3;
+			if [ "$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq)" -ne "$cpu0_max_freq" ]; then
+				echo "$cpu0_max_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq;
+			fi;
+			if [ "$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_max_freq_cpu1)" -ne "$cpu1_max_freq" ]; then
+				echo "$cpu1_max_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_max_freq_cpu1;
+			fi;
+			if [ "$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_max_freq_cpu2)" -ne "$cpu2_max_freq" ]; then
+				echo "$cpu2_max_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_max_freq_cpu2;
+			fi;
+			if [ "$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_max_freq_cpu3)" -ne "$cpu3_max_freq" ]; then
+				echo "$cpu3_max_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_max_freq_cpu3;
+			fi;
 			if [ -e /res/uci_boot.sh ]; then
 				/res/uci_boot.sh power_mode $power_mode > /dev/null;
 			else
@@ -206,13 +222,15 @@ CPU_CENTRAL_CONTROL()
 			if [ "$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq)" -ge "729600" ]; then
 				echo "$cpu0_min_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
 			fi;
-			if [ "$suspend_max_freq" -lt "2803200" ]; then
+			if [ "$suspend_max_freq" != "max_freq" ]; then
 				if [ "$(cat /sys/kernel/msm_cpufreq_limit/suspend_max_freq)" -ne "$suspend_max_freq" ]; then
 					echo "$suspend_max_freq" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
 				fi;
 			fi;
-			if [ "$(cat /sys/kernel/msm_cpufreq_limit/suspend_min_freq)" -ne "$suspend_min_freq" ]; then
-				echo "$suspend_min_freq" > /sys/kernel/msm_cpufreq_limit/suspend_min_freq;
+			if [ "$suspend_min_freq" != "min_freq" ]; then
+				if [ "$(cat /sys/kernel/msm_cpufreq_limit/suspend_min_freq)" -ne "$suspend_min_freq" ]; then
+					echo "$suspend_min_freq" > /sys/kernel/msm_cpufreq_limit/suspend_min_freq;
+				fi;
 			fi;
 		fi;
 		log -p i -t "$FILE_NAME" "*** CPU_CENTRAL_CONTROL max_freq:${cpu_max_freq} min_freq:${cpu_min_freq}***: done";
