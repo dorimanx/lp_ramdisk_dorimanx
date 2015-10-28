@@ -281,7 +281,7 @@
 		</spinner>
 
 		<spinner description="Minimum allowed CPU frequency when screen is OFF and phone is awake (by any app that holds wakelocks, such as music apps etc.) This is ONLY for screen OFF. When screen is ON, normal minimum allowed frequency will be set." name="MIN Screen OFF CPU Frequency" action="suspend_min_freq">
-			<spinnerItem name="300000" value="300000"/> 
+			<spinnerItem name="300000" value="min_freq"/> 
 			<spinnerItem name="422400" value="422400"/> 
 			<spinnerItem name="499200" value="499200"/> 
 			<spinnerItem name="652800" value="652800"/> 

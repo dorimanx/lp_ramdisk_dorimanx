@@ -139,7 +139,7 @@ fi;
 # just set numer $RESET_MAGIC + 1 and profiles will be reset one time on next boot with new kernel.
 # incase that ADMIN feel that something wrong with global STweaks config and profiles, then ADMIN can add +1 to CLEAN_DORI_DIR
 # to clean all files on first boot from /data/.dori/ folder.
-RESET_MAGIC=8;
+RESET_MAGIC=9;
 CLEAN_DORI_DIR=1;
 
 if [ ! -e /data/.dori/reset_profiles ]; then
@@ -264,7 +264,6 @@ if [ "$logger" -ge "1" ]; then
 	echo "0" > /sys/module/event_timer/parameters/debug_mask
 	echo "0" > /sys/module/smp2p/parameters/debug_mask
 	echo "0" > /sys/module/msm_serial_hs_lge/parameters/debug_mask
-#	echo "0" > /sys/module/powersuspend/parameters/debug_mask
 #	echo "0" > /sys/module/msm_hotplug/parameters/debug_mask
 #	echo "0" > /sys/module/cpufreq_limit/parameters/debug_mask
 	echo "0" > /sys/module/rpm_smd/parameters/debug_mask
@@ -315,7 +314,7 @@ fi;
 
 echo "0" > /cputemp/freq_limit_debug;
 
-if [ "$(cat /sys/module/powersuspend/parameters/sleep_state)" -eq "0" ]; then
+if [ "$(cat /sys/module/state_notifier/parameters/state_suspended)" == "N" ]; then
 	$BB sh /res/uci.sh cpu0_min_freq "$cpu0_min_freq";
 	$BB sh /res/uci.sh cpu1_min_freq "$cpu1_min_freq";
 	$BB sh /res/uci.sh cpu2_min_freq "$cpu2_min_freq";

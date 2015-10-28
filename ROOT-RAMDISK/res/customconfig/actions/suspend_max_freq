@@ -7,10 +7,10 @@
 if [ "a$2" != "a" ]; then
 	suspend_max_freq=$2;
 
-	if [ "$suspend_max_freq" != "max_freq" ]; then
-		echo "$suspend_max_freq" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
-	else
+	if [ "$suspend_max_freq" == "max_freq" ]; then
 		echo "0" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
+	else
+		echo "$suspend_max_freq" > /sys/kernel/msm_cpufreq_limit/suspend_max_freq;
 	fi;
 fi;
 
