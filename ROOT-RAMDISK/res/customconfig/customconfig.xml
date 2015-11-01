@@ -716,16 +716,6 @@
 
 	</settingsPane>
 
-	<settingsPane description="Android Additional Logs and logcat." name="Logcat Logger">
-
-		<spinner description="Enable or disable Android Additional Logs and logcat. it's Always Disabled to save power." name="Android Logcat Logger" action="logger">
-			<spinnerItem name="Always Enabled" value="0"/>
-			<spinnerItem name="Enabled only when screen is ON" value="1"/>
-			<spinnerItem name="Always Disabled" value="2"/>
-		</spinner>
-
-	</settingsPane>
-
 </settingsTab>
 
 <settingsTab name="Tweaks">

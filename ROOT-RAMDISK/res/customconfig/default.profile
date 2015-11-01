@@ -90,7 +90,6 @@ lm3630_min_backlight_set=70
 tcp_congestion_control=cubic
 gpsregion=No_GPS_Zone_changes
 init_d=off
-logger=2
 force_fast_charge=2
 fast_charge_level=1600
 usb_keyboard=disable

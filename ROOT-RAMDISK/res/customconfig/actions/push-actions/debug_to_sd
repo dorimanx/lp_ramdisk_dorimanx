@@ -24,6 +24,10 @@ case "${debug_to_sd}" in
 				$BB mount -o remount,rw /system;
 			fi;
 
+			if [ -e $DEBUG_FILE_ZIP ]; then
+				rm $DEBUG_FILE_ZIP;
+			fi;
+
 			SEPARATOR()
 			{
 				echo "" >> $DEBUG_FILE;
@@ -240,9 +244,6 @@ case "${debug_to_sd}" in
 
 			if [ -e /system/xbin/zip ]; then
 				chmod 755 /system/xbin/zip
-				if [ -f $DEBUG_FILE_ZIP ]; then
-					rm $DEBUG_FILE_ZIP;
-				fi;
 				/system/xbin/zip ${DEBUG_FILE_ZIP}.zip $DEBUG_FILE > /dev/null;
 				rm $DEBUG_FILE;
 			fi;
@@ -259,19 +260,10 @@ case "${debug_to_sd}" in
 	;;
 	2)
 		# logcat
-		(
-			# overwrite old debug-file
-			echo "" > $DEBUG_FILE_LOGCAT;
-			echo "1" > /sys/module/logger/parameters/log_mode;
-
-			logcat -f $DEBUG_FILE_LOGCAT;
-
-			sleep 30;
-			pkill -f "logcat";
-			echo "$logger" > /sys/module/logger/parameters/log_mode;
-			pkill -f "com.gokhanmoral.stweaks.app";
-		)&
-		echo "Collecting logs for 30Sec please wait till STweaks will CLOSE";
+		# overwrite old debug-file
+		echo "" > $DEBUG_FILE_LOGCAT;
+		logcat -d > $DEBUG_FILE_LOGCAT;
+		echo "Logcat collected. at $DEBUG_FILE_LOGCAT";
 	;;
 	*)
 		echo "need input";
