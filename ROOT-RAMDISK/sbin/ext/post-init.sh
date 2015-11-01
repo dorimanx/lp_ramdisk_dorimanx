@@ -7,6 +7,16 @@ BB=/sbin/busybox
 # protect init from oom
 echo "-1000" > /proc/1/oom_score_adj;
 
+# clean dalvik after selinux change.
+if [ -e /data/.dori/selinux_mode ]; then
+	$BB rm /data/dalvik-cache/arm/*;
+	$BB rm /data/dalvik-cache/profiles/*;
+	$BB rm /data/.dori/selinux_mode;
+	stop;
+	sync;
+	reboot;
+fi;
+
 OPEN_RW()
 {
 	if [ "$($BB mount | grep rootfs | cut -c 26-27 | grep -c ro)" -eq "1" ]; then
@@ -20,12 +30,21 @@ OPEN_RW;
 
 selinux_status=$(grep -c "selinux=1" /proc/cmdline);
 if [ "$selinux_status" -eq "1" ]; then
+	umount /firmware;
+	mount -t vfat -o ro,context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337 /dev/block/platform/msm_sdcc.1/by-name/modem /firmware
 	restorecon -RF /system
 	if [ -e /system/bin/app_process32_xposed ]; then
 		chcon u:object_r:zygote_exec:s0 /system/bin/app_process32_xposed
+		chcon u:object_r:dex2oat_exec:s0 /system/bin/dex2oat
+		chcon u:object_r:dex2oat_exec:s0 /system/bin/patchoat
+		chcon u:object_r:system_file:s0 /system/bin/oatdump
+		chcon u:object_r:system_file:s0 /system/framework/XposedBridge.jar
+		chcon u:object_r:system_file:s0 /system/lib/libart.so
+		chcon u:object_r:system_file:s0 /system/lib/libart-compiler.so
+		chcon u:object_r:system_file:s0 /system/lib/libart-disassembler.so
+		chcon u:object_r:system_file:s0 /system/lib/libsigchain.so
+		chcon u:object_r:system_file:s0 /system/lib/libxposed_art.so
 	fi;
-	umount /firmware;
-	mount -t vfat -o ro,context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337 /dev/block/platform/msm_sdcc.1/by-name/modem /firmware
 fi;
 
 # run ROM scripts
