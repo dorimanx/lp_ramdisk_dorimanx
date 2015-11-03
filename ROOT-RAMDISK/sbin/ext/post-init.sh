@@ -273,34 +273,32 @@ MODULES_LOAD()
 }
 
 # disable debugging on some modules
-if [ "$logger" -ge "1" ]; then
-	echo "N" > /sys/module/kernel/parameters/initcall_debug;
-	echo "0" > /sys/devices/fe12f000.slim/debug_mask
-	echo "0" > /sys/module/smd/parameters/debug_mask
-	echo "0" > /sys/module/smem/parameters/debug_mask
-	echo "0" > /sys/module/rpm_regulator_smd/parameters/debug_mask
-	echo "0" > /sys/module/ipc_router/parameters/debug_mask
-	echo "0" > /sys/module/event_timer/parameters/debug_mask
-	echo "0" > /sys/module/smp2p/parameters/debug_mask
-	echo "0" > /sys/module/msm_serial_hs_lge/parameters/debug_mask
+echo "N" > /sys/module/kernel/parameters/initcall_debug;
+echo "0" > /sys/devices/fe12f000.slim/debug_mask
+echo "0" > /sys/module/smd/parameters/debug_mask
+echo "0" > /sys/module/smem/parameters/debug_mask
+echo "0" > /sys/module/rpm_regulator_smd/parameters/debug_mask
+echo "0" > /sys/module/ipc_router/parameters/debug_mask
+echo "0" > /sys/module/event_timer/parameters/debug_mask
+echo "0" > /sys/module/smp2p/parameters/debug_mask
+echo "0" > /sys/module/msm_serial_hs_lge/parameters/debug_mask
 #	echo "0" > /sys/module/msm_hotplug/parameters/debug_mask
 #	echo "0" > /sys/module/cpufreq_limit/parameters/debug_mask
-	echo "0" > /sys/module/rpm_smd/parameters/debug_mask
-	echo "0" > /sys/module/smd_pkt/parameters/debug_mask
-	echo "0" > /sys/module/xt_qtaguid/parameters/debug_mask
-	echo "0" > /sys/module/qpnp_regulator/parameters/debug_mask
-	echo "0" > /sys/module/binder/parameters/debug_mask
-	echo "0" > /sys/module/msm_show_resume_irq/parameters/debug_mask
-	echo "0" > /sys/module/alarm_dev/parameters/debug_mask
-	echo "0" > /sys/module/mpm_of/parameters/debug_mask
-	echo "0" > /sys/module/msm_pm/parameters/debug_mask
-	echo "0" > /sys/module/spm_v2/parameters/debug_mask
-	echo "0" > /sys/module/alu_t_boost/parameters/debug_mask
-	echo "0" > /sys/module/lpm_levels/parameters/debug_mask
-	echo "0" > /sys/module/ipc_router_smd_xprt/parameters/debug_mask
-	echo "0" > /sys/module/x_tables/parameters/debug_mask
-	echo "0" > /sys/module/lge_touch_core/parameters/debug_mask
-fi;
+echo "0" > /sys/module/rpm_smd/parameters/debug_mask
+echo "0" > /sys/module/smd_pkt/parameters/debug_mask
+echo "0" > /sys/module/xt_qtaguid/parameters/debug_mask
+echo "0" > /sys/module/qpnp_regulator/parameters/debug_mask
+echo "0" > /sys/module/binder/parameters/debug_mask
+echo "0" > /sys/module/msm_show_resume_irq/parameters/debug_mask
+echo "0" > /sys/module/alarm_dev/parameters/debug_mask
+echo "0" > /sys/module/mpm_of/parameters/debug_mask
+echo "0" > /sys/module/msm_pm/parameters/debug_mask
+echo "0" > /sys/module/spm_v2/parameters/debug_mask
+echo "0" > /sys/module/alu_t_boost/parameters/debug_mask
+echo "0" > /sys/module/lpm_levels/parameters/debug_mask
+echo "0" > /sys/module/ipc_router_smd_xprt/parameters/debug_mask
+echo "0" > /sys/module/x_tables/parameters/debug_mask
+echo "0" > /sys/module/lge_touch_core/parameters/debug_mask
 
 OPEN_RW;
 
