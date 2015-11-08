@@ -574,7 +574,7 @@
 
 	</settingsPane>
 
-	<settingsPane description="Control ZRAM module, it's take real RAM and compress it by 250% and create much more FREE RAM for apps to use! more RAM allocated more given. but in cost of CPU power and some battery, when switching ZRAM size from one to other after some time, this will take TIME! and Dorimanx app will FREEZE! DO NOT PANIC! WAIT. you can just switch to home and open synapse and watch how memory is decompressed and ZRAM turned off. do not kill the app. just WAIT!" name="ZRAM">
+	<settingsPane description="Control ZRAM module, it's take real RAM and compress it by 40% and create much more FREE RAM for apps to use! more RAM allocated for zram then more given to user. but in cost of CPU power and some battery, when switching ZRAM size from one to other after some time, this will take TIME! more than 2min! and Dorimanx app will FREEZE! DO NOT PANIC! WAIT. you can just switch to home and open synapse and watch how memory is decompressed and ZRAM turned off. do not kill the app. just WAIT!" name="ZRAM">
 
 		<spinner description="ZRAM disksize controller. more set, more free RAM you will get, in cost of CPU power. but it's low usage. and device is operating GREAT. this is memory based module, so storage is not killed over time. you can see how it's works in synapse app! Compression is LZ4, PLEASE read instruction ABOVE about WAITING for selector to switch from one size to other after long usage!!!" name="ZRAM Selector" action="zramtweaks">
 			<spinnerItem name="ZRAM 768MB" value="768"/>
