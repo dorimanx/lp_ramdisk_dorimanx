@@ -461,6 +461,8 @@
 			<spinnerItem name="Faux Sound Control" value="0"/>
 		</spinner>
 
+	<checkbox description="Enable or disable Sound Driver High Performance mode, will produce better sound in cost of CPU power, and battery, used for FLAC or high bit rate audio files higher than 44100Khz, when lower or equal 44100Khz this mode is auto OFF in kernel to preserve power, as there is no difference at all for standard MP3 or WMA files. or streaming up to 320kbps." name="Sound High Performance Mode" action="generic01 /sys/module/snd_soc_wcd9320/parameters/high_perf_mode" label="Sound High Performance"/>
+
 	</settingsPane>
 
 	<settingsPane description="Here you can tune MIC, SPEAKER and HeadPhones gain volume" name="Sound Controls">

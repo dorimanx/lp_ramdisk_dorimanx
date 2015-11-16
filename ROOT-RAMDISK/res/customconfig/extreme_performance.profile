@@ -51,6 +51,7 @@ upthreshold=40
 downthreshold=10
 upthreshold_cons=40
 lge_stweaks_control=1
+high_perf_mode=on
 generic_headphone_left=0
 generic_headphone_right=0
 incall_volume=1
