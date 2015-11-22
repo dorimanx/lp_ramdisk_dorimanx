@@ -371,7 +371,7 @@ fi;
 
 	# Reload usb driver to open MTP and fix fast charge.
 	CHARGER_STATE=$(cat /sys/class/power_supply/battery/charging_enabled);
-	if [ "$CHARGER_STATE" -eq "1" ] && [ "$adb_selector" -eq "1" ]; then
+	if [ "$CHARGER_STATE" -eq "1" ]; then
 		stop adbd
 		sleep 1;
 		start adbd
