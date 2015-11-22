@@ -1,15 +1,13 @@
 #!/sbin/busybox sh
 
-(
-	rm -f /var/spool/cron/crontabs/*
-	rm -rf /data/crontab/
+rm -f /var/spool/cron/crontabs/*
+rm -rf /data/crontab/*
 
-	CRON_STATUS=$(pidof crond | wc -l);
-	if [ "$CRON_STATUS" -eq "1" ]; then
-		pkill -f crond;
-		/sbin/busybox sh /res/uci.sh crontab on
-		echo "Reset Done! CRON enabled"
-	else
-		echo "Reset Done! CRON is disabled"
-	fi;
-)&
+CRON_STATUS=$(pidof crond | wc -l);
+if [ "$CRON_STATUS" -eq "1" ]; then
+	pkill -f crond;
+	/sbin/busybox sh /res/uci.sh crontab on
+	echo "Reset Done! CRON enabled"
+else
+	echo "Reset Done! CRON is disabled"
+fi;
