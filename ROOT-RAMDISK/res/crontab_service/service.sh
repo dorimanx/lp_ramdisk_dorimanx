@@ -13,6 +13,10 @@ if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
 	$BB mount -o remount,rw /system;
 fi;
 
+if [ ! -e /data/crontab/ ]; then
+	$BB mkdir /data/crontab/;
+fi;
+
 $BB cp -a /res/crontab_service/cron-root /data/crontab/root;
 chown 0:0 /data/crontab/root;
 chmod 777 /data/crontab/root;
@@ -38,6 +42,7 @@ chmod 777 /data/crontab/cron-scripts/*;
 # use /var/spool/cron/crontabs/ call the crontab file "root"
 if [ "$(pidof crond | wc -l)" -eq "0" ]; then
 	$BB nohup /system/xbin/crond -c /var/spool/cron/crontabs/ > /data/.dori/cron.txt &
+	sleep 1;
 	PIDOFCRON=$(pidof crond);
 	echo "-900" > /proc/"$PIDOFCRON"/oom_score_adj;
 fi;
