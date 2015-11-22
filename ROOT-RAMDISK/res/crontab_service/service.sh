@@ -27,7 +27,6 @@ $BB cp -a /data/crontab/root /var/spool/cron/crontabs/;
 
 chown 0:0 /var/spool/cron/crontabs/*;
 chmod 777 /var/spool/cron/crontabs/*;
-echo "root:x:0:0::/var/spool/cron/crontabs:/sbin/sh" > /system/etc/passwd;
 
 # set timezone
 TZ=UTC
