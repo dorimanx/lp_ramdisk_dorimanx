@@ -369,6 +369,13 @@ fi;
 (
 	sleep 33;
 
+	# Correct sweep2sleep on/off
+	if [ "$sweep2sleep" == "on" ]; then
+		echo "1" > /sys/sweep2sleep/sweep2sleep;
+	else
+		echo "0" > /sys/sweep2sleep/sweep2sleep;
+	fi;
+
 	# Reload usb driver to open MTP and fix fast charge.
 	#CHARGER_STATE=$(cat /sys/class/power_supply/battery/charging_enabled);
 	#if [ "$CHARGER_STATE" -eq "1" ]; then
