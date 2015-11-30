@@ -367,7 +367,11 @@ if [ "$(cat /sys/devices/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/
 fi;
 
 (
-	sleep 33;
+	sleep 30;
+
+	# get values from profile
+	PROFILE=$(cat /data/.dori/.active.profile);
+	. /data/.dori/"$PROFILE".profile;
 
 	# Correct sweep2sleep on/off
 	if [ "$sweep2sleep" == "on" ]; then
