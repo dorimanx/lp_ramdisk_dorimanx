@@ -116,8 +116,8 @@ ONDEMAND_TUNING()
 	echo "1728000" > /cpugov/ondemand/optimal_max_freq;
 	echo "14" > /cpugov/ondemand/middle_grid_step;
 	echo "20" > /cpugov/ondemand/high_grid_step;
-	echo "65" > /cpugov/ondemand/middle_grid_load;
-	echo "89" > /cpugov/ondemand/high_grid_load;
+	echo "55" > /cpugov/ondemand/middle_grid_load;
+	echo "79" > /cpugov/ondemand/high_grid_load;
 }
 
 # oom and mem perm fix
