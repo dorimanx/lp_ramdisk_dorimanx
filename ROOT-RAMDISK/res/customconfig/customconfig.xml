@@ -607,7 +607,7 @@
 			<spinnerItem name="No Power (idle)" value="quiet"/> 
 		</spinner>
 
-		<seekBar description="Scan Delay Interval (default 500)" name="UKSM Scan Delay Interval" action="generic /sys/kernel/mm/uksm/sleep_millisecs" unit="ms" min="50" reversed="false" step="50" max="3000"/>
+		<seekBar description="Scan Delay Interval (default 1000) lower we set, more ram we can gain, but in cost of performance impact and battery. best leave it 1000" name="UKSM Scan Delay Interval" action="generic /sys/kernel/mm/uksm/sleep_millisecs" unit="ms" min="50" reversed="false" step="50" max="1000"/>
 
 	</settingsPane>
 
