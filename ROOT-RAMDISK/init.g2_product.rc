@@ -30,6 +30,16 @@ service iwland /system/bin/iwland -ddd
 on property:init.svc.media=restarting
     restart broadcast
 
+#Customize booting resources
+chmod 755 /system/vendor/bin/runtime_boot_res_g2_vdf.sh
+
+service runtime_boot_res /system/bin/sh /system/vendor/bin/runtime_boot_res_g2_vdf.sh
+    disabled
+    oneshot
+
+on property:sbp.load_props_done=1
+    start runtime_boot_res
+
 service preloadcopy /system/bin/sh /preload_sl.sh
     class main
     user root
