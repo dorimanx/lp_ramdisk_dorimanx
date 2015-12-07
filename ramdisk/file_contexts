@@ -556,8 +556,6 @@
 #######################################################
 /system/vendor/bin/postinstaller.sh          u:object_r:postinstaller_exec:s0
 
-#line 1 "device/lge/common/sepolicy/laf/file_contexts"
-/dev/block/platform/.*/by-name/persist      u:object_r:persist_block_device:s0
 #line 1 "device/qcom/sepolicy/common/file_contexts"
 ###################################
 # Dev nodes

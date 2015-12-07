@@ -625,12 +625,6 @@ service iprenew_wlan0 /system/bin/dhcpcd -n
     class late_start
     disabled
     oneshot
-	
-#LGE_CHANGE, moon-wifi@lge.com by wo0ngs for ORG DHCP Release
-service iprelease_wlan0 /system/bin/dhcpcd -k
-    class late_start
-    disabled
-    oneshot
 
 service iprenew_p2p /system/bin/dhcpcd -n
     class late_start
