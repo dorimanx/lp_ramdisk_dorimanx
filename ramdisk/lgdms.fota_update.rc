@@ -1,0 +1,47 @@
+on fota-update
+    export PATH /sbin
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /sdcard
+    
+    symlink /system/etc /etc
+
+    mkdir /sdcard
+    mkdir /system
+    mkdir /cust
+    mkdir /cache
+    mount /tmp /tmp tmpfs
+
+    #mount rootfs rootfs / rw remount
+
+
+# mount mmc partitions
+
+	#[LGE_UPDATE_S] DMS_SYSTEM dms-fota@lge.com 2012/03/13
+	
+	wait /dev/block/platform/msm_sdcc.1/by-name/system
+	mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system rw data=journal barrier=1
+	
+	wait /dev/block/platform/msm_sdcc.1/by-name/cust
+	mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cust /cust rw data=journal barrier=1
+
+	wait /dev/block/platform/msm_sdcc.1/by-name/cache
+	wait /dev/block/platform/msm_sdcc.1/by-name/cache
+	wait /dev/block/platform/msm_sdcc.1/by-name/cache
+	#exec /system/bin/e2fsck -y /dev/block/platform/msm_sdcc.1/by-name/cache
+	mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cache /cache nosuid nodev data=journal barrier=1	
+
+#[LGE_UPDATE_E] DMS_SYSTEM dms-fota@lge.com 2012/03/13
+    
+	wait /dev/graphics/fb0
+	wait /dev/tty0
+
+	mkdir /cache/fota
+
+	start sqrngd
+
+service sqrngd /sbin/sqrngd -f
+  class main
+  user root
+  group root
+	

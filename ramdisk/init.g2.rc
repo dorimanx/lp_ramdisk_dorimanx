@@ -1,0 +1,11 @@
+# This file will be installed as /init.{ro.hardware}.rc
+import /init.qcom.rc
+
+# to override init.qcom.rc and init.target.rc
+import /init.lge.usb.rc
+import /init.galbi2_core.rc
+import /init.lge.power.rc
+
+# LGE_CHANGE_S, [LGE_DATA][LGP_DATA_TCPIP_NSRM], heeyeon.nah@lge.com, 2012-05-22
+export LD_PRELOAD /vendor/lib/libNimsWrap.so
+# LGE_CHANGE_E, [LGE_DATA][LGP_DATA_TCPIP_NSRM], heeyeon.nah@lge.com, 2012-05-22
