@@ -12,6 +12,7 @@ fi;
 
 DEBUG_FILE="/sdcard/dorimanx_debug.txt";
 DEBUG_FILE_ZIP="/sdcard/dorimanx_debug";
+DEBUG_FILE_USELESS_ZIP="/sdcard/dorimanx_useless_debug";
 DEBUG_FILE_LOGCAT="/sdcard/dorimanx_debug_logcat.txt"
 
 PROFILE=`cat /data/.dori/.active.profile`;
@@ -20,12 +21,23 @@ PROFILE=`cat /data/.dori/.active.profile`;
 case "${debug_to_sd}" in
 	1)
 		(
+			# needed for /system/xbin/zip chmod
 			if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
 				$BB mount -o remount,rw /system;
 			fi;
 
-			if [ -e $DEBUG_FILE_ZIP ]; then
-				rm $DEBUG_FILE_ZIP;
+			# cleaup old debug files.
+			if [ -f $DEBUG_FILE_ZIP ]; then
+				$BB rm $DEBUG_FILE_ZIP;
+			fi;
+			if [ -f $DEBUG_FILE ]; then
+				$BB rm $DEBUG_FILE;
+			fi;
+			if [ -f ${DEBUG_FILE_ZIP}.zip ]; then
+				$BB rm ${DEBUG_FILE_ZIP}.zip;
+			fi;
+			if [ -f ${DEBUG_FILE_USELESS_ZIP}.zip ]; then
+				$BB rm ${DEBUG_FILE_USELESS_ZIP}.zip;
 			fi;
 
 			SEPARATOR()
@@ -244,7 +256,11 @@ case "${debug_to_sd}" in
 
 			if [ -e /system/xbin/zip ]; then
 				chmod 755 /system/xbin/zip
-				/system/xbin/zip ${DEBUG_FILE_ZIP}.zip $DEBUG_FILE > /dev/null;
+				if [ ! -e /proc/last_kmsg ]; then
+					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}.zip $DEBUG_FILE > /dev/null;
+				else
+					/system/xbin/zip ${DEBUG_FILE_ZIP}.zip $DEBUG_FILE > /dev/null;
+				fi;
 				rm $DEBUG_FILE;
 			fi;
 
@@ -252,7 +268,11 @@ case "${debug_to_sd}" in
 		)&
 		if [ -e /system/xbin/zip ]; then
 			sleep 2;
-			echo "All Data collected and ready at ${DEBUG_FILE_ZIP}.zip";
+			if [ ! -e /proc/last_kmsg ]; then
+				echo "Data collected but it's USELESS! NO Kernel last log. file at ${DEBUG_FILE_USELESS_ZIP}.zip";
+			else
+				echo "All Data collected and ready at ${DEBUG_FILE_ZIP}.zip";
+			fi;
 		else
 			sleep 2;
 			echo "All Data collected and ready at ${DEBUG_FILE}";
