@@ -157,6 +157,7 @@ on init
     write /dev/cpuset/background/cpus 0-1
     write /dev/cpuset/system-background/cpus 0-1
     write /dev/cpuset/foreground/mems 0
+    write /dev/cpuset/foreground/boost/mems 0
     write /dev/cpuset/background/mems 0
 
     mkdir /dev/cpuctl/apps
