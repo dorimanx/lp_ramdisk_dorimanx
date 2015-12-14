@@ -331,18 +331,6 @@ fi;
 
 echo "0" > /cputemp/freq_limit_debug;
 
-if [ "$(cat /sys/module/state_notifier/parameters/state_suspended)" == "N" ]; then
-	$BB sh /res/uci.sh cpu0_min_freq "$cpu0_min_freq";
-	$BB sh /res/uci.sh cpu1_min_freq "$cpu1_min_freq";
-	$BB sh /res/uci.sh cpu2_min_freq "$cpu2_min_freq";
-	$BB sh /res/uci.sh cpu3_min_freq "$cpu3_min_freq";
-
-	$BB sh /res/uci.sh cpu0_max_freq "$cpu0_max_freq";
-	$BB sh /res/uci.sh cpu1_max_freq "$cpu1_max_freq";
-	$BB sh /res/uci.sh cpu2_max_freq "$cpu2_max_freq";
-	$BB sh /res/uci.sh cpu3_max_freq "$cpu3_max_freq";
-fi;
-
 # tune I/O controls to boost I/O performance
 
 #This enables the user to disable the lookup logic involved with IO
@@ -432,4 +420,20 @@ fi;
 	echo "$TIME_NOW" > /data/boot_log_dm
 
 	$BB mount -o remount,ro /system;
+
+	while [ "$(cat /sys/class/thermal/thermal_zone5/temp)" -ge "65" ]; do
+		sleep 5;
+	done;
+
+	if [ "$(cat /sys/module/state_notifier/parameters/state_suspended)" == "N" ]; then
+		$BB sh /res/uci.sh cpu0_min_freq "$cpu0_min_freq";
+		$BB sh /res/uci.sh cpu1_min_freq "$cpu1_min_freq";
+		$BB sh /res/uci.sh cpu2_min_freq "$cpu2_min_freq";
+		$BB sh /res/uci.sh cpu3_min_freq "$cpu3_min_freq";
+
+		$BB sh /res/uci.sh cpu0_max_freq "$cpu0_max_freq";
+		$BB sh /res/uci.sh cpu1_max_freq "$cpu1_max_freq";
+		$BB sh /res/uci.sh cpu2_max_freq "$cpu2_max_freq";
+		$BB sh /res/uci.sh cpu3_max_freq "$cpu3_max_freq";
+	fi;
 )&

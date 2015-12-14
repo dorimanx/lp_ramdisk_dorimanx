@@ -88,8 +88,6 @@
 	<settingsPane description="Here you can tune the Touch Boost Controls" name="Touch Boost Controls">
 
 		<spinner description="Touch boost control - when you touch the screen or scroll, the CPU's frequency will be boosted to maximum frequency set in order to help reducing LAG and allow fast and smooth operations. Too high frequencies will use more power. Default is 1.497GHz." name="Touch Boost Frequency" action="cpu_boost_freq">
-			<spinnerItem name="2419200" value="2419200"/> 
-			<spinnerItem name="2265600" value="2265600"/> 
 			<spinnerItem name="1958400" value="1958400"/> 
 			<spinnerItem name="1728000" value="1728000"/> 
 			<spinnerItem name="1574400" value="1574400"/> 
@@ -141,11 +139,6 @@
 			<spinnerItem name="1036800" value="1036800"/> 
 			<spinnerItem name="960000" value="960000"/> 
 			<spinnerItem name="883200" value="883200"/> 
-			<spinnerItem name="729600" value="729600"/> 
-			<spinnerItem name="652800" value="652800"/> 
-			<spinnerItem name="499200" value="499200"/> 
-			<spinnerItem name="422400" value="422400"/> 
-			<spinnerItem name="300000" value="300000"/> 
 		</spinner>
 
 		<spinner description="Maximum CPU1 Speed. Here, you can change the maximum CPU1 frequency allowed. This depends on CPU-Tweaks (has to be enabled above)! (Default is 2265600 Khz)" name="Max CPU1 Frequency" action="cpu1_max_freq">
@@ -163,11 +156,6 @@
 			<spinnerItem name="1036800" value="1036800"/> 
 			<spinnerItem name="960000" value="960000"/> 
 			<spinnerItem name="883200" value="883200"/> 
-			<spinnerItem name="729600" value="729600"/> 
-			<spinnerItem name="652800" value="652800"/> 
-			<spinnerItem name="499200" value="499200"/> 
-			<spinnerItem name="422400" value="422400"/> 
-			<spinnerItem name="300000" value="300000"/> 
 		</spinner>
 
 		<spinner description="Maximum CPU2 Speed. Here, you can change the maximum CPU2 frequency allowed. This depends on CPU-Tweaks (has to be enabled above)! (Default is 2265600 Khz)" name="Max CPU2 Frequency" action="cpu2_max_freq">
@@ -185,11 +173,6 @@
 			<spinnerItem name="1036800" value="1036800"/> 
 			<spinnerItem name="960000" value="960000"/> 
 			<spinnerItem name="883200" value="883200"/> 
-			<spinnerItem name="729600" value="729600"/> 
-			<spinnerItem name="652800" value="652800"/> 
-			<spinnerItem name="499200" value="499200"/> 
-			<spinnerItem name="422400" value="422400"/> 
-			<spinnerItem name="300000" value="300000"/> 
 		</spinner>
 
 		<spinner description="Maximum CPU3 Speed. Here, you can change the maximum CPU3 frequency allowed. This depends on CPU-Tweaks (has to be enabled above)! (Default is 2265600 Khz)" name="Max CPU3 Frequency" action="cpu3_max_freq">
@@ -207,11 +190,6 @@
 			<spinnerItem name="1036800" value="1036800"/> 
 			<spinnerItem name="960000" value="960000"/> 
 			<spinnerItem name="883200" value="883200"/> 
-			<spinnerItem name="729600" value="729600"/> 
-			<spinnerItem name="652800" value="652800"/> 
-			<spinnerItem name="499200" value="499200"/> 
-			<spinnerItem name="422400" value="422400"/> 
-			<spinnerItem name="300000" value="300000"/> 
 		</spinner>
 
 	</settingsPane>
@@ -219,7 +197,6 @@
 	<settingsPane description="Here you can tune the Minimum CPU Frequency per core" name="Minimum CPU Frequency">
 
 		<spinner description="Minimum CPU0 Speed. Here, you can change the minimum CPU0 frequency allowed (it can't be higher than Maximum CPU0 Speed). This depends on CPU-Tweaks (has to be enabled above)! (Default is 300000 Khz)" name="Min CPU0 Frequency" action="cpu0_min_freq">
-			<spinnerItem name="1036800" value="1036800"/> 
 			<spinnerItem name="960000" value="960000"/> 
 			<spinnerItem name="883200" value="883200"/> 
 			<spinnerItem name="729600" value="729600"/> 
@@ -230,7 +207,6 @@
 		</spinner>
 
 		<spinner description="Minimum CPU1 Speed. Here, you can change the minimum CPU1 frequency allowed (it can't be higher than Maximum CPU1 Speed). This depends on CPU-Tweaks (has to be enabled above)! (Default is 300000 Khz)" name="Min CPU1 Frequency" action="cpu1_min_freq">
-			<spinnerItem name="1036800" value="1036800"/> 
 			<spinnerItem name="960000" value="960000"/> 
 			<spinnerItem name="883200" value="883200"/> 
 			<spinnerItem name="729600" value="729600"/> 
@@ -241,7 +217,6 @@
 		</spinner>
 
 		<spinner description="Minimum CPU2 Speed. Here, you can change the minimum CPU2 frequency allowed (it can't be higher than Maximum CPU2 Speed). This depends on CPU-Tweaks (has to be enabled above)! (Default is 300000 Khz)" name="Min CPU2 Frequency" action="cpu2_min_freq">
-			<spinnerItem name="1036800" value="1036800"/> 
 			<spinnerItem name="960000" value="960000"/> 
 			<spinnerItem name="883200" value="883200"/> 
 			<spinnerItem name="729600" value="729600"/> 
@@ -252,7 +227,6 @@
 		</spinner>
 
 		<spinner description="Minimum CPU3 Speed. Here, you can change the minimum CPU3 frequency allowed (it can't be higher than Maximum CPU3 Speed). This depends on CPU-Tweaks (has to be enabled above)! (Default is 300000 Khz)" name="Min CPU3 Frequency" action="cpu3_min_freq">
-			<spinnerItem name="1036800" value="1036800"/> 
 			<spinnerItem name="960000" value="960000"/> 
 			<spinnerItem name="883200" value="883200"/> 
 			<spinnerItem name="729600" value="729600"/> 

@@ -219,8 +219,25 @@ CPU_CENTRAL_CONTROL()
 				/res/uci.sh power_mode $power_mode > /dev/null;
 			fi;
 		elif [ "$state" == "sleep" ]; then
-			if [ "$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq)" -ge "729600" ]; then
+			if [ "$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq)" -ge "$cpu0_min_freq" ]; then
+				echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu0;
 				echo "$cpu0_min_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
+				echo "$cpu0_min_freq" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu0;
+			fi;
+			if [ "$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu1)" -ge "$cpu1_min_freq" ]; then
+				echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu1;
+				echo "$cpu1_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu1;
+				echo "$cpu1_min_freq" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu1;
+			fi;
+			if [ "$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu2)" -ge "$cpu2_min_freq" ]; then
+				echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu2;
+				echo "$cpu2_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu2;
+				echo "$cpu2_min_freq" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu2;
+			fi;
+			if [ "$(cat /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu3)" -ge "$cpu3_min_freq" ]; then
+				echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu3;
+				echo "$cpu3_min_freq" > /sys/devices/system/cpu/cpufreq/all_cpus/scaling_min_freq_cpu3;
+				echo "$cpu3_min_freq" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu3;
 			fi;
 			if [ "$suspend_max_freq" != "max_freq" ]; then
 				if [ "$(cat /sys/kernel/msm_cpufreq_limit/suspend_max_freq)" -ne "$suspend_max_freq" ]; then
@@ -246,8 +263,12 @@ CPU_CENTRAL_CONTROL()
 				/res/uci.sh power_mode $power_mode > /dev/null;
 			fi;
 		elif [ "$state" == "sleep" ]; then
+			echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu0;
+			echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu1;
+			echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu2;
+			echo "0" > /sys/kernel/msm_cpufreq_limit/cpufreq_min_limit_cpu3;
 			if [ "$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq)" -ge "729600" ]; then
-				echo "$cpu0_min_freq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
+				echo "300000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
 			fi;
 		fi;
 	fi;
