@@ -284,7 +284,7 @@
 
 		<seekBar description="Here you can adjust the Temp Pull Timer interval, lower set force driver to check temp faster and tune max frequency" name="Temp Pull Timer" action="generic /sys/module/msm_thermal/parameters/poll_ms" unit="ms" min="200" reversed="false" step="50" max="500"/>
 
-		<seekBar description="Here you can adjust the Temperature Hysteresis for driver to calculate temp difference and adjust the frequency" name="Temperature Hysteresis" action="generic /sys/module/msm_thermal/parameters/temp_hysteresis_degC" unit="°C" min="2" reversed="false" step="1" max="20"/>
+		<seekBar description="Here you can adjust the Temperature Hysteresis for driver to calculate temp difference and adjust the frequency, if you stress CPU often! (high temp) do not reduce below 10C!" name="Temperature Hysteresis" action="generic /sys/module/msm_thermal/parameters/temp_hysteresis_degC" unit="°C" min="5" reversed="false" step="1" max="20"/>
 		<seekBar description="Here you can adjust the Thermal Limit Lowest Frequency, 7 = 1.19Ghz 6 = 1.03Ghz and so on." name="Thermal Limit Lowest Frequency" action="generic /sys/module/msm_thermal/parameters/thermal_limit_low" unit="Freq" min="5" reversed="false" step="1" max="10"/>
 
 		<checkbox description="Here you can enable or disable Immediately Limit Stop, it's allow to set max frequencies if heat is not rising it's stress the driver but allow higher performance and add 3c temp to global limit, use with caution." name="Immediately frequencies Limit Stop" action="generic01 /sys/module/msm_thermal/parameters/immediately_limit_stop" label="Immediately Limit Stop"/>
@@ -307,7 +307,7 @@
 
 		<seekBar description="Here you can change HotPlug CORES Max Heat before turning OFF cores from 3 to 1 and keep normal phone heat. you need to set this control BELOW Max TEMP Control in above section! then cores will go down when overheated! Depends on Intelli CPU Cores Control (must be ENABLED)!" name="Intelli CORE Max Heat" action="generic /sys/module/msm_thermal/parameters/core_limit_temp_degC" unit="°C" min="50" reversed="false" step="1" max="80"/>
 
-		<seekBar description="Here you can adjust the Core HotPlug Temperature Hysteresis for driver to calculate temp difference and adjust the online cores by turning them OFF Depends on Intelli CPU Cores Control (must be ENABLED)!" name="Core Temperature Hysteresis" action="generic /sys/module/msm_thermal/parameters/core_temp_hysteresis_degC" unit="°C" min="2" reversed="false" step="1" max="20"/>
+		<seekBar description="Here you can adjust the Core HotPlug Temperature Hysteresis for driver to calculate temp difference and adjust the online cores by turning them OFF Depends on Intelli CPU Cores Control (must be ENABLED)!" name="Core Temperature Hysteresis" action="generic /sys/module/msm_thermal/parameters/core_temp_hysteresis_degC" unit="°C" min="5" reversed="false" step="1" max="20"/>
 
 	</settingsPane>
 
