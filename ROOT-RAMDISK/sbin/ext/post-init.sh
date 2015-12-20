@@ -396,8 +396,8 @@ fi;
 	else
 		echo "0" > /sys/kernel/mm/uksm/run;
 	fi;
-	echo "100" > /sys/kernel/mm/ksm/pages_to_scan;
 	echo "$sleep_millisecs" > /sys/kernel/mm/uksm/sleep_millisecs;
+	echo "10" > /sys/kernel/mm/uksm/max_cpu_percentage;
 
 	# Google Services battery drain fixer by Alcolawl@xda
 	# http://forum.xda-developers.com/google-nexus-5/general/script-google-play-services-battery-t3059585/post59563859
