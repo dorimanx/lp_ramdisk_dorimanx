@@ -520,7 +520,8 @@
 		<spinner description="Here you can set the level of low memory management by kernel lowmemkiller function. More aggressive equals more free RAM but more killed apps." name="OOM Level Screen ON" action="oom_config_screen_on">
 			<spinnerItem name="low" value="low"/> 
 			<spinnerItem name="medium" value="medium"/> 
-			<spinnerItem name="default" value="default"/> 
+			<spinnerItem name="Dori default" value="default"/> 
+			<spinnerItem name="Stock LP ROM" value="stock"/> 
 			<spinnerItem name="aggressive" value="aggressive"/> 
 			<spinnerItem name="exterminate" value="exterminate"/> 
 		</spinner>
@@ -528,7 +529,8 @@
 		<spinner description="Here you can set the level of low memory management by kernel lowmemkiller function. More aggressive equals more free RAM but more killed apps." name="OOM Level Screen OFF" action="oom_config_screen_off">
 			<spinnerItem name="low" value="low"/> 
 			<spinnerItem name="medium" value="medium"/> 
-			<spinnerItem name="default" value="default"/> 
+			<spinnerItem name="Dori default" value="default"/> 
+			<spinnerItem name="Stock LP ROM" value="stock"/> 
 			<spinnerItem name="aggressive" value="aggressive"/> 
 			<spinnerItem name="exterminate" value="exterminate"/> 
 		</spinner>
