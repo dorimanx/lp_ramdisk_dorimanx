@@ -259,7 +259,8 @@ case "${debug_to_sd}" in
 				if [ ! -e /proc/last_kmsg ]; then
 					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}.zip $DEBUG_FILE > /dev/null;
 				else
-					/system/xbin/zip ${DEBUG_FILE_ZIP}.zip $DEBUG_FILE > /dev/null;
+					KERNEL_VER=$(uname -r | cut -c 15-28);
+					/system/xbin/zip ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip $DEBUG_FILE > /dev/null;
 				fi;
 				rm $DEBUG_FILE;
 			fi;
