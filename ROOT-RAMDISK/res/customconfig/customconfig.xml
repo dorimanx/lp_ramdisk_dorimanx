@@ -507,7 +507,7 @@
 
 	<settingsPane description="Here you can tune memory and OOM (low memory management) settings managed by the kernel." name="Memory Tuning">
 
-		<checkbox description="Enable AUTO OOM control using the profiles below; disable if you want to set your own OOM tuning via another app or script." name="Auto OOM" action="generic_cortex /tmp/auto_oom" label="Auto OOM Control"/>
+		<checkbox description="Enable AUTO OOM control using the profiles below; disable if you want to set your own OOM tuning via another app or script." name="Auto OOM" action="generic01 /sys/module/lowmemorykiller/parameters/auto_oom" label="Auto OOM Control"/>
 
 		<checkbox description="Adaptive LMK help to free RAM more faster when low RAM condition exist and vmpressure is in range of 85-94, apps cleaned from RAM to allow smooth ROM operation and faster load of on screen APP. Enabled by default." name="Adaptive LMK" action="generic01 /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk" label="Adaptive LMK"/>
 
