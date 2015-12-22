@@ -259,7 +259,7 @@ case "${debug_to_sd}" in
 				if [ ! -e /proc/last_kmsg ]; then
 					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}.zip $DEBUG_FILE > /dev/null;
 				else
-					KERNEL_VER=$(uname -r | cut -c 15-28);
+					KERNEL_VER=$(uname -r | cut -c 24-28);
 					/system/xbin/zip ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip $DEBUG_FILE > /dev/null;
 				fi;
 				rm $DEBUG_FILE;
@@ -272,7 +272,7 @@ case "${debug_to_sd}" in
 			if [ ! -e /proc/last_kmsg ]; then
 				echo "Data collected but it's USELESS! NO Kernel last log. file at ${DEBUG_FILE_USELESS_ZIP}.zip";
 			else
-				echo "All Data collected and ready at ${DEBUG_FILE_ZIP}.zip";
+				echo "All Data collected and ready at ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip";
 			fi;
 		else
 			sleep 2;
