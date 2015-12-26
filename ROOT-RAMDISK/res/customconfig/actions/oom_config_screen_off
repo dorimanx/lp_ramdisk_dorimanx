@@ -15,16 +15,12 @@ AUTO_OOM=`cat /data/.dori/${PROFILE}.profile | grep auto_oom=on | wc -l`
 
 if [ "$AUTO_OOM" -eq "1" ]; then
 	case "${oom_config_screen_off}" in
-		low)
-			echo "4096,8192,16384,24576,28672,32768" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
-			echo "48" > /sys/module/lowmemorykiller/parameters/cost;
-		;;
 		medium)
-			echo "4096,8192,16384,28672,31744,34816" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "18432,23040,24576,28672,31744,34816" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
 			echo "48" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		default)
-			echo "4096,8192,16384,28672,46080,51200" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "18432,23040,27648,32356,46080,51200" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
 			echo "32" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		stock)
@@ -32,11 +28,11 @@ if [ "$AUTO_OOM" -eq "1" ]; then
 			echo "32" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		aggressive)
-			echo "4096,8192,16384,34816,51200,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "18432,23040,27648,34816,51200,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
 			echo "16" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		exterminate)
-			echo "4096,8192,16384,53760,58880,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
+			echo "18432,23040,27648,53760,58880,65536" > /sys/module/lowmemorykiller/parameters/minfree_screen_off;
 			echo "16" > /sys/module/lowmemorykiller/parameters/cost;
 		;;
 		*)

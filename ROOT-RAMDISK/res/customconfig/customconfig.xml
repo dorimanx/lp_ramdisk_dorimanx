@@ -518,7 +518,6 @@
 		<seekBar description="Control for max vm pressure for process memory reclaim, allow to shrink RAM from other apps when vm pressure is in range from 50 to set here value. when value is lower that default (90), then less ram shrinked when there is something BIG should be loaded to RAM, it's will reduce CPU usage when loading big app. but load it slower as memory should be free first by LMK." name="Max Process Reclaim Pressure" action="generic /sys/module/process_reclaim/parameters/pressure_max" unit="%" min="75" reversed="false" step="1" max="100"/>
 
 		<spinner description="Here you can set the level of low memory management by kernel lowmemkiller function. More aggressive equals more free RAM but more killed apps." name="OOM Level Screen ON" action="oom_config_screen_on">
-			<spinnerItem name="low" value="low"/> 
 			<spinnerItem name="medium" value="medium"/> 
 			<spinnerItem name="Dori default" value="default"/> 
 			<spinnerItem name="Stock LP ROM" value="stock"/> 
@@ -527,7 +526,6 @@
 		</spinner>
 
 		<spinner description="Here you can set the level of low memory management by kernel lowmemkiller function. More aggressive equals more free RAM but more killed apps." name="OOM Level Screen OFF" action="oom_config_screen_off">
-			<spinnerItem name="low" value="low"/> 
 			<spinnerItem name="medium" value="medium"/> 
 			<spinnerItem name="Dori default" value="default"/> 
 			<spinnerItem name="Stock LP ROM" value="stock"/> 
