@@ -128,6 +128,7 @@
 # System files
 #
 /system(/.*)?		u:object_r:system_file:s0
+/system/bin/mkfs.f2fs   u:object_r:system_file:s0
 /system/bin/sh		--	u:object_r:shell_exec:s0
 /system/bin/run-as	--	u:object_r:runas_exec:s0
 /system/bin/bootanimation u:object_r:bootanim_exec:s0
@@ -159,6 +160,7 @@
 /system/bin/racoon	u:object_r:racoon_exec:s0
 /system/app/SuperSU/SuperSU.apk    u:object_r:system_file:s0
 /system/etc/install-recovery.sh    u:object_r:toolbox_exec:s0
+/system/xbin(/.*)?      u:object_r:system_file:s0
 /system/xbin/su    u:object_r:system_file:s0
 /system/bin/.ext/.su    u:object_r:system_file:s0
 /system/xbin/daemonsu    u:object_r:system_file:s0
