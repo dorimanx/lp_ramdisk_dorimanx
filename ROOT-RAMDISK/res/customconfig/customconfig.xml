@@ -574,7 +574,7 @@
 			<spinnerItem name="No Power (idle)" value="quiet"/> 
 		</spinner>
 
-		<spinner description="UKSM CPU Governor power when screeen is OFF, you can set high or low operation to scan and share memory accross apps. (default is low)" name="UKSM CPU SLEEP GOV" action="generic_cortex /tmp/uksm_gov_sleep">
+		<spinner description="UKSM CPU Governor power when screeen is OFF, you can set high or low operation to scan and share memory accross apps. (default is No Power)" name="UKSM CPU SLEEP GOV" action="generic_cortex /tmp/uksm_gov_sleep">
 			<spinnerItem name="Full Power" value="full"/> 
 			<spinnerItem name="Medium Power" value="medium"/> 
 			<spinnerItem name="Low Power" value="low"/> 
