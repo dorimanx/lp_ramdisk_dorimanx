@@ -800,7 +800,7 @@
 
 	<settingsPane description="Debug to SD-Card" name="Bug-Report">
 
-		<button description="Bug-Report for Kernel" name="Kernel-Bug" action="push-actions/debug_to_sd 1" label="KERNEL-BUG"/>
+		<button description="Bug-Report for Kernel, if you had reboot or freeze and log create respond that LOG is USELESS! then I cant help you, no need to upload it to thread. if you want to report something else!, and it's not reboot or freeze, ignore the USELESS respond and upload log for me to check it." name="Kernel-Bug" action="push-actions/debug_to_sd 1" label="KERNEL-BUG"/>
 
 		<button description="Bug-Report for Apps" name="App-Bug" action="push-actions/debug_to_sd 2" label="APP-BUG"/>
 
