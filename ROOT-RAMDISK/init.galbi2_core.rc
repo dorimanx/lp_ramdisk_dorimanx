@@ -4,7 +4,7 @@
 import /init.${ro.hardware}_core.rc
 
 on early-init
-    mount debugfs debugfs /sys/kernel/debug
+#   mount debugfs debugfs /sys/kernel/debug
 
 on init
     mkdir /mnt/media_rw/USBstorage1 0700 media_rw media_rw

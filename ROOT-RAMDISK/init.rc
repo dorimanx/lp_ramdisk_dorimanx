@@ -57,16 +57,16 @@ on init
 
     # Create cgroup mount point for memory
     mount tmpfs none /sys/fs/cgroup mode=0750,uid=0,gid=1000
-    mkdir /sys/fs/cgroup/memory 0750 root system
-    mount cgroup none /sys/fs/cgroup/memory memory
-    write /sys/fs/cgroup/memory/memory.move_charge_at_immigrate 1
-    chown root system /sys/fs/cgroup/memory/tasks
-    chmod 0660 /sys/fs/cgroup/memory/tasks
-    mkdir /sys/fs/cgroup/memory/sw 0750 root system
-    write /sys/fs/cgroup/memory/sw/memory.swappiness 100
-    write /sys/fs/cgroup/memory/sw/memory.move_charge_at_immigrate 1
-    chown root system /sys/fs/cgroup/memory/sw/tasks
-    chmod 0660 /sys/fs/cgroup/memory/sw/tasks
+#    mkdir /sys/fs/cgroup/memory 0750 root system
+#    mount cgroup none /sys/fs/cgroup/memory memory
+#    write /sys/fs/cgroup/memory/memory.move_charge_at_immigrate 1
+#    chown root system /sys/fs/cgroup/memory/tasks
+#    chmod 0660 /sys/fs/cgroup/memory/tasks
+#    mkdir /sys/fs/cgroup/memory/sw 0750 root system
+#    write /sys/fs/cgroup/memory/sw/memory.swappiness 100
+#    write /sys/fs/cgroup/memory/sw/memory.move_charge_at_immigrate 1
+#    chown root system /sys/fs/cgroup/memory/sw/tasks
+#    chmod 0660 /sys/fs/cgroup/memory/sw/tasks
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell 0700 shell shell
@@ -98,8 +98,8 @@ on init
     mount tmpfs tmpfs /mnt/obb mode=0755,gid=1000
 
     # memory control cgroup
-    mkdir /dev/memcg 0700 root system
-    mount cgroup none /dev/memcg memory
+#    mkdir /dev/memcg 0700 root system
+#    mount cgroup none /dev/memcg memory
 
 #   write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
@@ -190,9 +190,9 @@ on init
     mkdir /dev/fscklogs 0770 root system
 
     # pstore/ramoops previous console log
-    mount pstore pstore /sys/fs/pstore
-    chown system log /sys/fs/pstore/console-ramoops
-    chmod 0440 /sys/fs/pstore/console-ramoops
+#    mount pstore pstore /sys/fs/pstore
+#    chown system log /sys/fs/pstore/console-ramoops
+#    chmod 0440 /sys/fs/pstore/console-ramoops
 
 # Healthd can trigger a full boot from charger mode by signaling this
 # property when the power button is held.
