@@ -33,8 +33,8 @@ case "${scheduler}" in
 	row)
 		BLOCK_GOV=row;
 	;;
-	sio)
-		BLOCK_GOV=sio;
+	sioplus)
+		BLOCK_GOV=sioplus;
 	;;
 	zen)
 		BLOCK_GOV=zen;
