@@ -264,7 +264,7 @@ case "${debug_to_sd}" in
 				chmod 755 /system/xbin/zip
 				if [ ! -e /proc/last_kmsg ]; then
 					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}.zip $DEBUG_FILE > /dev/null;
-				elif [ "$CHARGERLOGO_LOG" -eq "1" ]; then
+				elif [ "$CHARGERLOGO_LOG" -ge "1" ]; then
 					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}.zip $DEBUG_FILE > /dev/null;
 				else
 					KERNEL_VER=$(uname -r | cut -c 24-28);
