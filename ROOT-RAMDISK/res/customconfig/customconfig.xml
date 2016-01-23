@@ -99,9 +99,9 @@
 			<spinnerItem name="DISABLED" value="0"/> 
 		</spinner>
 
-		<seekBar description="Here you can set Touch Boost duration in miliseconds! 10ms is equal 0.01sec, it's the time that core is locked on it's min frequency to one you set here on touch! it's Ultra Fast!" name="CPU Touch Boost duration" action="generic /sys/module/alu_t_boost/parameters/input_boost_ms" unit="ms" min="10" reversed="false" step="10" max="100"/>
+		<seekBar description="Here you can set Touch Boost duration in milliseconds! 10ms is equal 0.01sec, it's the time that core is locked on its min frequency to one you set here on touch! it's Ultra-Fast!" name="CPU Touch Boost duration" action="generic /sys/module/alu_t_boost/parameters/input_boost_ms" unit="ms" min="10" reversed="false" step="10" max="100"/>
 
-		<seekBar description="Here you can set Touch Boost interval in miliseconds! 100ms is equal 0.1sec, when touch screen report touch here we set timer for how long to wait before setting core min frequency for duration above, this is Ultra Fast even on 500ms" name="CPU Touch Boost Interval" action="generic /sys/module/alu_t_boost/parameters/min_input_interval" unit="ms" min="100" reversed="false" step="50" max="1500"/>
+		<seekBar description="Here you can set Touch Boost interval in milliseconds! 100ms is equal 0.1sec, when touch screen report touch here we set timer for how long to wait before setting core min frequency for duration above, this is Ultra-Fast even on 500ms" name="CPU Touch Boost Interval" action="generic /sys/module/alu_t_boost/parameters/min_input_interval" unit="ms" min="100" reversed="false" step="50" max="1500"/>
 
 		<seekBar description="Here you can set how many cores affected by Touch Boost Frequency" name="Affected Cores On Touch Boost" action="generic /sys/module/alu_t_boost/parameters/nr_boost_cpus" unit="cores" min="1" reversed="false" step="1" max="4"/>
 
@@ -109,14 +109,14 @@
 
 	<settingsPane description="Here you can tune the CPU Power" name="CPU Power Controls">
 
-		<seekBar description="Here you can select CPU governor sample rate when using Power Save mode below, lower the value faster responce you get, but more power drained." name="CPU Governor Sample Rate" action="sample_rate" unit="rate" min="10000" reversed="false" step="5000" max="80000"/>
+		<seekBar description="Here you can select CPU governor sample rate when using Power Save mode below, lower the value faster response you get, but more power drained." name="CPU Governor Sample Rate" action="sample_rate" unit="rate" min="10000" reversed="false" step="5000" max="80000"/>
 
-		<spinner description="Here you can select 2 modes! one for power save! and one for performance!, On power save responce will be normal! when performance mode selected, high presure responce allowed with max power CPU governor will be tuned with 10000 sample rate and above tuning is ignored!." name="Power Save Switch" action="power_mode">
+		<spinner description="Here you can select 2 modes! one for power save! and one for performance!, On power save responce will be normal! when performance mode selected, high pressure response allowed with max power CPU governor will be tuned with 10000 sample rate and above tuning is ignored!." name="Power Save Switch" action="power_mode">
 			<spinnerItem name="Power Save mode" value="0"/> 
 			<spinnerItem name="Performance mode" value="1"/> 
 		</spinner>
 
-		<checkbox description="Enable or disable Power-efficient Workqueues will help to reduce power consumption at the cost of slight performance overhead. By enabling this, PE workqueues are used for unbound scheduled work to save load on sibling CPU cores and queuing work on CPU 0." name="Power-efficient Workqueues"  action="generic01 /sys/module/workqueue/parameters/power_efficient" label="Power-efficient Workqueues"/>
+		<checkbox description="Enable or disable Power-efficient work queues will help to reduce power consumption at the cost of slight performance overhead. By enabling this, PE work queues are used for unbound scheduled work to save load on sibling CPU cores and queuing work on CPU 0." name="Power-efficient Work queues"  action="generic01 /sys/module/workqueue/parameters/power_efficient" label="Power-efficient Workqueues"/>
 
 		<checkbox description="Enable or disable CPU-Tweaks below! If ON, then kernel will obey only Dorimanx App and set the frequencies selected below, on screen OFF and ON" name="CPU-Tweaks" action="generic_cortex /tmp/cortexbrain_cpu" label="CPU-Tweaks"/>
 
@@ -272,7 +272,7 @@
 
 	<settingsPane description="Here you can tune CPU Thermal Controls, with this kernel ROM thermal service and Intelligent Thermal Kernel driver can be enabled together! To protect your device from overheating and melting the chipset, screen and your fingers! Controls below are active for Dual Intelligent Temp Control. In case the ROM service dies, kernel will protect your chipset, LCD and other components from damage! only if Dual Intelligent Temp Control is used" name="CPU Thermal Protection">
 
-		<spinner description="CPU Thermal control, Can be Default driver without controls, or Dual Intelligent Thermal driver with controls below and ROM thermal control, it will limit CPU frequency when CPU reach the max limit heat, till cooled and restore full power, by using Default Temp Control you have one temp protection by ROM, and if ROM stuck and hotboot there is no one to protect your CPU from heat up the LCD and burn it. BUT you get better game performance by using ONE protection. when Dual Intelligent Temp Control enabled, kernel protects your hardware in any condition! reboot or hotboot! or any other problem. also it's possible to use only Intelligent Temp Control, then ROM service is turned OFF. only kernel control the CPU temp." name="CPU Temp Control" action="msm_thermal">
+		<spinner description="CPU Thermal control, Can be Default driver without controls, or Dual Intelligent Thermal driver with controls below and ROM thermal control, it will limit CPU frequency when CPU reach the max limit heat, till cooled and restore full power, by using Default Temp Control you have one temp protection by ROM, and if ROM stuck and hot boot there is no one to protect your CPU from heat up the LCD and burn it. BUT you get better game performance by using ONE protection. when Dual Intelligent Temp Control enabled, kernel protects your hardware in any condition! reboot or hot boot! or any other problem. also it's possible to use only Intelligent Temp Control, then ROM service is turned OFF. only kernel control the CPU temp." name="CPU Temp Control" action="msm_thermal">
 			<spinnerItem name="Default Temp Control" value="msm_temp"/> 
 			<spinnerItem name="Dual Intelligent Temp Control" value="intelli_temp"/> 
 			<spinnerItem name="Intelligent Temp Control Only" value="intelli_temp_only"/> 
@@ -410,17 +410,17 @@
 
 	<settingsPane description="Here you can tune Simple_Ondemand Governor! Use the controls ONLY if Simple_Ondemand is selected (otherwise nothing will happen)." name="Simple_Ondemand Controls">
 
-		<seekBar description="Simple_Ondemand Downdifferential - when GPU load drops below Downdifferential, GPU frequency is reduced to MIN (must NOT be HIGHER than Upthreshold value)! (Default equal 20)" name="Downdifferential Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/downdifferential" unit="%" min="5" reversed="false" step="5" max="60"/>
+		<seekBar description="Simple_Ondemand Down differential - when GPU load drops below Down differential, GPU frequency is reduced to MIN (must NOT be HIGHER than Up threshold value)! (Default equal 20)" name="Down differential Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/downdifferential" unit="%" min="5" reversed="false" step="5" max="60"/>
 
-		<seekBar description="Simple_Ondemand Upthreshold - when GPU load raises above Upthreshold, GPU frequency is raised to next frequency step until it reaches MAX (must NOT be LOWER than Downdifferential)! (Default equal 60)" name="Upthreshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/upthreshold" unit="%" min="30" reversed="false" step="5" max="90"/>
+		<seekBar description="Simple_Ondemand Up threshold - when GPU load raises above Up threshold, GPU frequency is raised to next frequency step until it reaches MAX (must NOT be LOWER than Down differential)! (Default equal 60)" name="Up threshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/upthreshold" unit="%" min="30" reversed="false" step="5" max="90"/>
 
 	</settingsPane>
 
 	<settingsPane description="Here you can tune Conservative Governor! Use the controls ONLY if Conservative is selected (otherwise nothing will happen)." name="Conservative Controls">
 
-		<seekBar description="Conservative Downthreshold - hen GPU load drops below Downdifferential, GPU frequency is reduced to MIN (must NOT be HIGHER than Upthreshold value)! (Default equal 20)" name="Downthreshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/downthreshold" unit="%" min="5" reversed="false" step="5" max="60"/>
+		<seekBar description="Conservative Down threshold - when GPU load drops below Down differential, GPU frequency is reduced to MIN (must NOT be HIGHER than Up threshold value)! (Default equal 20)" name="Down threshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/downthreshold" unit="%" min="5" reversed="false" step="5" max="60"/>
 
-		<seekBar description="Conservative Upthreshold - when GPU load raises above Upthreshold, GPU frequency is raised to next frequency step until it reaches MAX (must NOT be LOWER than Downthreshold)! (Default equal 50)" name="Upthreshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/upthreshold_cons" unit="%" min="30" reversed="false" step="5" max="90"/>
+		<seekBar description="Conservative Up threshold - when GPU load raises above Up threshold, GPU frequency is raised to next frequency step until it reaches MAX (must NOT be LOWER than Down threshold)! (Default equal 50)" name="Up threshold Value" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/upthreshold_cons" unit="%" min="30" reversed="false" step="5" max="90"/>
 
 	</settingsPane>
 
@@ -439,11 +439,11 @@
 
 	</settingsPane>
 
-	<settingsPane description="Here you can tune MIC, SPEAKER and HeadPhones gain volume" name="Sound Controls">
+	<settingsPane description="Here you can tune MIC, SPEAKER and Headphones gain volume" name="Sound Controls">
 
-		<seekBar description="Control for HeadPhones LEFT gain volume!" name="HeadPhones Gain LEFT" action="generic_headphone_left" unit="gain" min="-30" reversed="false" step="1" max="20"/>
+		<seekBar description="Control for Headphones LEFT gain volume!" name="Headphones Gain LEFT" action="generic_headphone_left" unit="gain" min="-30" reversed="false" step="1" max="20"/>
 
-		<seekBar description="Control for HeadPhones RIGHT gain volume!" name="HeadPhones Gain RIGHT" action="generic_headphone_right" unit="gain" min="-30" reversed="false" step="1" max="20"/>
+		<seekBar description="Control for Headphones RIGHT gain volume!" name="Headphones Gain RIGHT" action="generic_headphone_right" unit="gain" min="-30" reversed="false" step="1" max="20"/>
 
 		<seekBar description="Control for InCall small speaker gain volume! depend on cortex service ON (default is ON), works when no headphones plugged! and you are on call and screen is turned off for 3 sec! then gain is changed for small speaker. when call is finished, in case screen is ON, in 10 sec gain will be restored for HEADPHONES gains (left, right) that are set above, same if screen is turned off! for 3 sec without call. this control will work only if Dorimanx App is the gain controller! see on top selector" name="InCall Speaker Gain" action="generic_cortex /tmp/incall_volume" unit="gain" min="-6" reversed="false" step="1" max="6"/>
 
@@ -513,9 +513,9 @@
 
 		<seekBar description="Adaptive LMK trigger point, when ram pressure is higher than set here, LMK is ordered to release RAM fast and allow fast load of something BIG to memory, we see it as fast app load and less LAG. lower the value, then more apps killed from RAM and with less actual need. for best performance keep it in range of 85 to 90%" name="Adaptive LMK Pressure Range" action="generic /sys/module/lowmemorykiller/parameters/vm_pressure_adaptive_start" unit="%" min="75" reversed="false" step="1" max="94"/>
 
-		<checkbox description="Control for kernel process memory reclaim, it's help to reduce used RAM of each APP that loaded in backgroung. when vm memory pressure jump higher and system needs RAM for something BIG to load, process reclaim start to shrink used RAM by backgroung APPS, it's also shrink the ZRAM swap if enabled in order to reduce cpu power usage if RAM is free." name="Process Memory Reclaim" action="generic01 /sys/module/process_reclaim/parameters/enable_process_reclaim" label="Process Reclaim"/>
+		<checkbox description="Control for kernel process memory reclaim, it's help to reduce used RAM of each APP that loaded in background. when vm memory pressure jump higher and system needs RAM for something BIG to load, process reclaim start to shrink used RAM by background APPS, it's also shrink the ZRAM swap if enabled in order to reduce CPU power usage if RAM is free." name="Process Memory Reclaim" action="generic01 /sys/module/process_reclaim/parameters/enable_process_reclaim" label="Process Reclaim"/>
 
-		<seekBar description="Control for max vm pressure for process memory reclaim, allow to shrink RAM from other apps when vm pressure is in range from 50 to set here value. when value is lower that default (90), then less ram shrinked when there is something BIG should be loaded to RAM, it's will reduce CPU usage when loading big app. but load it slower as memory should be free first by LMK." name="Max Process Reclaim Pressure" action="generic /sys/module/process_reclaim/parameters/pressure_max" unit="%" min="75" reversed="false" step="1" max="100"/>
+		<seekBar description="Control for max vm pressure for process memory reclaim, allow to shrink RAM from other apps when vm pressure is in range from 50 to set here value. when value is lower that default (90), then less ram shrink when there is something BIG should be loaded to RAM, it's will reduce CPU usage when loading big app. but load it slower as memory should be free first by LMK." name="Max Process Reclaim Pressure" action="generic /sys/module/process_reclaim/parameters/pressure_max" unit="%" min="75" reversed="false" step="1" max="100"/>
 
 		<spinner description="Here you can set the level of low memory management by kernel lowmemkiller function. More aggressive equals more free RAM but more killed apps." name="OOM Level Screen ON" action="oom_config_screen_on">
 			<spinnerItem name="medium" value="medium"/> 
@@ -552,14 +552,14 @@
 
 	<settingsPane description="Control ZRAM module, it's take real RAM and compress it by 40% and create much more FREE RAM for apps to use! more RAM allocated for zram then more given to user. but in cost of CPU power and some battery, when switching ZRAM size from one to other after some time, this will take TIME! more than 2min! and Dorimanx app will FREEZE! DO NOT PANIC! WAIT. you can just switch to home and open synapse and watch how memory is decompressed and ZRAM turned off. do not kill the app. just WAIT!" name="ZRAM">
 
-		<spinner description="ZRAM disksize controller. more set, more free RAM you will get, in cost of CPU power. but it's low usage. and device is operating GREAT. this is memory based module, so storage is not killed over time. you can see how it's works in synapse app! Compression is LZ4, PLEASE read instruction ABOVE about WAITING for selector to switch from one size to other after long usage!!!" name="ZRAM Selector" action="zramtweaks">
+		<spinner description="ZRAM size controller. more set, more free RAM you will get, in cost of CPU power. but it's low usage. and device is operating GREAT. this is memory based module, so storage is not killed over time. you can see how it's works in synapse app! Compression is LZ4, PLEASE read instruction ABOVE about WAITING for selector to switch from one size to other after long usage!!!" name="ZRAM Selector" action="zramtweaks">
 			<spinnerItem name="ZRAM 768MB" value="768"/>
 			<spinnerItem name="ZRAM 512MB" value="512"/>
 			<spinnerItem name="ZRAM 256MB" value="256"/>
 			<spinnerItem name="ZRAM OFFLINE" value="0"/>
 		</spinner>
 
-		<seekBar description="Control for ZRAM Swap allocation, when you set higher here, ZRAM will be used more insted of real RAM and give you more RAM! with light cost of performance (default 60)" name="Swappiness" action="generic /proc/sys/vm/swappiness" unit="%" min="30" reversed="false" step="5" max="95"/>
+		<seekBar description="Control for ZRAM Swap allocation, when you set higher here, ZRAM will be used more instead of real RAM and give you more RAM! with light cost of performance (default 60)" name="Swappiness" action="generic /proc/sys/vm/swappiness" unit="%" min="30" reversed="false" step="5" max="95"/>
 
 	</settingsPane>
 
@@ -567,14 +567,14 @@
 
 		<checkbox description="UKSM Enable and Disable main switch. (default ON)" name="Ultra Kernel Samepage Merging" action="generic01 /sys/kernel/mm/uksm/run" label="UKSM Switch"/>
 
-		<spinner description="UKSM CPU Governor power when screen is ON, you can set high or low operation to scan and share memory accross apps. (default is medium)" name="UKSM CPU AWAKE GOV" action="uksm_gov_on">
+		<spinner description="UKSM CPU Governor power when screen is ON, you can set high or low operation to scan and share memory across apps. (default is medium)" name="UKSM CPU AWAKE GOV" action="uksm_gov_on">
 			<spinnerItem name="Full Power" value="full"/> 
 			<spinnerItem name="Medium Power" value="medium"/> 
 			<spinnerItem name="Low Power" value="low"/> 
 			<spinnerItem name="No Power (idle)" value="quiet"/> 
 		</spinner>
 
-		<spinner description="UKSM CPU Governor power when screeen is OFF, you can set high or low operation to scan and share memory accross apps. (default is No Power)" name="UKSM CPU SLEEP GOV" action="generic_cortex /tmp/uksm_gov_sleep">
+		<spinner description="UKSM CPU Governor power when screen is OFF, you can set high or low operation to scan and share memory accross apps. (default is No Power)" name="UKSM CPU SLEEP GOV" action="generic_cortex /tmp/uksm_gov_sleep">
 			<spinnerItem name="Full Power" value="full"/> 
 			<spinnerItem name="Medium Power" value="medium"/> 
 			<spinnerItem name="Low Power" value="low"/> 
@@ -602,11 +602,11 @@
 
 		<checkbox description="Cron to clear file-cache every hour, but only if CPU is resting (IDLE) and more than 50% of your memory is used! This will free RAM from unused buffers and cache." name="Clean file-cache" action="generic_cortex /tmp/cron_drop_cache" label="RAM cache clean every hour"/>
 
-		<checkbox description="Enable restarting google services to release memory leak and cpu non stop activity, this is one of the LP RAM leak BUGS. service can stuck, drain RAM and force CPU to work non stop. fix this by restarting the service every 3 hours." name="Google service restart" action="generic_cortex /tmp/cron_ram_release" label="Restart LP google service every 3 hours"/>
+		<checkbox description="Enable restarting google services to release memory leak and CPU nonstop activity, this is one of the LP RAM leak BUGS. service can stuck, drain RAM and force CPU to work nonstop. fix this by restarting the service every 3 hours." name="Google service restart" action="generic_cortex /tmp/cron_ram_release" label="Restart LP google service every 3 hours"/>
 
 		<checkbox description="Enable Battery Calibration every week at SAT 6:00AM time, to correct wrong calculation or remaining charge" name="Calibrate Battery every week" action="generic_cortex /tmp/reset_battery" label="Calibrate Battery Every Week"/>
 
-		<checkbox description="Cron to update AD-BLOCKER every week at SAT 6:00AM time, from official site. The script will check, if you are connected with the internet, otherwise it will try to use WIFI! Script will turn wifi, wait for connection and update, then when it is finished it will turn WIFI off. If there is no connection, an error will be written in the log." name="Update AD-Block" action="generic_cortex /tmp/ad_block_update" label="Update AD-BLOCKER every week"/>
+		<checkbox description="Cron to update AD-BLOCKER every week at SAT 6:00AM time, from official site. The script will check, if you are connected with the internet, otherwise it will try to use WIFI! Script will turn WIFI, wait for connection and update, then when it is finished it will turn WIFI off. If there is no connection, an error will be written in the log." name="Update AD-Block" action="generic_cortex /tmp/ad_block_update" label="Update AD-BLOCKER every week"/>
 
 		<checkbox description="Cron to DB Optimize every day at 3:00 AM, only if CPU is resting (IDLE)!" name="DB Optimization" action="generic_cortex /tmp/cron_db_optimizing" label="DB Optimization task every day at 3:00 AM"/>
 
@@ -626,7 +626,7 @@
 
 		<button description="Click here to see current SELINUX status! ON or OFF globaly. default is OFF, you can turn it ON with button below." name="SELINUX STATUS CHECK" action="push-actions/selinux_check" label="SELINUX STATUS CHECK"/>
 
-		<button description="Click here to Enable or Disable Selinux Driver in Kernel! if selinux is OFF apps may get access to files in system but not change them, BUT if you have ROOT, they can! with or without selinux. if SELINUX is disabled! (default set on boot) then life is good! and all works! no problems with GSM connection or access permissions with differnt apps. when you push this button ONCE, kernel command line is updated and current kernel is reinstalled by auto!. so dont play with this too much. to see the change you need to REBOOT! then you can check using check button above! WARNING some USER apps loose some or all data! (mostly configurations) as permissions change. do app backup before switching selinux to ENABLE! no problem with DISABLE, when you will reboot Dalvik Cache will be cleaned and kernel will reboot! dont panic. wait for apps to be optimized." name="SELINUX ON OFF CONTROL" action="push-actions/selinux_switch" label="SELINUX HARD ON OFF"/>
+		<button description="Click here to Enable or Disable Selinux Driver in Kernel! if selinux is OFF apps may get access to files in system but not change them, BUT if you have ROOT, they can! with or without selinux. if SELINUX is disabled! (default set on boot) then life is good! and all works! no problems with GSM connection or access permissions with different apps. when you push this button ONCE, kernel command line is updated and current kernel is reinstalled by auto!. so don't play with this too much. to see the change you need to REBOOT! then you can check using check button above! WARNING some USER apps loose some or all data! (mostly configurations) as permissions change. do app backup before switching selinux to ENABLE! no problem with DISABLE, when you will reboot Dalvik Cache will be cleaned and kernel will reboot! don't panic. wait for apps to be optimized." name="SELINUX ON OFF CONTROL" action="push-actions/selinux_switch" label="SELINUX HARD ON OFF"/>
 
 		<spinner description="Allows you to change your SELinux (Security-Enhanced Linux) Status from Enforcing (policy is enforced) to Permissive (prints warnings instead of enforcing). ONCE YOU CHANGE TO ENFORCE! THIS CONTROL APP WILL NEVER WORK AGAIN. till you reset profiles by deleting data-.dori folder and reboot or run setenforce 0 or use some app to change selinux to permissive. then go here and set Permissive" name="SeLinux Control" action="selinux_control">
 			<spinnerItem name="Enforcing" value="on"/> 
@@ -639,7 +639,7 @@
 
 		<checkbox description="Enable or Disable custom backlight override set below, this will allow user to set MIN backlight in full darkness." name="Min Backlight Override Switch" action="generic01 /sys/module/lm3630/parameters/lm3630_min_backlight_reducer" label="Min Backlight Override Switch"/>
 
-		<seekBar description="If custom backlight switch is ON above!, you can set the MIN backlight in dark place, if you feel that screen is too bright! or too dark! in order for change to take effect you need to make the screen brighter then set auto, and see that it's will be darker or brighter than was on default. you can see live change only if current LUX is under 60! (Default MIN ROM value equal 60 and its just 3 persent backlight)" name="Min Backlight Level" action="generic /sys/module/lm3630/parameters/lm3630_min_backlight_set" unit="lvl" min="60" reversed="false" step="10" max="150"/>
+		<seekBar description="If custom backlight switch is ON above!, you can set the MIN backlight in dark place, if you feel that screen is too bright! or too dark! in order for change to take effect you need to make the screen brighter then set auto, and see that it's will be darker or brighter than was on default. you can see live change only if current LUX is under 60! (Default MIN ROM value equal 60 and its just 3 present backlight)" name="Min Backlight Level" action="generic /sys/module/lm3630/parameters/lm3630_min_backlight_set" unit="lvl" min="60" reversed="false" step="10" max="150"/>
 
 	</settingsPane>
 
@@ -730,7 +730,7 @@
 
 	<settingsPane description="Rooted ADB control." name="Rooted ADB">
 
-		<spinner description="Allow ROOTED ADB shell by default, no SU needed, or use more secure and original by LG, developers need direct access to system via adb, so it's can be done by using DEV ROOTED ADB" name="ADB Selector" action="adb_selector">
+		<spinner description="Allow ROOTED ADB shell by default, no SU needed, or use more secure and original by LG, developers need direct access to system via ADB, so it's can be done by using DEV ROOTED ADB" name="ADB Selector" action="adb_selector">
 			<spinnerItem name="Protected ADB (default)" value="1"/> 
 			<spinnerItem name="DEV ROOTED ADB" value="0"/> 
 		</spinner>
@@ -745,7 +745,7 @@
 
 	<settingsPane description="This script will manipulate many kernel settings, based on chosen Dorimanx App profile + settings and screen state (ON or OFF) - we call it CortexBrain. To reset the kernel-settings after you disable a tweak, you must reboot!" name="CortexBrain Tweaks">
 
-		<spinner description="Enable or disable the background-process from CortexBrain. If you disable it, you will lose the function that sets different settings for screen state (ON or OFF)." name="Cortexbrain-Background-Process" action="cortexbrain_background_process">
+		<spinner description="Enable or disable the background-process from CortexBrain. If you disable it, you will lose the function that sets different settings for screen state (ON or OFF)." name="CortexBrain-Background-Process" action="cortexbrain_background_process">
 			<spinnerItem name="Enable" value="1"/> 
 			<spinnerItem name="Disable" value="0"/> 
 		</spinner>
@@ -786,7 +786,7 @@
 
 	</settingsPane>
 
-	<settingsPane description="Here you can backup or restore your profile after installing new kernel. Some settings will work only after reboot! Restore will take up to 30 sec, just wait!" name="Config Backup or Restore">
+	<settingsPane description="Here you can backup or restore your profile after installing new kernel. Some settings will work only after reboot! Restore will take up to 30 sec, just wait!" name="Profile Backup or Restore">
 
 		<button description="Backup Dorimanx App User Settings!" name="Settings Backup" action="push-actions/config_backup_restore 1" label="BACKUP NOW"/>
 
@@ -800,7 +800,7 @@
 
 	<settingsPane description="Debug to SD-Card" name="Bug-Report">
 
-		<button description="Bug-Report for Kernel, if you had reboot or freeze and log create respond that LOG is USELESS! then I cant help you, no need to upload it to thread. if you want to report something else!, and it's not reboot or freeze, ignore the USELESS respond and upload log for me to check it." name="Kernel-Bug" action="push-actions/debug_to_sd 1" label="KERNEL-BUG"/>
+		<button description="Bug-Report for Kernel, if you had reboot or freeze and log create respond that LOG is USELESS! then I can't help you, no need to upload it to thread. if you want to report something else!, and it's not reboot or freeze, ignore the USELESS respond and upload log for me to check it." name="Kernel-Bug" action="push-actions/debug_to_sd 1" label="KERNEL-BUG"/>
 
 		<button description="Bug-Report for Apps" name="App-Bug" action="push-actions/debug_to_sd 2" label="APP-BUG"/>
 
