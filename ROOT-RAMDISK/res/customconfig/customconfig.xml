@@ -728,7 +728,7 @@
 
 	</settingsPane>
 
-	<settingsPane description="Rooted ADB control." name="Rootted ADB">
+	<settingsPane description="Rooted ADB control." name="Rooted ADB">
 
 		<spinner description="Allow ROOTED ADB shell by default, no SU needed, or use more secure and original by LG, developers need direct access to system via adb, so it's can be done by using DEV ROOTED ADB" name="ADB Selector" action="adb_selector">
 			<spinnerItem name="Protected ADB (default)" value="1"/> 
