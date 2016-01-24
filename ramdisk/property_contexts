@@ -184,3 +184,4 @@ qualcomm.bt.                     u:object_r:bluetooth_prop:s0
 qualcomm.perf.                   u:object_r:qualcomm_pref_prop:s0
 ctl.dpmd                         u:object_r:ctl_dpmd_prop:s0
 wifi.lge.offloading.ongoing      u:object_r:offloading_ongoing_prop:s0
+persist.lge.att.remove           u:object_r:wfd_prop:s0

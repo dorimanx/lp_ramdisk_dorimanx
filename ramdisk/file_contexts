@@ -286,7 +286,6 @@
 /sys/class/leds/R/device/led_blink               u:object_r:sysfs_brightness:s0
 /sys/class/leds/R/device/led_pattern             u:object_r:sysfs_brightness:s0
 /sys/devices/soc.0/leds-qpnp-d8355200/leds(/.*)? u:object_r:sysfs_leds:s0
-/system/vendor/itson/itson-bootstrapper.sh       u:object_r:itsonbs_exec:s0
 /sys/devices/i2c-0/0-0032/led_current_index      u:object_r:sysfs_i2c_led_cur_index:s0
 /sys/devices/virtual/input/lge_touch(/.*)?       u:object_r:sensor_sysfs_file:s0
 /sys/devices/platform/lge_android_usb/phone_id   u:object_r:sysfs_usb_phone_id:s0
@@ -376,7 +375,6 @@
 /system/bin/smpl_count    u:object_r:smpl_count_exec:s0
 /system/bin/lgsecclkserver u:object_r:lgsecclkserver_exec:s0
 /system/bin/bnrd           u:object_r:bnrd_exec:s0
-/system/bin/tbased         u:object_r:tbased_exec:s0
 /system/bin/power_logger   u:object_r:logger_exec:s0
 /system/bin/shutdownanimation   u:object_r:shutdownanim_exec:s0
 #/system/bin/sapd           u:object_r:bt-sap_exec:s0
@@ -556,6 +554,8 @@
 #######################################################
 /system/vendor/bin/postinstaller.sh          u:object_r:postinstaller_exec:s0
 
+#line 1 "device/lge/common/sepolicy/laf/file_contexts"
+/dev/block/platform/.*/by-name/persist      u:object_r:persist_block_device:s0
 #line 1 "device/qcom/sepolicy/common/file_contexts"
 ###################################
 # Dev nodes
@@ -720,6 +720,7 @@
 /system/bin/sapd                                u:object_r:sapd_exec:s0
 /system/bin/btsnoop                             u:object_r:btsnoop_exec:s0
 /system/bin/dun-server                          u:object_r:dun-server_exec:s0
+/system/bin/wfdservice                          u:object_r:wfdservice_exec:s0
 
 ###################################
 # sysfs files
@@ -939,6 +940,5 @@
 /dev/jpeg0                         u:object_r:camera_device:s0
 /dev/snd/pcmC0D8c                  u:object_r:lg_audio_device:s0
 /dev/msm-rng                       u:object_r:qrng_device:s0
-/data/tbased(./*)?                 u:object_r:tbased_data_file:s0
 /dev/msm_vidc_dec                  u:object_r:video_device:s0
 /dev/msm_vidc_enc                  u:object_r:video_device:s0
