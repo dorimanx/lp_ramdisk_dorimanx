@@ -27,7 +27,7 @@
 		if [ "$CACHE_CHECK" -eq "0" ]; then
 			$BB fstrim /cache
 		fi;
-		date +%H:%M-%D-%Z > /data/crontab/cron-fstrim;
+		date +%H:%M-%D > /data/crontab/cron-fstrim;
 		echo "FS Trimmed" >> /data/crontab/cron-fstrim;
 		sync;
 		if [ "$SCREEN_WAS_OFF" -eq "1" ]; then

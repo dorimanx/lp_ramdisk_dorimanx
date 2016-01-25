@@ -9,6 +9,10 @@
 
 #JOBS
 0 0-23/1 * * * /sbin/busybox sh /data/crontab/cron-scripts/drop-cache-only.sh
+0 0-23/2 * * * /sbin/busybox sh /data/crontab/cron-scripts/mem_process_reclaim.sh
 0 0-23/3 * * * /sbin/busybox sh /data/crontab/cron-scripts/ram_release.sh
 0 6 * * 6 /sbin/busybox sh /data/crontab/cron-scripts/ad_block_update.sh
 0 6 * * 6 /sbin/busybox sh /data/crontab/cron-scripts/reset_battery.sh
+0 3 * * * /sbin/busybox sh /data/crontab/cron-scripts/database_optimizing.sh
+0 4 * * * /sbin/busybox sh /data/crontab/cron-scripts/clear-file-cache.sh
+0 1 * * * /sbin/busybox sh /data/crontab/cron-scripts/drop-cache-daily.sh

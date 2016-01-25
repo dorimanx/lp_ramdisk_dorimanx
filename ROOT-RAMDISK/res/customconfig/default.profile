@@ -81,6 +81,7 @@ uksm_gov_sleep=quiet
 sleep_millisecs=1000
 crontab=on
 cron_drop_cache=off
+cron_process_reclaim=on
 cron_ram_release=off
 reset_battery=on
 ad_block_update=off

@@ -25,6 +25,8 @@ if [ ! -d /var/spool/cron/crontabs ]; then
 fi;
 $BB cp -a /data/crontab/root /var/spool/cron/crontabs/;
 
+# NOTE: all cron tasks set in /res/crontab_service/cron-root
+
 chown 0:0 /var/spool/cron/crontabs/*;
 chmod 777 /var/spool/cron/crontabs/*;
 
@@ -125,12 +127,10 @@ if [ "$(pidof crond | wc -l)" -eq "0" ]; then
 	$BB nohup /system/xbin/crond -c /var/spool/cron/crontabs/ > /data/.dori/cron.txt &
 	sleep 1;
 	PIDOFCRON=$(pidof crond);
-	echo "-900" > /proc/"$PIDOFCRON"/oom_score_adj;
+	if [ -f /system/xbin/su ]; then
+		su -c echo "-900" > /proc/"$PIDOFCRON"/oom_score_adj;
+	fi;
 fi;
-
-$BB sh /res/crontab_service/dm_job.sh "3:00" "/sbin/busybox sh /data/crontab/cron-scripts/database_optimizing.sh"
-$BB sh /res/crontab_service/dm_job.sh "4:00" "/sbin/busybox sh /data/crontab/cron-scripts/clear-file-cache.sh"
-$BB sh /res/crontab_service/dm_job.sh "1:00" "/sbin/busybox sh /data/crontab/cron-scripts/drop-cache-daily.sh"
 
 $BB mount -o remount,ro /system;
 

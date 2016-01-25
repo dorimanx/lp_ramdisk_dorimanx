@@ -5,7 +5,9 @@
 BB=/sbin/busybox
 
 # protect init from oom
-echo "-1000" > /proc/1/oom_score_adj;
+if [ -f /system/xbin/su ]; then
+	su -c echo "-1000" > /proc/1/oom_score_adj;
+fi;
 
 # clean dalvik after selinux change.
 if [ -e /data/.dori/selinux_mode ]; then
