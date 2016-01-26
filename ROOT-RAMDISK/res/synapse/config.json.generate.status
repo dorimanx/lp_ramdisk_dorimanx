@@ -89,6 +89,15 @@ cat << CTAG
 					action:"live ZRAMStats"
 				}},
 			{ STitleBar:{
+				title:"Memory Info:"
+			}},
+				{ SLiveLabel:{
+					title:"RAM Pressure Stats:",
+					description:"Memory information for pro users.",
+					refresh:1000,
+					action:"live RAMStats"
+				}},
+			{ STitleBar:{
 				title:"Ultra Kernel Samepage Merging:"
 			}},
 				{ SLiveLabel:{
