@@ -33,6 +33,7 @@ core_mask=4
 core_limit_temp_degC=72
 core_temp_hysteresis_degC=10
 hotplug=msm_hotplug
+hotplug_sample_rate=10
 hotplug_suspend=always_active
 cpus_boosted=2
 cpus_boosted_time=1500
