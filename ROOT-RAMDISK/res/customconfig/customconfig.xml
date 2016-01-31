@@ -15,8 +15,11 @@
 
 	<settingsPane description="Here you can tune the CPU Active Governor per core best to set ONDEMAND on core0 for stability." name="CPU Active Governor">
 
-		<spinner description="This will set the CPU0 governor. YOU CAN ONLY USE FEW GOVS On CORE0! dont ask to add others. they not stable on core0" name="Default CPU0 Governor" action="default_cpu0_gov">
+		<spinner description="This will set the CPU0 governor. Some GOV can be not stable on core0! best to use ONDEMAND here." name="Default CPU0 Governor" action="default_cpu0_gov">
 			<spinnerItem name="HYPER" value="HYPER"/> 
+			<spinnerItem name="Alucard" value="alucard"/> 
+			<spinnerItem name="Nightmare" value="nightmare"/> 
+			<spinnerItem name="Darkness" value="darkness"/> 
 			<spinnerItem name="Intellidemand" value="intellidemand"/> 
 			<spinnerItem name="Intelliactive" value="intelliactive"/> 
 			<spinnerItem name="Yankactive" value="yankactive"/> 
