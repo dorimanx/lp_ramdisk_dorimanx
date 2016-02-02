@@ -570,7 +570,7 @@
 
 	<settingsPane description="Control UKSM module, Ultra KSM lets the hypervisor system share identical memory pages amongst different processes or virtualized guests. This increases CPU consumption but improves memory." name="UKSM">
 
-		<checkbox description="UKSM Enable and Disable main switch (default ON)." name="Ultra Kernel Samepage Merging" action="generic01 /sys/kernel/mm/uksm/run" label="UKSM Switch"/>
+		<checkbox description="UKSM Enable and Disable main switch (default OFF)." name="Ultra Kernel Samepage Merging" action="generic01 /sys/kernel/mm/uksm/run" label="UKSM Switch"/>
 
 		<spinner description="UKSM CPU Governor power when screen is ON, you can set high or low operation to scan and share memory across apps (default is medium)." name="UKSM CPU AWAKE GOV" action="uksm_gov_on">
 			<spinnerItem name="Full Power" value="full"/> 
