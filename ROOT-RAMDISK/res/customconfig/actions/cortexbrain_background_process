@@ -20,7 +20,7 @@ case "${cortexbrain_background_process}" in
 	1)
 		$BB sed -i "s/cortexbrain_background_process=[0-1]*/cortexbrain_background_process=1/g" /sbin/ext/cortexbrain-tune.sh;
 		if [ "$(pgrep -f "cortexbrain-tune.sh" | wc -l)" -eq "0" ]; then
-			$BB nohup $BB sh /sbin/ext/cortexbrain-tune.sh > /dev/null 2>&1;
+			$BB nohup $BB sh /sbin/ext/cortexbrain-tune.sh > /dev/null 2>&1 &
 		fi;
 	;;
 	*)
