@@ -18,21 +18,21 @@ if [ "$ad_block_update" == "on" ]; then
 	fi;
 
 	echo "nameserver 8.8.8.8" > /system/etc/resolv.conf;
-	echo "nameserver 4.4.8.8" >> /system/etc/resolv.conf;
+	echo "nameserver 8.8.4.4" >> /system/etc/resolv.conf;
 
 	TESTCONNECTION=$(/system/wget/wget http://www.google.com -O $TMPFILE > /dev/null 2>&1);
-	if [ $? != 0 ]; then
+	if [ "$?" != "0" ]; then
 		svc data enable;
 		svc wifi enable;
-		sleep 5;
-		DNS1=`getprop net.dns1`;
-		DNS2=`getprop net.rmnet0.dns1`;
-		DNS3=`getprop net.rmnet0.dns2`;
+		sleep 10;
+		DNS1=$(getprop net.dns1);
+		DNS2=$(getprop net.rmnet0.dns1);
+		DNS3=$(getprop net.rmnet0.dns2);
 		echo "nameserver $DNS1" >> /system/etc/resolv.conf;
 		echo "nameserver $DNS2" >> /system/etc/resolv.conf;
 		echo "nameserver $DNS3" >> /system/etc/resolv.conf;
 		TESTCONNECTION=$(/system/wget/wget http://www.google.com -O $TMPFILE > /dev/null 2>&1);
-		if [ $? != 0 ]; then
+		if [ "$?" != "0" ]; then
 			date +%H:%M-%D > /data/crontab/cron-ad_block_update;
 			echo "Problem: no internet connection!" >> /data/crontab/cron-ad_block_update;
 			svc wifi disable;
