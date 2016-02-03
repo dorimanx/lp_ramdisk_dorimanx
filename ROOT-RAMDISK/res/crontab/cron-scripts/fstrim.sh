@@ -12,7 +12,7 @@
 		CACHE_CHECK=$($BB blkid /dev/block/platform/msm_sdcc.1/by-name/cache | $BB grep "f2fs" | $BB wc -l)
 
 		if [ "$SYSTEM_CHECK" -eq "0" ] || [ "$DATA_CHECK" -eq "0" ] || [ "$CACHE_CHECK" -eq "0" ]; then
-			if [ "$(dumpsys power | grep mScreenOn= | grep -oE '(true|false)')" == false ] ; then
+			if [ "$(dumpsys power | grep mWakefulness= | grep -oE '(Awake|Asleep)')" == "Asleep" ] ; then
 				input keyevent 26 # wakeup
 				SCREEN_WAS_OFF=1;
 			fi;
@@ -31,7 +31,9 @@
 		echo "FS Trimmed" >> /data/crontab/cron-fstrim;
 		sync;
 		if [ "$SCREEN_WAS_OFF" -eq "1" ]; then
-			input keyevent 26 # sleep
+			if [ "$(dumpsys power | grep mWakefulness= | grep -oE '(Awake|Asleep)')" == "Awake" ] ; then
+				input keyevent 26 # sleep
+			fi;
 		fi;
 	fi;
 )&

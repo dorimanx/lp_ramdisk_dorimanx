@@ -607,6 +607,8 @@
 
 		<checkbox description="Cron to clear file-cache every hour, but only if CPU is resting (IDLE) and more than 50% of your memory is used! This will free RAM from unused buffers and cache." name="Clean file-cache" action="generic_cortex /tmp/cron_drop_cache" label="RAM cache clean every hour"/>
 
+		<checkbox description="Enable Trim of System, Data and Cache partitions every day at 22:00 to speed up NAND Read and Write Access, NOTE! screen will be AWAKE during the fstrim! to prevent MMC crash, then if screen was OFF it's will be auto turned off. some devices dont like to be trimmed! if you get stuck device after 22:00 do not enable this."  name="Trim every day 22:00" action="generic_cortex /tmp/cron_fstrim" label="Trim every day"/>
+
 		<checkbox description="Enable reclaiming RAM from APPS, it's smart memory kernel feature used to take back all cached RAM from apps without killing them from RAM, this will help to maintain stable and fast device for long time, task will run every 2 hours." name="Reclaime RAM from APPS" action="generic_cortex /tmp/cron_process_reclaim" label="Reclaim RAM from APPS every 2 hours"/>
 
 		<checkbox description="Enable restarting google services to release memory leak and CPU nonstop activity. This is one of the LP RAM leak BUGS, so service can stuck, drain RAM and force CPU to work nonstop. Thi option will fix this by restarting the service every 3 hours." name="Google service restart" action="generic_cortex /tmp/cron_ram_release" label="Restart LP google service every 3 hours"/>
