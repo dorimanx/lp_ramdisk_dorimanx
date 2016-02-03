@@ -4,9 +4,9 @@
 PROFILE=$(cat /data/.dori/.active.profile);
 . /data/.dori/"$PROFILE".profile;
 
-if [ "$crontab" == "on" ]; then
+if [ "$crontab_switch" == "on" ]; then
 	if [ "$(pidof crond | wc -l)" -eq "0" ]; then
-		$BB nohup $BB sh /res/crontab_service/service.sh > /dev/null 2>&1;
+		$BB nohup $BB sh /res/crontab_service/service.sh > /dev/null;
 	fi;
 fi;
 

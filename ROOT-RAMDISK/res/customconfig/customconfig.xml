@@ -596,7 +596,7 @@
 
 	<settingsPane description="Here you can activate some scripts which will automatically run in the background at a specified time." name="cron">
 
-		<spinner description="Main switch for Cron Tasker. If you set this to OFF, then all tasks below have no effect!" name="CRON TASK MAIN SWITCH" action="crontab">
+		<spinner description="Main switch for Cron Tasker. If you set this to OFF, then all tasks below have no effect!" name="CRON TASK MAIN SWITCH" action="crontab_switch">
 			<spinnerItem name="Cron ON" value="on"/> 
 			<spinnerItem name="Cron OFF" value="off"/> 
 		</spinner>
