@@ -11,9 +11,11 @@ if [ "a$2" != "a" ]; then
 
 	case "${crontab_switch}" in
 		on)
-			if [ "$(pidof crond | wc -l)" -eq "0" ]; then
-				$BB sh /res/crontab_service/service.sh > /dev/null;
-			fi;
+			(
+				if [ "$(pidof crond | wc -l)" -eq "0" ]; then
+					$BB sh /res/crontab_service/service.sh > /dev/null;
+				fi;
+			)&
 		;;
 		off)
 			pkill -f crond;
