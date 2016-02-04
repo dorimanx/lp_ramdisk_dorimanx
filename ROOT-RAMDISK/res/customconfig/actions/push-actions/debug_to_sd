@@ -268,7 +268,15 @@ case "${debug_to_sd}" in
 					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}.zip $DEBUG_FILE > /dev/null;
 				else
 					KERNEL_VER=$(uname -r | cut -c 24-28);
-					/system/xbin/zip ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip $DEBUG_FILE > /dev/null;
+					if [ -e /data/logger/kernel.log.1 ]; then
+						/system/xbin/zip ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip $DEBUG_FILE /data/logger/kernel.log /data/logger/kernel.log.1 > /dev/null;
+					else
+						if [ -e /data/logger/kernel.log ]; then
+							/system/xbin/zip ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip $DEBUG_FILE /data/logger/kernel.log > /dev/null;
+						else
+							/system/xbin/zip ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip $DEBUG_FILE > /dev/null;
+						fi;
+					fi;
 				fi;
 				rm $DEBUG_FILE;
 			fi;
