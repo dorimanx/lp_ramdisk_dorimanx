@@ -4,10 +4,6 @@
 # $2 - value=
 # Created By Dorimanx
 
-if [ ! -e /data/.dori/adbd_selector ]; then
-	echo "adbd_lg" > /data/.dori/adbd_selector;
-fi;
-
 ADB_SELECTOR_MODE=$(cat /data/.dori/adbd_selector);
 
 if [ "a$2" != "a" ]; then

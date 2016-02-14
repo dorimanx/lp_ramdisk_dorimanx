@@ -219,6 +219,9 @@ $BB chmod -R 0777 /data/.dori/;
 read_defaults;
 read_config;
 
+# init adb selector to default LG adb.
+echo "adbd_lg" > /data/.dori/adbd_selector;
+
 # Load parameters for Synapse
 DEBUG=/data/.dori/;
 BUSYBOX_VER=$(busybox | grep "BusyBox v" | cut -c0-15);
