@@ -102,7 +102,7 @@
 			<spinnerItem name="DISABLED" value="0"/> 
 		</spinner>
 
-		<seekBar description="Set Touch Boost duration. It's the time that core is locked on minimum frequency that set as boost frequency. 10ms is equal to 0.01sec., so It's Ultra-Fast." name="CPU Touch Boost duration" action="generic /sys/module/alu_t_boost/parameters/input_boost_ms" unit="ms" min="10" reversed="false" step="10" max="100"/>
+		<seekBar description="Set Touch Boost duration. It's the time that core is locked on minimum frequency that is set as boost frequency. 10ms is equal to 0.01sec., so It's Ultra-Fast." name="CPU Touch Boost duration" action="generic /sys/module/alu_t_boost/parameters/input_boost_ms" unit="ms" min="10" reversed="false" step="10" max="100"/>
 
 		<seekBar description="Set Touch Boost interval. This option determines the time, that touch boost driver will wait before locking minimum frequency again to reduce battery use and cpu heat. It's Ultra-Fast even on 500ms (100ms is equal to 0.1sec)." name="CPU Touch Boost Interval" action="generic /sys/module/alu_t_boost/parameters/min_input_interval" unit="ms" min="100" reversed="false" step="50" max="1500"/>
 
@@ -125,7 +125,7 @@
 
 	</settingsPane>
 
-	<settingsPane description="Set the Maximum CPU Frequency for each core separately. no other APP's or Services won't overcome them." name="Maximum CPU Frequency">
+	<settingsPane description="Set the Maximum CPU Frequency for each core separately. No other APP or Services won't overcome them." name="Maximum CPU Frequency">
 
 		<spinner description="Select Maximum allowed speed for CPU0. This option works only when CPU-Tweaks is enabled (Default: 2265600 KHz)." name="Max. CPU0 Frequency" action="cpu0_max_freq">
 			<spinnerItem name="2803200" value="2803200"/> 
@@ -297,7 +297,7 @@
 
 	<settingsPane description="Setup HotPlug CPU Thermal controls by adjusting how many cores remains ON when they're overheated. It reduces performance, by getting less cores enabled on higher freq. Others will keep waiting until CPU cools down." name="HotPlug CPU Thermal Controls">
 
-		<spinner description="Hotplug CPU Thermal Control main switch allows to shutdown cores 1,2,3 and leave only core 0 as main core on maximum frequency. If this option is disabled, then all CPU cores will be online and operate at lower frequencies, when the temperature is too high." name="HotPlug Thermal CPU Control" action="core_control">
+		<spinner description="Hotplug CPU Thermal Control main switch allows to shutdown cores 1,2,3 and leave only core 0 as main core on it's maximum frequency. If this option is disabled, then all CPU cores will be online and operate at lower frequencies, when the temperature is too high." name="HotPlug Thermal CPU Control" action="core_control">
 			<spinnerItem name="Enabled" value="1"/> 
 			<spinnerItem name="Disabled" value="0"/> 
 		</spinner>
@@ -328,7 +328,7 @@
 			<spinnerItem name="Intelligent Hot Plug" value="intelli"/> 
 		</spinner>
 
-		<seekBar description="Select CPU hotplug sample rate. Hotplug driver will check for CPU load every defined period of time and turn cores ON/OFF when needed. It's recommended (but not must) to set the same value as is in CORE TAB in CPU Governor section. Note that 10 here is 10000 for CPU GOV. for best performance set in range from 10 to 30" name="CPU HotPlug Sample Rate" action="hotplug_sample_rate" unit="rate" min="10" reversed="false" step="5" max="80"/>
+		<seekBar description="Select CPU hotplug sample rate. Hotplug driver will check for CPU load every defined period of time and turn cores ON/OFF when needed. It's recommended to set the same value as is in CORE TAB in CPU Governor section. Note that 10 here is 10000 for CPU GOV. for best performance set in range from 10 to 30" name="CPU HotPlug Sample Rate" action="hotplug_sample_rate" unit="rate" min="10" reversed="false" step="5" max="80"/>
 
 		<spinner description="Allow hotplug to be suspended when screen is OFF. When device enters full suspend mode only one core is half active. but if APP hold wakelock, then 3 cores are online! This is for all kernel hotplugs, but default hotplug is not supported. After many tests it's best to allow hotplug to always work, as it will reduce battery drain when playing music with screen is off." name="Hot Plug Suspend Mode" action="hotplug_suspend">
 			<spinnerItem name="Always Active" value="always_active"/> 
@@ -606,21 +606,21 @@
 
 		<button description="Use this button to RESET the scripts and jobs from kernel and refresh the configuration. None that it will clear all your custom changes!" name="CRON Resetter" action="push-actions/crontab_reset" label="CRON Reset"/>
 
-		<checkbox description="Script that clears file-cache every hour, but only if CPU is resting (IDLE) and when more than 50% of your memory is used. This will free RAM from unused buffers and cache." name="Clean file-cache" action="generic_cortex /tmp/cron_drop_cache" label="RAM cache clean every hour"/>
+		<checkbox description="Cron that clears file-cache every hour, but only if CPU is resting (IDLE) and when more than 50% of your memory is used. This will free RAM from unused buffers and cache." name="Clean file-cache" action="generic_cortex /tmp/cron_drop_cache" label="RAM cache clean every hour"/>
 
 		<checkbox description="Enable Trim of System, Data and Cache partitions every day at 10:00 PM to speed up NAND Read and Write Access Time. NOTE that screen will be AWAKE during the fstrim to prevent MMC crash, then if screen was OFF it's will be auto turned off. Some devices don't like to be trimmed, so if device get stuck after 10:00 PM, don't enable this."  name="Trim every day 10:00 AM" action="generic_cortex /tmp/cron_fstrim" label="Trim every day at 10:00 PM"/>
 
-		<checkbox description="Enable reclaiming RAM from APPs. It's smart memory kernel feature used to take back all cached RAM from apps without killing them. It helps to maintain stable and fast device for a long time. Task will run in every 2 hours." name="Reclaime RAM from APPS" action="generic_cortex /tmp/cron_process_reclaim" label="Reclaim RAM from APPS in every 2 hours"/>
+		<checkbox description="Enable reclaiming RAM from APPs. It's smart memory kernel feature used to take back all cached RAM from app's without killing them. It helps to maintain stable and fast device for a long time. Task will run in every 2 hours." name="Reclaime RAM from APPS" action="generic_cortex /tmp/cron_process_reclaim" label="Reclaim RAM from APPS in every 2 hours"/>
 
 		<checkbox description="Enable restarting Google service to stop memory leaks and CPU nonstop activity. This is one of the MAIN LP RAM leak BUGS. Service gets stuck, drains RAM and force CPU to work nonstop. This option fixes that problem by restarting the service in every 3 hours." name="Google service restart" action="generic_cortex /tmp/cron_ram_release" label="Restart LP Google service in every 3 hours"/>
 
 		<checkbox description="Enable Battery Calibration every week at SAT 6:00 AM, in order to correct wrong calculation or time remaining charging." name="Calibrate Battery every week" action="generic_cortex /tmp/reset_battery" label="Calibrate Battery Every Week"/>
 
-		<checkbox description="Script that updates AD-BLOCKER every week at SAT 6:00 AM, from official site. The script will check if you are connected with the internet, otherwise it will try to use WIFI! Script turns WIFI and DATA on, wait for connection and update and when it's finished, turns WIFI off. If there is no connection, an error will be written into the log. If you use other app for blocking adds, no need to use it." name="Update AD-Block" action="generic_cortex /tmp/ad_block_update" label="Update AD-BLOCKER every week"/>
+		<checkbox description="Cron that updates AD-BLOCKER every week at SAT 6:00 AM, from official site. The cron will check if you are connected with the internet, otherwise it will try to use WIFI! Script turns WIFI and DATA on, wait for connection and update and when it's finished, turns WIFI off. If there is no connection, an error will be written into the log. If you use other app for blocking adds, no need to use it." name="Update AD-Block" action="generic_cortex /tmp/ad_block_update" label="Update AD-BLOCKER every week"/>
 
-		<checkbox description="Script for DB Optimization every day at 3:00 AM only if CPU is resting (IDLE)." name="DB Optimization" action="generic_cortex /tmp/cron_db_optimizing" label="DB Optimization task every day at 3:00 AM"/>
+		<checkbox description="Cron for DB Optimization every day at 3:00 AM only if CPU is resting (IDLE)." name="DB Optimization" action="generic_cortex /tmp/cron_db_optimizing" label="DB Optimization task every day at 3:00 AM"/>
 
-		<checkbox description="Script for clearing app-cache every day at 4:00 AM only if CPU is resting (IDLE)." name="Clean app-cache" action="generic_cortex /tmp/cron_clear_app_cache" label="Disk Clean task every day at 4:00 AM"/>
+		<checkbox description="Cron for clearing app-cache every day at 4:00 AM only if CPU is resting (IDLE)." name="Clean app-cache" action="generic_cortex /tmp/cron_clear_app_cache" label="Disk Clean task every day at 4:00 AM"/>
 
 		<button description="Check if CRON Task Jobs are done as requested. It will show the log for all finished jobs." name="Test CRON Task jobs" action="push-actions/crontab_log" label="Test CRON Task Jobs"/>
 
@@ -824,7 +824,7 @@
 
 	<settingsPane description="Load (on boot) some kernel modules that will add some extra functions." name="Kernel Modules">
 
-		<checkbox description="Enable CIFS Module. This will allow to use apps that can mount internal storage and publish it over network. User can access data and system files over the network. if it will work or not depends only on APPS for this module. Take effect only after reboot!" name="CIFS Module" action="generic_cortex /tmp/cifs_module" label="CIFS Module"/>
+		<checkbox description="Enable CIFS Module. This will allow to use app's that can mount internal storage and publish it over network. User can access data and system files over the network, if it will work or not depends only on APP'S for this module. Take effect only after reboot!" name="CIFS Module" action="generic_cortex /tmp/cifs_module" label="CIFS Module"/>
 
 	</settingsPane>
 
