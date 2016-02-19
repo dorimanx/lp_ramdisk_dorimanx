@@ -328,7 +328,7 @@
 			<spinnerItem name="Intelligent Hot Plug" value="intelli"/> 
 		</spinner>
 
-		<seekBar description="Select CPU hotplug sample rate. Hotplug driver will check for CPU load every defined period of time and turn cores ON/OFF when needed. It's recommended to set the same value as is in CORE TAB in CPU Governor section. Note that 10 here is 10000 for CPU GOV. for best performance set in range from 10 to 30" name="CPU HotPlug Sample Rate" action="hotplug_sample_rate" unit="rate" min="10" reversed="false" step="5" max="80"/>
+		<seekBar description="Select CPU hotplug sample rate. Hotplug driver will check for CPU load every defined period of time and turn cores ON/OFF when needed. for battery save, It's recommended to set the same value as is in CORE TAB in CPU Governor section. Note that 10 here is 10000 for CPU GOV. for best performance set in range from 10 to 30" name="CPU HotPlug Sample Rate" action="hotplug_sample_rate" unit="rate" min="10" reversed="false" step="5" max="80"/>
 
 		<spinner description="Allow hotplug to be suspended when screen is OFF. When device enters full suspend mode only one core is half active. but if APP hold wakelock, then 3 cores are online! This is for all kernel hotplugs, but default hotplug is not supported. After many tests it's best to allow hotplug to always work, as it will reduce battery drain when playing music with screen is off." name="Hot Plug Suspend Mode" action="hotplug_suspend">
 			<spinnerItem name="Always Active" value="always_active"/> 
