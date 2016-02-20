@@ -80,10 +80,17 @@ cat << CTAG
 					action:"live Memory"
 				}},
 			{ STitleBar:{
-				title:"ZRAM Virtual SWAP:"
+				title:"Swap RAM Stats:"
 			}},
 				{ SLiveLabel:{
-					title:"ZRAM Stats:",
+					description:"Storage SWAP adding more free RAM same as swap size."
+					refresh:5000,
+					action:"live SWAP_STATE"
+				}},
+			{ STitleBar:{
+				title:"ZRAM Stats:"
+			}},
+				{ SLiveLabel:{
 					description:"Virtual compressed swap memory, add more usable free RAM by compressing real memory.",
 					refresh:3000,
 					action:"live ZRAMStats"

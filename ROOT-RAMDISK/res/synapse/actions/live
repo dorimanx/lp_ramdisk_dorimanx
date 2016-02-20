@@ -82,14 +82,31 @@ case $1 in
 			mem_used_total=`echo "Mem used total: $((\`cat /sys/block/zram0/mem_used_total\`/1024/1024))MB"`
 			orig_data_size=`echo "Original data size: $((\`cat /sys/block/zram0/orig_data_size\`/1024/1024))MB"`
 			zero_pages=`echo "Zero pages: $((\`cat /sys/block/zram0/zero_pages\`*4))KiB"`
-			disksize=`echo "Zram Disksize: $((\`cat /sys/block/zram0/disksize\`/1024/1024))MB"`
 			SwapCached=`echo "SwapCached: $((\`echo SwapCached_tmp\`/1024))MB"`
 
-			echo ZRAM Online!@n$compr_data_size@n$mem_used_total@n$orig_data_size@n$zero_pages@n$disksize@n@n$notify_free@n$num_reads@n$num_writes@n@n$SwapCached@n$saved@n$Compression@n$Compression_with_overhead@n$Used
+			echo @nZRAM Online!@n$compr_data_size@n$mem_used_total@n$orig_data_size@n$zero_pages@n@n$notify_free@n$num_reads@n$num_writes@n@n$SwapCached@n$saved@n$Compression@n$Compression_with_overhead@n$Used
 
 		else
 			echo ZRAM is Offline.
 		fi
+	;;
+	SWAP_STATE)
+		ZRAM_CHECK="$(expr `cat /sys/devices/virtual/block/zram0/initstate`)"
+		if [ $ZRAM_CHECK -eq "1" ]; then
+			ZRAM_SIZE=`echo "ZRAM Swap Size: $((\`cat /sys/block/zram0/disksize\`/1024/1024))MB"`
+		else
+			ZRAM_SIZE=`echo "ZRAM Swap Disabled"`
+		fi;
+		if [ -f /data/swapfile ]; then
+			SWAP_SIZE=`echo "Storage SWAP Size: \`ls -lah /data/swapfile | awk '{ print $5}' | cut -c 1-3\`MB"`
+		else
+			SWAP_SIZE=`echo "Storage SWAP is Disabled"`
+		fi;
+		total_swap_size=`echo "Total Swap Size: $((\`free | grep Swap | awk '{ print $2}'\`/1024))MB"`
+		used_swap_size=`echo "Used Swap Size: $((\`free | grep Swap | awk '{ print $3}'\`/1024))MB"`
+		free_swap_size=`echo "Free Swap Size: $((\`free | grep Swap | awk '{ print $4}'\`/1024))MB"`
+
+		echo $SWAP_SIZE@n$ZRAM_SIZE@n@n$total_swap_size@n$used_swap_size@n$free_swap_size
 	;;
 	RAMStats)
 		PROCESS_REC="$(expr `cat /sys/module/process_reclaim/parameters/enable_process_reclaim`)"
@@ -108,13 +125,13 @@ case $1 in
 		fi
 
 		if [ $PROCESS_REC -eq "1" ] && [ $ADAPTIVE_LMK -eq "1" ]; then
-			echo Process Reclaim Online!@n$pressure_max@n$pressure_min@n$process_reclaim_pressure@n$reclaim_avg_efficiency@n=============@nAdaptive LMK Online!@n$vm_pressure_adaptive_start@n$vmpressure_file_min@n$lmk_vm_pressure
+			echo Process Reclaim Online!@n$pressure_max@n$pressure_min@n$process_reclaim_pressure@n$reclaim_avg_efficiency@n@n@nAdaptive LMK Online!@n$vm_pressure_adaptive_start@n$vmpressure_file_min@n$lmk_vm_pressure
 		elif [ $PROCESS_REC -eq "1" ] && [ $ADAPTIVE_LMK -eq "0" ]; then
-			echo Process Reclaim Online!@n$pressure_max@n$pressure_min@n$process_reclaim_pressure@n$reclaim_avg_efficiency@n=============@nAdaptive LMK is Offline
+			echo Process Reclaim Online!@n$pressure_max@n$pressure_min@n$process_reclaim_pressure@n$reclaim_avg_efficiency@n@n@nAdaptive LMK is Offline
 		elif [ $PROCESS_REC -eq "0" ] && [ $ADAPTIVE_LMK -eq "1" ]; then
-			echo Adaptive LMK Online!@n$vm_pressure_adaptive_start@n$vmpressure_file_min@n$lmk_vm_pressure@n=============@nProcess Reclaim is Offline
+			echo Adaptive LMK Online!@n$vm_pressure_adaptive_start@n$vmpressure_file_min@n$lmk_vm_pressure@n@n@nProcess Reclaim is Offline
 		else
-			echo Process Reclaim is Offline@n=============@nAdaptive LMK is Offline
+			echo Process Reclaim is Offline@n@n@nAdaptive LMK is Offline
 		fi
 	;;
 	UKSMStats)

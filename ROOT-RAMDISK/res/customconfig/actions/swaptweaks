@@ -1,0 +1,83 @@
+#!/sbin/busybox sh
+
+# SWAP
+# Created by Dorimanx
+
+# $1 - "swaptweaks"
+# $2 - value=
+
+BB=/sbin/busybox
+
+if [ "a$2" != "a" ]; then
+	swaptweaks=$2;
+
+	if [ -f /data/swapfile ]; then
+		SWAP_SIZE=$(ls -la /data/swapfile | awk '{ print $5}');
+	else
+		SWAP_SIZE=0;
+	fi;
+	DATA_FREE=$($BB df | grep data | awk '{ print $3}');
+
+	case "${swaptweaks}" in
+		0)
+			if [ -f /data/swapfile ]; then
+				$BB swapoff /data/swapfile >/dev/null 2>&1;
+				$BB rm /data/swapfile;
+			fi;
+		;;
+		256)
+			if [ -f /data/swapfile ]; then
+				$BB swapoff /data/swapfile >/dev/null 2>&1;
+				if [ "$SWAP_SIZE" -lt "268435000" ] || [ "$SWAP_SIZE" -gt "288435456" ]; then
+					$BB rm /data/swapfile;
+					if [ "$DATA_FREE" -gt "524288" ]; then
+						dd if=/dev/zero of=/data/swapfile bs=1024 count=262144 >/dev/null 2>&1;
+						chown root:root /data/swapfile
+						chmod 0600 /data/swapfile
+					fi;
+				fi;
+				if [ -f /data/swapfile ]; then
+					mkswap /data/swapfile
+					$BB swapon /data/swapfile
+				fi;
+			else
+				if [ "$DATA_FREE" -gt "524288" ]; then
+					dd if=/dev/zero of=/data/swapfile bs=1024 count=262144  >/dev/null 2>&1;
+					chown root:root /data/swapfile;
+					chmod 0600 /data/swapfile;
+					mkswap /data/swapfile
+					$BB swapon /data/swapfile
+				fi;
+			fi;
+		;;
+		512)
+			if [ -f /data/swapfile ]; then
+				$BB swapoff /data/swapfile >/dev/null 2>&1;
+				if [ "$SWAP_SIZE" -lt "536870000" ] || [ "$SWAP_SIZE" -gt "556870912" ]; then
+					$BB rm /data/swapfile;
+					if [ "$DATA_FREE" -gt "786432" ]; then
+						dd if=/dev/zero of=/data/swapfile bs=1024 count=524288 >/dev/null 2>&1;
+						chown root:root /data/swapfile;
+						chmod 0600 /data/swapfile;
+					fi;
+				fi;
+				if [ -f /data/swapfile ]; then
+					mkswap /data/swapfile
+					$BB swapon /data/swapfile
+				fi;
+			else
+				if [ "$DATA_FREE" -gt "786432" ]; then
+					dd if=/dev/zero of=/data/swapfile bs=1024 count=524288  >/dev/null 2>&1;
+					chown root:root /data/swapfile;
+					chmod 0600 /data/swapfile;
+					mkswap /data/swapfile
+					$BB swapon /data/swapfile
+				fi;
+			fi;
+		;;
+		*)
+			swaptweaks=0;
+		;;
+	esac;
+fi;
+echo ${swaptweaks};

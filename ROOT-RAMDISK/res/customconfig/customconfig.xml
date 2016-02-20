@@ -556,6 +556,16 @@
 
 	</settingsPane>
 
+	<settingsPane description="SWAP control, using storage space in /data to extend real free ram for apps in background. enable only if you have free space and you really need that RAM extension, by using storage swap, you will see slight more battery drain and less I/O read/write speed! can be used with ZRAM below." name="Linux Swap">
+
+		<spinner description="Select SWAP size or keep it OFF, it's take time to create swap file, just WAIT will you get notification about size." name="SWAP Selector" action="swaptweaks">
+			<spinnerItem name="SWAP OFF" value="0"/> 
+			<spinnerItem name="SWAP 256MiB" value="256"/> 
+			<spinnerItem name="SWAP 512MiB" value="512"/> 
+		</spinner>
+
+	</settingsPane>
+
 	<settingsPane description="ZRAM control module takes real RAM and compress it by 40% to create more FREE RAM for apps! Compression method is LZ4. The more RAM is allocated in ZRAM, the more RAM is given to user at cost of CPU power and faster battery discharging. When switching ZRAM size from one to another, decompression and new compression will take some TIME. In some cases that will take more than 2min. In that time, Dorimanx app will FREEZE. DO NOT PANIC! You can just switch to home and open synapse and watch how much memory is decompressed. Do not kill the app." name="ZRAM">
 
 		<spinner description="ZRAM size controller. The more you set here, the more free RAM you'll get in cost of CPU power. But it's really low usage and device is operating GREAT! This is memory based module, so storage is not killed over time. You can see how it works in synapse app! Before proceeding PLEASE read the instruction ABOVE!" name="ZRAM Selector" action="zramtweaks">
@@ -565,7 +575,7 @@
 			<spinnerItem name="ZRAM OFFLINE" value="0"/>
 		</spinner>
 
-		<seekBar description="Control for ZRAM Swap allocation. When you set higher value here, ZRAM swap will be used more, instead of real RAM and give you more free RAM! With slight cost of performance (Default: 50%)" name="Swappiness" action="generic /proc/sys/vm/swappiness" unit="%" min="30" reversed="false" step="5" max="95"/>
+		<seekBar description="Control for ZRAM/Swap allocation. When you set higher value here, ZRAM/Swap will be used more, instead of real RAM and give you more free RAM! With slight cost of performance (Default: 50%)" name="Swappiness" action="generic /proc/sys/vm/swappiness" unit="%" min="30" reversed="false" step="5" max="95"/>
 
 	</settingsPane>
 

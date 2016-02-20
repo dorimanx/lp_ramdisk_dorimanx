@@ -74,6 +74,7 @@ lowmem_reserve=boosted
 dirty_background_ratio=5
 dirty_ratio=20
 vfs_cache_pressure=100
+swaptweaks=0
 zramtweaks=512
 swappiness=50
 run=off
