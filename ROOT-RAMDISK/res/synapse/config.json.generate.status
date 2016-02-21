@@ -83,7 +83,7 @@ cat << CTAG
 				title:"Swap RAM Stats:"
 			}},
 				{ SLiveLabel:{
-					description:"Storage SWAP adding more free RAM same as swap size."
+					description:"Storage SWAP adding more free RAM same as swap size.",
 					refresh:5000,
 					action:"live SWAP_STATE"
 				}},

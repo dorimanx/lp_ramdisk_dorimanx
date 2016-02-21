@@ -558,7 +558,7 @@
 
 	<settingsPane description="SWAP control, using storage space in /data to extend real free ram for apps in background. enable only if you have free space and you really need that RAM extension, by using storage swap, you will see slight more battery drain and less I/O read/write speed! can be used with ZRAM below." name="Linux Swap">
 
-		<spinner description="Select SWAP size or keep it OFF, it's take time to create swap file, just WAIT will you get notification about size." name="SWAP Selector" action="swaptweaks">
+		<spinner description="Select SWAP size or keep it OFF, it's take time to create swap file, just WAIT till you get notification about size about 50sec." name="SWAP Selector" action="swaptweaks">
 			<spinnerItem name="SWAP OFF" value="0"/> 
 			<spinnerItem name="SWAP 256MiB" value="256"/> 
 			<spinnerItem name="SWAP 512MiB" value="512"/> 
@@ -646,7 +646,7 @@
 
 		<button description="Touch here to see current SELINUX status (Default: OFF)." name="SELINUX Status Check" action="push-actions/selinux_check" label="SELINUX Status Check"/>
 
-		<button description="Touch here to Enable or Disable Selinux Driver. If selinux is OFF apps may get access to files in system but not changed them. With ROOT access they can (with or without selinux). If SELINUX is disabled (Default: set on boot) then life is good and all works with no problems with GSM connection or access permissions with different apps. When you push this button ONCE, kernel command line will be updated and current kernel will reinstall automatic. To see changes you'll need to REBOOT! Then you can check using check button above. WARNING some USER apps loose some or all data (mostly configurations) when permissions changed! Do backup before change selinux to ENABLE! When you'll reboot Dalvik Cache will be cleared out and kernel will reboot. Wait for apps to be optimized." name="SELINUX ON.OFF Control" action="push-actions/selinux_switch" label="SELINUX Hard ON.OFF"/>
+		<button description="Touch here to Enable or Disable Selinux Driver. If selinux is OFF apps may get access to files in system but not changed them. With ROOT access they can (with or without selinux). If SELINUX is disabled (Default: set on boot) then life is good and all works with no problems with GSM connection or access permissions with different apps. When you push this button ONCE, kernel command line will be updated and current kernel will reinstall automatic. To see changes you'll need to REBOOT! Then you can check using check button above. WARNING some USER apps loose some or all data (mostly configurations) when permissions changed! Do backup before change selinux to ENABLE! When you'll reboot Dalvik Cache will be cleared out and kernel will reboot. Wait for apps to be optimized." name="SELINUX ON/OFF Control" action="push-actions/selinux_switch" label="SELINUX Hard ON/OFF"/>
 
 		<spinner description="Change your SELinux (Security-Enhanced Linux) status from Enforcing (policy is enforced) to Permissive (prints warnings instead of enforcing). ONCE YOU CHANGE TO ENFORCE! THIS CONTROL APP WILL NEVER WORK AGAIN. Untill you'll reset profiles by deleting data-.dori folder and reboot device or run setenforce 0 or use some app to change selinux to permissive. Then go here and set Permissive." name="SeLinux Control" action="selinux_control">
 			<spinnerItem name="Enforcing" value="on"/> 
@@ -763,9 +763,9 @@
 
 	</settingsPane>
 
-	<settingsPane description="This script manipulates many kernel settings, based on chosen Dorimanx App profile + settings and screen state (ON or OFF) - we call it CortexBrain. To reset the kernel-settings after disabling a tweak, you must reboot the device." name="CortexBrain Tweaks">
+	<settingsPane description="This script manipulates many kernel settings, based on chosen Dorimanx App profile + settings and screen state (ON/OFF) - we call it CortexBrain. To reset the kernel-settings after disabling a tweak, you must reboot the device." name="CortexBrain Tweaks">
 
-		<spinner description="Enable the background-process from CortexBrain. Disabling it means, losing the functions that sets different settings for screen state (ON or OFF)." name="CortexBrain-Background-Process" action="cortexbrain_background_process">
+		<spinner description="Enable the background-process from CortexBrain. Disabling it means, losing the functions that sets different settings for screen state (ON/OFF)." name="CortexBrain-Background-Process" action="cortexbrain_background_process">
 			<spinnerItem name="Enable" value="1"/> 
 			<spinnerItem name="Disable" value="0"/> 
 		</spinner>

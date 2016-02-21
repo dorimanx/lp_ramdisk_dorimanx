@@ -84,8 +84,7 @@ case $1 in
 			zero_pages=`echo "Zero pages: $((\`cat /sys/block/zram0/zero_pages\`*4))KiB"`
 			SwapCached=`echo "SwapCached: $((\`echo SwapCached_tmp\`/1024))MB"`
 
-			echo @nZRAM Online!@n$compr_data_size@n$mem_used_total@n$orig_data_size@n$zero_pages@n@n$notify_free@n$num_reads@n$num_writes@n@n$SwapCached@n$saved@n$Compression@n$Compression_with_overhead@n$Used
-
+			echo ZRAM Online!@n$compr_data_size@n$mem_used_total@n$orig_data_size@n$zero_pages@n@n$notify_free@n$num_reads@n$num_writes@n@n$SwapCached@n$saved@n$Compression@n$Compression_with_overhead@n$Used
 		else
 			echo ZRAM is Offline.
 		fi
@@ -102,7 +101,7 @@ case $1 in
 		else
 			SWAP_SIZE=`echo "Storage SWAP is Disabled"`
 		fi;
-		total_swap_size=`echo "Total Swap Size: $((\`free | grep Swap | awk '{ print $2}'\`/1024))MB"`
+		total_swap_size=`echo "Total Swap Size: $((\`free | grep Swap | awk '{ print $2}'\`/1024+1))MB"`
 		used_swap_size=`echo "Used Swap Size: $((\`free | grep Swap | awk '{ print $3}'\`/1024))MB"`
 		free_swap_size=`echo "Free Swap Size: $((\`free | grep Swap | awk '{ print $4}'\`/1024))MB"`
 
