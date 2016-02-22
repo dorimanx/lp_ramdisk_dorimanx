@@ -33,13 +33,13 @@ fi;
 
 if [ "$install_root" == "on" ]; then
 	if [ "$NEW_SU" -eq "0" ]; then
-		echo "SuperSU already exists";
+		echo "SuperSU already exists.";
 		$BB chmod 06755 /system/xbin/su;
 		if [ -e /system/xbin/daemonsu ]; then
 			$BB chmod 06755 /system/xbin/daemonsu;
 		fi;
 	else
-		echo "ROOT NOT detected, Installing SuperSU";
+		echo "ROOT is Not being detected, Installing SuperSU.";
 		# clean su traces
 		$BB rm -f /system/bin/su > /dev/null 2>&1;
 		$BB rm -f /system/xbin/su > /dev/null 2>&1;
@@ -85,7 +85,7 @@ if [ "$install_root" == "on" ]; then
 				$BB mv /data/system/chain_pro.apk_bkp /system/app/eu.chainfire.supersu.pro-1.apk;
 				$BB chmod 644 /system/app/eu.chainfire.supersu.pro-1.apk;
 			else
-				echo "no su pro" > /dev/null 2>&1;
+				echo "No SuperSU PRO app is being detected." > /dev/null 2>&1;
 			fi;
 		fi;
 

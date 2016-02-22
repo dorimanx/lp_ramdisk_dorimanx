@@ -72,8 +72,8 @@ export PATH="/res/customconfig/actions/push-actions:${PATH}";
 		# delete payload and kill superuser pid
 		pkill -f "com.noshufou.android.su";
 		pkill -f "eu.chinfire.supersu";
-		echo "App SuperSU was installed!, You have Full ROOT now!";
+		echo "SuperSU app was installed! You have Full ROOT now!";
 	else
-		echo "You have ROOT installed already! first remove it.";
+		echo "You have ROOT installed already! First remove it.";
 	fi;
 )&

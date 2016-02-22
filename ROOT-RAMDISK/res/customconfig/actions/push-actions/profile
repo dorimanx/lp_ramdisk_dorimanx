@@ -2,4 +2,4 @@
 
 PROFILE=`cat /data/.dori/.active.profile`;
 
-echo "your profile: \"$PROFILE\"";
+echo "Current profile: \"$PROFILE\"";

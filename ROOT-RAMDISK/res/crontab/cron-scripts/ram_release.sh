@@ -19,6 +19,6 @@
 			$BB kill $($BB pidof com.google.android.gms.wearable);
 		fi;
 		date +%H:%M-%D > /data/crontab/cron-ram-release;
-		echo "Ram Released" >> /data/crontab/cron-ram-release;
+		echo "Ram Released." >> /data/crontab/cron-ram-release;
 	fi;
 )&

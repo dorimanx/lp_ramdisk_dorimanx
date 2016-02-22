@@ -29,15 +29,15 @@ if [ "$WGET_CHECK1" -eq "1" ]; then
 
 	TESTCONNECTION=`wget http://www.google.com -O $TMPFILE > /dev/null 2>&1`;
 	if [ $? != 0 ]; then
-		echo "Problem: no internet connection! connect and try again";
+		echo "Problem: no Internet connection! Connect and then try again.";
 	else
 		wget http://www.dorimanx.com/LG-LP/ -O $TMPFILE > /dev/null 2>&1;
 		cat $TMPFILE | grep ".*-V" |  sed 's/.*-V//g' | sed 's/S.*//g' | sed 's/-I.*//g' | sed 's/[-\[].*//g' | sort -r > $TMPFILE2;
 
 		for version in $(cat $TMPFILE2); do
-			expr "$OLD_VERSION" \< "$version" >/dev/null && echo "There is a new version of this kernel available!!!" && break;
-			expr "$OLD_VERSION" \= "$version" >/dev/null && echo "You already using the most advanced kernel in the world!" && break;
-			expr "$OLD_VERSION" \> "$version" >/dev/null && echo "Kernel that you have is not my lattest version! check mirror for correct version" && break;
+			expr "$OLD_VERSION" \< "$version" >/dev/null && echo "There is a new version of this kernel available." && break;
+			expr "$OLD_VERSION" \= "$version" >/dev/null && echo "You are already using the most advanced kernel in the world." && break;
+			expr "$OLD_VERSION" \> "$version" >/dev/null && echo "Kernel that you have is not my latest version! Check mirrors for current version." && break;
 		done;
 	fi;
 
@@ -46,5 +46,5 @@ if [ "$WGET_CHECK1" -eq "1" ]; then
 
 	mount -o remount,ro /system;
 else
-	echo "Your System dont have WGET binary from my kernel, reinstall my kernel.";
+	echo "Your System don't have WGET binaries from kernel, reinstall Dorimanx kernel.";
 fi;

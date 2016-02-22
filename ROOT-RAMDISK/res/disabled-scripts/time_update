@@ -25,10 +25,10 @@ if [ "$WGET_CHECK1" -eq "1" ] || [ "$WGET_CHECK2" -eq "1" ]; then
 		(
 			ntpd -n -q -p `cat /system/etc/gps.conf | grep NTP_SERVER | cut -f 2 -d "="`;
 		)&
-		echo "updated time via ntp";
+		echo "Updated time via NTP.";
 	fi;
 
 	rm -f $TMPFILE;
 else
-	echo "Your BusyBox is not supported! Update to latest";
+	echo "Your BusyBox is not supported! Update to latest.";
 fi;

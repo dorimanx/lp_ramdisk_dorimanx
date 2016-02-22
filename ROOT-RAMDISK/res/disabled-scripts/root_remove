@@ -45,5 +45,5 @@ sleep 3;
 if [ ! -f /system/xbin/su ]; then
 	echo "ROOT REMOVED! STOCK SYSTEM!";
 else
-	echo "ROOT NOT REMOVED! Try again";
+	echo "ROOT NOT REMOVED! Try again.";
 fi;

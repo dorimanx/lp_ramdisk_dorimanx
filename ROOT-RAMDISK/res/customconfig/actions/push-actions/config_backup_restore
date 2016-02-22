@@ -11,7 +11,7 @@ else
 fi;
 
 if [ "$(pgrep -f "push-actions/config_backup_restore" | wc -l)" -ge "3" ]; then
-	echo "Already working! dont push me!";
+	echo "Already working! Don't push me!";
 	exit 0;
 fi;
 
@@ -42,13 +42,13 @@ case "${config_backup_restore}" in
 			fi;
 
 			if [ ! -e "$file2" ]; then
-				echo "You are using ${PROFILE} did you made backup for it??? if you made for other, switch to that profile first!";
+				echo "You are using ${PROFILE} did you made backup for it? If you've made for other, switch to that profile first!";
 				exit;
 			fi;
 
 			file1="/data/.dori/${PROFILE}.profile";
 
-			echo "Restoring ${PROFILE} config file, wait for APP RELOAD";
+			echo "Restoring ${PROFILE} config file, wait untill app reloads.";
 
 			# read in file1->line1
 			while read line1; do
@@ -90,7 +90,7 @@ case "${config_backup_restore}" in
 		(
 			$BB cp -a /res/customconfig/battery.profile /data/.dori/;
 			echo "battery" > /data/.dori/.active.profile;
-			echo "Restoring battery config file, wait for APP RELOAD";
+			echo "Restoring battery config file, wait until app reloads.";
 			$BB sh /res/uci.sh apply > /dev/null;
 			RELOAD_STWEAKS;
 		)&
@@ -99,7 +99,7 @@ case "${config_backup_restore}" in
 		(
 			$BB cp -a /res/customconfig/default.profile /data/.dori/;
 			echo "default" > /data/.dori/.active.profile;
-			echo "Restoring default config file, wait for APP RELOAD";
+			echo "Restoring default config file, wait until app reloads.";
 			$BB sh /res/uci.sh apply > /dev/null;
 			RELOAD_STWEAKS;
 		)&
@@ -108,7 +108,7 @@ case "${config_backup_restore}" in
 		(
 			$BB cp -a /res/customconfig/performance.profile /data/.dori/;
 			echo "performance" > /data/.dori/.active.profile;
-			echo "Restoring performance config file, wait for APP RELOAD";
+			echo "Restoring performance config file, wait until app reloads.";
 			$BB sh /res/uci.sh apply > /dev/null;
 			RELOAD_STWEAKS;
 		)&
@@ -117,7 +117,7 @@ case "${config_backup_restore}" in
 		(
 			$BB cp -a /res/customconfig/extreme_battery.profile /data/.dori/;
 			echo "extreme_battery" > /data/.dori/.active.profile;
-			echo "Restoring extreme_battery config file, wait for APP RELOAD";
+			echo "Restoring extreme_battery config file, wait until app reloads.";
 			$BB sh /res/uci.sh apply > /dev/null;
 			RELOAD_STWEAKS;
 		)&
@@ -126,7 +126,7 @@ case "${config_backup_restore}" in
 		(
 			$BB cp -a /res/customconfig/extreme_performance.profile /data/.dori/;
 			echo "extreme_performance" > /data/.dori/.active.profile;
-			echo "Restoring extreme_performance config file, wait for APP RELOAD";
+			echo "Restoring extreme_performance config file, wait until app reloads.";
 			$BB sh /res/uci.sh apply > /dev/null;
 			RELOAD_STWEAKS;
 		)&

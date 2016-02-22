@@ -4,7 +4,7 @@ BB=/sbin/busybox
 
 (
 	if [ "$(pgrep -f "/res/customconfig/actions/push-actions/reload_settings" | wc -l)" -le "2" ]; then
-		echo "Loading Config, STweaks will reload after 10sec";
+		echo "Loading Config, Dorimanx App will reload after 10 sec";
 		# apply STweaks settings
 		$BB sh /res/uci.sh apply
 
@@ -21,6 +21,6 @@ BB=/sbin/busybox
 		am start -a android.intent.action.MAIN -n com.gokhanmoral.stweaks.app/.MainActivity 2> /dev/null;
 		exit;
 	else
-		echo "Still running!!"
+		echo "Still running..."
 	fi;
 )&
