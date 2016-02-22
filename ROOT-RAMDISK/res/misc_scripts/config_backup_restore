@@ -9,33 +9,33 @@ fi;
 
 case "${config_backup_restore}" in
 	3)
-		echo "Wait! Restoring";
+		echo "Wait! Restoring...";
 	;;
 	4)
-		echo "Wait! Restoring";
+		echo "Wait! Restoring...";
 	;;
 	5)
-		echo "Wait! Restoring";
+		echo "Wait! Restoring...";
 	;;
 	6)
-		echo "Wait! Restoring";
+		echo "Wait! Restoring...";
 	;;
 	7)
-		echo "Wait! Restoring";
+		echo "Wait! Restoring...";
 	;;
 	*)
-		echo "Wait! Restoring";
+		echo "Wait! Restoring...";
 	;;
 esac;
 
 case "${config_backup_restore}" in
 	1)
-		echo "Wait! Restoring";
+		echo "Wait! Restoring...";
 	;;
 	2)
-		echo "Wait! Restoring";
+		echo "Wait! Restoring...";
 	;;
 	*)
-		echo "Wait! Restoring";
+		echo "Wait! Restoring...";
 	;;
 esac;

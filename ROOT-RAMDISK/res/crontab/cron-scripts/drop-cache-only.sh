@@ -16,7 +16,7 @@
 			sync;
 			sysctl -w vm.drop_caches=3;
 			date +%H:%M-%D > /data/crontab/cron-clear-ram-cache;
-			echo "Cache above 50%! Cleaned RAM Cache" >> /data/crontab/cron-clear-ram-cache;
+			echo "Cache is above 50%! Cleaned RAM Cache." >> /data/crontab/cron-clear-ram-cache;
 		fi;
 	fi;
 )&

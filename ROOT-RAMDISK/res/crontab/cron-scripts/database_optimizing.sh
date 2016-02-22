@@ -11,7 +11,7 @@
 		done;
 
 		date +%H:%M-%D > /data/crontab/cron-db-optimizing;
-		echo "Done! DB Optimized" >> /data/crontab/cron-db-optimizing;
+		echo "Done! DB was successfully Optimized." >> /data/crontab/cron-db-optimizing;
 		sync;
 	fi;
 )&

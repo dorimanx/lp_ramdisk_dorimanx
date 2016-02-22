@@ -3,7 +3,7 @@
 #created by Dorimanx.
 
 if [ "$(pgrep -f "push-actions/selinux_switch" | wc -l)" -ge "3" ]; then
-	echo "WAIT! DONT PUSH ME AGAIN!";
+	echo "WAIT! DON'T PUSH ME AGAIN!";
 	exit 0;
 fi;
 
@@ -18,7 +18,7 @@ if [ "$selinux_status" -eq "1" ]; then
 	echo "1" > /data/.dori/selinux_mode;
 	sync;
 else
-	echo "Disabling Kernel Selinux Please wait!";
+	echo "Disabling Kernel Selinux. Please wait!";
 	/sbin/busybox find /data/.dori/boot.img -type f -exec sed -i 's/console=ttyHSL0,115200,n8 user_debug=31 ehci-hcd.park=3 androidboot.hardware=g2 enforcing=0 selinux=1/console=ttyHSL0,115200,n8 user_debug=31 ehci-hcd.park=3 androidboot.hardware=g2 enforcing=0 selinux=0/g' {} \;
 	echo "Selinux Disabled on boot! Please REBOOT!";
 	dd if=/data/.dori/boot.img of=/dev/block/platform/msm_sdcc.1/by-name/boot

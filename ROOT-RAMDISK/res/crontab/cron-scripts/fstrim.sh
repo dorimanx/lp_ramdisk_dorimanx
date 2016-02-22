@@ -28,7 +28,7 @@
 			$BB fstrim /cache
 		fi;
 		date +%H:%M-%D > /data/crontab/cron-fstrim;
-		echo "FS Trimmed" >> /data/crontab/cron-fstrim;
+		echo "FS Trimmed." >> /data/crontab/cron-fstrim;
 		sync;
 		if [ "$SCREEN_WAS_OFF" -eq "1" ]; then
 			if [ "$(dumpsys power | grep mWakefulness= | grep -oE '(Awake|Asleep)')" == "Awake" ] ; then

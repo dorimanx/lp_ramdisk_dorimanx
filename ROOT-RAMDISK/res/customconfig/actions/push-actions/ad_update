@@ -29,18 +29,18 @@ if [ "$WGET_CHECK1" -eq "1" ]; then
 
 	TESTCONNECTION=$(wget http://www.google.com -O $TMPFILE > /dev/null 2>&1);
 	if [ "$?" != "0" ]; then
-		echo "Problem: no internet connection! connect and try again";
+		echo "Problem: no Internet connection! Connect and then try again.";
 	else
 		wget http://winhelp2002.mvps.org/hosts.zip -O $TMPFILE > /dev/null 2>&1;
 		unzip -p $TMPFILE HOSTS > $HOST_FILE;
 		chmod 644 $HOST_FILE;
 		dos2unix -u /system/etc/hosts;
-		echo "AD Blocker: installed to /system/etc/hosts, reboot to use.";
+		echo "AD Blocker: installed to /system/etc/hosts, reboot for changes to take effect.";
 	fi;
 
 	rm -f $TMPFILE;
 
 	mount -o remount,ro /system;
 else
-	echo "Your System dont have WGET binary from my kernel, reinstall my kernel.";
+	echo "Your System don't have WGET binaries from kernel, reinstall Dorimanx kernel.";
 fi;

@@ -7,7 +7,7 @@ CRON_STATUS=$(pidof crond | wc -l);
 if [ "$CRON_STATUS" -eq "1" ]; then
 	pkill -f crond;
 	/sbin/busybox sh /res/uci.sh crontab_switch on
-	echo "Reset Done! CRON enabled"
+	echo "Reset Done! CRON is now enabled."
 else
-	echo "Reset Done! CRON is disabled"
+	echo "Reset Done! CRON is now disabled."
 fi;
