@@ -386,13 +386,13 @@
 		</spinner>
 
 		<spinner description="Select GPU Minimum frequency when GPU is IDLE - if you set higher than 200 MHz, then the GPU will hold selected frequency on IDLE." name="GPU min Speed" action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/min_freq">
-			<spinnerItem name="650 MHz" value="650000000"/> 
-			<spinnerItem name="533 MHz" value="533333000"/> 
-			<spinnerItem name="450 MHz" value="450000000"/> 
-			<spinnerItem name="389 MHz" value="389000000"/> 
-			<spinnerItem name="320 MHz" value="320000000"/> 
-			<spinnerItem name="200 MHz" value="200000000"/> 
 			<spinnerItem name="100 MHz" value="100000000"/> 
+			<spinnerItem name="200 MHz" value="200000000"/> 
+			<spinnerItem name="320 MHz" value="320000000"/> 
+			<spinnerItem name="389 MHz" value="389000000"/> 
+			<spinnerItem name="450 MHz" value="450000000"/> 
+			<spinnerItem name="533 MHz" value="533333000"/> 
+			<spinnerItem name="650 MHz" value="650000000"/> 
 		</spinner>
 
 	</settingsPane>
