@@ -442,3 +442,10 @@ fi;
 		$BB sh /res/uci.sh cpu3_max_freq "$cpu3_max_freq";
 	fi;
 )&
+
+# Stop LG logging to /data/logger/$FILE we dont need that. draning power.
+setprop persist.service.events.enable 0
+setprop persist.service.main.enable 0
+setprop persist.service.power.enable 0
+setprop persist.service.radio.enable 0
+setprop persist.service.system.enable 0

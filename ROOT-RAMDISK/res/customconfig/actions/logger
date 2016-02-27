@@ -1,0 +1,35 @@
+#!/sbin/busybox sh
+
+# $1 - "logger"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	logger=$2;
+
+	if [ -f /system/bin/logd-old ]; then
+		mount -o remount,rw /system
+		mv /system/bin/logd-old /system/bin/logd
+		mount -o remount,ro /system
+	fi;
+
+	case "${logger}" in
+	0)
+		stop logd
+	;;
+	1)
+		LOG_STATUS=$(pgrep logd | wc -l);
+		if [ "$LOG_STATUS" -gt "0" ]; then
+			stop logd
+		fi;
+		start logd
+		/system/bin/logcat -b events -b main -b system -b crash > /dev/null &
+		logcat -v time -s XposedStartupMarker:D Xposed:I appproc:I XposedInstaller:I art:F libc:F DEBUG:I > /dev/null &
+		logcat -b events -v tag -s -T 1 ifw_intent_matched am_proc_start [47336449] > /dev/null &
+	;;
+	*)
+		logger=0;
+	;;
+	esac;
+fi;
+echo ${logger};
