@@ -436,8 +436,8 @@
 
 	<settingsPane description="Customize main sound control apps settings." name="Sound Controls">
 
-		<spinner description="Select main gain control app (Default: Dorimanx app)." name="Main Sound app Selector" action="generic /sys/kernel/sound_control_3/lge_stweaks_control">
-			<spinnerItem name="Dorimanx app Control" value="1"/>
+		<spinner description="Select main gain control app (Default: Dorimanx App)." name="Main Sound app Selector" action="generic /sys/kernel/sound_control_3/lge_stweaks_control">
+			<spinnerItem name="Dorimanx App Control" value="1"/>
 			<spinnerItem name="Faux Sound Control" value="0"/>
 		</spinner>
 
@@ -556,7 +556,7 @@
 
 	</settingsPane>
 
-	<settingsPane description="SWAP control is using swap storage placed in /data folder in order to extend real free RAM for apps in working into background. Enable option only, if you have free space and you really need that RAM extension. You will notice slightly faster battery discharging and I/O read/write operation will be slightly degraded! It can be combined with ZRAM." name="Linux Swap">
+	<settingsPane description="SWAP control is using swap storage placed in /data folder in order to extend real free RAM for apps working in background. Enable this option only, if you have free space and you really need that RAM extension. You will notice slightly faster battery discharging and I/O read/write operation will be slightly degraded! It can be combined with ZRAM." name="Linux Swap">
 
 		<spinner description="Select SWAP size or keep it OFF, it's take time to create swap file, just WAIT till you get notification about size about 50sec." name="SWAP Selector" action="swaptweaks">
 			<spinnerItem name="SWAP OFF" value="0"/> 
@@ -620,7 +620,7 @@
 
 		<checkbox description="Enable Trim of System, Data and Cache partitions every day at 10:00 PM to speed up NAND Read and Write Access Time. NOTE that screen will be AWAKE during the fstrim to prevent MMC crash, then if screen was OFF it's will be auto turned off. Some devices don't like to be trimmed, so if device get stuck after 10:00 PM, don't enable this."  name="Trim every day 10:00 PM" action="generic_cortex /tmp/cron_fstrim" label="Trim every day at 10:00 PM"/>
 
-		<checkbox description="Enable reclaiming RAM from apps. It's smart memory kernel feature used to take back all cached RAM from apps without killing them. It helps to maintain stable and fast device for a long time. Task will run in every 2 hours." name="Reclaime RAM from appS" action="generic_cortex /tmp/cron_process_reclaim" label="Reclaim RAM from appS in every 2 hours"/>
+		<checkbox description="Enable reclaiming RAM from apps. It's smart memory kernel feature used to take back all cached RAM from apps without killing them. It helps to maintain stable and fast device for a long time. Task will run in every 2 hours." name="Reclaime RAM from apps" action="generic_cortex /tmp/cron_process_reclaim" label="Reclaim RAM from apps in every 2 hours"/>
 
 		<checkbox description="Enable restarting Google service to stop memory leaks and CPU nonstop activity. This is one of the MAIN LP RAM leak BUGS. Service gets stuck, drains RAM and force CPU to work nonstop. This option fixes that problem by restarting the service in every 3 hours." name="Google service restart" action="generic_cortex /tmp/cron_ram_release" label="Restart LP Google service in every 3 hours"/>
 
@@ -797,7 +797,7 @@
 
 	</settingsPane>
 
-	<settingsPane description="Choose kernel profiles." name="Dorimanx app Profiles">
+	<settingsPane description="Choose kernel profiles." name="Kernel Profiles">
 
 		<button description="Extreme Performance" name="Extreme Performance Profile" action="push-actions/config_backup_restore 7" label="Extreme Performance"/>
 
@@ -827,11 +827,11 @@
 
 		<button description="Bug-Report for Kernel, if a reboot or a freeze was performed and log was created with it's name part contains USELESS phase, then there is nothing to be done here. There is no need to upload it to thread for investigation. If you want to report something else, and there weren't any reboot or freeze, ignore the USELESS naming, and upload it for a closer look." name="Kernel-Bug" action="push-actions/debug_to_sd 1" label="KERNEL-BUG"/>
 
-		<button description="Bug-Report for apps." name="app-Bug" action="push-actions/debug_to_sd 2" label="app-BUG"/>
+		<button description="Bug-Report for apps. make sure Logcat is Enabled before using this option. remember it's useless for kernel DEV, only needed for ROM DEV!" name="App-Bug" action="push-actions/debug_to_sd 2" label="ROM-Logcat"/>
 
 	</settingsPane>
 
-	<settingsPane description="Check for Kernel Update or Use DorimanX OTA app." name="Kernel Update">
+	<settingsPane description="Check for Kernel Update or Use DorimanX OTA App." name="Kernel Update">
 
 		<button description="Check for updates." name="Kernel-Update" action="push-actions/kernel_check" label="Kernel Update Check"/>
 
