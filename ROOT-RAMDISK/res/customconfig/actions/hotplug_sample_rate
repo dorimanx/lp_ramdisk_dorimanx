@@ -10,6 +10,7 @@ if [ "a$2" != "a" ]; then
 	echo "$hotplug_sample_rate" > /sys/kernel/alucard_hotplug/hotplug_sampling_rate;
 	echo "$hotplug_sample_rate" > /sys/kernel/intelli_plug/def_sampling_ms;
 	echo "$hotplug_sample_rate" > /sys/module/msm_hotplug/update_rates;
+	echo "$hotplug_sample_rate" > /sys/kernel/autosmp/conf/delay;
 fi;
 
 echo ${hotplug_sample_rate};

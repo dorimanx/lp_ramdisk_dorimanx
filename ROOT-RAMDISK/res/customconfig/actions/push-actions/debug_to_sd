@@ -121,8 +121,15 @@ case "${debug_to_sd}" in
 			SEPARATOR;
 			cd /hotplugs/intelli;
 			grep "." * >> $DEBUG_FILE;
-			cd /;
 			SEPARATOR;
+
+			echo "HotPlug AutoSMP:" >> $DEBUG_FILE;
+			SEPARATOR;
+			cd /hotplugs/autosmp;
+			grep "." * >> $DEBUG_FILE;
+			SEPARATOR;
+
+			cd /;
 
 			# CPU
 			echo "CPU-Info:" >> $DEBUG_FILE;

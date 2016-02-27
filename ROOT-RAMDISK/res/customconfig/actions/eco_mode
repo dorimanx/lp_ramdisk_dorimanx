@@ -12,21 +12,25 @@ if [ "a$2" != "a" ]; then
 			echo "4" > /sys/kernel/intelli_plug/max_cpus_online;
 			echo "4" > /sys/module/msm_hotplug/max_cpus_online;
 			echo "4" > /sys/kernel/alucard_hotplug/maxcoreslimit;
+			echo "4" > /sys/kernel/autosmp/conf/max_cpus;
 		;;
 		eco_boost)
 			echo "3" > /sys/kernel/intelli_plug/max_cpus_online;
 			echo "3" > /sys/module/msm_hotplug/max_cpus_online;
 			echo "3" > /sys/kernel/alucard_hotplug/maxcoreslimit;
+			echo "3" > /sys/kernel/autosmp/conf/max_cpus;
 		;;
 		eco)
 			echo "2" > /sys/kernel/intelli_plug/max_cpus_online;
 			echo "2" > /sys/module/msm_hotplug/max_cpus_online;
 			echo "2" > /sys/kernel/alucard_hotplug/maxcoreslimit;
+			echo "2" > /sys/kernel/autosmp/conf/max_cpus;
 		;;
 		strict)
 			echo "1" > /sys/kernel/intelli_plug/max_cpus_online;
 			echo "1" > /sys/module/msm_hotplug/max_cpus_online;
 			echo "1" > /sys/kernel/alucard_hotplug/maxcoreslimit;
+			echo "1" > /sys/kernel/autosmp/conf/max_cpus;
 		;;
 		*)
 			eco_mode=all;

@@ -66,7 +66,12 @@ case "$1" in
 		else
 			INTELLI_HOTPLUG=Inactive;
 		fi;
-		echo "Default HotPlug: $DEFAULT_HOTPLUG@nAlucard HotPlug: $ALUCARD_HOTPLUG@nMSM HotPlug: $MSM_HOTPLUG@nIntelli HotPlug: $INTELLI_HOTPLUG"
+		if [ "$(cat /sys/module/autosmp/parameters/autosmp_enabled)" == "Y" ]; then
+			AUTOSMP_HOTPLUG=Active;
+		else
+			AUTOSMP_HOTPLUG=Inactive;
+		fi;
+		echo "Default HotPlug: $DEFAULT_HOTPLUG@nAlucard HotPlug: $ALUCARD_HOTPLUG@nMSM HotPlug: $MSM_HOTPLUG@nIntelli HotPlug: $INTELLI_HOTPLUG@nAutoSMP HotPlug: $AUTOSMP_HOTPLUG"
 	;;
 	LiveCPU_CORES_ON_OFF)
 		CPU0_CORE_STATE=Active;

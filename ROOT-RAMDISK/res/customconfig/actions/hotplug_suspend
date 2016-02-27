@@ -14,11 +14,13 @@ if [ "a$2" != "a" ]; then
 			echo "0" > /sys/kernel/alucard_hotplug/hotplug_suspend;
 			echo "0" > /sys/module/msm_hotplug/parameters/hotplug_suspend;
 			echo "0" > /sys/kernel/intelli_plug/hotplug_suspend;
+			echo "0" > /sys/module/autosmp/parameters/hotplug_suspend;
 		;;
 		suspend_when_off)
 			echo "1" > /sys/kernel/alucard_hotplug/hotplug_suspend;
 			echo "1" > /sys/module/msm_hotplug/parameters/hotplug_suspend;
 			echo "1" > /sys/kernel/intelli_plug/hotplug_suspend;
+			echo "1" > /sys/module/autosmp/parameters/hotplug_suspend;
 		;;
 		*)
 			hotplug_suspend=always_active;
