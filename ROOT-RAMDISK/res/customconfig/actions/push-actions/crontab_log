@@ -21,8 +21,13 @@ fi;
 if [ ! -e /data/crontab/cron-fstrim ]; then
 	echo "no data" > /data/crontab/cron-fstrim;
 fi;
+if [ ! -e /data/crontab/cron-clear-ram-cache ]; then
+	echo "no data" > /data/crontab/cron-clear-ram-cache;
+fi;
 chmod 777 /data/crontab/*
 cat /data/crontab/cron-clear-file-cache > /data/crontab/cron_log;
+echo "---" >> /data/crontab/cron_log;
+cat /data/crontab/cron-clear-ram-cache >> /data/crontab/cron_log;
 echo "---" >> /data/crontab/cron_log;
 cat /data/crontab/cron-fstrim >> /data/crontab/cron_log;
 echo "---" >> /data/crontab/cron_log;

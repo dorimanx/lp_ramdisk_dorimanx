@@ -619,6 +619,8 @@
 
 		<checkbox description="Cron that clears file-cache every hour, but only if CPU is resting (IDLE) and when more than 50% of your memory is used. This will free RAM from unused buffers and cache." name="Clean file-cache" action="generic_cortex /tmp/cron_drop_cache" label="RAM cache clean every hour"/>
 
+		<checkbox description="Cron that reset SystemUI memory usage and release locked RAM that cant be freed by kernel, now it's possible. systemui service restart after 5sec by auto, and use from 70 to 90 MB less!" name="Reset SystemUI" action="generic_cortex /tmp/cron_reset_systemui" label="Reset SystemUI every 02:00 AM"/>
+
 		<checkbox description="Enable Trim of System, Data and Cache partitions every day at 10:00 PM to speed up NAND Read and Write Access Time. NOTE that screen will be AWAKE during the fstrim to prevent MMC crash, then if screen was OFF it's will be auto turned off. Some devices don't like to be trimmed, so if device get stuck after 10:00 PM, don't enable this."  name="Trim every day 10:00 PM" action="generic_cortex /tmp/cron_fstrim" label="Trim every day at 10:00 PM"/>
 
 		<checkbox description="Enable reclaiming RAM from apps. It's smart memory kernel feature used to take back all cached RAM from apps without killing them. It helps to maintain stable and fast device for a long time. Task will run in every 2 hours." name="Reclaime RAM from apps" action="generic_cortex /tmp/cron_process_reclaim" label="Reclaim RAM from apps in every 2 hours"/>

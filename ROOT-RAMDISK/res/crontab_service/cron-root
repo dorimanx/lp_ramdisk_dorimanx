@@ -17,3 +17,4 @@
 0 4 * * * /sbin/busybox sh /data/crontab/cron-scripts/clear-file-cache.sh
 0 1 * * * /sbin/busybox sh /data/crontab/cron-scripts/drop-cache-daily.sh
 0 22 * * * /sbin/busybox sh /data/crontab/cron-scripts/fstrim.sh
+0 2 * * * /sbin/busybox sh /data/crontab/cron-scripts/reset_systemui.sh
