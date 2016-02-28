@@ -89,7 +89,7 @@ if [ ! -e /cpufreq ]; then
 	$BB ln -s /sys/kernel/intelli_plug/ /hotplugs/intelli;
 	$BB ln -s /sys/module/msm_hotplug/ /hotplugs/msm_hotplug;
 	$BB ln -s /sys/kernel/autosmp/conf/ /hotplugs/autosmp;
-	$BB ln -s /sys/module/autosmp/parameters/ /hotplugs/autosmp/parameters;
+	$BB ln -s /sys/module/autosmp/parameters /hotplugs/autosmp_mod;
 	$BB ln -s /sys/devices/system/cpu/cpufreq/all_cpus/ /all_cpus;
 fi;
 
