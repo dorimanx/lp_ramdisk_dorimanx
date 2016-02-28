@@ -478,10 +478,10 @@ AWAKE_MODE()
 {
 	CPU_CENTRAL_CONTROL "awake";
 	INCALL_SPEAKER;
+	HOTPLUG_CONTROL;
 
 	if [ "$(cat /data/dori_cortex_sleep)" -eq "1" ]; then
 		IO_SCHEDULER "awake";
-		HOTPLUG_CONTROL;
 		WORKQUEUE_CONTROL "awake";
 		UKSM_CONTROL "awake";
 		echo "0" > /data/dori_cortex_sleep;
