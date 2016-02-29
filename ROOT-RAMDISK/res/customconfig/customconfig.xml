@@ -326,6 +326,7 @@
 			<spinnerItem name="MSM Hot Plug" value="msm_hotplug"/> 
 			<spinnerItem name="AutoSMP Hot Plug" value="autosmp"/> 
 			<spinnerItem name="Alucard Hot Plug" value="alucard"/> 
+			<spinnerItem name="Thunder Hot Plug" value="thunderplug"/> 
 			<spinnerItem name="Intelligent Hot Plug" value="intelli"/> 
 		</spinner>
 

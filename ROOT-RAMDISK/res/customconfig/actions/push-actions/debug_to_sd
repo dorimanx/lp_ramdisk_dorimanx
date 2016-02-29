@@ -129,6 +129,12 @@ case "${debug_to_sd}" in
 			grep "." * >> $DEBUG_FILE;
 			SEPARATOR;
 
+			echo "HotPlug ThunderPlug:" >> $DEBUG_FILE;
+			SEPARATOR;
+			cd /hotplugs/thunderplug;
+			grep "." * >> $DEBUG_FILE;
+			SEPARATOR;
+
 			cd /;
 
 			# CPU

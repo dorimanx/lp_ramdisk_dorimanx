@@ -30,6 +30,7 @@ if [ "a$2" != "a" ]; then
 			echo "0" > /sys/module/msm_hotplug/msm_enabled;
 			echo "0" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
 			echo "0" > /sys/module/autosmp/parameters/autosmp_enabled;
+			echo "0" > /sys/kernel/thunderplug/hotplug_enabled;
 			(
 				sleep 2;
 				echo "1" > /sys/kernel/intelli_plug/intelli_plug_active;
@@ -46,6 +47,7 @@ if [ "a$2" != "a" ]; then
 			echo "0" > /sys/kernel/alucard_hotplug/hotplug_enable;
 			echo "0" > /sys/module/msm_hotplug/msm_enabled;
 			echo "0" > /sys/module/autosmp/parameters/autosmp_enabled;
+			echo "0" > /sys/kernel/thunderplug/hotplug_enabled;
 			sleep 1;
 			echo "1" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
 			if [ -e /system/bin/mpdecision ]; then
@@ -68,6 +70,7 @@ if [ "a$2" != "a" ]; then
 			echo "0" > /sys/kernel/alucard_hotplug/hotplug_enable;
 			echo "0" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
 			echo "0" > /sys/module/autosmp/parameters/autosmp_enabled;
+			echo "0" > /sys/kernel/thunderplug/hotplug_enabled;
 			(
 				sleep 2;
 				echo "1" > /sys/module/msm_hotplug/msm_enabled;
@@ -84,6 +87,7 @@ if [ "a$2" != "a" ]; then
 			echo "0" > /sys/kernel/alucard_hotplug/hotplug_enable;
 			echo "0" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
 			echo "0" > /sys/module/msm_hotplug/msm_enabled;
+			echo "0" > /sys/kernel/thunderplug/hotplug_enabled;
 			(
 				sleep 2;
 				echo "1" > /sys/module/autosmp/parameters/autosmp_enabled;
@@ -100,10 +104,28 @@ if [ "a$2" != "a" ]; then
 			echo "0" > /sys/module/msm_hotplug/msm_enabled;
 			echo "0" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
 			echo "0" > /sys/module/autosmp/parameters/autosmp_enabled;
+			echo "0" > /sys/kernel/thunderplug/hotplug_enabled;
 			(
 				sleep 2;
 				echo "1" > /sys/kernel/alucard_hotplug/hotplug_enable;
 				echo "$min_online_cpus" > /sys/kernel/alucard_hotplug/min_cpus_online;
+				if [ -e /res/uci_boot.sh ]; then
+					$BB sh /res/uci_boot.sh eco_mode "$eco_mode";
+				else
+					$BB sh /res/uci.sh eco_mode "$eco_mode";
+				fi;
+			)&
+		;;
+		thunderplug)
+			echo "0" > /sys/kernel/intelli_plug/intelli_plug_active;
+			echo "0" > /sys/kernel/alucard_hotplug/hotplug_enable;
+			echo "0" > /sys/devices/system/cpu/cpu0/rq-stats/hotplug_enable;
+			echo "0" > /sys/module/msm_hotplug/msm_enabled;
+			echo "0" > /sys/module/autosmp/parameters/autosmp_enabled;
+			(
+				sleep 2;
+				echo "1" > /sys/kernel/thunderplug/hotplug_enabled;
+				echo "$min_online_cpus" > /sys/kernel/thunderplug/min_core_online;
 				if [ -e /res/uci_boot.sh ]; then
 					$BB sh /res/uci_boot.sh eco_mode "$eco_mode";
 				else

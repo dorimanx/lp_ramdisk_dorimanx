@@ -71,7 +71,12 @@ case "$1" in
 		else
 			AUTOSMP_HOTPLUG=Inactive;
 		fi;
-		echo "Default HotPlug: $DEFAULT_HOTPLUG@nAlucard HotPlug: $ALUCARD_HOTPLUG@nMSM HotPlug: $MSM_HOTPLUG@nIntelli HotPlug: $INTELLI_HOTPLUG@nAutoSMP HotPlug: $AUTOSMP_HOTPLUG"
+		if [ "$(cat /sys/kernel/thunderplug/hotplug_enabled)" == "1" ]; then
+			THUNDER_HOTPLUG=Active;
+		else
+			THUNDER_HOTPLUG=Inactive;
+		fi;
+		echo "Default HotPlug: $DEFAULT_HOTPLUG@nAlucard HotPlug: $ALUCARD_HOTPLUG@nMSM HotPlug: $MSM_HOTPLUG@nIntelli HotPlug: $INTELLI_HOTPLUG@nAutoSMP HotPlug: $AUTOSMP_HOTPLUG@nThunder HotPlug: $THUNDER_HOTPLUG"
 	;;
 	LiveCPU_CORES_ON_OFF)
 		CPU0_CORE_STATE=Active;
