@@ -1,6 +1,5 @@
 #!/sbin/busybox sh
 
-rm -f /var/spool/cron/crontabs/*
 rm -rf /data/crontab/*
 
 CRON_STATUS=$(pidof crond | wc -l);

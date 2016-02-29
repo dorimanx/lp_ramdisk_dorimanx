@@ -244,17 +244,10 @@ if [ "$CHECK_BOOT_STATE" -eq "0" ]; then
 	$BB rm /charger;
 fi;
 
-# copy cron files
-$BB cp -a /res/crontab/ /data/
-if [ ! -e /data/crontab/custom_jobs ]; then
-	$BB touch /data/crontab/custom_jobs;
-	$BB chmod 777 /data/crontab/custom_jobs;
-fi;
-
 if [ "$stweaks_boot_control" == "yes" ]; then
 	# apply Synapse monitor
 	$BB sh /res/synapse/uci reset;
-	# apply STweaks settings
+	# apply Dorimanx settings
 	$BB sh /res/uci_boot.sh apply;
 	$BB mv /res/uci_boot.sh /res/uci.sh;
 else

@@ -17,18 +17,21 @@ if [ ! -e /data/crontab/ ]; then
 	$BB mkdir /data/crontab/;
 fi;
 
-$BB cp -a /res/crontab_service/cron-root /data/crontab/root;
-chown 0:0 /data/crontab/root;
-chmod 777 /data/crontab/root;
-if [ ! -d /var/spool/cron/crontabs ]; then
-	mkdir -p /var/spool/cron/crontabs/;
+if [ ! -e /data/crontab/cron-scripts ]; then
+	$BB mkdir /data/crontab/cron-scripts;
 fi;
-$BB cp -a /data/crontab/root /var/spool/cron/crontabs/;
 
-# NOTE: all cron tasks set in /res/crontab_service/cron-root
+$BB cp -a /res/crontab/cron-scripts/* /data/crontab/cron-scripts;
+chown 0:0 /data/crontab/cron-scripts/*
+chmod 777 /data/crontab/cron-scripts/*
 
+if [ ! -d /var/spool/cron/crontabs ]; then
+	$BB mkdir -p /var/spool/cron/crontabs/;
+fi;
+$BB cp -a /res/crontab_service/cron-root /var/spool/cron/crontabs/root;
 chown 0:0 /var/spool/cron/crontabs/*;
 chmod 777 /var/spool/cron/crontabs/*;
+# NOTE: all cron tasks set in /res/crontab_service/cron-root
 
 # TZ list added by UpInTheAir@github big thanks!
 # Check device local timezone & set for cron tasks
@@ -117,10 +120,6 @@ fi;
 
 # set cron timezone
 export TZ
-
-#Set Permissions to scripts
-chown 0:0 /data/crontab/cron-scripts/*;
-chmod 777 /data/crontab/cron-scripts/*;
 
 # use /var/spool/cron/crontabs/ call the crontab file "root"
 if [ "$(pidof crond | wc -l)" -eq "0" ]; then
