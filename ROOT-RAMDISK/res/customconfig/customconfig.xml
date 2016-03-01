@@ -323,7 +323,7 @@
 
 		<spinner description="Switch from OLD LG Default HotPlug driver to other custom HotPlug drivers. Note that using Intelligent CPU Thermal Control with Default LG HotPlug is NOT recommended (causing low performance)." name="Hot Plug Driver" action="hotplug">
 			<spinnerItem name="Default LG" value="default"/> 
-			<spinnerItem name="MSM HotPlug" value="msm_HotPlug"/> 
+			<spinnerItem name="MSM HotPlug" value="msm_hotplug"/> 
 			<spinnerItem name="AutoSMP HotPlug" value="autosmp"/> 
 			<spinnerItem name="Alucard HotPlug" value="alucard"/> 
 			<spinnerItem name="Thunder HotPlug" value="thunderplug"/> 
