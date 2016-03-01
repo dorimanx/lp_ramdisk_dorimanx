@@ -2,14 +2,14 @@
 
 <settingsTab name="Master CORE">
 
-	<settingsPane description="Choose (whether or not) to apply Dorimanx app settings on BOOT." name="Global BOOT Settings">
+	<settingsPane description="Choose (whether or not) to apply Dorimanx App settings on BOOT." name="Global BOOT Settings">
 
 		<spinner description="Master Switch - load ALL settings from ALL tabs on BOOT or don't load (Default: LOAD)." name="Enable On Boot" action="generic_cortex /tmp/stweaks_boot_control">
 			<spinnerItem name="Load all Settings on boot." value="yes"/> 
 			<spinnerItem name="Don't load all Settings on boot." value="no"/> 
 		</spinner>
 
-		<button description="Push this button to manually load all settings in case, when the master switch is (or already was) OFF. After that, wait until Dorimanx app will reload. When the master switch was already ON while phone was booting up, it's not necessary to use it." name="LOAD ALL" action="push-actions/reload_settings" label="Load All"/>
+		<button description="Push this button to manually load all settings in case, when the master switch is (or already was) OFF. After that, wait until Dorimanx App will reload. When the master switch was already ON while phone was booting up, it's not necessary to use it." name="LOAD ALL" action="push-actions/reload_settings" label="Load All"/>
 
 	</settingsPane>
 
@@ -121,11 +121,11 @@
 
 		<checkbox description="Power-efficient work queues helps to reduce power consumption at cost of slight performance decrease. By enabling this, PE work queues are used for unbound scheduled work to reduce the load on siblings CPU cores and queuing work only on CPU0." name="Power-efficient Work queues"  action="generic01 /sys/module/workqueue/parameters/power_efficient" label="Power-efficient Workqueues"/>
 
-		<checkbox description="By enabling this setting, kernel will obey only Dorimanx app and sets the frequency selected below. This option works whenever screen is ON or OFF." name="CPU-Tweaks" action="generic_cortex /tmp/cortexbrain_cpu" label="CPU-Tweaks"/>
+		<checkbox description="By enabling this setting, kernel will obey only Dorimanx App and sets the frequency selected below. This option works whenever screen is ON or OFF." name="CPU-Tweaks" action="generic_cortex /tmp/cortexbrain_cpu" label="CPU-Tweaks"/>
 
 	</settingsPane>
 
-	<settingsPane description="Set the Maximum CPU Frequency for each core separately. No other app or Services won't overcome them." name="Maximum CPU Frequency">
+	<settingsPane description="Set the Maximum CPU Frequency for each core separately. Other apps or services won't overcome them." name="Maximum CPU Frequency">
 
 		<spinner description="Select Maximum allowed speed for CPU0. This option works only when CPU-Tweaks is enabled (Default: 2.26 GHz)." name="Max CPU0 Frequency" action="cpu0_max_freq">
 			<spinnerItem name="2.80 GHz" value="2803200"/> 
@@ -243,7 +243,7 @@
 
 	<settingsPane description="Set the Suspend min and Max Frequency for all cores." name="CPU Suspend Frequency">
 
-		<spinner description="Maximum allowed CPU frequency when screen is OFF but phone is awake (cases in which apps holds wake locks, music, radio etc.). It has effect ONLY when screen is OFF. If screen is ON, normal maximum allowed frequency take place." name="MAX Screen OFF CPU Frequency" action="suspend_max_freq">
+		<spinner description="Maximum allowed CPU frequency when screen is OFF but phone is awake (cases in which apps holds wake locks, music, radio etc.). It has effect ONLY when screen is OFF. If screen is ON, normal Maximum allowed frequency take place." name="MAX Screen OFF CPU Frequency" action="suspend_max_freq">
 			<spinnerItem name="Max Allowed" value="max_freq"/> 
 			<spinnerItem name="2.26 GHz" value="2265600"/> 
 			<spinnerItem name="1.95 GHz " value="1958400"/> 
@@ -275,7 +275,7 @@
 
 	<settingsPane description="Kernel ROM thermal service and Intelligent Thermal Kernel driver can be enabled together in this section. It protects device from overheating and breaking down components. Controls set in below are active for Dual Intelligent Temp Control in case of ROM service die. Kernel will protect phone components from any damage only if Dual Intelligent Temp Control is in use. It's better to leave it as is." name="CPU Thermal Protection">
 
-		<spinner description="Select CPU Temp Control driver. Default driver without controls, Dual Intelligent Thermal driver with controls below and ROM thermal control. It'll limit CPU frequency when CPU reaches maximum set temperature and wait until the temperature decreases below specified level for restoring maximux frequency. By using Default Temp Control you have only one overheat protection ensured by ROM, so if ROM stuck and performs hot boot, there is no protection from overheating and breaking your device! On the other hand you'll get better game performance by using ONE protection (high freq. lasts longer on high temp.), so keep that in mind!" name="CPU Temp Control" action="msm_thermal">
+		<spinner description="Select CPU Temp Control driver. Default driver without controls, Dual Intelligent Thermal driver with controls below and ROM thermal control. It'll limit CPU frequency when CPU reaches Maximum set temperature and wait until the temperature decreases below specified level for restoring maximux frequency. By using Default Temp Control you have only one overheat protection ensured by ROM, so if ROM stuck and performs hot boot, there is no protection from overheating and breaking your device! On the other hand you'll get better game performance by using ONE protection (high freq. lasts longer on high temp.), so keep that in mind!" name="CPU Temp Control" action="msm_thermal">
 			<spinnerItem name="Default Temp Control" value="msm_temp"/> 
 			<spinnerItem name="Dual Intelligent Temp Control" value="intelli_temp"/> 
 			<spinnerItem name="Intelligent Temp Control Only" value="intelli_temp_only"/> 
@@ -289,7 +289,7 @@
 
 		<seekBar description="Set the Temperature Hysteresis for driver. It calculates temp. differences to exactly adjust the best CPU frequency when CPU is in stress too often. Do NOT reduce below 10°C!" name="Temperature Hysteresis" action="generic /sys/module/msm_thermal/parameters/temp_hysteresis_degC" unit="°C" min="5" reversed="false" step="1" max="20"/>
 
-		<seekBar description="Set the Thermal Limit Lowest CPU Frequency, 7 = 1.19GHz, 6 = 1.03GHz and so on." name="Thermal Limit Lowest Frequency" action="generic /sys/module/msm_thermal/parameters/thermal_limit_low" unit="Freq" min="5" reversed="false" step="1" max="10"/>
+		<seekBar description="Set the Thermal Limit Lowest CPU Frequency, 7 = 1.19 GHz, 6 = 1.03 GHz and so on." name="Thermal Limit Lowest Frequency" action="generic /sys/module/msm_thermal/parameters/thermal_limit_low" unit="Freq" min="5" reversed="false" step="1" max="10"/>
 
 		<checkbox description="Use Immediately Limit Stop. It allows to set Max frequency when heat is not rising. It's stressing the driver, but allows higher performance by adding extra 3°C temp. to global limit. Use it with caution!" name="Immediately frequencies Limit Stop" action="generic01 /sys/module/msm_thermal/parameters/immediately_limit_stop" label="Immediately Limit Stop"/>
 
@@ -297,12 +297,12 @@
 
 	<settingsPane description="Setup HotPlug CPU Thermal controls by adjusting how many cores remains ON when they're overheated. It reduces performance, by getting less cores enabled on higher freq. Others will keep waiting until CPU cools down." name="HotPlug CPU Thermal Controls">
 
-		<spinner description="Hotplug CPU Thermal Control main switch allows to shutdown cores 1,2,3 and leave only core 0 as main core on it's maximum frequency. If this option is disabled, then all CPU cores will be online and operate at lower frequencies, when the temperature is too high." name="HotPlug Thermal CPU Control" action="core_control">
+		<spinner description="HotPlug CPU Thermal Control main switch allows to shutdown cores 1,2,3 and leave only core 0 as main core on it's maximum frequency. If this option is disabled, then all CPU cores will be online and operate at lower frequencies, when the temperature is too high." name="HotPlug Thermal CPU Control" action="core_control">
 			<spinnerItem name="Enabled" value="1"/> 
 			<spinnerItem name="Disabled" value="0"/> 
 		</spinner>
 
-		<spinner description="Set how many cores will stay active on high temp. The more cores will be OFF, the higher frequency you'll get on the other cores. Disabled Cores switches online automatically, when temperature is back to normal. Changes will take effect ONLY on LOW Temp! This option depends on Hotplug CPU Thermal control (must be Enabled above)!" name="Max online CPU's" action="core_mask">
+		<spinner description="Set how many cores will stay active on high temp. The more cores will be OFF, the higher frequency you'll get on the other cores. Disabled Cores switches online automatically, when temperature is back to normal. Changes will take effect ONLY on LOW Temp! This option depends on HotPlug CPU Thermal control (must be Enabled above)!" name="Max online CPU's" action="core_mask">
 			<spinnerItem name="Core 0" value="1"/> 
 			<spinnerItem name="Core 0,1" value="2"/> 
 			<spinnerItem name="Core 0,1,2" value="3"/> 
@@ -317,22 +317,22 @@
 
 </settingsTab>
 
-<settingsTab name="CPU HOTPLUG">
+<settingsTab name="CPU HotPlug">
 
-	<settingsPane description="Setup CPU HotPlug settings and CPU Governors." name="Global HOTPLUG">
+	<settingsPane description="Setup CPU HotPlug settings and CPU Governors." name="Global HotPlug">
 
-		<spinner description="Switch from OLD LG Default Hot Plug driver to MSM Hot Plug, Alucard or Intelligent Hot Plug driver. Note that using Intelligent CPU Thermal Control with Default LG HotPlug is NOT recommended (causing low performance)." name="Hot Plug Driver" action="hotplug">
+		<spinner description="Switch from OLD LG Default HotPlug driver to other custom HotPlug drivers. Note that using Intelligent CPU Thermal Control with Default LG HotPlug is NOT recommended (causing low performance)." name="Hot Plug Driver" action="hotplug">
 			<spinnerItem name="Default LG" value="default"/> 
-			<spinnerItem name="MSM Hot Plug" value="msm_hotplug"/> 
-			<spinnerItem name="AutoSMP Hot Plug" value="autosmp"/> 
-			<spinnerItem name="Alucard Hot Plug" value="alucard"/> 
-			<spinnerItem name="Thunder Hot Plug" value="thunderplug"/> 
-			<spinnerItem name="Intelligent Hot Plug" value="intelli"/> 
+			<spinnerItem name="MSM HotPlug" value="msm_HotPlug"/> 
+			<spinnerItem name="AutoSMP HotPlug" value="autosmp"/> 
+			<spinnerItem name="Alucard HotPlug" value="alucard"/> 
+			<spinnerItem name="Thunder HotPlug" value="thunderplug"/> 
+			<spinnerItem name="Intelligent HotPlug" value="intelli"/> 
 		</spinner>
 
-		<seekBar description="Select CPU hotplug sample rate. Hotplug driver will check for CPU load every defined period of time and turn cores ON/OFF when needed. For battery save, it's recommended to set the same value, as in CORE TAB in CPU Governor section. Note that 10 here is 10000 for CPU GOV. For best performance, set in range from 10 to 30." name="CPU HotPlug Sample Rate" action="hotplug_sample_rate" unit="rate" min="10" reversed="false" step="5" max="80"/>
+		<seekBar description="Select CPU HotPlug sample rate. HotPlug driver will check for CPU load every defined period of time and turn cores ON/OFF when needed. For battery save, it's recommended to set the same value, as in CORE TAB in CPU Governor section. Note that 10 here is 10000 for CPU GOV. For best performance, set in range from 10 to 30." name="CPU HotPlug Sample Rate" action="hotplug_sample_rate" unit="rate" min="10" reversed="false" step="5" max="80"/>
 
-		<spinner description="Allow hotplug to be suspended when screen is OFF. When device enters full suspend mode, only one core is half active. But if app holds wakelock, then 3 cores are online. This is for all kernel hotplugs, but default hotplug is not supported. After many tests it's best to allow hotplug to always work, as it will reduce battery drain when playing music with screen is OFF." name="Hot Plug Suspend Mode" action="hotplug_suspend">
+		<spinner description="Allow HotPlug to be suspended when screen is OFF. When device enters full suspend mode, only one core is half active. But if app holds wakelock, then 3 cores are online. This is for all kernel HotPlugs, but default HotPlug is not supported. After many tests it's best to allow HotPlug to always work, as it will reduce battery drain when playing music with screen is OFF." name="Hot Plug Suspend Mode" action="hotplug_suspend">
 			<spinnerItem name="Always Active" value="always_active"/> 
 			<spinnerItem name="HotPlug Suspend" value="suspend_when_off"/> 
 		</spinner>
@@ -344,9 +344,9 @@
 			<spinnerItem name="Quad Core Boost" value="4"/> 
 		</spinner>
 
-		<seekBar description="Set the time duration for keeping cores online on high load. It helps to gain more responsively system on spike load. It's for MSM and INTELLIGENT Hotplugs only. 1000msec equal 1sec (Default: 1000msec)." name="CPU Booster Duration" action="cpus_boosted_time" unit="Msec" min="250" reversed="false" step="250" max="3000"/>
+		<seekBar description="Set the time duration for keeping cores online on high load. It helps to gain more responsively system on spike load. It's for MSM and INTELLIGENT HotPlugs only. 1000msec equal 1sec (Default: 1000msec)." name="CPU Booster Duration" action="cpus_boosted_time" unit="Msec" min="250" reversed="false" step="250" max="3000"/>
 
-		<spinner description="Set number of CPU CORES which will stay online. This mod works with all custom hotplugs. Default LG hotplug is not supported. This set is stronger than min cores online below." name="Max Cores online" action="eco_mode">
+		<spinner description="Set number of CPU CORES which will stay online. This mod works with all custom HotPlugs. Default LG HotPlug is not supported. This set is stronger than min cores online below." name="Max Cores online" action="eco_mode">
 			<spinnerItem name="Quad Core CPU" value="all"/> 
 			<spinnerItem name="Triple Core CPU" value="eco_boost"/> 
 			<spinnerItem name="Dual Core CPU" value="eco"/> 
@@ -410,7 +410,7 @@
 			<spinnerItem name="Allow Controls" value="1"/> 
 		</spinner>
 
-		<seekBar description="Set how many steps will gov wait on high freq before switching to GPU min speed. Higher you set, more battery will be drained, but more smooth UI you'll get (Default: 2)." name="Simple_Laziness Value" action="generic /sys/module/simple_gpu_algorithm/parameters/simple_laziness" unit="step" min="1" reversed="false" step="1" max="5"/>
+		<seekBar description="Set how many steps will gov wait on high freq before switching to GPU min speed. Higher you set, more battery will be drained, but smoother UI you'll get (Default: 2)." name="Simple_Laziness Value" action="generic /sys/module/simple_gpu_algorithm/parameters/simple_laziness" unit="step" min="1" reversed="false" step="1" max="5"/>
 
 		<seekBar description="The higher value is set, the longer GPU freq will stay LOW on GPU load (Default: 6000)." name="Simple_Laziness Value" action="generic /sys/module/simple_gpu_algorithm/parameters/simple_ramp_threshold" unit="ramp" min="2000" reversed="false" step="500" max="10000"/>
 
@@ -521,7 +521,7 @@
 
 		<seekBar description="When ram pressure is higher than set in here, LMK is ordered to release RAM and allow faster load for something BIG into memory. The effect is that apps are loading faster. Lower the value, more apps gets killed. For best performance, keep it in range from 85 to 90%." name="Adaptive LMK Pressure Range" action="generic /sys/module/lowmemorykiller/parameters/vm_pressure_adaptive_start" unit="%" min="75" reversed="false" step="1" max="94"/>
 
-		<checkbox description="It helps to reduce used RAM for each app that is running in a background. When vm memory pressure jumps higher and system needs more RAM for something BIG, then process starts to shrink used RAM by background apps. It's also shrinks the ZRAM swap (if enabled) in order to reduce CPU power usage when RAM is free." name="Process Memory Reclaim" action="generic01 /sys/module/process_reclaim/parameters/enable_process_reclaim" label="Process Reclaim"/>
+		<checkbox description="It helps to reduce used RAM for each app that is running in a background. When vm memory pressure jumps higher and system needs more RAM for something BIG, then process starts to shrink used RAM by background apps. It's also shrinks the zRAM swap (if enabled) in order to reduce CPU power usage when RAM is free." name="Process Memory Reclaim" action="generic01 /sys/module/process_reclaim/parameters/enable_process_reclaim" label="Process Reclaim"/>
 
 		<seekBar description="Control for Max vm pressure for process memory reclaim. It allows to shrink RAM from other apps when vm pressure is in range from 50 to (set here) value. When value is lower that default (90), then less ram shrinks when something BIG should have been be loaded to RAM. It will reduce CPU usage when loading big apps, but loads it slower, as memory should be first freed by LMK." name="Max Process Reclaim Pressure" action="generic /sys/module/process_reclaim/parameters/pressure_max" unit="%" min="75" reversed="false" step="1" max="100"/>
 
@@ -558,26 +558,26 @@
 
 	</settingsPane>
 
-	<settingsPane description="SWAP control is using swap storage placed in /data folder in order to extend real free RAM for apps working in background. Enable this option only, if you have free space and you really need that RAM extension. You will notice slightly faster battery discharging and I/O read/write operation will be slightly degraded! It can be combined with ZRAM." name="Linux Swap">
+	<settingsPane description="SWAP control is using swap storage placed in /data folder in order to extend real free RAM for apps working in background. Enable this option only, if you have free space and you really need that RAM extension. You will notice slightly faster battery discharging and I/O read/write operation will be slightly degraded! It can be combined with zRAM." name="Linux SWAP">
 
-		<spinner description="Select SWAP size or keep it OFF, it's take time to create swap file, just WAIT till you get notification about size about 50sec." name="SWAP Selector" action="swaptweaks">
+		<spinner description="Select SWAP size or keep it OFF, it's take time to create SWAP file, just WAIT till you get notification about size about 50 sec." name="SWAP Selector" action="swaptweaks">
 			<spinnerItem name="SWAP OFF" value="0"/> 
-			<spinnerItem name="SWAP 256MiB" value="256"/> 
-			<spinnerItem name="SWAP 512MiB" value="512"/> 
+			<spinnerItem name="SWAP 256 MiB" value="256"/> 
+			<spinnerItem name="SWAP 512 MiB" value="512"/> 
 		</spinner>
 
 	</settingsPane>
 
-	<settingsPane description="ZRAM control module takes real RAM and compress it by 40% to create more FREE RAM for apps! Compression method is LZ4. The more RAM is allocated in ZRAM, the more RAM is given to user at cost of CPU power and faster battery discharging. When switching ZRAM size from one to another, decompression and new compression will take some TIME. In some cases that will take more than 2 min In that time, Dorimanx app will FREEZE. DO NOT PANIC! You can just switch to home and open synapse and watch how much memory is decompressed. Do not kill the app." name="ZRAM">
+	<settingsPane description="zRAM control module takes real RAM and compress it by 40% to create more FREE RAM for apps! Compression method is LZ4. The more RAM is allocated in zRAM, the more RAM is given to user at cost of CPU power and faster battery discharging. When switching zRAM size from one to another, decompression and new compression will take some TIME. In some cases that will take more than 2 min In that time, Dorimanx App will FREEZE. DO NOT PANIC! You can just switch to home and open synapse and watch how much memory is decompressed. Do not kill the app." name="zRAM">
 
-		<spinner description="ZRAM size controller. The more you set here, the more free RAM you'll get in cost of CPU power. But it's really low usage and device is operating GREAT! This is memory based module, so storage is not killed over time. You can see how it works in synapse app! Before proceeding PLEASE read the instruction ABOVE!" name="ZRAM Selector" action="zramtweaks">
-			<spinnerItem name="ZRAM 768MiB" value="768"/>
-			<spinnerItem name="ZRAM 512MiB" value="512"/>
-			<spinnerItem name="ZRAM 256MiB" value="256"/>
-			<spinnerItem name="ZRAM OFFLINE" value="0"/>
+		<spinner description="zRAM size controller. The more you set here, the more free RAM you'll get in cost of CPU power. But it's really low usage and device is operating GREAT! This is memory based module, so storage is not killed over time. You can see how it works in synapse app! Before proceeding PLEASE read the instruction ABOVE!" name="zRAM Selector" action="zramtweaks">
+			<spinnerItem name="zRAM 768 MiB" value="768"/>
+			<spinnerItem name="zRAM 512 MiB" value="512"/>
+			<spinnerItem name="zRAM 256 MiB" value="256"/>
+			<spinnerItem name="zRAM OFFLINE" value="0"/>
 		</spinner>
 
-		<seekBar description="Controls ZRAM/Swap allocation. The higher value is set, then ZRAM/Swap will be used more storage instead of real RAM, in order to give you more free RAM! It only cost is slight performance drop (Default: 50%)." name="Swappiness" action="generic /proc/sys/vm/swappiness" unit="%" min="30" reversed="false" step="5" max="95"/>
+		<seekBar description="Controls zRAM/SWAP allocation. The higher value is set, then zRAM/SWAP will be used more storage instead of real RAM, in order to give you more free RAM! It only cost is slight performance drop (Default: 50%)." name="Swappiness" action="generic /proc/sys/vm/swappiness" unit="%" min="30" reversed="false" step="5" max="95"/>
 
 	</settingsPane>
 
@@ -620,7 +620,7 @@
 
 		<checkbox description="Cron that clears file-cache every hour, but only if CPU is resting (IDLE) and when more than 50% of your memory is used. This will free RAM from unused buffers and cache." name="Clean file-cache" action="generic_cortex /tmp/cron_drop_cache" label="RAM cache clean every hour"/>
 
-		<checkbox description="Cron that reset SystemUI memory usage and release locked RAM that cant be freed by kernel, now it's possible. systemui service restart after 5sec by auto, and use from 70 to 90 MB less!" name="Reset SystemUI" action="generic_cortex /tmp/cron_reset_systemui" label="Reset SystemUI every 02:00 AM"/>
+		<checkbox description="Cron that resets SystemUI memory usage and release locked RAM that can't be freed by kernel. SystemUI service will automatically restart after 5 sec., and use form 70 to 90 MiB less memory than before." name="Reset SystemUI" action="generic_cortex /tmp/cron_reset_systemui" label="Reset SystemUI every day at 02:00 AM"/>
 
 		<checkbox description="Enable Trim of System, Data and Cache partitions every day at 10:00 PM to speed up NAND Read and Write Access Time. NOTE that screen will be AWAKE during the fstrim to prevent MMC crash, then if screen was OFF it's will be auto turned off. Some devices don't like to be trimmed, so if device get stuck after 10:00 PM, don't enable this."  name="Trim every day 10:00 PM" action="generic_cortex /tmp/cron_fstrim" label="Trim every day at 10:00 PM"/>
 
@@ -669,14 +669,14 @@
 
 	<settingsPane description="Congestion control controls traffic entry into a telecommunications network, to avoid congestive collapse by avoiding oversubscription by reducing the rate of packets." name="TCP Algorithms">
 
-		<spinner description="This algorithms controls the data transmission protocol used by many Internet application. It needs from user to investigate from net and check what's the BEST setting for him. If USER is lazy to read Google, leave it as default (Cubic or Bic depends on phone model)." name="Net Congestion Control" action="generic /proc/sys/net/ipv4/tcp_congestion_control">
-			<spinnerItem name="Set Cubic" value="cubic"/> 
-			<spinnerItem name="Set Reno" value="reno"/> 
-			<spinnerItem name="Set Veno" value="veno"/> 
-			<spinnerItem name="Set Westwood" value="westwood"/> 
-			<spinnerItem name="Set Bic" value="bic"/> 
-			<spinnerItem name="Set Htcp" value="htcp"/> 
-			<spinnerItem name="Set HighSpeed (HSTCP)" value="highspeed"/> 
+		<spinner description="This algorithms controls the Data Transmission Protocol used by many Internet applications. It needs from user to investigate from net and check what's the BEST setting for him. If USER is lazy to read Google, leave it as default (Cubic or Bic depends on phone model)." name="Net Congestion Control" action="generic /proc/sys/net/ipv4/tcp_congestion_control">
+			<spinnerItem name="Cubic" value="cubic"/> 
+			<spinnerItem name="Reno" value="reno"/> 
+			<spinnerItem name="Veno" value="veno"/> 
+			<spinnerItem name="Westwood" value="westwood"/> 
+			<spinnerItem name="Bic" value="bic"/> 
+			<spinnerItem name="HTCP" value="htcp"/> 
+			<spinnerItem name="HighSpeed (HSTCP)" value="highspeed"/> 
 		</spinner>
 
 	</settingsPane>
@@ -691,12 +691,12 @@
 
 		<spinner description="Set GPS Time Zone for faster GPS lock. Use your current time zone." name="GPS Region" action="gpsregion">
 			<spinnerItem name="No GPS Zone changes (default)" value="No_GPS_Zone_changes"/> 
-			<spinnerItem name="Set Asia" value="Asia"/> 
-			<spinnerItem name="Set Europe" value="Europe"/> 
-			<spinnerItem name="Set Oceania" value="Oceania"/> 
-			<spinnerItem name="Set North America" value="North-America"/> 
-			<spinnerItem name="Set South America" value="South-America"/> 
-			<spinnerItem name="Set Africa" value="Africa"/> 
+			<spinnerItem name="Asia Zone" value="Asia"/> 
+			<spinnerItem name="Europe Zone" value="Europe"/> 
+			<spinnerItem name="Oceania Zone" value="Oceania"/> 
+			<spinnerItem name="North America Zone" value="North-America"/> 
+			<spinnerItem name="South America Zone" value="South-America"/> 
+			<spinnerItem name="Africa Zone" value="Africa"/> 
 			<spinnerItem name="Restore original ROM gps.conf" value="Original_ROM_GPS_Restored"/> 
 		</spinner>
 
@@ -772,7 +772,7 @@
 
 	</settingsPane>
 
-	<settingsPane description="This script manipulates many kernel settings, based on chosen Dorimanx app profile + settings and screen state (ON/OFF) - we call it CortexBrain. To reset the kernel-settings after disabling a tweak, you must reboot the device." name="CortexBrain Tweaks">
+	<settingsPane description="This script manipulates many kernel settings, based on chosen Dorimanx App profile + settings and screen state (ON/OFF) - we call it CortexBrain. To reset the kernel-settings after disabling a tweak, you must reboot the device." name="CortexBrain Tweaks">
 
 		<spinner description="Enable the background-process from CortexBrain. Disabling it means, losing the functions that sets different settings for screen state (ON/OFF)." name="CortexBrain-Background-Process" action="cortexbrain_background_process">
 			<spinnerItem name="Enable" value="1"/> 
@@ -817,9 +817,9 @@
 
 	<settingsPane description="Backup or restore current profile after installing or updating kernel. Some settings will work only after reboot." name="Profile Backup or Restore">
 
-		<button description="Backup Dorimanx app User Settings." name="Settings Backup" action="push-actions/config_backup_restore 1" label="Backup"/>
+		<button description="Backup Dorimanx App User Settings." name="Settings Backup" action="push-actions/config_backup_restore 1" label="Backup"/>
 
-		<button description="Restore Dorimanx app User Settings." name="Settings Restore" action="push-actions/config_backup_restore 2" label="Restore"/>
+		<button description="Restore Dorimanx App User Settings." name="Settings Restore" action="push-actions/config_backup_restore 2" label="Restore"/>
 
 	</settingsPane>
 
@@ -831,7 +831,7 @@
 
 		<button description="Bug-Report for Kernel, if a reboot or a freeze was performed and log was created with it's name part contains USELESS phase, then there is nothing to be done here. There is no need to upload it to thread for investigation. If you want to report something else, and there weren't any reboot or freeze, ignore the USELESS naming, and upload it for a closer look." name="Kernel-Bug" action="push-actions/debug_to_sd 1" label="KERNEL-BUG"/>
 
-		<button description="Bug-Report for apps. make sure Logcat is Enabled before using this option. remember it's useless for kernel DEV, only needed for ROM DEV!" name="App-Bug" action="push-actions/debug_to_sd 2" label="ROM-Logcat"/>
+		<button description="Bug-Report for apps. Make sure that Logcat is Enabled before using this option. Remember, it's useless for kernel DEV and it's only needed for ROM DEV!" name="App-Bug" action="push-actions/debug_to_sd 2" label="ROM-Logcat"/>
 
 	</settingsPane>
 
