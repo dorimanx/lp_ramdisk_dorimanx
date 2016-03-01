@@ -33,23 +33,23 @@ if [ "$ad_block_update" == "on" ]; then
 		echo "nameserver $DNS3" >> /system/etc/resolv.conf;
 		TESTCONNECTION=$(/system/wget/wget http://www.google.com -O $TMPFILE > /dev/null 2>&1);
 		if [ "$?" != "0" ]; then
-			date +%H:%M-%D > /data/crontab/cron-ad_block_update;
-			echo "Problem: no Internet connection!" >> /data/crontab/cron-ad_block_update;
+			date +%H:%M-%D > /data/crontab/cron-ad-block-update;
+			echo "Problem: no Internet connection!" >> /data/crontab/cron-ad-block-update;
 			svc wifi disable;
 		else
 			/system/wget/wget http://winhelp2002.mvps.org/hosts.zip -O $TMPFILE > /dev/null 2>&1;
 			unzip -p $TMPFILE HOSTS > $HOST_FILE;
 			chmod 644 $HOST_FILE;
 			svc wifi disable;
-			date +%H:%M-%D > /data/crontab/cron-ad_block_update;
-			echo "AD Blocker: Updated." >> /data/crontab/cron-ad_block_update;
+			date +%H:%M-%D > /data/crontab/cron-ad-block-update;
+			echo "AD Blocker: Updated." >> /data/crontab/cron-ad-block-update;
 		fi;
 	else
 		/system/wget/wget http://winhelp2002.mvps.org/hosts.zip -O $TMPFILE > /dev/null 2>&1;
 		unzip -p $TMPFILE HOSTS > $HOST_FILE;
 		chmod 644 $HOST_FILE;
-		date +%H:%M-%D > /data/crontab/cron-ad_block_update;
-		echo "AD Blocker: Updated." >> /data/crontab/cron-ad_block_update;
+		date +%H:%M-%D > /data/crontab/cron-ad-block-update;
+		echo "AD Blocker: Updated." >> /data/crontab/cron-ad-block-update;
 	fi;
 
 	rm -f $TMPFILE;
