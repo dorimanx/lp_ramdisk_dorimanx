@@ -288,8 +288,7 @@
 			<spinnerItem name="729 MHz" value="729600"/> 
                 </spinner>
 
-		<button description="To access CPU LIVE Stats from kernel, Push The Button." name="CPU LIVE Stats"
-			action="push-actions/thermal_control" label="Switch to Synapse Controls"/>
+		<button description="To access CPU LIVE Stats from kernel, Push The Button." name="CPU LIVE Stats" action="push-actions/thermal_control" label="Switch to Synapse Controls"/>
 
 	</settingsPane>
 
@@ -418,8 +417,7 @@
 			<spinnerItem name="Performance" value="performance"/> 
 		</spinner>
 
-		<button description="This option updates GPU Governor's changes." name="Update GPU Governor Tuning"
-			action="push-actions/gpu_update" label="Update GPU Governor"/>
+		<button description="This option updates GPU Governor's changes." name="Update GPU Governor Tuning" action="push-actions/gpu_update" label="Update GPU Governor"/>
 
 		<spinner description="Select GPU Maximum frequency only when needed coz some higher frequencies can be unstable! (Default: 450MHz)." name="Max GPU Speed"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/max_freq">
@@ -548,8 +546,7 @@
 			<spinnerItem name="MMC Power Save" value="power_save"/> 
 		</spinner>
 
-		<button description="Push Trim Now button in order to speed up Read and Write Access Time. It's good to use it once in a day or two." name="Trim System and Data"
-			action="push-actions/fstrim" label="Trim NOW"/>
+		<button description="Push Trim Now button in order to speed up Read and Write Access Time. It's good to use it once in a day or two." name="Trim System and Data" action="push-actions/fstrim" label="Trim NOW"/>
 
 		<spinner description="Set the AWAKE I/O scheduler for internal storage (Default: ZEN)." name="Default Awake I/O Scheduler"
 			action="scheduler">
@@ -633,8 +630,7 @@
 		<seekBar description="It controls the tendency of the kernel for reclaiming memory which is used for caching the directory and all the information needed by the kernel to manipulate a file or a directory (inode objects)." name="Vfs Cache Pressure"
 			action="generic /proc/sys/vm/vfs_cache_pressure" unit="%" min="10" reversed="false" step="5" max="150"/>
 
-		<button description="Release all cached and buffered files from RAM. WAIT approx. 3 sec. for getting cleanup report." name="CLEAN RAM CACHE"
-			action="push-actions/clean_ram_cache" label="CLEAN RAM CACHE NOW"/>
+		<button description="Release all cached and buffered files from RAM. WAIT approx. 3 sec. for getting cleanup report." name="CLEAN RAM CACHE" action="push-actions/clean_ram_cache" label="CLEAN RAM CACHE NOW"/>
 
 	</settingsPane>
 
@@ -643,8 +639,8 @@
 		<spinner description="Select SWAP size or keep it OFF, it's take time to create SWAP file, just WAIT till you get notification about size about 50sec." name="SWAP Selector"
 			action="swaptweaks">
 			<spinnerItem name="SWAP OFF" value="0"/> 
-			<spinnerItem name="SWAP 256MiB" value="256"/> 
-			<spinnerItem name="SWAP 512MiB" value="512"/> 
+			<spinnerItem name="SWAP 256 MiB" value="256"/> 
+			<spinnerItem name="SWAP 512 MiB" value="512"/> 
 		</spinner>
 
 	</settingsPane>
@@ -653,9 +649,9 @@
 
 		<spinner description="ZRAM size controller. The more you set here, the more free RAM you'll get in cost of CPU power. But it's really low usage and device is operating GREAT! This is memory based module, so storage is not killed over time. You can see how it works in synapse app! Before proceeding PLEASE read the instruction ABOVE!" name="ZRAM Selector"
 			action="zramtweaks">
-			<spinnerItem name="ZRAM 768MiB" value="768"/>
-			<spinnerItem name="ZRAM 512MiB" value="512"/>
-			<spinnerItem name="ZRAM 256MiB" value="256"/>
+			<spinnerItem name="ZRAM 768 MiB" value="768"/>
+			<spinnerItem name="ZRAM 512 MiB" value="512"/>
+			<spinnerItem name="ZRAM 256 MiB" value="256"/>
 			<spinnerItem name="ZRAM OFFLINE" value="0"/>
 		</spinner>
 
@@ -694,7 +690,7 @@
 
 <settingsTab name="CRON Tasks">
 
-	<settingsPane description="Activate some scripts which automatically run in the background at the specified time." name="cron">
+	<settingsPane description="Activate some scripts which automatically runs in the background at the specified time." name="cron">
 
 		<spinner description="Main switch for CRON Tasks. If you set this OFF, then all tasks below will have no effect!" name="CRON Task Master Switch"
 			action="crontab_switch">
@@ -702,11 +698,9 @@
 			<spinnerItem name="OFF" value="off"/> 
 		</spinner>
 
-		<button description="Use this button to test, if this CRON Task service is ONLINE and supported! make sure main CRON task switch is ON." name="Test CRON Task Service"
-			action="push-actions/crontab_test" label="Test CRON Task Service"/>
+		<button description="Use this button to test, if this CRON Task service is ONLINE and supported! make sure main CRON task switch is ON." name="Test CRON Task Service" action="push-actions/crontab_test" label="Test CRON Task Service"/>
 
-		<button description="Use this button to RESET the scripts and jobs from kernel and refresh the configuration. None that it will clear all your custom changes!" name="CRON Resetter"
-			action="push-actions/crontab_reset" label="CRON Reset"/>
+		<button description="Use this button to RESET the scripts and jobs from kernel and refresh the configuration. None that it will clear all your custom changes!" name="CRON Resetter" action="push-actions/crontab_reset" label="CRON Reset"/>
 
 		<checkbox description="Cron that clears file-cache every hour, but only if CPU is resting (IDLE) and when more than 50% of your memory is used. This will free RAM from unused buffers and cache." name="Clean file-cache"
 			action="generic_cortex /tmp/cron_drop_cache" label="RAM cache clean every hour"/>
@@ -735,8 +729,7 @@
 		<checkbox description="Cron for clearing app cache every day at 4:00 AM only if CPU is resting (IDLE)." name="Clean app cache"
 			action="generic_cortex /tmp/cron_clear_app_cache" label="Disk Clean task every day at 4:00 AM"/>
 
-		<button description="Check if CRON Task Jobs are done as requested. It will show the log for all finished jobs." name="Test CRON Task Jobs"
-			action="push-actions/crontab_log" label="Test CRON Task Jobs"/>
+		<button description="Check if CRON Task Jobs are done as requested. It will show the log for all finished jobs." name="Test CRON Task Jobs" action="push-actions/crontab_log" label="Test CRON Task Jobs"/>
 
 	</settingsPane>
 
@@ -746,14 +739,11 @@
 
 	<settingsPane description="Other customization settings." name="apps">
 
-		<button description="Touch here to start applications Database Optimization. Compacting, cleaning and indexing will take Max 2 minutes." name="DB Optimization"
-			action="push-actions/database_optimizing" label="DB Optimization"/>
+		<button description="Touch here to start applications Database Optimization. Compacting, cleaning and indexing will take Max 2 minutes." name="DB Optimization" action="push-actions/database_optimizing" label="DB Optimization"/>
 
-		<button description="Touch here to see current SELINUX status (Default: OFF)." name="SELINUX Status Check"
-			action="push-actions/selinux_check" label="SELINUX Status Check"/>
+		<button description="Touch here to see current SELINUX status (Default: OFF)." name="SELINUX Status Check" action="push-actions/selinux_check" label="SELINUX Status Check"/>
 
-		<button description="Touch here to Enable or Disable Selinux Driver. If selinux is OFF apps may get access to files in system but not changed them. With ROOT access they can (with or without selinux). If SELINUX is disabled (Default: set on boot) then life is good and all works with no problems with GSM connection or access permissions with different apps. When you push this button ONCE, kernel command line will be updated and current kernel will reinstall automatic. To see changes you'll need to REBOOT! Then you can check using check button above. WARNING some USER apps loose some or all data (mostly configurations) when permissions changed! Do backup before change selinux to ENABLE! When you'll reboot Dalvik Cache will be cleared out and kernel will reboot. Wait for apps to be optimized." name="SELINUX ON/OFF Control"
-			action="push-actions/selinux_switch" label="SELINUX Hard ON/OFF"/>
+		<button description="Touch here to Enable or Disable Selinux Driver. If selinux is OFF apps may get access to files in system but not changed them. With ROOT access they can (with or without selinux). If SELINUX is disabled (Default: set on boot) then life is good and all works with no problems with GSM connection or access permissions with different apps. When you push this button ONCE, kernel command line will be updated and current kernel will reinstall automatic. To see changes you'll need to REBOOT! Then you can check using check button above. WARNING some USER apps loose some or all data (mostly configurations) when permissions changed! Do backup before change selinux to ENABLE! When you'll reboot Dalvik Cache will be cleared out and kernel will reboot. Wait for apps to be optimized." name="SELINUX ON/OFF Control" action="push-actions/selinux_switch" label="SELINUX Hard ON/OFF"/>
 
 		<spinner description="Change your SELinux (Security-Enhanced Linux) status from Enforcing (policy is enforced) to Permissive (prints warnings instead of enforcing). ONCE YOU CHANGE TO ENFORCE! THIS CONTROL app WILL NEVER WORK AGAIN. Untill you'll reset profiles by deleting data-.dori folder and reboot device or run setenforce 0 or use some app to change selinux to permissive. Then go here and set Permissive." name="SeLinux Control"
 			action="selinux_control">
@@ -790,8 +780,7 @@
 
 	<settingsPane description="WIFI Settings. Some devices can have a problem with connecting while using DHCP method and obtaining IP address. You can use button below to clean WiFi lease and try again or use static method obtaining IP." name="WIFI">
 
-		<button description="Clean WIFI DHCP IP Lease. Sometimes when connecting using WiFi, DHCP method will failure on Android WiFi (stuck on obtaining IP address). This option will clean the lease!" name="Clean WIFI Lease"
-			action="push-actions/fix_wifi" label="Clean WIFI Lease"/>
+		<button description="Clean WIFI DHCP IP Lease. Sometimes when connecting using WiFi, DHCP method will failure on Android WiFi (stuck on obtaining IP address). This option will clean the lease!" name="Clean WIFI Lease" action="push-actions/fix_wifi" label="Clean WIFI Lease"/>
 
 	</settingsPane>
 
@@ -815,11 +804,9 @@
 
 	<settingsPane description="Add, Update or Remove AD Blocker. It needs ROOT permissions to do the job. To update the blocker, push the UPDATE AD NOW button, to get update of newer definitions. If new ROM is installed, to use AD BLOCKER, push UPDATE AD NOW and REBOOT the device. To REMOVE it, use the REMOVE button and REBOOT the device." name="AD Blocker">
 
-		<button description="Add or Update AD Blocker." name="AD-B UPDATE or ADD"
-			action="push-actions/ad_update" label="Update AD-B"/>
+		<button description="Add or Update AD Blocker." name="AD-B UPDATE or ADD" action="push-actions/ad_update" label="Update AD-B"/>
 
-		<button description="Remove AD Blocker." name="AD-B REMOVE"
-			action="push-actions/ad_restore" label="Remove AD-B"/>
+		<button description="Remove AD Blocker." name="AD-B REMOVE" action="push-actions/ad_restore" label="Remove AD-B"/>
 
 	</settingsPane>
 
@@ -853,8 +840,7 @@
 			<spinnerItem name="Max 2000 mA" value="2000"/> 
 		</spinner>
 
-		<button description="Reset the battery fuel counter. If you suspect that battery counter is not showing the correct state, ask kernel for calibration. While using, battery's capacity can shrink. For ex. old the battery have only 60% of it's original capacity. Recalibration takes that value and declare that as new 100% capacity. It can't extend battery life but prevents wrong calculation of reaming energy." name="Reset Battery Counter"
-			action="push-actions/reset_battery" label="Reset Battery Counter"/>
+		<button description="Reset the battery fuel counter. If you suspect that battery counter is not showing the correct state, ask kernel for calibration. While using, battery's capacity can shrink. For ex. old the battery have only 60% of it's original capacity. Recalibration takes that value and declare that as new 100% capacity. It can't extend battery life but prevents wrong calculation of reaming energy." name="Reset Battery Counter" action="push-actions/reset_battery" label="Reset Battery Counter"/>
 
 	</settingsPane>
 
@@ -899,8 +885,7 @@
 			<spinnerItem name="Disable" value="0"/> 
 		</spinner>
 
-		<button description="Touch to see, if the CortexBrain-Background-Process is running." name="Check Background-Process"
-			action="push-actions/cortexbrain_background_process_check" label="CHECK SERVICE"/>
+		<button description="Touch to see, if the CortexBrain-Background-Process is running." name="Check Background-Process" action="push-actions/cortexbrain_background_process_check" label="CHECK SERVICE"/>
 
 		<checkbox description="Enable Memory-Tweaks (reboot needed)." name="Memory-Tweaks"
 			action="generic_cortex /tmp/cortexbrain_memory" label="Memory-Tweaks"/>
@@ -922,37 +907,29 @@
 
 	<settingsPane description="Check what profile is in use right now." name="Online Profile">
 
-		<button description="Check current profile." name="Profile Check"
-			action="push-actions/profile" label="Profile Check"/>
+		<button description="Check current profile." name="Profile Check" action="push-actions/profile" label="Profile Check"/>
 
 	</settingsPane>
 
 	<settingsPane description="Choose kernel profiles." name="Kernel Profiles">
 
-		<button description="Extreme Performance" name="Extreme Performance Profile"
-			action="push-actions/config_backup_restore 7" label="Extreme Performance"/>
+		<button description="Extreme Performance" name="Extreme Performance Profile" action="push-actions/config_backup_restore 7" label="Extreme Performance"/>
 
-		<button description="Performance" name="Performance Profile"
-			action="push-actions/config_backup_restore 5" label="Performance"/>
+		<button description="Performance" name="Performance Profile" action="push-actions/config_backup_restore 5" label="Performance"/>
 
-		<button description="Default" name="Default Profile"
-			action="push-actions/config_backup_restore 4" label="Default"/>
+		<button description="Default" name="Default Profile" action="push-actions/config_backup_restore 4" label="Default"/>
 
-		<button description="Battery Save" name="Battery Save Profile"
-			action="push-actions/config_backup_restore 3" label="Battery"/>
+		<button description="Battery Save" name="Battery Save Profile" action="push-actions/config_backup_restore 3" label="Battery"/>
 
-		<button description="Extreme Battery Save" name="Extreme Battery Save Profile"
-			action="push-actions/config_backup_restore 6" label="Extreme Battery"/>
+		<button description="Extreme Battery Save" name="Extreme Battery Save Profile" action="push-actions/config_backup_restore 6" label="Extreme Battery"/>
 
 	</settingsPane>
 
 	<settingsPane description="Backup or restore current profile after installing or updating kernel. Some settings will work only after reboot." name="Profile Backup or Restore">
 
-		<button description="Backup Dorimanx App User Settings." name="Settings Backup"
-			action="push-actions/config_backup_restore 1" label="Backup"/>
+		<button description="Backup Dorimanx App User Settings." name="Settings Backup" action="push-actions/config_backup_restore 1" label="Backup"/>
 
-		<button description="Restore Dorimanx App User Settings." name="Settings Restore"
-			action="push-actions/config_backup_restore 2" label="Restore"/>
+		<button description="Restore Dorimanx App User Settings." name="Settings Restore" action="push-actions/config_backup_restore 2" label="Restore"/>
 
 	</settingsPane>
 
@@ -962,18 +939,15 @@
 
 	<settingsPane description="Debug to SD-Card." name="Bug-Report">
 
-		<button description="Bug-Report for Kernel, if a reboot or a freeze was performed and log was created with it's name part contains USELESS phase, then there is nothing to be done here. There is no need to upload it to thread for investigation. If you want to report something else, and there weren't any reboot or freeze, ignore the USELESS naming, and upload it for a closer look." name="Kernel-Bug"
-			action="push-actions/debug_to_sd 1" label="KERNEL-BUG"/>
+		<button description="Bug-Report for Kernel, if a reboot or a freeze was performed and log was created with it's name part contains USELESS phase, then there is nothing to be done here. There is no need to upload it to thread for investigation. If you want to report something else, and there weren't any reboot or freeze, ignore the USELESS naming, and upload it for a closer look." name="Kernel-Bug" action="push-actions/debug_to_sd 1" label="KERNEL-BUG"/>
 
-		<button description="Bug-Report for apps. Make sure that Logcat is Enabled before using this option. Remember, it's useless for kernel DEV and it's only needed for ROM DEV!" name="App-Bug"
-			action="push-actions/debug_to_sd 2" label="ROM-Logcat"/>
+		<button description="Bug-Report for apps. Make sure that Logcat is Enabled before using this option. Remember, it's useless for kernel DEV and it's only needed for ROM DEV!" name="App-Bug" action="push-actions/debug_to_sd 2" label="ROM-Logcat"/>
 
 	</settingsPane>
 
 	<settingsPane description="Check for Kernel Update or Use DorimanX OTA App." name="Kernel Update">
 
-		<button description="Check for updates." name="Kernel-Update"
-			action="push-actions/kernel_check" label="Kernel Update Check"/>
+		<button description="Check for updates." name="Kernel-Update" action="push-actions/kernel_check" label="Kernel Update Check"/>
 
 	</settingsPane>
 
