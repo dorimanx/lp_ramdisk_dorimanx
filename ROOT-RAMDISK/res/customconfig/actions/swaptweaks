@@ -16,7 +16,18 @@ if [ "a$2" != "a" ]; then
 	else
 		SWAP_SIZE=0;
 	fi;
-	DATA_FREE=$($BB df | grep data | awk '{ print $3}');
+
+	CHECK_DATA_FREE()
+	{
+		DATA_FREE=$($BB df | grep data | awk '{ print $3}');
+	}
+	CHECK_DATA_FREE;
+
+	CHECK_SWAP_ACTIVE()
+	{
+		SWAP_ACTIVE=$(cat /proc/swaps | grep /data/swapfile | wc -l);
+	}
+	CHECK_SWAP_ACTIVE;
 
 	case "${swaptweaks}" in
 		0)
@@ -27,9 +38,12 @@ if [ "a$2" != "a" ]; then
 		;;
 		256)
 			if [ -f /data/swapfile ]; then
-				$BB swapoff /data/swapfile >/dev/null 2>&1;
 				if [ "$SWAP_SIZE" -lt "268435000" ] || [ "$SWAP_SIZE" -gt "288435456" ]; then
+					if [ "$SWAP_ACTIVE" -eq "1" ]; then
+						$BB swapoff /data/swapfile >/dev/null 2>&1;
+					fi;
 					$BB rm /data/swapfile;
+					CHECK_DATA_FREE;
 					if [ "$DATA_FREE" -gt "524288" ]; then
 						dd if=/dev/zero of=/data/swapfile bs=1024 count=262144 >/dev/null 2>&1;
 						chown root:root /data/swapfile
@@ -38,7 +52,10 @@ if [ "a$2" != "a" ]; then
 				fi;
 				if [ -f /data/swapfile ]; then
 					mkswap /data/swapfile
-					$BB swapon /data/swapfile
+					CHECK_SWAP_ACTIVE;
+					if [ "$SWAP_ACTIVE" -eq "0" ]; then
+						$BB swapon /data/swapfile
+					fi;
 				fi;
 			else
 				if [ "$DATA_FREE" -gt "524288" ]; then
@@ -52,9 +69,12 @@ if [ "a$2" != "a" ]; then
 		;;
 		512)
 			if [ -f /data/swapfile ]; then
-				$BB swapoff /data/swapfile >/dev/null 2>&1;
 				if [ "$SWAP_SIZE" -lt "536870000" ] || [ "$SWAP_SIZE" -gt "556870912" ]; then
+					if [ "$SWAP_ACTIVE" -eq "1" ]; then
+						$BB swapoff /data/swapfile >/dev/null 2>&1;
+					fi;
 					$BB rm /data/swapfile;
+					CHECK_DATA_FREE;
 					if [ "$DATA_FREE" -gt "786432" ]; then
 						dd if=/dev/zero of=/data/swapfile bs=1024 count=524288 >/dev/null 2>&1;
 						chown root:root /data/swapfile;
@@ -63,7 +83,10 @@ if [ "a$2" != "a" ]; then
 				fi;
 				if [ -f /data/swapfile ]; then
 					mkswap /data/swapfile
-					$BB swapon /data/swapfile
+					CHECK_SWAP_ACTIVE;
+					if [ "$SWAP_ACTIVE" -eq "0" ]; then
+						$BB swapon /data/swapfile
+					fi;
 				fi;
 			else
 				if [ "$DATA_FREE" -gt "786432" ]; then
