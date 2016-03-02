@@ -643,8 +643,8 @@
 		<spinner description="Select SWAP size or keep it OFF, it's take time to create SWAP file, just WAIT till you get notification about size about 50sec." name="SWAP Selector"
 			action="swaptweaks">
 			<spinnerItem name="SWAP OFF" value="0"/> 
-			<spinnerItem name="SWAP 256MiB" value="256"/> 
-			<spinnerItem name="SWAP 512MiB" value="512"/> 
+			<spinnerItem name="SWAP 256 MiB" value="256"/> 
+			<spinnerItem name="SWAP 512 MiB" value="512"/> 
 		</spinner>
 
 	</settingsPane>
@@ -653,9 +653,9 @@
 
 		<spinner description="ZRAM size controller. The more you set here, the more free RAM you'll get in cost of CPU power. But it's really low usage and device is operating GREAT! This is memory based module, so storage is not killed over time. You can see how it works in synapse app! Before proceeding PLEASE read the instruction ABOVE!" name="ZRAM Selector"
 			action="zramtweaks">
-			<spinnerItem name="ZRAM 768MiB" value="768"/>
-			<spinnerItem name="ZRAM 512MiB" value="512"/>
-			<spinnerItem name="ZRAM 256MiB" value="256"/>
+			<spinnerItem name="ZRAM 768 MiB" value="768"/>
+			<spinnerItem name="ZRAM 512 MiB" value="512"/>
+			<spinnerItem name="ZRAM 256 MiB" value="256"/>
 			<spinnerItem name="ZRAM OFFLINE" value="0"/>
 		</spinner>
 
@@ -694,7 +694,7 @@
 
 <settingsTab name="CRON Tasks">
 
-	<settingsPane description="Activate some scripts which automatically run in the background at the specified time." name="cron">
+	<settingsPane description="Activate some scripts which automatically runs in the background at the specified time." name="cron">
 
 		<spinner description="Main switch for CRON Tasks. If you set this OFF, then all tasks below will have no effect!" name="CRON Task Master Switch"
 			action="crontab_switch">
