@@ -13,23 +13,47 @@ if [ "a$2" != "a" ]; then
 		mount -o remount,ro /system
 	fi;
 
+	# check if lg.mlt is disabled or not, 1 = disabled, 0 = active
+	if [ -e /system/priv-app/MLT/MLT.apk ]; then
+		CHECK_LG_MLT_STATUS=$(pm list packages -d mlt | wc -l);
+	else
+		CHECK_LG_MLT_STATUS=1;
+	fi;
+
 	case "${logger}" in
-	0)
-		stop logd
-	;;
-	1)
-		LOG_STATUS=$(pgrep logd | wc -l);
-		if [ "$LOG_STATUS" -gt "0" ]; then
-			stop logd
+	off)
+		if [ -e /system/bin/logd ]; then
+			if [ "$CHECK_LG_MLT_STATUS" -eq "1" ]; then
+				stop logd
+				echo off;
+			else
+				echo on;
+			fi;
+		else
+			if [ "$CHECK_LG_MLT_STATUS" -eq "0" ]; then
+				pm disable com.lge.mlt
+			fi;
+			echo off;
 		fi;
-		start logd
-		/system/bin/logcat -b events -b main -b system -b crash > /dev/null &
-		logcat -v time -s XposedStartupMarker:D Xposed:I appproc:I XposedInstaller:I art:F libc:F DEBUG:I > /dev/null &
-		logcat -b events -v tag -s -T 1 ifw_intent_matched am_proc_start [47336449] > /dev/null &
+	;;
+	on)
+		if [ -e /system/bin/logd ]; then
+			LOG_STATUS=$(pgrep logd | wc -l);
+			if [ "$LOG_STATUS" -eq "0" ]; then
+				start logd
+				/system/bin/logcat -b events -b main -b system -b crash > /dev/null &
+				logcat -v time -s XposedStartupMarker:D Xposed:I appproc:I XposedInstaller:I art:F libc:F DEBUG:I > /dev/null &
+				logcat -b events -v tag -s -T 1 ifw_intent_matched am_proc_start [47336449] > /dev/null &
+			fi;
+			echo on;
+		else
+			echo off;
+		fi;
 	;;
 	*)
-		logger=0;
+		logger=off;
 	;;
 	esac;
+else
+	echo ${logger};
 fi;
-echo ${logger};

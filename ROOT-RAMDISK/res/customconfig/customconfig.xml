@@ -864,8 +864,8 @@
 
 		<spinner description="Control to enable or disable logcat, logcat used to debug ROM services and apps, if you never used it, then keep it OFF, you get more battery and less CPU usage on idle." name="Logcat ON/OFF"
 			action="logger">
-			<spinnerItem name="Logcat OFF" value="0"/> 
-			<spinnerItem name="Logcat ON" value="1"/> 
+			<spinnerItem name="Logcat OFF" value="off"/> 
+			<spinnerItem name="Logcat ON" value="on"/> 
 		</spinner>
 
 	</settingsPane>
