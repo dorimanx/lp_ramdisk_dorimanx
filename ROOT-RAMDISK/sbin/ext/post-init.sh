@@ -445,3 +445,8 @@ setprop persist.service.main.enable 0
 setprop persist.service.power.enable 0
 setprop persist.service.radio.enable 0
 setprop persist.service.system.enable 0
+
+# check if /sdcard is linked to /storage/emulated/legacy
+if [ ! -e /sdcard ]; then
+	$BB ln -s /storage/emulated/legacy /sdcard;
+fi;
