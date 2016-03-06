@@ -21,8 +21,10 @@ if [ "a$2" != "a" ]; then
 		fi;
 	;;
 	on)
-		if [ "$CHECK_LG_MLT_STATUS" -eq "1" ]; then
+		if [ "$CHECK_LG_MLT_STATUS" -eq "1" ] && [ -e /system/priv-app/MLT/MLT.apk ]; then
 			pm enable com.lge.mlt > /dev/null 2>&1
+		else
+			lg_mlt=off
 		fi;
 	;;
 	*)
