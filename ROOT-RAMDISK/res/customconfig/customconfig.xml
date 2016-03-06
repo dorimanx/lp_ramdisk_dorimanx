@@ -854,12 +854,18 @@
 
 	</settingsPane>
 
-	<settingsPane description="Rooted ADB control, and Logcat control" name="Rooted ADB and logcat">
+	<settingsPane description="Rooted ADB control, MLT, and Logcat control" name="ADB, MLT, and logcat">
 
 		<spinner description="Allow ROOTED ADB shell. No SU is needed. For developer needs (direct access to system via ADB) use DEV ROOTED ADB (Default: Protected ADB)." name="ADB Selector"
 			action="adb_selector">
 			<spinnerItem name="Protected ADB" value="1"/> 
 			<spinnerItem name="DEV ROOTED ADB" value="0"/> 
+		</spinner>
+
+		<spinner description="Control to disable LG MLT Spyware App, which monitoring your activity, and report back to LG and to FBI about your illegal activity it's require logcat to be enabled!. If you wish to disable logcat to save power, you must also disable this system app." name="LG MLT ON/OFF"
+			action="lg_mlt">
+			<spinnerItem name="LG SPY APP OFF" value="off"/> 
+			<spinnerItem name="LG SPY APP ON" value="on"/> 
 		</spinner>
 
 		<spinner description="Control to enable or disable logcat, logcat used to debug ROM services and apps, if you never used it, then keep it OFF, you get more battery and less CPU usage on idle." name="Logcat ON/OFF"

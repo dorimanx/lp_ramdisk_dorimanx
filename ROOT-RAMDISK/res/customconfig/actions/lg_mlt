@@ -1,0 +1,33 @@
+#!/sbin/busybox sh
+
+# $1 - "lg_mlt"
+# $2 - value=
+# Created By Dorimanx
+
+if [ "a$2" != "a" ]; then
+	lg_mlt=$2;
+
+	# check if lg.mlt is disabled or not, 1 = disabled, 0 = active
+	if [ -e /system/priv-app/MLT/MLT.apk ]; then
+		CHECK_LG_MLT_STATUS=$(pm list packages -d mlt | wc -l);
+	else
+		CHECK_LG_MLT_STATUS=1;
+	fi;
+
+	case "${lg_mlt}" in
+	off)
+		if [ "$CHECK_LG_MLT_STATUS" -eq "0" ]; then
+			pm disable com.lge.mlt > /dev/null 2>&1
+		fi;
+	;;
+	on)
+		if [ "$CHECK_LG_MLT_STATUS" -eq "1" ]; then
+			pm enable com.lge.mlt > /dev/null 2>&1
+		fi;
+	;;
+	*)
+		lg_mlt=off;
+	;;
+	esac;
+fi;
+echo ${lg_mlt};

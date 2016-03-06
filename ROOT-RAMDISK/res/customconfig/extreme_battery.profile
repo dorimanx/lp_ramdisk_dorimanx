@@ -101,6 +101,7 @@ force_fast_charge=2
 fast_charge_level=1600
 usb_keyboard=disable
 adb_selector=1
+lg_mlt=off
 logger=off
 sweep2sleep=on
 cortexbrain_background_process=1
