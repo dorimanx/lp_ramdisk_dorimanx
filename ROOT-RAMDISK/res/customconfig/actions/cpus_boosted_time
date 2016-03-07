@@ -9,6 +9,7 @@ if [ "a$2" != "a" ]; then
 
 	echo "$cpus_boosted_time" > /sys/module/msm_hotplug/boost_lock_duration;
 	echo "$cpus_boosted_time" > /sys/kernel/intelli_plug/boost_lock_duration;
+	echo "$cpus_boosted_time" > /sys/kernel/autosmp/conf/boost_lock_duration;
 fi;
 
 echo ${cpus_boosted_time};
