@@ -214,50 +214,50 @@
 
 	</settingsPane>
 
-	<settingsPane description="Set the minimum CPU Frequency for each core separately. Default for each core is 300 MHz." name="minimum CPU Frequency">
+	<settingsPane description="Set the minimum CPU Frequency for each core separately. Default for each core is 300 MHz." name="Minimum CPU Frequency">
 
 		<spinner description="Select minimum allowed speed for CPU0. Note that, it can't be higher than Maximum CPU0 Speed. It works only when CPU-Tweaks is enabled (Default: 300 MHz)." name="min CPU0 Frequency"
 			action="cpu0_min_freq">
-			<spinnerItem name="300 MHz" value="300000"/>
-			<spinnerItem name="422 MHz" value="422400"/>
-			<spinnerItem name="499 MHz" value="499200"/>
-			<spinnerItem name="652 MHz" value="652800"/>
-			<spinnerItem name="729 MHz" value="729600"/>
-			<spinnerItem name="883 MHz" value="883200"/>
-			<spinnerItem name="960 MHz" value="960000"/>
+			<spinnerItem name="300 MHz" value="300000"/> 
+			<spinnerItem name="422 MHz" value="422400"/> 
+			<spinnerItem name="499 MHz" value="499200"/> 
+			<spinnerItem name="652 MHz" value="652800"/> 
+			<spinnerItem name="729 MHz" value="729600"/> 
+			<spinnerItem name="883 MHz" value="883200"/> 
+			<spinnerItem name="960 MHz" value="960000"/> 
 		</spinner>
 
 		<spinner description="Select minimum allowed speed for CPU1. Note that, it can't be higher than Maximum CPU1 Speed. It works only when CPU-Tweaks is enabled." name="min CPU1 Frequency"
 			action="cpu1_min_freq">
-			<spinnerItem name="300 MHz" value="300000"/>
-			<spinnerItem name="422 MHz" value="422400"/>
-			<spinnerItem name="499 MHz" value="499200"/>
-			<spinnerItem name="652 MHz" value="652800"/>
-			<spinnerItem name="729 MHz" value="729600"/>
-			<spinnerItem name="883 MHz" value="883200"/>
-			<spinnerItem name="960 MHz" value="960000"/>
+			<spinnerItem name="300 MHz" value="300000"/> 
+			<spinnerItem name="422 MHz" value="422400"/> 
+			<spinnerItem name="499 MHz" value="499200"/> 
+			<spinnerItem name="652 MHz" value="652800"/> 
+			<spinnerItem name="729 MHz" value="729600"/> 
+			<spinnerItem name="883 MHz" value="883200"/> 
+			<spinnerItem name="960 MHz" value="960000"/> 
 		</spinner>
 
 		<spinner description="Select minimum allowed speed for CPU2. Note that, it can't be higher than Maximum CPU2 Speed. It works only when CPU-Tweaks is enabled." name="min CPU2 Frequency"
 			action="cpu2_min_freq">
-			<spinnerItem name="300 MHz" value="300000"/>
-			<spinnerItem name="422 MHz" value="422400"/>
-			<spinnerItem name="499 MHz" value="499200"/>
-			<spinnerItem name="652 MHz" value="652800"/>
-			<spinnerItem name="729 MHz" value="729600"/>
-			<spinnerItem name="883 MHz" value="883200"/>
-			<spinnerItem name="960 MHz" value="960000"/>
+			<spinnerItem name="300 MHz" value="300000"/> 
+			<spinnerItem name="422 MHz" value="422400"/> 
+			<spinnerItem name="499 MHz" value="499200"/> 
+			<spinnerItem name="652 MHz" value="652800"/> 
+			<spinnerItem name="729 MHz" value="729600"/> 
+			<spinnerItem name="883 MHz" value="883200"/> 
+			<spinnerItem name="960 MHz" value="960000"/> 
 		</spinner>
 
 		<spinner description="Select minimum allowed speed for CPU3. Note that, it can't be higher than Maximum CPU3 Speed. It works only when CPU-Tweaks is enabled." name="min CPU3 Frequency"
 			action="cpu3_min_freq">
-			<spinnerItem name="300 MHz" value="300000"/>
-			<spinnerItem name="422 MHz" value="422400"/>
-			<spinnerItem name="499 MHz" value="499200"/>
-			<spinnerItem name="652 MHz" value="652800"/>
-			<spinnerItem name="729 MHz" value="729600"/>
-			<spinnerItem name="883 MHz" value="883200"/>
-			<spinnerItem name="960 MHz" value="960000"/>
+			<spinnerItem name="300 MHz" value="300000"/> 
+			<spinnerItem name="422 MHz" value="422400"/> 
+			<spinnerItem name="499 MHz" value="499200"/> 
+			<spinnerItem name="652 MHz" value="652800"/> 
+			<spinnerItem name="729 MHz" value="729600"/> 
+			<spinnerItem name="883 MHz" value="883200"/> 
+			<spinnerItem name="960 MHz" value="960000"/> 
 		</spinner>
 
 	</settingsPane>
@@ -279,7 +279,7 @@
 			<spinnerItem name="883 MHz" value="883200"/> 
 		</spinner>
 
-		<spinner description="Minimum Allowed CPU Frequency when screen is OFF but phone is awake (cases in which any app holds wakelock, music, radio etc.). It has effect ONLY when screen is OFF. If screen is ON, normal minimum allowed frequency take place (Default: 300 MHz)." name="min Screen OFF CPU Frequency"
+		<spinner description="Minimum Allowed CPU Frequency when screen is OFF but phone is awake (cases in which any app holds wakelock, music, radio etc.). It has effect ONLY when screen is OFF. If screen is ON, normal minimum allowed frequency take place (Default: 300 MHz)." name="Min Screen OFF CPU Frequency"
 			action="suspend_min_freq">
 			<spinnerItem name="300 MHz" value="min_freq"/> 
 			<spinnerItem name="422 MHz" value="422400"/> 
@@ -510,7 +510,7 @@
 		<seekBar description="Control for Headphones RIGHT gain volume." name="Headphones Gain RIGHT"
 			action="generic_headphone_right" unit="gain" min="-30" reversed="false" step="1" max="20"/>
 
-		<seekBar description="Control for InCall small speaker gain volume depends on cortex service (Default: OFF) so it must be enabled to make it work! It works only when no headphones are plugged in. If you are calling and screen is OFF for 3 sec, then gain setting is changed to small speaker. When call is finished and screen is ON, (in 10 sec) gain will be restore back to Headphones. The same goes if screen is turned off for 3 sec without call. This control works only if Dorimanx App is set as main gain controller." name="InCall Speaker Gain"
+		<seekBar description="Control for InCall small speaker gain volume depends on cortex service. It works only when no headphones are plugged in. If you are calling and screen is OFF for 3 sec, then gain setting is changed to small speaker. When call is finished and screen is ON, (in 10 sec) gain will be restore back to Headphones. The same goes if screen is turned off for 3 sec without call. This control works only if Dorimanx App is set as main gain controller." name="InCall Speaker Gain"
 			action="generic_cortex /tmp/incall_volume" unit="gain" min="-6" reversed="false" step="1" max="6"/>
 
 		<seekBar description="Control for Loud Speaker gain volume. The higher you set, the more loudness you'll get. Be aware about how much gain volume level your hardware can handle!" name="Speaker Gain"
@@ -649,10 +649,10 @@
 
 		<spinner description="ZRAM Size Controller. The more you set here, the more free RAM you'll get in cost of CPU power. But it's really low usage and device is operating GREAT! This is memory based module, so storage is not killed over time. You can see how it works in synapse app! Before proceeding PLEASE read the instruction ABOVE!  (Default: 512 MiB)" name="ZRAM Selector"
 			action="zramtweaks">
-			<spinnerItem name="768 MiB" value="768"/>
-			<spinnerItem name="512 MiB" value="512"/>
-			<spinnerItem name="256 MiB" value="256"/>
-			<spinnerItem name="OFFLINE" value="0"/>
+			<spinnerItem name="768 MiB" value="768"/> 
+			<spinnerItem name="512 MiB" value="512"/> 
+			<spinnerItem name="256 MiB" value="256"/> 
+			<spinnerItem name="OFFLINE" value="0"/> 
 		</spinner>
 
 		<seekBar description="Controls ZRAM/SWAP allocation. The higher value is set, then ZRAM/SWAP will use more storage instead of real RAM, in order to give you more free RAM. The only cost is slight performance drop (Default: 50%)." name="Swappiness"
@@ -705,7 +705,7 @@
 		<checkbox description="Cron that clears file-cache every hour, but only if CPU is resting (IDLE) and when more than 50% of memory is used. This will free RAM from unused buffers and cache." name="Clear file-cache"
 			action="generic_cortex /tmp/cron_drop_cache" label="Clear RAM cache every hour"/>
 
-		<checkbox description="Cron that reset SystemUI memory usage and release locked RAM that can't be freeded by kernel, SystemUI service will automatically restart after 5 sec and use from 70 to 90 MiB memory less than before." name="Reset SystemUI"
+		<checkbox description="Cron that reset SystemUI memory usage and release locked RAM that can't be freed by kernel, SystemUI service will automatically restart after 5 sec and use from 70 to 90 MiB memory less than before." name="Reset SystemUI"
 			action="generic_cortex /tmp/cron_reset_systemui" label="Reset SystemUI every 02:00 AM"/>
 
 		<checkbox description="Enable Trim of System, Data and Cache partitions every day at 10:00 PM to speed up NAND Read and Write Access Time. NOTE that screen will be AWAKE during the fstrim to prevent MMC crash, then if screen was OFF it's will be auto turned off. Some devices don't like to be trimmed, so if device get stuck after 10:00 PM, don't enable this."  name="Trim system, data and cache"
@@ -745,7 +745,7 @@
 
 		<button description="Touch here to Enable or Disable Selinux Driver. If selinux is OFF apps may get access to files in system but not changed them. With ROOT access they can (with or without selinux). If SELINUX is disabled (Default: set on boot) then life is good and all works with no problems with GSM connection or access permissions with different apps. When you push this button ONCE, kernel command line will be updated and current kernel will reinstall automatic. To see changes you'll need to REBOOT! Then you can check using check button above. WARNING some USER apps loose some or all data (mostly configurations) when permissions changed! Do backup before change selinux to ENABLE! When you'll reboot Dalvik Cache will be cleared out and kernel will reboot. Wait for apps to be optimized." name="SELINUX ON/OFF Control" action="push-actions/selinux_switch" label="SELINUX Hard ON/OFF"/>
 
-		<spinner description="Change your SELinux (Security-Enhanced Linux) status from Permissive (prints warnings instead of enforcing) to Enforcing (policy is enforced). ONCE YOU CHANGE TO ENFORCE! THIS CONTROL APP WILL NEVER WORK AGAIN. Until you'll reset profiles by deleting data-.dori folder and reboot device or run setenforce 0 or use some app to change selinux to permissive. Then go here and set Permissive." name="SeLinux Control"
+		<spinner description="Change your SELinux (Security-Enhanced Linux) status from Permissive (prints warnings instead of enforcing) if Enforcing then policy is enforced. ONCE YOU CHANGE TO ENFORCE! THIS CONTROL APP WILL NEVER WORK AGAIN. Until you'll reset profiles by deleting data-.dori folder and reboot device or run setenforce 0 or use some app to change selinux to permissive. Then go here and set Permissive." name="SeLinux Control"
 			action="selinux_control">
 			<spinnerItem name="Enforcing" value="on"/> 
 			<spinnerItem name="Permissive" value="off"/> 
@@ -755,7 +755,7 @@
 
 	<settingsPane description="Customize Auto Backlight Driver settings." name="min Backlight Control">
 
-		<checkbox description="Enable minimum Backlight Override." name="min Backlight Override"
+		<checkbox description="Enable Minimum Backlight Override." name="min Backlight Override"
 			action="generic01 /sys/module/lm3630/parameters/lm3630_min_backlight_reducer" label="min Backlight Override Switch"/>
 
 		<seekBar description="If backlight override switch is ON, set the min backlight value in dark places. If you feel that screen is too bright or too dark in order for change to take effect you need to make the screen brighter then set auto, and see if it gets darker or brighter than was on default. You can see live changes only if current LUX is above 60. (Default: min ROM value 60, equals only 3% of present backlight power) (Default: 70 lvl)." name="min Backlight Level"
@@ -862,13 +862,13 @@
 			<spinnerItem name="DEV ROOTED ADB" value="0"/> 
 		</spinner>
 
-		<spinner description="Disable the LG MLT Spyware App, which monitors your activity, and report back to LG and to FBI about your illegal activity. It require Logcat to be enabled!. If you wish to disable Logcat to save power, you must also disable this system app." name="LG MLT ON/OFF"
+		<spinner description="Option to Disable the LG MLT Spyware App, which monitors your activity, and report back to LG and to FBI about your illegal activity. It require Logcat to be enabled!. If you wish to disable Logcat to save power, you must also disable this system app." name="LG MLT ON/OFF"
 			action="lg_mlt">
 			<spinnerItem name="LG SPY APP OFF" value="off"/> 
 			<spinnerItem name="LG SPY APP ON" value="on"/> 
 		</spinner>
 
-		<spinner description="Enable or disable Logcat that is used to debug ROM services and apps. If you never used it, then keep it OFF, you get more battery and less CPU usage on idle." name="Logcat ON/OFF"
+		<spinner description="Enable or Disable Logcat that is used to debug ROM services and apps. If you never used it, then keep it OFF, you get more battery and less CPU usage on idle." name="Logcat ON/OFF"
 			action="logger">
 			<spinnerItem name="Logcat OFF" value="off"/> 
 			<spinnerItem name="Logcat ON" value="on"/> 
@@ -893,16 +893,16 @@
 
 		<button description="Touch to see, if the CortexBrain-Background-Process is running." name="Check Background-Process" action="push-actions/cortexbrain_background_process_check" label="CHECK SERVICE"/>
 
-		<checkbox description="Enable Memory-Tweaks." name="Memory-Tweaks"
+		<checkbox description="Enable Memory-Tweaks (reboot needed)." name="Memory-Tweaks"
 			action="generic_cortex /tmp/cortexbrain_memory" label="Memory-Tweaks"/>
 
-		<checkbox description="Enable System-Tweaks." name="System-Tweaks"
+		<checkbox description="Enable System-Tweaks (reboot needed)." name="System-Tweaks"
 			action="generic_cortex /tmp/cortexbrain_system" label="System-Tweaks"/>
 
-		<checkbox description="Enable Kernel-Tweaks." name="Kernel-Tweaks"
+		<checkbox description="Enable Kernel-Tweaks (reboot needed)." name="Kernel-Tweaks"
 			action="generic_cortex /tmp/cortexbrain_kernel_tweaks" label="Kernel-Tweaks"/>
 
-		<checkbox description="Enable I/O-Tweaks." name="I/O-Tweaks"
+		<checkbox description="Enable I/O-Tweaks (reboot needed)." name="I/O-Tweaks"
 			action="generic_cortex /tmp/cortexbrain_io" label="I/O-Tweaks"/>
 
 	</settingsPane>
