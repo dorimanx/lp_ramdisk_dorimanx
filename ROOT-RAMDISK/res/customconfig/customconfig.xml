@@ -10,7 +10,7 @@
 			<spinnerItem name="Don't load all Settings on boot." value="no"/> 
 		</spinner>
 
-		<button description="Push this button to manually load ALL settings in case of the master switch is (or already was) OFF and wait for Dorimanx App reload. When the Master Switch was already ON while phone was booting up, there is no need to use it." name="LOAD ALL" action="push-actions/reload_settings" label="Load All"/>
+		<button description="Push this button to manually load ALL settings in case of the master switch is (or already was) OFF and wait for Dorimanx App reload. When the Master Switch was already ON while phone was booting up, there is no need to use it." name="Reload All Settings" action="push-actions/reload_settings" label="Reload All"/>
 
 	</settingsPane>
 
@@ -130,7 +130,7 @@
 			<spinnerItem name="Performance" value="1"/> 
 		</spinner>
 
-		<checkbox description="Power-efficient work queues helps to reduce power consumption at the cost of slight performance decrease. By enabling this, PE work queues are used for unbound scheduled works to reduce the load on sibling CPU cores and queuing work only on CPU0." name="Power-efficient Work queues"
+		<checkbox description="Power-efficient work queues helps to reduce power consumption at the cost of slight performance decrease. By enabling this, PE work queues are used for unbound scheduled works to reduce the load on sibling CPU cores and queuing work only on CPU0." name="Power-efficient Work Queues"
 			action="generic01 /sys/module/workqueue/parameters/power_efficient" label="Power-efficient Workqueues"/>
 
 		<checkbox description="By enabling this setting, kernel will obey only Dorimanx App and sets the frequency selected below. This option works whenever screen is ON or OFF." name="CPU-Tweaks"
@@ -333,7 +333,7 @@
 			<spinnerItem name="Disabled" value="0"/> 
 		</spinner>
 
-		<spinner description="Set how many cores will stay active on high temp. The more cores will be OFF, the higher frequency you'll get on the other cores. Disabled Cores switches online automatically, when temperature is back to normal. Changes will take effect ONLY on LOW Temp! This option depends on HotPlug CPU Thermal control (must be Enabled above)!" name="Max online CPU's"
+		<spinner description="Set how many cores will stay active on high temp. The more cores will be OFF, the higher frequency you'll get on the other cores. Disabled Cores switches online automatically, when temperature is back to normal. Changes will take effect ONLY on LOW Temp! This option depends on HotPlug CPU Thermal control (must be Enabled above)!" name="Max online CPUs"
 			action="core_mask">
 			<spinnerItem name="Core 0" value="1"/> 
 			<spinnerItem name="Core 0,1" value="2"/> 
@@ -368,7 +368,7 @@
 		<seekBar description="Select CPU HotPlug Sample Rate. HotPlug driver will check for CPU load every defined period of time and turn cores ON/OFF if needed. For battery save, it's recommended to set the same value, as in MASTER CORE tab in CPU Power Controls section. Note that 10 here is 10000 for CPU GOV. For best performance, set in range from 10 to 30 (Default: 20)" name="CPU HotPlug Sample Rate"
 			action="hotplug_sample_rate" unit="rate" min="10" reversed="false" step="5" max="80"/>
 
-		<spinner description="Allow HotPlug to be suspended when screen is OFF. When device enters full suspend mode, only one core is half active. But if app holds wakelock, then 3 cores are online. This is for all kernel HotPlugs, but default HotPlug is not supported. After many tests it's best to allow HotPlug to always work, as it will reduce battery drain when playing music with screen is OFF." name="Hot Plug Suspend Mode"
+		<spinner description="Allow HotPlug to be suspended when screen is OFF. When device enters full suspend mode, only one core is half active. But if app holds wakelock, then 3 cores are online. This is for all kernel HotPlugs, but default HotPlug is not supported. After many tests it's best to allow HotPlug to always work, as it will reduce battery drain when playing music with screen is OFF." name="Hotplug Suspend Mode"
 			action="hotplug_suspend">
 			<spinnerItem name="Always Active" value="always_active"/> 
 			<spinnerItem name="HotPlug Suspend" value="suspend_when_off"/> 
@@ -419,7 +419,7 @@
 
 		<button description="This option updates GPU Governor's changes." name="Update GPU Governor Tuning" action="push-actions/gpu_update" label="Update GPU Governor"/>
 
-		<spinner description="Select GPU Maximum Frequency only when needed because some higher frequencies can be unstable! (Default: 450 MHz)." name="Max GPU Speed"
+		<spinner description="Select GPU Maximum Frequency only when needed because some higher frequencies can be unstable! (Default: 450 MHz)." name="Max GPU Frequency"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/max_freq">
 			<spinnerItem name="650 MHz" value="650000000"/> 
 			<spinnerItem name="533 MHz" value="533333000"/> 
@@ -430,7 +430,7 @@
 			<spinnerItem name="100 MHz" value="100000000"/> 
 		</spinner>
 
-		<spinner description="Select GPU Minimum frequency when GPU is IDLE - if you set higher than 200 MHz, then the GPU will hold selected frequency on IDLE (Default: 100 MHz)." name="GPU min Speed"
+		<spinner description="Select GPU Minimum frequency when GPU is IDLE - if you set higher than 200 MHz, then the GPU will hold selected frequency on IDLE (Default: 100 MHz)." name="min GPU Frequency"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/min_freq">
 			<spinnerItem name="100 MHz" value="100000000"/> 
 			<spinnerItem name="200 MHz" value="200000000"/> 
@@ -460,27 +460,27 @@
 		<seekBar description="Set how many steps will gov wait on high freq before switching to GPU min speed. Higher you set, faster battery will be discharging, but smoother UI you'll get (Default: 2 steps)." name="Simple_Laziness Value"
 			action="generic /sys/module/simple_gpu_algorithm/parameters/simple_laziness" unit="step" min="1" reversed="false" step="1" max="5"/>
 
-		<seekBar description="The higher value is set, the longer GPU freq will stay LOW on GPU load (Default: 7000)." name="Simple_Ramp_Threshold"
+		<seekBar description="The higher value is set, the longer GPU freq will stay LOW on GPU load (Default: 7000)." name="Simple Ramp Threshold"
 			action="generic /sys/module/simple_gpu_algorithm/parameters/simple_ramp_threshold" unit="ramp" min="2000" reversed="false" step="500" max="10000"/>
 
 	</settingsPane>
 
-	<settingsPane description="Customize Simple_Ondemand Governor. Use this controls ONLY if Simple_Ondemand is selected (otherwise nothing will happen)." name="Simple_Ondemand Controls">
+	<settingsPane description="Customize Simple_Ondemand Governor. Use this controls ONLY if Simple_Ondemand is selected (otherwise nothing will happen)." name="Simple Ondemand Controls">
 
-		<seekBar description="When GPU load decreases below Down differential level, then gov reduces GPU frequency to it's min frequency. Must NOT be HIGHER than Up threshold value! (Default: 20%)." name="Down differential Value"
+		<seekBar description="When GPU load decreases below Down differential level, then gov reduces GPU frequency to it's min frequency. Must NOT be HIGHER than Up threshold value! (Default: 20%)." name="Down Differential Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/downdifferential" unit="%" min="5" reversed="false" step="5" max="60"/>
 
-		<seekBar description="When GPU load raises above Up threshold level, then gov raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)! (Default: 60%)." name="Up threshold Value"
+		<seekBar description="When GPU load raises above Up threshold level, then gov raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)! (Default: 60%)." name="Up Threshold Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/upthreshold" unit="%" min="30" reversed="false" step="5" max="90"/>
 
 	</settingsPane>
 
 	<settingsPane description="Customize Conservative Governor. Use the controls ONLY if Conservative is selected (otherwise nothing will happen)." name="Conservative Controls">
 
-		<seekBar description="When GPU load decreases below Down differential level, then gov. reduces GPU frequency to it's min frequency. Must NOT be HIGHER than Up threshold value! (Default: 20%)." name="Down threshold Value"
+		<seekBar description="When GPU load decreases below Down differential level, then gov. reduces GPU frequency to it's min frequency. Must NOT be HIGHER than Up threshold value! (Default: 20%)." name="Down Threshold Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/downthreshold" unit="%" min="5" reversed="false" step="5" max="60"/>
 
-		<seekBar description="When GPU load raises above Up threshold level, then gov raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)!  (Default: 50%)." name="Up threshold Value"
+		<seekBar description="When GPU load raises above Up threshold level, then gov raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)!  (Default: 50%)." name="Up Threshold Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/upthreshold_cons" unit="%" min="30" reversed="false" step="5" max="90"/>
 
 	</settingsPane>
@@ -497,8 +497,8 @@
 			<spinnerItem name="Faux Sound Control" value="0"/>
 		</spinner>
 
-	<checkbox description="Use High Performance Sound Driver mode. It will produce better sound in cost of increasing CPU power and faster battery discharging (about 1% per hour), only while using FLAC or other lossless high bitrate audio files with frequency response higher than 44.1 kHz. In other cases, this mode remains OFF to preserve power. There is no audible differences for standard MP3 or WMA files up to 320 kbps." name="Sound High Performance Mode"
-		action="generic01 /sys/module/snd_soc_wcd9320/parameters/high_perf_mode" label="Sound High Performance"/>
+	<checkbox description="Use High Performance Sound Driver mode. It will produce better sound in cost of increasing CPU power and faster battery discharging (about 1% per hour), only while using FLAC or other lossless high bitrate audio files with frequency response higher than 44.1 kHz. In other cases, this mode remains OFF to preserve power. There is no audible differences for standard MP3 or WMA files up to 320 kbps." name="High Performance Sound Mode"
+		action="generic01 /sys/module/snd_soc_wcd9320/parameters/high_perf_mode" label="High Performance Sound Mode"/>
 
 	</settingsPane>
 
@@ -530,7 +530,7 @@
 
 	<settingsPane description="Customize I/O settings." name="I/O Tuning">
 
-		<spinner description="Set the Maximum number of bytes to read-ahead from device storage (Default: 1024 KiB)." name="Kilobytes to Read-head"
+		<spinner description="Set the Maximum number of bytes to read-ahead from device storage, 1 Kibibyte(KiB) = 1024 Bytes  (Default: 1024 KiB)." name="Kibibytes to Read-ahead"
 			action="generic /sys/block/mmcblk0/bdi/read_ahead_kb">
 			<spinnerItem name="128 KiB" value="128"/> 
 			<spinnerItem name="256 KiB" value="256"/> 
@@ -546,7 +546,7 @@
 			<spinnerItem name="MMC Power Save" value="power_save"/> 
 		</spinner>
 
-		<button description="Push Trim Now button in order to speed up Read and Write Access Time. It's good to use it once in a day or two." name="Trim System and Data" action="push-actions/fstrim" label="Trim NOW"/>
+		<button description="Push Trim button in order to speed up Read and Write Access Time. It's good to use it once in a day or two." name="Trim System and Data" action="push-actions/fstrim" label="Trim"/>
 
 		<spinner description="Set the AWAKE I/O scheduler for internal storage (Default: ZEN)." name="Default Awake I/O Scheduler"
 			action="scheduler">
@@ -621,16 +621,16 @@
 			<spinnerItem name="High Pressure Ratio" value="high_pressure"/> 
 		</spinner>
 
-		<seekBar description="The more is set, the more memory will be used as writing buffer for background operations. Buffer will be released when it needs more free RAM (Default: 5%)." name="Dirty Background ratio"
+		<seekBar description="The more is set, the more memory will be used as writing buffer for background operations. Buffer will be released when it needs more free RAM (Default: 5%)." name="Dirty Background Ratio"
 			action="generic /proc/sys/vm/dirty_background_ratio" unit="%" min="0" reversed="false" step="5" max="80"/>
 
-		<seekBar description="The more is set, the more memory will be used for real time operations writing buffer. Buffer will be released when it needs more free RAM (Default: 20%)." name="Dirty ratio"
+		<seekBar description="The more is set, the more memory will be used for real time operations writing buffer. Buffer will be released when it needs more free RAM (Default: 20%)." name="Dirty Ratio"
 			action="generic /proc/sys/vm/dirty_ratio" unit="%" min="0" reversed="false" step="5" max="90"/>
 
 		<seekBar description="It controls the tendency of the kernel for reclaiming memory, which is used for caching the directory and all the information needed by the kernel to manipulate a file or a directory (inode objects)  (Default: 100%)." name="Vfs Cache Pressure"
 			action="generic /proc/sys/vm/vfs_cache_pressure" unit="%" min="10" reversed="false" step="5" max="150"/>
 
-		<button description="Release all cached and buffered files from RAM. WAIT approx. 3 sec for getting cleanup report." name="CLEAN RAM CACHE" action="push-actions/clean_ram_cache" label="CLEAN RAM CACHE NOW"/>
+		<button description="Release all cached and buffered files from RAM. WAIT approx. 3 sec for getting cleanup report." name="Clear RAM Cache" action="push-actions/clean_ram_cache" label="Clear RAM Cache"/>
 
 	</settingsPane>
 
@@ -688,21 +688,21 @@
 
 </settingsTab>
 
-<settingsTab name="CRON Tasks">
+<settingsTab name="Cron Tasks">
 
-	<settingsPane description="Activate some scripts which automatically runs in the background at the specified time." name="cron">
+	<settingsPane description="Activate some scripts which automatically runs in the background at the specified time." name="Cron">
 
-		<spinner description="CRON Tasks Main Switch. If you set this OFF, then all tasks below will have no effect." name="CRON Task Master Switch"
+		<spinner description="Cron Tasks Main Switch. If you set this OFF, then all tasks below will have no effect." name="Cron Task Master Switch"
 			action="crontab_switch">
 			<spinnerItem name="ON" value="on"/> 
 			<spinnerItem name="OFF" value="off"/> 
 		</spinner>
 
-		<button description="Use this button to test, if this CRON Task service is ONLINE and supported. Make sure that Main Switch is ON." name="Test CRON Task Service" action="push-actions/crontab_test" label="Test CRON Task Service"/>
+		<button description="Use this button to test, if this Cron Task service is ONLINE and supported. Make sure that Main Switch is ON." name="Test Cron Task Service" action="push-actions/crontab_test" label="Test Cron Task Service"/>
 
-		<button description="Use this button to RESET the scripts and jobs from kernel and refresh the configuration. None that it will clear all your custom changes!" name="CRON Resetter" action="push-actions/crontab_reset" label="Reset CRON"/>
+		<button description="Use this button to RESET the scripts and jobs from kernel and refresh the configuration. None that it will clear all your custom changes!" name="CRON Resetter" action="push-actions/crontab_reset" label="Reset Cron"/>
 
-		<checkbox description="Cron that clears file-cache every hour, but only if CPU is resting (IDLE) and when more than 50% of memory is used. This will free RAM from unused buffers and cache." name="Clear file-cache"
+		<checkbox description="Cron that clears file-cache every hour, but only if CPU is in idle and when more than 50% of memory is used. This will free RAM from unused buffers and cache." name="Clear file-cache"
 			action="generic_cortex /tmp/cron_drop_cache" label="Clear RAM cache every hour"/>
 
 		<checkbox description="Cron that reset SystemUI memory usage and release locked RAM that can't be freed by kernel, SystemUI service will automatically restart after 5 sec and use from 70 to 90 MiB memory less than before." name="Reset SystemUI"
@@ -729,7 +729,7 @@
 		<checkbox description="Cron for clearing app cache every day at 4:00 AM only if CPU is in idle." name="Clear app cache"
 			action="generic_cortex /tmp/cron_clear_app_cache" label="Disk Clean task every day at 4:00 AM"/>
 
-		<button description="Check if CRON Task Jobs are done as requested. It will show the log for all finished jobs." name="Test CRON Task Jobs" action="push-actions/crontab_log" label="Test CRON Task Jobs"/>
+		<button description="Check if CRON Task Jobs are done as requested. It will show the log for all finished jobs." name="Test Cron Task Jobs" action="push-actions/crontab_log" label="Test Cron Task Jobs"/>
 
 	</settingsPane>
 
@@ -802,7 +802,7 @@
 
 	</settingsPane>
 
-	<settingsPane description="Add, Update or Remove AD Blocker. It needs ROOT permissions to do the job. To update the blocker, push the UPDATE AD NOW button, to get update of newer definitions. If new ROM is installed, to use AD BLOCKER, push UPDATE AD NOW and REBOOT the device. To REMOVE it, use the REMOVE button and REBOOT the device." name="AD Blocker">
+	<settingsPane description="Add, Update or Remove AD Blocker. It needs ROOT permissions to do the job. To update the blocker, push the UPDATE AD-B button, to update the definitions for ad blocking. After first and each update it is recommended to reboot the device in order to activate new definitions. To remove all definitions it and bring back stock LG definitons, use the Remove AD-B button and reboot the device." name="AD Blocker">
 
 		<button description="Add or Update AD Blocker." name="UPDATE or ADD AD-B " action="push-actions/ad_update" label="Update AD-B"/>
 
