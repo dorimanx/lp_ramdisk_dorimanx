@@ -430,7 +430,7 @@
 			<spinnerItem name="100 MHz" value="100000000"/> 
 		</spinner>
 
-		<spinner description="Select GPU Minimum frequency when GPU is IDLE - if you set higher than 200 MHz, then the GPU will hold selected frequency on IDLE (Default: 100 MHz)." name="min GPU Frequency"
+		<spinner description="Select GPU Minimum frequency when GPU is IDLE - if you set higher than 200 MHz, then the GPU will hold selected frequency on IDLE (Default: 100 MHz)." name="Min GPU Frequency"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/min_freq">
 			<spinnerItem name="100 MHz" value="100000000"/> 
 			<spinnerItem name="200 MHz" value="200000000"/> 
@@ -530,7 +530,7 @@
 
 	<settingsPane description="Customize I/O settings." name="I/O Tuning">
 
-		<spinner description="Set the Maximum number of bytes to read-ahead from device storage, 1 Kibibyte(KiB) = 1024 Bytes  (Default: 1024 KiB)." name="Kibibytes to Read-ahead"
+		<spinner description="Set the Maximum number of bytes to read-ahead from device storage, 1 Kibibyte(KiB) = 1024 Bytes  (Default: 1024 KiB)." name="Kibibytes to Read Ahead"
 			action="generic /sys/block/mmcblk0/bdi/read_ahead_kb">
 			<spinnerItem name="128 KiB" value="128"/> 
 			<spinnerItem name="256 KiB" value="256"/> 
@@ -546,7 +546,7 @@
 			<spinnerItem name="MMC Power Save" value="power_save"/> 
 		</spinner>
 
-		<button description="Push Trim button in order to speed up Read and Write Access Time. It's good to use it once in a day or two." name="Trim System and Data" action="push-actions/fstrim" label="Trim"/>
+		<button description="Push Trim Now button in order to speed up Read and Write Access Time. It's good to use it once in a day or two." name="Trim System and Data" action="push-actions/fstrim" label="Trim NOW"/>
 
 		<spinner description="Set the AWAKE I/O scheduler for internal storage (Default: ZEN)." name="Default Awake I/O Scheduler"
 			action="scheduler">
