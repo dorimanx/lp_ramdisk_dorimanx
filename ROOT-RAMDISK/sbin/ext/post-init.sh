@@ -112,8 +112,6 @@ CRITICAL_PERM_FIX;
 ONDEMAND_TUNING()
 {
 	echo "95" > /cpugov/ondemand/micro_freq_up_threshold;
-	echo "10" > /cpugov/ondemand/down_differential;
-	echo "3" > /cpugov/ondemand/down_differential_multi_core;
 	echo "1" > /cpugov/ondemand/sampling_down_factor;
 	echo "70" > /cpugov/ondemand/up_threshold;
 	echo "1267200" > /cpugov/ondemand/sync_freq;
