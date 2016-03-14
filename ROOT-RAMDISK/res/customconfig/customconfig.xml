@@ -16,7 +16,7 @@
 
 	<settingsPane description="Customize the CPU Active Governor for each core. A governor defines the strategy how to scale CPU cores up and down across frequencies, based on system load. Default for all cores is Ondemand." name="CPU Active Governor">
 
-		<spinner description="Select the CPU0 governor. Some gov can be unstable on CPU0, so it's recommended to leave it as is." name="CPU0 Governor"
+		<spinner description="Select the CPU0 governor. Some governor's can be unstable on CPU0, so it's recommended to leave it as is." name="CPU0 Governor"
 			action="default_cpu0_gov">
 			<spinnerItem name="HYPER" value="HYPER"/> 
 			<spinnerItem name="Alucard" value="alucard"/> 
@@ -108,7 +108,7 @@
 			<spinnerItem name="DISABLED" value="0"/> 
 		</spinner>
 
-		<seekBar description="It's the time that core is locked on Maximum boost frequency. 10 ms is equal to 0.01 sec (Default: 40 ms)." name="CPU Touch Boost duration"
+		<seekBar description="Set the time that core is locked on Maximum boost frequency on it's minimum frequency parameter. 10 ms is equal to 0.01 sec (Default: 40 ms)." name="CPU Touch Boost duration"
 			action="generic /sys/module/alu_t_boost/parameters/input_boost_ms" unit="ms" min="10" reversed="false" step="10" max="100"/>
 
 		<seekBar description="This option determines the time, that touch boost driver will wait before locking CPU on it's minimum frequency (Default: 300 ms)." name="CPU Touch Boost Interval"
@@ -124,7 +124,7 @@
 		<seekBar description="Select CPU governor sample rate which works in Power Save mode. The lower the value is set, the faster response you'll get, but quicker battery will be discharging (Default: 30000)." name="CPU Governor Sample Rate"
 			action="sample_rate" unit="rate" min="10000" reversed="false" step="5000" max="80000"/>
 
-		<spinner description="Select CPU governor power control mode. Power save mode will activate options below so you can set the CPU gov sample rate as you like. When performance mode is selected, CPU gov sample rate is set to it's Maximum response (10000 rate) and other CPU governor sample rate settings will be ignored." name="Power Save Switch"
+		<spinner description="Select CPU governor power control mode. Power save mode will activate options below so you can set the CPU governor sample rate as you like. When performance mode is selected, CPU governor sample rate is set to it's Maximum response (10000 rate) and other CPU governor sample rate settings will be ignored." name="Power Save Switch"
 			action="power_mode">
 			<spinnerItem name="Power Save" value="0"/> 
 			<spinnerItem name="Performance" value="1"/> 
@@ -365,16 +365,16 @@
 			<spinnerItem name="Intelligent HotPlug" value="intelli"/> 
 		</spinner>
 
-		<seekBar description="Set the CPU HotPlug Sample Rate. It defines the time how often is the load on the cores being refreshed. Lower time can have a more refined and accurate hotplugging, but can also cause a slightly higher power consumption. For battery save, it's recommended to set the same value, as in MASTER CORE tab in CPU Power Controls section. Note that 10 here is 10000 for CPU GOV. For best performance, set in range from 10 to 30 (Default: 20)." name="CPU HotPlug Sample Rate"
+		<seekBar description="Set the HotPlug Sample Rate. It defines the time how often driver will refresh the load calculation. Lower time can have a more refined and accurate hotplugging, but can also cause a slightly higher power consumption. For battery save, it's recommended to set the same value, as in MASTER CORE tab in CPU Power Controls section. Note that 10 here is 10000 for CPU governor. For best performance, set in range from 10 to 30 (Default: 20)." name="CPU HotPlug Sample Rate"
 			action="hotplug_sample_rate" unit="rate" min="10" reversed="false" step="5" max="80"/>
 
-		<spinner description="Allow HotPlug to be suspended when screen is OFF. When device enters full suspend mode, only one core is half active. This is for all kernel HotPlugs, but default HotPlug is not supported. After many tests it's best to allow HotPlug to always work, as it will reduce battery drain when playing music with screen is OFF." name="Hotplug Suspend Mode"
+		<spinner description="Allow HotPlug to be suspended when screen is OFF. When device enters full suspend mode, only one core is half active. But if app holds wakelock, then 3 cores are online. This is for all kernel HotPlugs, but default HotPlug is not supported. After many tests it's best to allow HotPlug to always work, as it will reduce battery drain when playing music with screen is OFF." name="Hotplug Suspend Mode"
 			action="hotplug_suspend">
 			<spinnerItem name="Always Active" value="always_active"/> 
 			<spinnerItem name="HotPlug Suspend" value="suspend_when_off"/> 
 		</spinner>
 
-		<spinner description="Set how many cores will be bring online as soon as touch screen is being detected in order to bring the smoothest experience. It works for all HotPlugs excluding alucard and default LG." name="Touch Core Boost"
+		<spinner description="Set how many cores hotplug driver will enable as soon as touch screen is being detected, in order to bring the smoothest experience. It works for all HotPlugs excluding Alucard and default LG." name="Touch Core Boost"
 			action="cpus_boosted">
 			<spinnerItem name="One Core Boost" value="1"/> 
 			<spinnerItem name="Dual Core Boost" value="2"/> 
@@ -385,7 +385,7 @@
 		<seekBar description="Set the Touch Boost duration. It controls how long each core will be active after touch is being detected (Default: 1000 ms)." name="Touch Boost Duration"
 			action="cpus_boosted_time" unit="ms" min="250" reversed="false" step="250" max="3000"/>
 
-		<spinner description="Set the number of CPU cores that can be online. It allows to turn sleeping cores to (Max set). Default LG and alucard HotPlugs are not supported. This set is stronger than min cores online below." name="Max Cores online"
+		<spinner description="Set the number of CPU cores that can be online. It allows to enable sleeping cores to (Maximum set). Default LG and Alucard HotPlugs are not supported. This set is stronger than min cores online below." name="Max Cores online"
 			action="eco_mode">
 			<spinnerItem name="Quad Core CPU" value="all"/> 
 			<spinnerItem name="Triple Core CPU" value="eco_boost"/> 
@@ -409,7 +409,7 @@
 
 	<settingsPane description="Select the GPU Governor. After doing some changes, hit button to update GPU Governor." name="GPU Governors And Settings">
 
-		<spinner description="Select GPU Governor of GPU. If selected Performance Gov, then the GPU will be at Max frequency all the time (Default: MSM Andreno)." name="GPU Active Governor"
+		<spinner description="Select GPU Governor that will control GPU frequency. If selected Performance governor, then the GPU will be at Max frequency all the time (Default: MSM Andreno)." name="GPU Active Governor"
 			action="gpu_governor">
 			<spinnerItem name="MSM Adreno" value="msm-adreno-tz"/> 
 			<spinnerItem name="Simple Ondemand" value="simple_ondemand"/> 
@@ -457,7 +457,7 @@
 			<spinnerItem name="Allow Controls" value="1"/> 
 		</spinner>
 
-		<seekBar description="Set how many steps will gov wait on high freq before switching to GPU min speed. Higher you set, faster battery will be discharging, but smoother UI you'll get (Default: 2 steps)." name="Simple Laziness Value"
+		<seekBar description="Set how many steps will governor wait on high freq before switching to GPU min speed. Higher you set, faster battery will be discharging, but smoother UI you'll get (Default: 2 steps)." name="Simple Laziness Value"
 			action="generic /sys/module/simple_gpu_algorithm/parameters/simple_laziness" unit="step" min="1" reversed="false" step="1" max="5"/>
 
 		<seekBar description="The higher value is set, the longer GPU freq will stay LOW on GPU load (Default: 7000)." name="Simple Ramp Threshold"
@@ -467,20 +467,20 @@
 
 	<settingsPane description="Customize Simple Ondemand Governor. Use this controls ONLY if Simple Ondemand is selected (otherwise nothing will happen)." name="Simple Ondemand Controls">
 
-		<seekBar description="When GPU load decreases below Down differential level, then gov reduces GPU frequency to it's min frequency. Must NOT be HIGHER than Up threshold value! (Default: 20%)." name="Down Differential Value"
+		<seekBar description="When GPU load decreases below Down differential level, then governor reduces GPU frequency to it's min frequency. Must NOT be HIGHER than Up threshold value! (Default: 20%)." name="Down Differential Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/downdifferential" unit="%" min="5" reversed="false" step="5" max="60"/>
 
-		<seekBar description="When GPU load raises above Up threshold level, then gov raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)! (Default: 60%)." name="Up Threshold Value"
+		<seekBar description="When GPU load raises above Up threshold level, then governor raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)! (Default: 60%)." name="Up Threshold Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/simple_ondemand/upthreshold" unit="%" min="30" reversed="false" step="5" max="90"/>
 
 	</settingsPane>
 
 	<settingsPane description="Customize Conservative Governor. Use the controls ONLY if Conservative is selected (otherwise nothing will happen)." name="Conservative Controls">
 
-		<seekBar description="When GPU load decreases below Down differential level, then gov. reduces GPU frequency to it's min frequency. Must NOT be HIGHER than Up threshold value! (Default: 20%)." name="Down Threshold Value"
+		<seekBar description="When GPU load decreases below Down differential level, then governor. reduces GPU frequency to it's min frequency. Must NOT be HIGHER than Up threshold value! (Default: 20%)." name="Down Threshold Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/downthreshold" unit="%" min="5" reversed="false" step="5" max="60"/>
 
-		<seekBar description="When GPU load raises above Up threshold level, then gov raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)!  (Default: 50%)." name="Up Threshold Value"
+		<seekBar description="When GPU load raises above Up threshold level, then governor raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)!  (Default: 50%)." name="Up Threshold Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/upthreshold_cons" unit="%" min="30" reversed="false" step="5" max="90"/>
 
 	</settingsPane>
@@ -665,7 +665,7 @@
 		<checkbox description="UKSM Main Switch." name="Ultra Kernel Samepage Merging"
 			action="generic01 /sys/kernel/mm/uksm/run" label="UKSM Switch"/>
 
-		<spinner description="UKSM CPU Governor Power when screen is ON. You can set high or low operational power for scanning and sharing memory across apps (Default: Medium Power)." name="UKSM CPU AWAKE GOV"
+		<spinner description="UKSM CPU Governor Power when screen is ON. You can set high or low operational power for scanning and sharing memory across apps (Default: Medium Power)." name="UKSM CPU AWAKE GOVERNOR"
 			action="uksm_gov_on">
 			<spinnerItem name="Full Power" value="full"/> 
 			<spinnerItem name="Medium Power" value="medium"/> 
@@ -673,7 +673,7 @@
 			<spinnerItem name="No Power (idle)" value="quiet"/> 
 		</spinner>
 
-		<spinner description="UKSM CPU Governor Power when screen is OFF. You can set high or low operational power for scanning and sharing memory across apps (Default: No Power)." name="UKSM CPU SLEEP GOV"
+		<spinner description="UKSM CPU Governor Power when screen is OFF. You can set high or low operational power for scanning and sharing memory across apps (Default: No Power)." name="UKSM CPU SLEEP GOVERNOR"
 			action="generic_cortex /tmp/uksm_gov_sleep">
 			<spinnerItem name="Full Power" value="full"/> 
 			<spinnerItem name="Medium Power" value="medium"/> 
@@ -821,7 +821,7 @@
 
 <settingsTab name="Tweaks">
 
-	<settingsPane description="This configures the charging rate when you load your phone via an AC charger. When you set it to a higher then stock value, the phone will load faster. This will usually not cause any harm to your charger. Also due to manufacturing tolerances no damage for your battery is expected when it loads faster. You can force override charging mA limit. For doing this, select manual option and set below the requested limit. If it's set ON, then default limit is 1200 mA (Default: Manual)." name="Fast Charge Control">
+	<settingsPane description="This configures the charging rate when you charge your phone via an AC charger. When you set it to a higher then stock value, the phone will charge faster. This will usually not cause any harm to your charger. Also due to manufacturing tolerances no damage for your battery is expected when it charged faster. You can force override charging mA limit. For doing this, select manual option and set below the requested limit. If it's set ON, then default limit is 1200 mA (Default: Manual)." name="Fast Charge Control">
 
 		<spinner description="Select Fast Charge mode." name="Force Fast Charge Switch"
 			action="force_fast_charge">
@@ -959,7 +959,7 @@
 
 	<settingsPane description="Load (on boot) kernel modules that will add some extra functions." name="Kernel Modules">
 
-		<checkbox description="Enable CIFS Module. Kernel will load the required cifs module to support access to Windows network shares (SMB protocol) from the device. You can then simply use apps like „CIFS Manager“ to access your network drives. Take effect only after reboot!" name="CIFS Module"
+		<checkbox description="Enable CIFS Module. Kernel will load the required cifs module to support access to Windows network shares (SMB protocol) from the device. You can then simply use apps like 'CIFS Manager' to access your network drives. Take effect only after reboot!" name="CIFS Module"
 			action="generic_cortex /tmp/cifs_module" label="CIFS Module"/>
 
 	</settingsPane>
