@@ -12,7 +12,7 @@
 	if [ "$cron_process_reclaim" == "on" ]; then
 		for i in $(ls /proc/ | grep -E '^[0-9]+'); do
 			if [ "$i" -ge "1500" ] && [ -f /proc/$i/reclaim ]; then
-				su -c echo "3" > /proc/$i/reclaim;
+				su -c echo "all" > /proc/$i/reclaim;
 			fi;
 		done;
 		date +%H:%M-%D > /data/crontab/cron-mem-process-reclaim;
