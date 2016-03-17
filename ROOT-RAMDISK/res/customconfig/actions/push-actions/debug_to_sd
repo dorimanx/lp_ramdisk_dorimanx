@@ -80,9 +80,14 @@ case "${debug_to_sd}" in
 			SEPARATOR;
 
 			# Profile
-			PROFILE=`cat /data/.dori/.active.profile`;
+			PROFILE=$(cat /data/.dori/.active.profile);
 			echo "Profile-Config: $PROFILE" >> $DEBUG_FILE;
-			cat /data/.dori/${PROFILE}.profile >> $DEBUG_FILE;
+			PROFILE_CHANGED=$(diff /res/customconfig/${PROFILE}.profile /data/.dori/${PROFILE}.profile | wc -l);
+			if [ "$PROFILE_CHANGED" -ne "0" ]; then
+				diff /res/customconfig/${PROFILE}.profile /data/.dori/${PROFILE}.profile >> $DEBUG_FILE;
+			else
+				echo "Profile is not changed by user" >> $DEBUG_FILE;
+			fi;
 			SEPARATOR;
 
 			# Memory
