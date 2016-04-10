@@ -286,7 +286,7 @@
 			<spinnerItem name="499 MHz" value="499200"/> 
 			<spinnerItem name="652 MHz" value="652800"/> 
 			<spinnerItem name="729 MHz" value="729600"/> 
-                </spinner>
+		</spinner>
 
 		<button description="To access CPU LIVE Stats from kernel, Push The Button." name="CPU LIVE Stats" action="push-actions/thermal_control" label="Switch to Synapse Controls"/>
 
@@ -327,7 +327,7 @@
 
 	<settingsPane description="Setup HotPlug CPU Thermal Controls by deciding how many cores remains ON when they're overheated. It reduces performance, by getting less cores enabled on higher freq. Others will keep waiting until CPU cools down." name="HotPlug CPU Thermal Control">
 
-		<spinner description="HotPlug CPU Thermal Control Main Switch allows to shutdown cores 1,2,3 and leave only core 0 as the main core locked on it's Max frequency. If this option is disabled,  all CPU cores will be online and operate at lower frequencies on high temperature." name="HotPlug Thermal CPU Control"
+		<spinner description="HotPlug CPU Thermal Control Main Switch allows to shutdown cores 1,2,3 and leave only core 0 as the main core locked on it's Max frequency. If this option is disabled, all CPU cores will be online and operate at lower frequencies on high temperature." name="HotPlug Thermal CPU Control"
 			action="core_control">
 			<spinnerItem name="Enabled" value="1"/> 
 			<spinnerItem name="Disabled" value="0"/> 
@@ -480,7 +480,7 @@
 		<seekBar description="When GPU load decreases below Down differential level, then governor. reduces GPU frequency to it's min frequency. Must NOT be HIGHER than Up threshold value! (Default: 20%)." name="Down Threshold Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/downthreshold" unit="%" min="5" reversed="false" step="5" max="60"/>
 
-		<seekBar description="When GPU load raises above Up threshold level, then governor raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)!  (Default: 50%)." name="Up Threshold Value"
+		<seekBar description="When GPU load raises above Up threshold level, then governor raises GPU frequency to it's next frequency step until it reaches Max frequency (must NOT be LOWER than Down differential)! (Default: 50%)." name="Up Threshold Value"
 			action="generic /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/gpufreq/conservative/upthreshold_cons" unit="%" min="30" reversed="false" step="5" max="90"/>
 
 	</settingsPane>
@@ -530,7 +530,7 @@
 
 	<settingsPane description="Customize I/O settings." name="I/O Tuning">
 
-		<spinner description="Set the Maximum number of bytes to read-ahead from device storage, 1 Kibibyte(KiB) = 1024 Bytes  (Default: 1024 KiB)." name="Kibibytes to Read Ahead"
+		<spinner description="Set the Maximum number of KiloBytes to read-ahead from device storage, (Default: 1024 KiB)." name="KiloBytes to Read Ahead"
 			action="generic /sys/block/mmcblk0/bdi/read_ahead_kb">
 			<spinnerItem name="128 KiB" value="128"/> 
 			<spinnerItem name="256 KiB" value="256"/> 
@@ -592,7 +592,7 @@
 		<checkbox description="It helps to reduce used RAM for each app that is running in the background. When vm memory pressure jumps higher and system needs more RAM for something BIG, then process starts to shrink used RAM by background apps. It's also shrinks the ZRAM swap (if enabled) in order to reduce CPU power usage when RAM is free." name="Process Memory Reclaim"
 			action="generic01 /sys/module/process_reclaim/parameters/enable_process_reclaim" label="Process Reclaim"/>
 
-		<seekBar description="Control for Max vm pressure for process memory reclaim. It allows to shrink RAM from other apps when vm pressure is in range from 50% to (set here) value. When value is lower that default (90%), then less RAM shrinks when something BIG should have been be loaded to RAM. It will reduce CPU usage when loading big apps, but loads it slower, as memory should be first freed by LMK  (Default: 80%)." name="Max Process Reclaim Pressure"
+		<seekBar description="Control for Max vm pressure for process memory reclaim. It allows to shrink RAM from other apps when vm pressure is in range from 50% to (set here) value. When value is lower that default (90%), then less RAM shrinks when something BIG should have been be loaded to RAM. It will reduce CPU usage when loading big apps, but loads it slower, as memory should be first freed by LMK (Default: 80%)." name="Max Process Reclaim Pressure"
 			action="generic /sys/module/process_reclaim/parameters/pressure_max" unit="%" min="75" reversed="false" step="1" max="100"/>
 
 		<spinner description="Set the mode for low memory management (lowmemkiller function) when screen is ON. More aggressive equals more free RAM, but more apps gets killed." name="OOM Level Screen ON"
@@ -627,7 +627,7 @@
 		<seekBar description="The more is set, the more memory will be used for real time operations writing buffer. Buffer will be released when it needs more free RAM (Default: 20%)." name="Dirty Ratio"
 			action="generic /proc/sys/vm/dirty_ratio" unit="%" min="0" reversed="false" step="5" max="90"/>
 
-		<seekBar description="It controls the tendency of the kernel for reclaiming memory, which is used for caching the directory and all the information needed by the kernel to manipulate a file or a directory (inode objects)  (Default: 100%)." name="Vfs Cache Pressure"
+		<seekBar description="It controls the tendency of the kernel for reclaiming memory, which is used for caching the directory and all the information needed by the kernel to manipulate a file or a directory (inode objects) (Default: 100%)." name="Vfs Cache Pressure"
 			action="generic /proc/sys/vm/vfs_cache_pressure" unit="%" min="10" reversed="false" step="5" max="150"/>
 
 		<button description="Release all cached and buffered files from RAM. WAIT approx. 3 sec for getting cleanup report." name="Clear RAM Cache" action="push-actions/clean_ram_cache" label="Clear RAM Cache"/>
@@ -647,7 +647,7 @@
 
 	<settingsPane description="ZRAM Control Module take real RAM and compress it by 35-40% to create more FREE RAM for apps. Compression method is LZ4. The more RAM is allocated in ZRAM, the more physical RAM is given to user at cost of CPU power and faster battery discharging. When switching ZRAM size from one to another, decompression and new compression will take some TIME. In some cases that will take more than 2 min. In that time, Dorimanx App will FREEZE. DO NOT PANIC! You can just switch to home and open synapse and watch how much memory is decompressed. Do not kill the app." name="ZRAM">
 
-		<spinner description="ZRAM Size Controller. The more is set, the more free RAM you'll get in cost of CPU power. But it's really low usage and device is operating GREAT! This is memory based module, so storage is not killed over time. You can see how it works in synapse app! Before proceeding PLEASE read the instruction ABOVE!  (Default: 512 MiB)" name="ZRAM Selector"
+		<spinner description="ZRAM Size Controller. The more is set, the more free RAM you'll get in cost of CPU power. But it's really low usage and device is operating GREAT! This is memory based module, so storage is not killed over time. You can see how it works in synapse app! Before proceeding PLEASE read the instruction ABOVE! (Default: 512 MiB)" name="ZRAM Selector"
 			action="zramtweaks">
 			<spinnerItem name="768 MiB" value="768"/> 
 			<spinnerItem name="512 MiB" value="512"/> 
@@ -708,7 +708,7 @@
 		<checkbox description="Cron that reset SystemUI memory usage and release locked RAM that can't be freed by kernel, SystemUI service will automatically restart after 5 sec and use from 70 to 90 MiB memory less than before." name="Reset SystemUI"
 			action="generic_cortex /tmp/cron_reset_systemui" label="Reset SystemUI every 02:00 AM"/>
 
-		<checkbox description="Enable Trim of System, Data and Cache partitions every day at 10:00 PM to speed up NAND Read and Write Access Time. NOTE that screen will be AWAKE during the fstrim to prevent MMC crash, then if screen was OFF it's will be auto turned off. Some devices don't like to be trimmed, so if device get stuck after 10:00 PM, don't enable this."  name="Trim system, data and cache"
+		<checkbox description="Enable Trim of System, Data and Cache partitions every day at 10:00 PM to speed up NAND Read and Write Access Time. NOTE that screen will be AWAKE during the fstrim to prevent MMC crash, then if screen was OFF it's will be auto turned off. Some devices don't like to be trimmed, so if device get stuck after 10:00 PM, don't enable this." name="Trim system, data and cache"
 			action="generic_cortex /tmp/cron_fstrim" label="Trim every day at 10:00 PM"/>
 
 		<checkbox description="Enable reclaiming RAM from apps. It's smart memory kernel feature used to take back all cached RAM from apps without killing them. It helps to maintain stable and fast device for a long time. Task will run in every 2 hours." name="Reclaime RAM from apps"
