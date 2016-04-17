@@ -712,7 +712,7 @@
 			action="generic_cortex /tmp/cron_fstrim" label="Trim every day at 10:00 PM"/>
 
 		<checkbox description="Enable reclaiming RAM from apps. It's smart memory kernel feature used to take back all cached RAM from apps without killing them. It helps to maintain stable and fast device for a long time. Task will run in every 3 hours." name="Reclaime RAM from apps"
-			action="generic_cortex /tmp/cron_process_reclaim" label="Reclaim RAM from apps in every 2 hours"/>
+			action="generic_cortex /tmp/cron_process_reclaim" label="Reclaim RAM from apps in every 3 hours"/>
 
 		<checkbox description="Enable restarting Google Service to prevent memory leaks and CPU nonstop activity. This is one of the MAIN LP RAM leak BUGS. Service gets stuck, drains RAM and force CPU to work nonstop." name="Restart Google Service"
 			action="generic_cortex /tmp/cron_ram_release" label="Restart LP Google Service in every 8 hours"/>
