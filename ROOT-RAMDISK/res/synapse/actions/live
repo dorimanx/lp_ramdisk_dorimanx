@@ -70,6 +70,8 @@ case $1 in
 			num_reads=`echo "Num reads: \`cat /sys/block/zram0/num_reads\`"`
 			num_writes=`echo "Num writes: \`cat /sys/block/zram0/num_writes\`"`
 
+			max_comp_streams=`echo "Concurrent Compressors: \`cat /sys/block/zram0/max_comp_streams\`"`
+
 			saved_tmp=`echo "$((\`echo orig_data_size_tmp\`+\`echo zero_pages_tmp\`-\`echo mem_used_total_tmp\`-\`echo SwapCached_tmp\`))"`
 			saved=`echo "Memory saved: $((\`echo saved_tmp\`/1024))MB"`
 			Compression=`echo "Compression: $((\`echo compr_data_size_tmp\`*100/\`echo orig_data_size_tmp\`))%"`
@@ -84,7 +86,7 @@ case $1 in
 			zero_pages=`echo "Zero pages: $((\`cat /sys/block/zram0/zero_pages\`*4))KiB"`
 			SwapCached=`echo "SwapCached: $((\`echo SwapCached_tmp\`/1024))MB"`
 
-			echo ZRAM Online!@n$compr_data_size@n$mem_used_total@n$orig_data_size@n$zero_pages@n@n$notify_free@n$num_reads@n$num_writes@n@n$SwapCached@n$saved@n$Compression@n$Compression_with_overhead@n$Used
+			echo ZRAM Online!@n$compr_data_size@n$mem_used_total@n$orig_data_size@n$zero_pages@n@n$notify_free@n$num_reads@n$num_writes@n@n$max_comp_streams@n@n$SwapCached@n$saved@n$Compression@n$Compression_with_overhead@n$Used
 		else
 			echo ZRAM is Offline.
 		fi

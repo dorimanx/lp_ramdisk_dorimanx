@@ -649,6 +649,7 @@
 
 		<spinner description="ZRAM Size Controller. The more is set, the more free RAM you'll get in cost of CPU power. But it's really low usage and device is operating GREAT! This is memory based module, so storage is not killed over time. You can see how it works in synapse app! Before proceeding PLEASE read the instruction ABOVE! (Default: 512 MiB)" name="ZRAM Selector"
 			action="zramtweaks">
+			<spinnerItem name="1 GB" value="1024"/> 
 			<spinnerItem name="768 MiB" value="768"/> 
 			<spinnerItem name="512 MiB" value="512"/> 
 			<spinnerItem name="256 MiB" value="256"/> 
