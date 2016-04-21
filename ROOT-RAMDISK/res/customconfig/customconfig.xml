@@ -703,7 +703,7 @@
 
 		<button description="Use this button to RESET the scripts and jobs from kernel and refresh the configuration. Note that it will clear all your custom changes!" name="CRON Resetter" action="push-actions/crontab_reset" label="Reset Cron"/>
 
-		<checkbox description="Cron that clears file-cache every hour, but only if CPU is in idle and when more than 50% of memory is used. This will free RAM from unused buffers and cache." name="Clear file-cache"
+		<checkbox description="Cron that clears file-cache every 3 hours, but only if CPU is in idle and when more than 50% of memory is used. This will free RAM from unused buffers and cache." name="Clear file-cache"
 			action="generic_cortex /tmp/cron_drop_cache" label="Clear RAM cache every 3 hours"/>
 
 		<checkbox description="Cron that reset SystemUI memory usage and release locked RAM that can't be freed by kernel, SystemUI service will automatically restart after 5 sec and use from 70 to 90 MiB memory less than before." name="Reset SystemUI"
