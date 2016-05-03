@@ -66,6 +66,7 @@ sleep_scheduler=zen
 auto_oom=on
 enable_adaptive_lmk=on
 vm_pressure_adaptive_start=85
+vmpressure_file_min=72
 enable_process_reclaim=on
 pressure_max=80
 oom_config_screen_on=stock
