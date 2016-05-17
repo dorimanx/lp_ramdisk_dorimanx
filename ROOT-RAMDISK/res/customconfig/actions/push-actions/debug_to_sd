@@ -285,7 +285,7 @@ case "${debug_to_sd}" in
 				elif [ "$CHARGERLOGO_LOG" -ge "1" ]; then
 					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}.zip $DEBUG_FILE > /dev/null;
 				else
-					KERNEL_VER=$(uname -r | cut -c 24-28);
+					KERNEL_VER=$(uname -r | cut -c 24-29);
 					if [ -e /data/logger/kernel.log.1 ]; then
 						/system/xbin/zip ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip $DEBUG_FILE /data/logger/kernel.log /data/logger/kernel.log.1 > /dev/null;
 					else
