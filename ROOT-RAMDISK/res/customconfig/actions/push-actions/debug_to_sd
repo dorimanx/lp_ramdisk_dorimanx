@@ -14,8 +14,11 @@ DEBUG_FILE="/sdcard/dorimanx_debug.txt";
 DEBUG_FILE_ZIP="/sdcard/dorimanx_debug";
 DEBUG_FILE_USELESS_ZIP="/sdcard/dorimanx_useless_debug";
 DEBUG_FILE_LOGCAT="/sdcard/dorimanx_debug_logcat.txt"
+KERNEL_VER=$(uname -r | cut -c 24-29);
+ACTIVE_DEBUG_FILE="/sdcard/dorimanx_active_debug.txt";
+ACTIVE_DEBUG_FILE_ZIP="/sdcard/dorimanx_active_debug";
 
-PROFILE=`cat /data/.dori/.active.profile`;
+PROFILE=$(cat /data/.dori/.active.profile);
 . /data/.dori/${PROFILE}.profile;
 
 case "${debug_to_sd}" in
@@ -33,11 +36,11 @@ case "${debug_to_sd}" in
 			if [ -f $DEBUG_FILE ]; then
 				$BB rm $DEBUG_FILE;
 			fi;
-			if [ -f ${DEBUG_FILE_ZIP}.zip ]; then
-				$BB rm ${DEBUG_FILE_ZIP}.zip;
+			if [ -f ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip ]; then
+				$BB rm ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip;
 			fi;
-			if [ -f ${DEBUG_FILE_USELESS_ZIP}.zip ]; then
-				$BB rm ${DEBUG_FILE_USELESS_ZIP}.zip;
+			if [ -f ${DEBUG_FILE_USELESS_ZIP}${KERNEL_VER}.zip ]; then
+				$BB rm ${DEBUG_FILE_USELESS_ZIP}${KERNEL_VER}.zip;
 			fi;
 
 			SEPARATOR()
@@ -49,7 +52,7 @@ case "${debug_to_sd}" in
 
 			# overwrite old debug-file
 			echo "" > $DEBUG_FILE;
-			echo " --- DEBUG from "`date`" --- " >> $DEBUG_FILE;
+			echo " --- DEBUG from $(date) --- " >> $DEBUG_FILE;
 			echo "" >> $DEBUG_FILE;
 
 			# Kernel-Info
@@ -156,7 +159,7 @@ case "${debug_to_sd}" in
 			echo "" >> $DEBUG_FILE;
 			echo "Time-In-State:" >> $DEBUG_FILE;
 			cat /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state >> $DEBUG_FILE;
-			for i in `cat /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state | cut -f 2 -d ' '`; do
+			for i in $(cat /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state | cut -f 2 -d ' '); do
 				summe=$(($summe+$i));
 			done;
 			summe=$(($summe/100));
@@ -172,7 +175,7 @@ case "${debug_to_sd}" in
 
 			echo "more CPU-Infos:" >> $DEBUG_FILE;
 			cpuinfo_cur_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq);
-			for i in `ls /sys/devices/system/cpu/cpu0/cpufreq/`; do
+			for i in $(ls /sys/devices/system/cpu/cpu0/cpufreq/); do
 				if [ ! -d "/sys/devices/system/cpu/cpu0/cpufreq/${i}" ]; then
 					echo $i >> $DEBUG_FILE;
 					cat /sys/devices/system/cpu/cpu0/cpufreq/$i >> $DEBUG_FILE 2>&1;
@@ -231,8 +234,8 @@ case "${debug_to_sd}" in
 			SEPARATOR;
 
 			#echo "Process-Info: nice (priority)" >> $DEBUG_FILE;
-			#for z in `ls /proc/*/stat`; do
-			#	tmp=`cat $z` && echo $tmp | cut -f 2 -d ' ' >> $DEBUG_FILE && echo $tmp | cut -f 19 -d ' ' >> $DEBUG_FILE && echo " " >> $DEBUG_FILE;
+			#for z in $(ls /proc/*/stat); do
+			#	tmp=$(cat $z) && echo $tmp | cut -f 2 -d ' ' >> $DEBUG_FILE && echo $tmp | cut -f 19 -d ' ' >> $DEBUG_FILE && echo " " >> $DEBUG_FILE;
 			#done;
 			#SEPARATOR;
 
@@ -266,7 +269,7 @@ case "${debug_to_sd}" in
 			# System
 			echo "System-Info:" >> $DEBUG_FILE;
 			echo "sysctl:" >> $DEBUG_FILE;
-			sysctl -a | grep -v net.* >> $DEBUG_FILE;
+			sysctl -a | grep -v "net.*" >> $DEBUG_FILE;
 			echo "" >> $DEBUG_FILE;
 			echo "getprop:" >> $DEBUG_FILE;
 			getprop >> $DEBUG_FILE;
@@ -281,11 +284,10 @@ case "${debug_to_sd}" in
 			if [ -e /system/xbin/zip ]; then
 				chmod 755 /system/xbin/zip
 				if [ ! -e /proc/last_kmsg ]; then
-					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}.zip $DEBUG_FILE > /dev/null;
+					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}${KERNEL_VER}.zip $DEBUG_FILE > /dev/null;
 				elif [ "$CHARGERLOGO_LOG" -ge "1" ]; then
-					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}.zip $DEBUG_FILE > /dev/null;
+					/system/xbin/zip ${DEBUG_FILE_USELESS_ZIP}${KERNEL_VER}.zip $DEBUG_FILE > /dev/null;
 				else
-					KERNEL_VER=$(uname -r | cut -c 24-29);
 					if [ -e /data/logger/kernel.log.1 ]; then
 						/system/xbin/zip ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip $DEBUG_FILE /data/logger/kernel.log /data/logger/kernel.log.1 > /dev/null;
 					else
@@ -304,7 +306,7 @@ case "${debug_to_sd}" in
 		if [ -e /system/xbin/zip ]; then
 			sleep 2;
 			if [ ! -e /proc/last_kmsg ]; then
-				echo "Data collected but it's USELESS! NO Kernel last log. file at ${DEBUG_FILE_USELESS_ZIP}.zip";
+				echo "Data collected but it's USELESS! NO Kernel last log. file at ${DEBUG_FILE_USELESS_ZIP}${KERNEL_VER}.zip";
 			else
 				echo "All Data collected and ready at ${DEBUG_FILE_ZIP}${KERNEL_VER}.zip";
 			fi;
@@ -319,6 +321,230 @@ case "${debug_to_sd}" in
 		echo "" > $DEBUG_FILE_LOGCAT;
 		logcat -d > $DEBUG_FILE_LOGCAT;
 		echo "Logcat collected. at $DEBUG_FILE_LOGCAT";
+	;;
+	3)
+		(
+			# needed for /system/xbin/zip chmod
+			if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
+				$BB mount -o remount,rw /system;
+			fi;
+
+			SEPARATOR()
+			{
+				echo "" >> $ACTIVE_DEBUG_FILE;
+				echo " ---------------------------- " >> $ACTIVE_DEBUG_FILE;
+				echo "" >> $ACTIVE_DEBUG_FILE;
+			}
+
+			# overwrite old debug-file
+			echo "" > $ACTIVE_DEBUG_FILE;
+			echo " --- DEBUG from $(date) --- " >> $ACTIVE_DEBUG_FILE;
+			echo "" >> $ACTIVE_DEBUG_FILE;
+
+			# Kernel-Info
+			echo "Kernel-Version:" >> $ACTIVE_DEBUG_FILE;
+			cat /proc/version >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			if [ -e /system/bin/uptime ]; then
+				/system/bin/uptime >> $ACTIVE_DEBUG_FILE;
+			else
+				TOTAL_UPTIME=$($BB awk '{ print $1 }' /proc/uptime);
+				TOTAL_UPTIME=$($BB echo - | $BB awk -v "S=$TOTAL_UPTIME" '{printf "%dh:%dm:%ds",S/(60*60),S%(60*60)/60,S%60}');
+				date +"Last Reboot: %d.%m.%y / %H:%m" >> $ACTIVE_DEBUG_FILE;
+				echo "Uptime is $TOTAL_UPTIME" >> $ACTIVE_DEBUG_FILE;
+			fi;
+			if [ -e /system/xbin/uptime ]; then
+				/system/xbin/uptime | cut -c 22-54 >> $ACTIVE_DEBUG_FILE;
+			fi;
+			SEPARATOR;
+
+			# System
+			echo "ROM-Version:" >> $ACTIVE_DEBUG_FILE;
+			cat init.rc | grep "# THIS INIT.RC is FOR" >> $ACTIVE_DEBUG_FILE;
+			getprop ro.build.description >> $ACTIVE_DEBUG_FILE;
+			getprop ro.build.date >> $ACTIVE_DEBUG_FILE;
+			getprop ro.build.display.id >> $ACTIVE_DEBUG_FILE;
+			getprop ro.build.id >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			# Profile
+			PROFILE=$(cat /data/.dori/.active.profile);
+			echo "Profile-Config: $PROFILE" >> $ACTIVE_DEBUG_FILE;
+			PROFILE_CHANGED=$(diff /res/customconfig/${PROFILE}.profile /data/.dori/${PROFILE}.profile | wc -l);
+			if [ "$PROFILE_CHANGED" -ne "0" ]; then
+				diff /res/customconfig/${PROFILE}.profile /data/.dori/${PROFILE}.profile >> $ACTIVE_DEBUG_FILE;
+			else
+				echo "Profile is not changed by user" >> $ACTIVE_DEBUG_FILE;
+			fi;
+			SEPARATOR;
+
+			# Memory
+			echo "Memory-Info:" >> $ACTIVE_DEBUG_FILE;
+			free >> $ACTIVE_DEBUG_FILE;
+			cat /proc/meminfo >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			# low mem kill info
+			echo "App-Info for 'low memory killer':" >> $ACTIVE_DEBUG_FILE;
+			for i in $(ls /proc/ | grep -E '^[0-9]+'); do
+				if [ "$i" -ne "0" ] && [ "$(cat /proc/$i/oom_score_adj)" -ge "-300" ] && [ -f  "/proc/$i/oom_score_adj" ] && [ "$(cat /proc/$i/cmdline)" ]; then
+					cat /proc/$i/oom_score_adj >> $ACTIVE_DEBUG_FILE;
+					cat /proc/$i/cmdline >> $ACTIVE_DEBUG_FILE;
+				fi;
+			done;
+			SEPARATOR;
+
+			# HotPlug configuration
+			echo "HotPlugs Config:" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "HotPlug Alucard:" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+			cd /hotplugs/alucard;
+			grep "." * >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "HotPlug MSM:" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+			cd /hotplugs/msm_hotplug;
+			grep "." * >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "HotPlug Intelli:" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+			cd /hotplugs/intelli;
+			grep "." * >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "HotPlug AutoSMP:" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+			cd /hotplugs/autosmp;
+			grep "." * >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "HotPlug ThunderPlug:" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+			cd /hotplugs/thunderplug;
+			grep "." * >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			cd /;
+
+			# CPU
+			echo "CPU-Info:" >> $ACTIVE_DEBUG_FILE;
+			cd /sys/devices/system/cpu/cpu0/cpufreq/;
+			grep . * | grep -v "cpuinfo" | grep -v "scaling_available" | grep -v "scaling_setspeed" >> $ACTIVE_DEBUG_FILE;
+			cd /sys/devices/system/cpu/cpufreq/all_cpus/;
+			grep "." * >> $ACTIVE_DEBUG_FILE;
+			cd /;
+			SEPARATOR;
+
+			total_trans=$(cat /sys/devices/system/cpu/cpu0/cpufreq/stats/total_trans);
+			echo "Total freq-switch: $total_trans" >> $ACTIVE_DEBUG_FILE;
+			echo "" >> $ACTIVE_DEBUG_FILE;
+			echo "Time-In-State:" >> $ACTIVE_DEBUG_FILE;
+			cat /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state >> $ACTIVE_DEBUG_FILE;
+			for i in $(cat /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state | cut -f 2 -d ' '); do
+				summe=$(($summe+$i));
+			done;
+			summe=$(($summe/100));
+			summe=$(($summe/60));
+			if [ $summe -lt 60 ]; then
+				echo "uptime with CPU on: $summe min" >> $ACTIVE_DEBUG_FILE;
+			else
+				summe=$(($summe/60));
+				echo "uptime with CPU on: $summe h" >> $ACTIVE_DEBUG_FILE;
+			fi;
+			echo "" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "more CPU-Infos:" >> $ACTIVE_DEBUG_FILE;
+			cpuinfo_cur_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq);
+			for i in $(ls /sys/devices/system/cpu/cpu0/cpufreq/); do
+				if [ ! -d "/sys/devices/system/cpu/cpu0/cpufreq/${i}" ]; then
+					echo $i >> $ACTIVE_DEBUG_FILE;
+					cat /sys/devices/system/cpu/cpu0/cpufreq/$i >> $ACTIVE_DEBUG_FILE 2>&1;
+					echo "" >> $ACTIVE_DEBUG_FILE;
+				fi;
+			done;
+			SEPARATOR;
+
+			# Suspend
+			echo "Suspend-Info:" >> $ACTIVE_DEBUG_FILE;
+			cat /sys/kernel/debug/suspend_stats >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			# lsmod
+			echo "lsmod-Info:" >> $ACTIVE_DEBUG_FILE;
+			lsmod >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			# Partitions
+			echo "Partitions-Info:" >> $ACTIVE_DEBUG_FILE;
+			mount >> $ACTIVE_DEBUG_FILE;
+			cat /proc/partitions >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			# Partitions status
+			echo "DATA Partition" >> $ACTIVE_DEBUG_FILE;
+			/system/bin/tune2fs -l /dev/block/platform/msm_sdcc.1/by-name/userdata | grep 'Filesystem state' | cut -c 27-44 >> $ACTIVE_DEBUG_FILE;
+			echo "SYSTEM Partition" >> $ACTIVE_DEBUG_FILE;
+			/system/bin/tune2fs -l /dev/block/platform/msm_sdcc.1/by-name/system | grep 'Filesystem state' | cut -c 27-44 >> $ACTIVE_DEBUG_FILE;
+			echo "CACHE Partition" >> $ACTIVE_DEBUG_FILE;
+			/system/bin/tune2fs -l /dev/block/platform/msm_sdcc.1/by-name/cache | grep 'Filesystem state' | cut -c 27-44 >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			# Processes
+			echo "Process-Info: top" >> $ACTIVE_DEBUG_FILE;
+			top -n 3 -m 6 >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "Process-Info: ps" >> $ACTIVE_DEBUG_FILE;
+			ps >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			# dmesg
+			echo "current dmesg last 200 lines:" >> $ACTIVE_DEBUG_FILE;
+			dmesg | tail -n 500 >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "dmesg-Error:" >> $ACTIVE_DEBUG_FILE;
+			dmesg | grep -i "Error" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "dmesg-Warning:" >> $ACTIVE_DEBUG_FILE;
+			dmesg | grep -i "Warning" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			echo "dmesg-Fail:" >> $ACTIVE_DEBUG_FILE;
+			dmesg | grep -i "Fail" >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			# System
+			echo "System-Info:" >> $ACTIVE_DEBUG_FILE;
+			echo "sysctl:" >> $ACTIVE_DEBUG_FILE;
+			sysctl -a | grep -v net.* >> $ACTIVE_DEBUG_FILE;
+			echo "" >> $ACTIVE_DEBUG_FILE;
+			echo "getprop:" >> $ACTIVE_DEBUG_FILE;
+			getprop >> $ACTIVE_DEBUG_FILE;
+			SEPARATOR;
+
+			if [ -e /system/xbin/zip ]; then
+				chmod 755 /system/xbin/zip
+				/system/xbin/zip ${ACTIVE_DEBUG_FILE_ZIP}${KERNEL_VER}.zip $ACTIVE_DEBUG_FILE > /dev/null;
+				rm $ACTIVE_DEBUG_FILE;
+			fi;
+
+			mount -o remount,ro /system;
+		)&
+		if [ -e /system/xbin/zip ]; then
+			sleep 2;
+			echo "All Active Data collected and ready at ${ACTIVE_DEBUG_FILE_ZIP}${KERNEL_VER}.zip";
+		else
+			sleep 2;
+			echo "All Active Data collected and ready at ${ACTIVE_DEBUG_FILE}";
+		fi;
 	;;
 	*)
 		echo "need input";
