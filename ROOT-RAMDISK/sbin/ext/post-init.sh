@@ -161,7 +161,7 @@ fi;
 # just set numer $RESET_MAGIC + 1 and profiles will be reset one time on next boot with new kernel.
 # incase that ADMIN feel that something wrong with global STweaks config and profiles, then ADMIN can add +1 to CLEAN_DORI_DIR
 # to clean all files on first boot from /data/.dori/ folder.
-RESET_MAGIC=3;
+RESET_MAGIC=1;
 CLEAN_DORI_DIR=1;
 
 if [ ! -e /data/.dori/reset_profiles ]; then

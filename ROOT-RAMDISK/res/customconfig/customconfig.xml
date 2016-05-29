@@ -589,8 +589,8 @@
 		<seekBar description="When RAM pressure is higher than set in here, LMK is ordered to release RAM and allow faster load for something BIG into memory. The effect is that apps are loading faster. Lower the value, more apps gets killed. For best performance, keep it in range from 85% to 90% (Default: 85%)." name="Adaptive LMK Pressure Range"
 			action="generic /sys/module/lowmemorykiller/parameters/vm_pressure_adaptive_start" unit="%" min="75" reversed="false" step="1" max="94"/>
 
-		<seekBar description="When RAM pressure is higher than set above, and RAM is lower than set here, kernel will start releasing RAM by stopping background apps. Value calculation here is based on this formula PR * 4096 (example: 72 * 4096 = 294MB free RAM) default 72 PR" name="Adaptive LMK Lowest RAM Allowed"
-                        action="vmpressure_file_min" unit="PR" min="65" reversed="false" step="1" max="80"/>
+		<seekBar description="When RAM pressure is higher than set above, and RAM is lower than set here, kernel will start releasing RAM by stopping background apps. Value calculation here is based on this formula PR * 4096 (example: 68 * 4096 = 278MB free RAM) default 68 PR" name="Adaptive LMK Lowest RAM Allowed"
+                        action="vmpressure_file_min" unit="PR" min="65" reversed="false" step="1" max="78"/>
 
 		<checkbox description="It helps to reduce used RAM for each app that is running in the background. When vm memory pressure jumps higher and system needs more RAM for something BIG, then process starts to shrink used RAM by background apps. It's also shrinks the ZRAM swap (if enabled) in order to reduce CPU power usage when RAM is free." name="Process Memory Reclaim"
 			action="generic01 /sys/module/process_reclaim/parameters/enable_process_reclaim" label="Process Reclaim"/>
