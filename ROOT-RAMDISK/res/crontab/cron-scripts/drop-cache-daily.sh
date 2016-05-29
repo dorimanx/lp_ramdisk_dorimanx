@@ -8,8 +8,7 @@
 	# do clean cache only if cache uses 50% of free memory.
 	if [ "$MEM_USED_CALC" -gt "50" ]; then
 		sync;
-		sync;
-		sysctl -w vm.drop_caches=3;
-		sync;
+		sleep 1;
+		sysctl -w vm.drop_caches=2;
 	fi;
 )&
