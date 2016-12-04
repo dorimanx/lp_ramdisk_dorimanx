@@ -825,6 +825,16 @@
 
 <settingsTab name="Tweaks">
 
+	<settingsPane description="Here you can change the way kernel modem driver operate in suspend state, by default from LG, kernel put Modem to suspend state when screen is OFF for long time, and delay DATA traffic. This will save power, if you need instant notifications from your apps over DATA connection, you can switch the Modem state to Awake mode, it's will drain little more power as modem IRQ is not suspending." name="Modem Sleep State">
+
+		<spinner description="Select Modem Sleep State" name="Modem State"
+			action="generic /sys/module/sps_bam/parameters/allow_suspend">
+			<spinnerItem name="Modem Awake" value="0"/>
+			<spinnerItem name="Modem Sleep" value="1"/>
+		</spinner>
+
+	</settingsPane>
+
 	<settingsPane description="This configures the charging rate when you charge your phone via an AC charger. When you set it to a higher then stock value, the phone will charge faster. This will usually not cause any harm to your charger. Due manufacture tolerances there is no risk of battery damage while faster charging. You can force override charging mA limit. For doing this, select manual option and set below the requested limit. If it's set ON, then default limit is 1200 mA (Default: Manual)." name="Fast Charge Control">
 
 		<spinner description="Select Fast Charge mode." name="Force Fast Charge Switch"
